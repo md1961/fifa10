@@ -1,0 +1,100 @@
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+
+/* The followings are user-defined */
+
+.links_in_top_of_page {
+  font-size: medium;
+  font-style: italic;
+}
+
+.non_links_in_top_of_page {
+  font-size: medium;
+}
+
+.stand_out_text {
+  background-color: yellow;
+  border-style: outset;
+  border-color: red;
+}
+
+.tableHeader {
+  color: white;
+  font-weight: normal ! important;
+  background-color: #666;
+}
+
+.tableRow0 {
+  background-color: #fff;
+}
+
+.tableRow1 {
+  background-color: #ccc;
+}
+/* There's another .tableRow1 */
+
+#table_players {
+  font-size: small;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#table_players td {
+  padding: 1px 4px 1px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* */
+
+.copyright {
+  font-size: xx-small;
+}
+
+.alertingBackground {
+  background-color: red;
+}
+
+.alerting {
+  font-size: large;
+  color: red;
+  background-color: yello;
+}
+

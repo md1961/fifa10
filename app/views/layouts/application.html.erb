@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title><%= @page_title %></title>
+    <%= stylesheet_link_tag 'style' %>
+    <%= javascript_include_tag 'prototype' %>
+  </head>
+
+  <body>
+    <% if defined?(@error_message) && @error_message -%>
+      <% @error_message = @error_message.join("\n") if @error_message.kind_of?(Array) -%>
+      <p class="alerting"><%= @error_message %></p>
+    <% end -%>
+
+    <p style="color: green"><%= flash[:notice] %></p>
+
+    <%= yield %>
+
+    <p class="copyright"><%= Constant.get('copyright') %></p>
+  </body>
+
+</html>
+
