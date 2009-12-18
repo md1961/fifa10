@@ -1,0 +1,13 @@
+
+<h1><%= @page_title %></h1>
+
+<table border="1">
+  <% @players.each do |player| -%>
+    <tr>
+      <% Player.columns.each do |column| -%>
+        <td><%= h player.send(:attributes)[column.name] %></td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+
