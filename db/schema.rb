@@ -9,11 +9,48 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091218123850) do
+ActiveRecord::Schema.define(:version => 20091219070150) do
 
   create_table "nations", :force => true do |t|
     t.string  "name",      :default => "", :null => false
     t.integer "region_id",                 :null => false
+  end
+
+  create_table "player_attributes", :force => true do |t|
+    t.integer "player_id",      :null => false
+    t.integer "acceleration",   :null => false
+    t.integer "positiveness",   :null => false
+    t.integer "quickness",      :null => false
+    t.integer "balance",        :null => false
+    t.integer "control",        :null => false
+    t.integer "cross",          :null => false
+    t.integer "curve",          :null => false
+    t.integer "dribble",        :null => false
+    t.integer "goalmaking",     :null => false
+    t.integer "fk_accuracy",    :null => false
+    t.integer "head_accuracy",  :null => false
+    t.integer "jump",           :null => false
+    t.integer "long_pass",      :null => false
+    t.integer "long_shot",      :null => false
+    t.integer "mark",           :null => false
+    t.integer "pk",             :null => false
+    t.integer "positioning",    :null => false
+    t.integer "reaction",       :null => false
+    t.integer "short_pass",     :null => false
+    t.integer "shot_power",     :null => false
+    t.integer "sliding",        :null => false
+    t.integer "speed",          :null => false
+    t.integer "stamina",        :null => false
+    t.integer "tackle",         :null => false
+    t.integer "physical",       :null => false
+    t.integer "tactics",        :null => false
+    t.integer "vision",         :null => false
+    t.integer "volley",         :null => false
+    t.integer "gk_dive",        :null => false
+    t.integer "gk_handling",    :null => false
+    t.integer "gk_kick",        :null => false
+    t.integer "gk_positioning", :null => false
+    t.integer "gk_reaction",    :null => false
   end
 
   create_table "player_positions", :force => true do |t|
