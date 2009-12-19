@@ -8,4 +8,10 @@ class PlayersController < ApplicationController
 
     @page_title = "#{@team.name} Rosters"
   end
+
+  def show_attribute_legend
+    @abbrs_with_full = PlayerAttribute.abbrs_with_full
+
+    @page_title = "Player Attribute Legend"
+  end
 end

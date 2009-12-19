@@ -7,6 +7,8 @@
   columns = columns.select { |column| ! no_displays.include?(column.name) }
 -%>
 
+<%= link_to 'Attribute Legend', :action => 'show_attribute_legend' %>
+
 <table id="table_players">
   <tr>
     <% columns.each do |column| -%>

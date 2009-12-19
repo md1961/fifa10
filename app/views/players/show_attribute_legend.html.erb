@@ -1,0 +1,30 @@
+
+<h3><%= @page_title %></h3>
+
+<%
+  num_attrs_horizontally = 4
+  num_spaces_inbetween   = 4
+-%>
+
+<p>
+  <%= link_to 'Back to Rosters', 'list' %>
+</p>
+
+<table id="table_player_attribute_legend">
+  <% num_td = num_attrs_horizontally -%>
+
+  <% @abbrs_with_full.each_with_index do |attr_and_name, i|
+       attr, name = attr_and_name -%>
+    <% if i % num_td == 0 -%>
+      <tr>
+    <% end -%>
+        <td><%= attr %></td>
+        <td>：</td>
+        <td><%= name %></td>
+        <td><%= '&nbsp;' * num_spaces_inbetween %></td>
+    <% if i % num_td == 3 -%>
+      </tr>
+    <% end -%>
+  <% end -%>
+</table>
+

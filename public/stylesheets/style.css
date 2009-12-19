@@ -94,6 +94,14 @@
   border-spacing: 0;
 }
 
+#table_player_attribute_legend {
+  font-size: small;
+}
+
+#table_player_attribute_legend td {
+  height: 16px;
+}
+
 /* */
 
 .copyright {
