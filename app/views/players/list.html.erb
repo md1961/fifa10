@@ -12,6 +12,10 @@
     <% columns.each do |column| -%>
       <th><%= h column_index(column) %></th>
     <% end -%>
+
+    <% player_attribute_abbrs.each do |abbr| -%>
+      <th><%= abbr -%></th>
+    <% end -%>
   </tr>
 
   <% @players.each do |player| -%>
@@ -35,6 +39,11 @@
             <%= h player.send(:attributes)[column.name] %>
           <% end -%>
         </td>
+      <% end -%>
+
+      <% attrs = player.player_attribute
+         PlayerAttribute.content_columns.each do |column| -%>
+        <td align="right"><%= attrs.send(:attributes)[column.name] %></td>
       <% end -%>
     </tr>
   <% end -%>

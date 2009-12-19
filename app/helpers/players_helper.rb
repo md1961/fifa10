@@ -33,4 +33,11 @@ module PlayersHelper
     return nil if attributes.nil?
     return attributes[index]
   end
+
+  PLAYER_ATTRIBUTE_ABBRS = %w(AC PV QK BL CO CR CU DR GM FK  HA JP LP LS MK PK PS RC SP PW
+                              SL SD ST TK PH TC VS VL GD GH  GK GP GR)
+
+  def player_attribute_abbrs
+    return PLAYER_ATTRIBUTE_ABBRS
+  end
 end
