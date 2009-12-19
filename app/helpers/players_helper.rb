@@ -5,7 +5,7 @@ module PlayersHelper
     :name              => ['Name'      , :L],
     :first_name        => ['First Name', :L],
     :number            => ['No'        , :C],
-    :position_id       => ['Pos'       , :L],
+    :position_id       => ['Positions' , :L],
     :skill_move        => ['Skill'     , :L],
     :is_right_dominant => ['Ft'        , :C],
     :both_feet_level   => ['Both'      , :L],

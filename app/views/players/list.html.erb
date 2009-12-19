@@ -19,8 +19,10 @@
       <% columns.each do |column| -%>
         <td align="<%= column_align(column) %>">
           <% case column.name
-             when 'position_id' -%>
-            <%= h player.position.name %>
+             when 'name' -%>
+            <%= "<b>#{player.name}</b>" %>
+          <% when 'position_id' -%>
+            <%= "<b>#{player.position.name}</b> #{player.positions.map(&:name).join(' ')}" %>
           <% when 'skill_move' -%>
             <%= '★' * player.skill_move %>
           <% when 'is_right_dominant' -%>
