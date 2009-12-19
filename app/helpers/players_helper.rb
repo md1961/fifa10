@@ -1,19 +1,19 @@
 module PlayersHelper
 
   COLUMN_ATTRIBUTES = {
-    :id                => ['id'    , :R],
-    :name              => ['name'  , :L],
-    :first_name        => ['fname' , :L],
-    :number            => ['No'    , :R],
-    :position_id       => ['Pos'   , :L],
-    :skill_move        => ['Skill' , :L],
-    :is_right_dominant => ['Ft'    , :L],
-    :both_feet_level   => ['Both'  , :L],
-    :height            => ['H'     , :R],
-    :weight            => ['W'     , :R],
-    :birth_year        => ['Birth' , :R],
-    :nation_id         => ['Nation', :L],
-    :team_id           => ['Team'  , :L],
+    :id                => ['id'        , :R],
+    :name              => ['Name'      , :L],
+    :first_name        => ['First Name', :L],
+    :number            => ['No'        , :C],
+    :position_id       => ['Pos'       , :L],
+    :skill_move        => ['Skill'     , :L],
+    :is_right_dominant => ['Ft'        , :C],
+    :both_feet_level   => ['Both'      , :L],
+    :height            => ['H'         , :R],
+    :weight            => ['W'         , :R],
+    :birth_year        => ['Birth'     , :R],
+    :nation_id         => ['Nation'    , :L],
+    :team_id           => ['Team'      , :L],
   }.freeze
 
   def column_index(column)

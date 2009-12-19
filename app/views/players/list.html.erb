@@ -3,7 +3,8 @@
 
 <%
   columns = Player.columns
-  columns = columns.select { |column| column.name != 'team_id' }
+  no_displays = %w(id team_id)
+  columns = columns.select { |column| ! no_displays.include?(column.name) }
 -%>
 
 <table id="table_players">
@@ -21,7 +22,7 @@
              when 'position_id' -%>
             <%= h player.position.name %>
           <% when 'skill_move' -%>
-            <%= '☆' * player.skill_move %>
+            <%= '★' * player.skill_move %>
           <% when 'is_right_dominant' -%>
             <%= player.is_right_dominant ? 'R' : 'L' %>
           <% when 'both_feet_level' -%>
