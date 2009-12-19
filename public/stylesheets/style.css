@@ -75,6 +75,18 @@
   border-spacing: 0;
 }
 
+#table_players th {
+  color: white;
+  /*
+  font-weight: normal ! important;
+  */
+  background-color: #666;
+  padding: 1px 4px 1px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 #table_players td {
   padding: 1px 4px 1px;
   border: 1px black solid;

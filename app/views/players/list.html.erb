@@ -1,11 +1,37 @@
 
 <h1><%= @page_title %></h1>
 
+<%
+  columns = Player.columns
+  columns = columns.select { |column| column.name != 'team_id' }
+-%>
+
 <table id="table_players">
+  <tr>
+    <% columns.each do |column| -%>
+      <th><%= h column_index(column) %></th>
+    <% end -%>
+  </tr>
+
   <% @players.each do |player| -%>
-    <tr>
-      <% Player.columns.each do |column| -%>
-        <td><%= h player.send(:attributes)[column.name] %></td>
+    <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
+      <% columns.each do |column| -%>
+        <td align="<%= column_align(column) %>">
+          <% case column.name
+             when 'position_id' -%>
+            <%= h player.position.name %>
+          <% when 'skill_move' -%>
+            <%= '☆' * player.skill_move %>
+          <% when 'is_right_dominant' -%>
+            <%= player.is_right_dominant ? 'R' : 'L' %>
+          <% when 'both_feet_level' -%>
+            <%= '☆' * player.both_feet_level %>
+          <% when 'nation_id' -%>
+            <%= player.nation.name -%>
+          <% else -%>
+            <%= h player.send(:attributes)[column.name] %>
+          <% end -%>
+        </td>
       <% end -%>
     </tr>
   <% end -%>
