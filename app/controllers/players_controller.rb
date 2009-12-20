@@ -6,9 +6,8 @@ class PlayersController < ApplicationController
     @team = Team.find(team_id)
 
     @players = Player.find_all_by_team_id(team_id)
-
     row_filter = get_row_filter
-    @position_categories = row_filter.displaying_position_categories
+    @players = row_filter.displaying_players(@players)
 
     column_filter = get_column_filter
     @columns = column_filter.displaying_columns

@@ -1,3 +1,3 @@
-Ver.00.00.01.00: Almost finished player display.
-Ver.00.00.02.00: Finished column filter for players except attributes.
-Ver.00.00.03.00: Finished row filter for player position categories.
+00.00.01.00: Almost finished player display.
+00.00.02.00: Finished column filter for players except attributes.
+00.00.03.00: Finished row filter for player position categories.

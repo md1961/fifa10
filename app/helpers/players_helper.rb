@@ -66,10 +66,11 @@ module PlayersHelper
       return INSTANCE_VARIABLE_NAMES
     end
 
-    def displaying_position_categories
+    def displaying_players(players)
       categories = Position.categories
       categories = categories.select { |category| category_display?(category) }
-      return categories
+      players = players.select { |player| categories.include?(player.position.category) }
+      return players
     end
 
     private
