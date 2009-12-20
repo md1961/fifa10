@@ -17,6 +17,16 @@
     &nbsp;
   <% end -%>
 
+  <br />
+  <br />
+
+  Rows:<br />
+  <% classRowFilter.instance_variable_names.each do |name| -%>
+    <%= check_box :row_filter, name %>
+    <%= name.to_s.camelize %>
+    &nbsp;
+  <% end -%>
+
   <p>
     <%= submit_tag 'Apply' %>
   </p>

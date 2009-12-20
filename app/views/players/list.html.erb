@@ -21,6 +21,7 @@
   </tr>
 
   <% @players.each do |player| -%>
+    <% next unless @position_categories.include?(player.position.category) -%>
     <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
       <% @columns.each do |column| -%>
         <% clazz = column == last_column ? 'rightmost_of_players' : '' -%>

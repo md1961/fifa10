@@ -38,6 +38,10 @@ module PlayersHelper
     return PlayerAttribute.abbrs
   end
 
+  def classRowFilter
+    return RowFilter
+  end
+
   def classColumnFilter
     return ColumnFilter
   end
@@ -71,7 +75,7 @@ module PlayersHelper
     private
 
       def category_display?(category)
-        return instance_variable_get("@#{categories.downcase}") == 1
+        return instance_variable_get("@#{category.downcase}") == '1'
       end
 
   end

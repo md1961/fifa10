@@ -6,6 +6,10 @@ class PlayersController < ApplicationController
     @team = Team.find(team_id)
 
     @players = Player.find_all_by_team_id(team_id)
+
+    row_filter = get_row_filter
+    @position_categories = row_filter.displaying_position_categories
+
     column_filter = get_column_filter
     @columns = column_filter.displaying_columns
 
@@ -13,12 +17,15 @@ class PlayersController < ApplicationController
   end
 
   def choose_to_list
+    @row_filter    = get_row_filter
     @column_filter = get_column_filter
 
     @page_title = "Choose Items to Display"
   end
 
   def filter_on_list
+    row_filter = get_row_filter(params)
+    session[:row_filter] = row_filter
     column_filter = get_column_filter(params)
     session[:column_filter] = column_filter
 
@@ -32,6 +39,13 @@ class PlayersController < ApplicationController
   end
 
   private
+
+    def get_row_filter(params=nil)
+      param = params ? params[:row_filter] : nil
+      row_filter = param ? nil : session[:row_filter]
+      row_filter = classRowFilter.new(param) unless row_filter
+      return row_filter
+    end
 
     def get_column_filter(params=nil)
       param = params ? params[:column_filter] : nil
