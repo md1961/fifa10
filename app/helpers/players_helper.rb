@@ -38,7 +38,45 @@ module PlayersHelper
     return PlayerAttribute.abbrs
   end
 
+  def classColumnFilter
+    return ColumnFilter
+  end
 
+  
   class ColumnFilter
+    INSTANCE_VARIABLE_NAMES = [
+      :first_name, :number, :position, :skill_move, :is_right_dominant,
+      :both_feet_level, :height, :weight, :birth_year, :nation_id
+    ]
+    INSTANCE_VARIABLE_DEFAULT_VALUE = 1
+
+    attr_accessor *INSTANCE_VARIABLE_NAMES
+
+    def self.instance_variable_names
+      return INSTANCE_VARIABLE_NAMES
+    end
+
+    def initialize(hash=nil)
+      INSTANCE_VARIABLE_NAMES.each do |name|
+        value = hash.nil? ? INSTANCE_VARIABLE_DEFAULT_VALUE : hash[name]
+        instance_variable_set("@#{name}", value)
+      end
+    end
+
+    COLUMN_NAMES_NOT_TO_DISPLAY = %w(id team_id)
+
+    def displaying_columns
+      columns = Player.columns
+      columns = columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
+      columns = columns.select { |column| display?(column) }
+      return columns
+    end
+
+    private
+
+      def display?(column)
+        return true unless INSTANCE_VARIABLE_NAMES.include?(column.name.intern)
+        return instance_variable_get("@#{column.name}") == '1'
+      end
   end
 end

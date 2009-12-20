@@ -2,16 +2,15 @@
 <h1><%= @page_title %></h1>
 
 <%
-  columns = Player.columns
-  no_displays = %w(id team_id)
-  columns = columns.select { |column| ! no_displays.include?(column.name) }
 -%>
 
+<%= link_to 'Filter Rows/Columns', :action => 'choose_to_list' %>
+&nbsp;&nbsp;
 <%= link_to 'Attribute Legend', :action => 'show_attribute_legend' %>
 
 <table id="table_players">
   <tr>
-    <% columns.each do |column| -%>
+    <% @columns.each do |column| -%>
       <th><%= h column_index(column) %></th>
     <% end -%>
 
@@ -22,7 +21,7 @@
 
   <% @players.each do |player| -%>
     <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
-      <% columns.each do |column| -%>
+      <% @columns.each do |column| -%>
         <td align="<%= column_align(column) %>">
           <% case column.name
              when 'name' -%>
