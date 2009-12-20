@@ -49,11 +49,18 @@ module PlayersHelper
 
   class RowFilter
     POSITION_CATEGORIES = Position.categories.map { |c| c.downcase.intern }
+    
+    # これはいんちき。チームが変わったらどうする？
+    PLAYER_IDS = Player.find(:all).map { |p| "p#{p.id}".intern }
 
-    INSTANCE_VARIABLE_NAMES = POSITION_CATEGORIES
+    INSTANCE_VARIABLE_NAMES = POSITION_CATEGORIES + PLAYER_IDS
     INSTANCE_VARIABLE_DEFAULT_VALUE = 1
 
-    attr_accessor *INSTANCE_VARIABLE_NAMES
+    attr_accessor :option, *INSTANCE_VARIABLE_NAMES
+
+    USE_POSITION_CATEGORIES = 1
+    USE_PLAYER_NAMES        = 2
+    USE_POSITIONS           = 3
 
     def initialize(hash=nil)
       INSTANCE_VARIABLE_NAMES.each do |name|
@@ -64,6 +71,27 @@ module PlayersHelper
 
     def self.instance_variable_names
       return INSTANCE_VARIABLE_NAMES
+    end
+
+    def self.position_categories
+      return POSITION_CATEGORIES
+    end
+
+    def self.pid2id(pid)
+      return pid.to_s[1..-1].to_i
+    end
+
+    def self.player_ids
+      pids = PLAYER_IDS
+      pids = pids.sort { |pid1, pid2|
+        id1 = pid2id(pid1)
+        id2 = pid2id(pid2)
+        c1 = Player.find(id1).position.category
+        c2 = Player.find(id2).position.category
+        c_cmp = Position.compare_categories(c1, c2)
+        c_cmp == 0 ? id1.<=>(id2) : c_cmp
+      }
+      return pids
     end
 
     def displaying_players(players)

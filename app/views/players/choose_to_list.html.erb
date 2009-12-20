@@ -20,15 +20,30 @@
   <br />
   <br />
 
-  Rows:<br />
-  <% classRowFilter.instance_variable_names.each do |name| -%>
+  Players:<br />
+  <% classRowFilter.position_categories.each do |name| -%>
     <%= check_box :row_filter, name %>
     <%= name.to_s.camelize %>
+    &nbsp;
+  <% end -%>
+  <hr />
+  <% prev_category = nil -%>
+  <% classRowFilter.player_ids.each do |pid| -%>
+    <% player = Player.find(classRowFilter.pid2id(pid))
+       category = player.position.category -%>
+    <% if prev_category && category != prev_category -%>
+      <br />
+    <% end -%>
+    <% prev_category = category -%>
+    <%= check_box :row_filter, pid %>
+    <%= player.name %>
     &nbsp;
   <% end -%>
 
   <p>
     <%= submit_tag 'Apply' %>
+    &nbsp;
+    <%= link_to 'Cancel', :action => 'list' %>
   </p>
 <% end -%>
 
