@@ -2,6 +2,7 @@
 <h1><%= @page_title %></h1>
 
 <%
+  last_column = @columns[-1]
 -%>
 
 <%= link_to 'Filter Rows/Columns', :action => 'choose_to_list' %>
@@ -22,7 +23,8 @@
   <% @players.each do |player| -%>
     <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
       <% @columns.each do |column| -%>
-        <td align="<%= column_align(column) %>">
+        <% clazz = column == last_column ? 'rightmost_of_players' : '' -%>
+        <td align="<%= column_align(column) %>" class="<%= clazz %>">
           <% case column.name
              when 'name' -%>
             <%= "<b>#{player.name}</b>" %>
@@ -42,9 +44,12 @@
         </td>
       <% end -%>
 
+      <% is_leftmost = true -%>
       <% attrs = player.player_attribute
          PlayerAttribute.content_columns.each do |column| -%>
-        <td align="right"><%= attrs.send(:attributes)[column.name] %></td>
+        <% clazz = is_leftmost ? 'leftmost_of_attributes' : ''
+           is_leftmost = false -%>
+        <td align="right" class="<%= clazz %>"><%= attrs.send(:attributes)[column.name] %></td>
       <% end -%>
     </tr>
   <% end -%>

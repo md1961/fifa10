@@ -94,6 +94,13 @@
   border-spacing: 0;
 }
 
+#table_players .rightmost_of_attributes {
+}
+
+#table_players .leftmost_of_attributes {
+  border-left: double medium black;
+}
+
 #table_player_attribute_legend {
   font-size: small;
 }
