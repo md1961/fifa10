@@ -1,10 +1,10 @@
 
 <h3><%= @page_title %></h3>
 
-Columns:<br />
-<% form_for(:column_filter, :url => {:action => 'filter_on_list'}) do |f| -%>
+<% form_tag :action => 'filter_on_list' do -%>
+  Columns:<br />
   <% classColumnFilter.instance_variable_names.each do |name| -%>
-    <%= f.check_box name %>
+    <%= check_box :column_filter, name %>
     <% displaying_name = case name
          when :is_right_dominant
            'dominant_leg'

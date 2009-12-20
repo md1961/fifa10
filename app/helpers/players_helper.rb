@@ -41,20 +41,15 @@ module PlayersHelper
   def classColumnFilter
     return ColumnFilter
   end
-
   
-  class ColumnFilter
-    INSTANCE_VARIABLE_NAMES = [
-      :first_name, :number, :position, :skill_move, :is_right_dominant,
-      :both_feet_level, :height, :weight, :birth_year, :nation_id
-    ]
+
+  class RowFilter
+    POSITION_CATEGORIES = Position.categories.map { |c| c.downcase.intern }
+
+    INSTANCE_VARIABLE_NAMES = POSITION_CATEGORIES
     INSTANCE_VARIABLE_DEFAULT_VALUE = 1
 
     attr_accessor *INSTANCE_VARIABLE_NAMES
-
-    def self.instance_variable_names
-      return INSTANCE_VARIABLE_NAMES
-    end
 
     def initialize(hash=nil)
       INSTANCE_VARIABLE_NAMES.each do |name|
@@ -63,18 +58,58 @@ module PlayersHelper
       end
     end
 
+    def self.instance_variable_names
+      return INSTANCE_VARIABLE_NAMES
+    end
+
+    def displaying_position_categories
+      categories = Position.categories
+      categories = categories.select { |category| category_display?(category) }
+      return categories
+    end
+
+    private
+
+      def category_display?(category)
+        return instance_variable_get("@#{categories.downcase}") == 1
+      end
+
+  end
+
+  class ColumnFilter
+    PLAYER_PROPERTY_NAMES = [
+      :first_name, :number, :position, :skill_move, :is_right_dominant,
+      :both_feet_level, :height, :weight, :birth_year, :nation_id
+    ]
+
+    INSTANCE_VARIABLE_NAMES = PLAYER_PROPERTY_NAMES
+    INSTANCE_VARIABLE_DEFAULT_VALUE = 1
+
+    attr_accessor *INSTANCE_VARIABLE_NAMES
+
     COLUMN_NAMES_NOT_TO_DISPLAY = %w(id team_id)
+
+    def initialize(hash=nil)
+      INSTANCE_VARIABLE_NAMES.each do |name|
+        value = hash.nil? ? INSTANCE_VARIABLE_DEFAULT_VALUE : hash[name]
+        instance_variable_set("@#{name}", value)
+      end
+    end
+
+    def self.instance_variable_names
+      return INSTANCE_VARIABLE_NAMES
+    end
 
     def displaying_columns
       columns = Player.columns
       columns = columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
-      columns = columns.select { |column| display?(column) }
+      columns = columns.select { |column| column_display?(column) }
       return columns
     end
 
     private
 
-      def display?(column)
+      def column_display?(column)
         return true unless INSTANCE_VARIABLE_NAMES.include?(column.name.intern)
         return instance_variable_get("@#{column.name}") == '1'
       end
