@@ -1,1 +1,2 @@
 00.00.01.00: Almost finished player display.
+00.00.02.00: Finished column filter for players except attributes.
