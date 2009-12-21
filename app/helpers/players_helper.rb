@@ -67,6 +67,8 @@ module PlayersHelper
         value = hash.nil? ? INSTANCE_VARIABLE_DEFAULT_VALUE : hash[name]
         instance_variable_set("@#{name}", value)
       end
+
+      @option = USE_POSITION_CATEGORIES
     end
 
     def self.instance_variable_names
@@ -95,6 +97,8 @@ module PlayersHelper
     end
 
     def displaying_players(players)
+      update_inactives
+
       categories = Position.categories
       categories = categories.select { |category| category_display?(category) }
       players = players.select { |player| categories.include?(player.position.category) }
@@ -107,6 +111,11 @@ module PlayersHelper
         return instance_variable_get("@#{category.downcase}") == '1'
       end
 
+      def update_inactives
+        case @option
+        when USE_POSITION_CATEGORIES
+        end
+      end
   end
 
   class ColumnFilter
