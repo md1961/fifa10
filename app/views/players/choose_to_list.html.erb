@@ -7,13 +7,15 @@
     <%= check_box :column_filter, name %>
     <% displaying_name = case name
          when :is_right_dominant
-           'dominant_leg'
+           'dominant_feet'
+         when :both_feet_level
+           'week_feet'
          when :nation_id
            'nation'
          else
            name.to_s
        end -%>
-    <%= displaying_name.camelize %>
+    <%= column_name2display(displaying_name) %>
     &nbsp;
   <% end -%>
 
@@ -21,12 +23,18 @@
   <br />
 
   Players:<br />
+  <%= radio_button :row_filter, :option, classRowFilter::USE_POSITION_CATEGORIES %>
+  Use Position Categories
+  <br />
   <% classRowFilter.position_categories.each do |name| -%>
     <%= check_box :row_filter, name %>
     <%= name.to_s.camelize %>
     &nbsp;
   <% end -%>
   <hr />
+  <%= radio_button :row_filter, :option, classRowFilter::USE_PLAYER_NAMES %>
+  Use Player Names
+  <br />
   <% prev_category = nil -%>
   <% classRowFilter.player_ids.each do |pid| -%>
     <% player = Player.find(classRowFilter.pid2id(pid))

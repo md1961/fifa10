@@ -8,7 +8,7 @@ module PlayersHelper
     :position_id       => ['Positions' , :L],
     :skill_move        => ['Skill'     , :L],
     :is_right_dominant => ['Ft'        , :C],
-    :both_feet_level   => ['Both'      , :L],
+    :both_feet_level   => ['Weak Ft'   , :L],
     :height            => ['H'         , :R],
     :weight            => ['W'         , :R],
     :birth_year        => ['Birth'     , :R],
@@ -38,6 +38,13 @@ module PlayersHelper
     return PlayerAttribute.abbrs
   end
 
+  def column_name2display(column_name)
+    s = column_name.camelize
+    s.sub!(/([a-z])([A-Z])/, '\1 \2')
+    s.sub!(/([FGP])k/, '\1K')
+    return s
+  end
+
   def classRowFilter
     return RowFilter
   end
@@ -59,8 +66,8 @@ module PlayersHelper
     attr_accessor :option, *INSTANCE_VARIABLE_NAMES
 
     USE_POSITION_CATEGORIES = 1
-    USE_PLAYER_NAMES        = 2
-    USE_POSITIONS           = 3
+    USE_POSITIONS           = 2
+    USE_PLAYER_NAMES        = 3
 
     def initialize(hash=nil)
       INSTANCE_VARIABLE_NAMES.each do |name|
@@ -97,24 +104,29 @@ module PlayersHelper
     end
 
     def displaying_players(players)
-      update_inactives
+      case @option
+      when USE_POSITION_CATEGORIES
+        categories = Position.categories
+        categories = categories.select { |category| category_display?(category) }
+        selected_players = players.select { |player| categories.include?(player.position.category) }
 
-      categories = Position.categories
-      categories = categories.select { |category| category_display?(category) }
-      players = players.select { |player| categories.include?(player.position.category) }
-      return players
+        players.each do |player|
+          instance_variable_set("@p#{player.id}", selected_players.include?(player) ? '1' : '0')
+        end
+      when USE_POSITIONS
+        selected_players = players
+      when USE_PLAYER_NAMES
+        selected_players = players
+      else
+        raise "Impossible!! Check the code."
+      end
+      return selected_players
     end
 
     private
 
       def category_display?(category)
         return instance_variable_get("@#{category.downcase}") == '1'
-      end
-
-      def update_inactives
-        case @option
-        when USE_POSITION_CATEGORIES
-        end
       end
   end
 

@@ -8,13 +8,6 @@ class PlayerAttribute < ActiveRecord::Base
     return ABBRS.map { |pair| [pair[1], pair[0].to_s] }
   end
 
-  def self.colname2display(column_name)
-    s = column_name.camelize
-    s.sub!(/([a-z])([A-Z])/, '\1 \2')
-    s.sub!(/([FGP])k/, '\1K')
-    return s
-  end
-
   ABBRS = [
     [:acceleration   , 'AC'],
     [:positiveness   , 'PV'],
