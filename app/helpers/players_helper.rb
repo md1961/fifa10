@@ -24,13 +24,13 @@ module PlayersHelper
 
   def column_align(column)
     align = column_attribute(column, 1)
-    return DEFAULT_ALIGN if align.nil?
+    return DEFAULT_ALIGN unless align
     return align == :L ? 'left' : align == :R ? 'right' : 'center'
   end
 
   def column_attribute(column, index)
     attributes = COLUMN_ATTRIBUTES[column.name.intern]
-    return nil if attributes.nil?
+    return nil unless attributes
     return attributes[index]
   end
 
@@ -69,14 +69,15 @@ module PlayersHelper
     USE_POSITIONS           = 2.to_s
     USE_PLAYER_NAMES        = 3.to_s
 
+    DEFAULT_OPTION = USE_POSITION_CATEGORIES
+
     def initialize(hash=nil)
       INSTANCE_VARIABLE_NAMES.each do |name|
         value = hash.nil? ? INSTANCE_VARIABLE_DEFAULT_VALUE : hash[name]
         instance_variable_set("@#{name}", value)
       end
 
-      @option = hash[:option]
-      @option = USE_POSITION_CATEGORIES unless @option
+      @option = hash[:option] || DEFAULT_OPTION
     end
 
     def self.instance_variable_names
