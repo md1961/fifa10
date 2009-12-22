@@ -15,7 +15,9 @@
          else
            name.to_s
        end -%>
-    <%= column_name2display(displaying_name) %>
+    <label for="<%= 'column_filter_' + name.to_s %>">
+      <%= column_name2display(displaying_name) %>
+    </label>
     &nbsp;
   <% end -%>
 
@@ -24,16 +26,22 @@
 
   Players:<br />
   <%= radio_button :row_filter, :option, classRowFilter::USE_POSITION_CATEGORIES %>
-  Use Position Categories
+  <label for="<%= 'row_filter_option_' + classRowFilter::USE_POSITION_CATEGORIES %>">
+    Use Position Categories
+  </label>
   <br />
   <% classRowFilter.position_categories.each do |name| -%>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <%= check_box :row_filter, name %>
-    <%= name.to_s.camelize %>
+    <label for="<%= 'row_filter_' + name.to_s %>">
+      <%= name.to_s.camelize %>
+    </label>
   <% end -%>
   <hr />
   <%= radio_button :row_filter, :option, classRowFilter::USE_PLAYER_NAMES %>
-  Use Player Names
+  <label for="<%= 'row_filter_option_' + classRowFilter::USE_PLAYER_NAMES %>">
+    Use Player Names
+  </label>
   <br />
   &nbsp;&nbsp;&nbsp;
   <% prev_category = nil -%>
@@ -47,7 +55,9 @@
     <% prev_category = category -%>
     &nbsp;
     <%= check_box :row_filter, pid %>
-    <%= player.name %>
+    <label for="<%= 'row_filter_' + pid.to_s %>">
+      <%= player.name %>
+    </label>
   <% end -%>
 
   <p>
