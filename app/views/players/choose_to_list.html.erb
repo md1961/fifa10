@@ -27,25 +27,27 @@
   Use Position Categories
   <br />
   <% classRowFilter.position_categories.each do |name| -%>
+    &nbsp;&nbsp;&nbsp;&nbsp;
     <%= check_box :row_filter, name %>
     <%= name.to_s.camelize %>
-    &nbsp;
   <% end -%>
   <hr />
   <%= radio_button :row_filter, :option, classRowFilter::USE_PLAYER_NAMES %>
   Use Player Names
   <br />
+  &nbsp;&nbsp;&nbsp;
   <% prev_category = nil -%>
   <% classRowFilter.player_ids.each do |pid| -%>
     <% player = Player.find(classRowFilter.pid2id(pid))
        category = player.position.category -%>
     <% if prev_category && category != prev_category -%>
       <br />
+      &nbsp;&nbsp;&nbsp;
     <% end -%>
     <% prev_category = category -%>
+    &nbsp;
     <%= check_box :row_filter, pid %>
     <%= player.name %>
-    &nbsp;
   <% end -%>
 
   <p>

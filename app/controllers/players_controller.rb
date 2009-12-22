@@ -5,7 +5,7 @@ class PlayersController < ApplicationController
     team_id = 1
     @team = Team.find(team_id)
 
-    @players = Player.find_all_by_team_id(team_id)
+    @players = Player.find_all_by_team_id(@team.id)
     row_filter = get_row_filter
     @players = row_filter.displaying_players(@players)
 
@@ -25,6 +25,7 @@ class PlayersController < ApplicationController
   def filter_on_list
     row_filter = get_row_filter(params)
     session[:row_filter] = row_filter
+
     column_filter = get_column_filter(params)
     session[:column_filter] = column_filter
 

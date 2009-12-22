@@ -65,9 +65,9 @@ module PlayersHelper
 
     attr_accessor :option, *INSTANCE_VARIABLE_NAMES
 
-    USE_POSITION_CATEGORIES = 1
-    USE_POSITIONS           = 2
-    USE_PLAYER_NAMES        = 3
+    USE_POSITION_CATEGORIES = 1.to_s
+    USE_POSITIONS           = 2.to_s
+    USE_PLAYER_NAMES        = 3.to_s
 
     def initialize(hash=nil)
       INSTANCE_VARIABLE_NAMES.each do |name|
@@ -75,7 +75,8 @@ module PlayersHelper
         instance_variable_set("@#{name}", value)
       end
 
-      @option = USE_POSITION_CATEGORIES
+      @option = hash[:option]
+      @option = USE_POSITION_CATEGORIES unless @option
     end
 
     def self.instance_variable_names
@@ -116,7 +117,7 @@ module PlayersHelper
       when USE_POSITIONS
         selected_players = players
       when USE_PLAYER_NAMES
-        selected_players = players
+        selected_players = players.select { |player| instance_variable_get("@p#{player.id}") == '1' }
       else
         raise "Impossible!! Check the code."
       end
