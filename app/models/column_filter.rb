@@ -40,17 +40,16 @@ class ColumnFilter
     :position_id, :skill_move, :is_right_dominant, :both_feet_level, :height,
   ]
 
-  def self.instance_with_recommended_columns
-    hash = Hash.new { |k, v| k[v] = NO }
+  def set_recommended_columns
     PLAYER_PROPERTY_NAMES.each do |name|
-      hash[name] = YES if RECOMMENDED_COLUMN_NAMES.include?(name)
+      instance_variable_set("@#{name}", RECOMMENDED_COLUMN_NAMES.include?(name) ? YES : NO)
     end
-    return ColumnFilter.new(hash)
   end
-
-  def self.instance_with_all_or_no_columns(all=true)
+  def set_all_or_no_columns(all=true)
     value = all ? YES : NO
-    return ColumnFilter.new(Hash.new { |k, v| k[v] = value })
+    PLAYER_PROPERTY_NAMES.each do |name|
+      instance_variable_set("@#{name}", value)
+    end
   end
 
   private

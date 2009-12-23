@@ -46,10 +46,11 @@ class PlayersController < ApplicationController
   end
 
     def filter_with_specified_columns(columns)
+      column_filter = get_column_filter
       if columns == RECOMMENDED_COLUMNS
-        column_filter = ColumnFilter.instance_with_recommended_columns
+        column_filter.set_recommended_columns
       else
-        column_filter = ColumnFilter.instance_with_all_or_no_columns(columns == ALL_COLUMNS)
+        column_filter.set_all_or_no_columns(columns == ALL_COLUMNS)
       end
       session[:column_filter] = column_filter
 
