@@ -56,9 +56,13 @@ module PlayersHelper
 
   class RowFilter
     POSITION_CATEGORIES = Position.categories.map { |c| c.downcase.intern }
+
+    def self.pid2name(id)
+      return "p#{id}"
+    end
     
     # これはいんちき。チームが変わったらどうする？
-    PLAYER_IDS = Player.find(:all).map { |p| "p#{p.id}".intern }
+    PLAYER_IDS = Player.find(:all).map { |p| pid2name(p.id).intern }
 
     INSTANCE_VARIABLE_NAMES = POSITION_CATEGORIES + PLAYER_IDS
     INSTANCE_VARIABLE_DEFAULT_VALUE = 1
@@ -113,12 +117,16 @@ module PlayersHelper
         selected_players = players.select { |player| categories.include?(player.position.category) }
 
         players.each do |player|
-          instance_variable_set("@p#{player.id}", selected_players.include?(player) ? '1' : '0')
+          name = RowFilter.pid2name(player.id)
+          instance_variable_set("@#{name}", selected_players.include?(player) ? '1' : '0')
         end
       when USE_POSITIONS
         selected_players = players
       when USE_PLAYER_NAMES
-        selected_players = players.select { |player| instance_variable_get("@p#{player.id}") == '1' }
+        selected_players = players.select do |player|
+          name = RowFilter.pid2name(player.id)
+          instance_variable_get("@#{name}") == '1'
+        end
       else
         raise "Impossible!! Check the code."
       end
