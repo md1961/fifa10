@@ -60,6 +60,18 @@ class RowFilter
     return ids.map { |id| id2name(id) }
   end
 
+  def use_position_categories?
+    return @option == USE_POSITION_CATEGORIES
+  end
+
+  def use_positions?
+    return @option == USE_POSITIONS
+  end
+
+  def use_player_names?
+    return @option == USE_PLAYER_NAMES
+  end
+
   def displaying_players
     case @option
     when USE_POSITION_CATEGORIES

@@ -44,7 +44,9 @@
 
   <%= radio_button :row_filter, :option, classRowFilter::USE_POSITION_CATEGORIES %>
   <label for="<%= 'row_filter_option_' + classRowFilter::USE_POSITION_CATEGORIES %>">
-    Use Position Categories
+    <span class="<%= @row_filter.use_position_categories? ? 'option_selected' : '' %>">
+      Use Position Categories
+    </span>
   </label>
   <br />
   <% classRowFilter::POSITION_CATEGORIES.each do |name| -%>
@@ -59,7 +61,9 @@
 
   <%= radio_button :row_filter, :option, classRowFilter::USE_POSITIONS %>
   <label for="<%= 'row_filter_option_' + classRowFilter::USE_POSITIONS %>">
-    Use Positions
+    <span class="<%= @row_filter.use_positions? ? 'option_selected' : '' %>">
+      Use Positions
+    </span>
   </label>
   <br />
   &nbsp;&nbsp;&nbsp;
@@ -75,7 +79,9 @@
 
   <%= radio_button :row_filter, :option, classRowFilter::USE_PLAYER_NAMES %>
   <label for="<%= 'row_filter_option_' + classRowFilter::USE_PLAYER_NAMES %>">
-    Use Player Names
+    <span class="<%= @row_filter.use_player_names? ? 'option_selected' : '' %>">
+      Use Player Names
+    </span>
   </label>
   <br />
   &nbsp;&nbsp;&nbsp;

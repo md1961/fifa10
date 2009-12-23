@@ -109,6 +109,11 @@
   height: 16px;
 }
 
+.option_selected {
+  font-size: large;
+  font-weight: bold;
+}
+
 /* */
 
 .copyright {
