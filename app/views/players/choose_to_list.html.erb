@@ -5,14 +5,22 @@
    classColumnFilter = PlayersController::ColumnFilter -%>
 
 <% form_tag :action => 'filter_on_list' do -%>
-  Columns:<br />
+  <b>Columns:</b>
+  <hr />
 
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <%= link_to 'Recom', :action => 'filter_with_recommended_columns' %>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to 'Recommended', :action => 'filter_with_recommended_columns' %>
   &nbsp;
+  <%= link_to 'All' , :action => 'filter_with_all_columns' %>
+  &nbsp;
+  <%= link_to 'None', :action => 'filter_with_no_columns' %>
+  <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <% classColumnFilter::INSTANCE_VARIABLE_NAMES.each do |name| -%>
     <%= check_box :column_filter, name %>
     <% displaying_name = case name
+         when :position_id
+           'position'
          when :is_right_dominant
            'dominant_feet'
          when :both_feet_level
@@ -31,7 +39,8 @@
   <br />
   <br />
 
-  Players:<br />
+  <b>Players:</b>
+  <hr />
 
   <%= radio_button :row_filter, :option, classRowFilter::USE_POSITION_CATEGORIES %>
   <label for="<%= 'row_filter_option_' + classRowFilter::USE_POSITION_CATEGORIES %>">
@@ -39,7 +48,7 @@
   </label>
   <br />
   <% classRowFilter::POSITION_CATEGORIES.each do |name| -%>
-    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <%= check_box :row_filter, name %>
     <label for="<%= 'row_filter_' + name.to_s %>">
       <%= name.to_s.camelize %>

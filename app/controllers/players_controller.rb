@@ -30,12 +30,30 @@ class PlayersController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  def filter_with_recommended_columns
-    column_filter = ColumnFilter.instance_with_recommended_column
-    session[:column_filter] = column_filter
+  RECOMMENDED_COLUMNS = 'recommended_columns'
+  ALL_COLUMNS         = 'all_columns'
+  NO_COLUMNS          = 'no_columns'
 
-    redirect_to :action => 'list'
+  def filter_with_recommended_columns
+    filter_with_specified_columns(RECOMMENDED_COLUMNS)
   end
+  def filter_with_all_columns
+    filter_with_specified_columns(ALL_COLUMNS)
+  end
+  def filter_with_no_columns
+    filter_with_specified_columns(NO_COLUMNS)
+  end
+
+    def filter_with_specified_columns(columns)
+      if columns == RECOMMENDED_COLUMNS
+        column_filter = ColumnFilter.instance_with_recommended_columns
+      else
+        column_filter = ColumnFilter.instance_with_all_or_no_columns(columns == ALL_COLUMNS)
+      end
+      session[:column_filter] = column_filter
+
+      redirect_to :action => 'list'
+    end
 
   def show_attribute_legend
     @abbrs_with_full = PlayerAttribute.abbrs_with_full
@@ -66,13 +84,16 @@ class PlayersController < ApplicationController
   
 
   class ColumnFilter
+    YES = '1'
+    NO  = '0'
+
     PLAYER_PROPERTY_NAMES = [
-      :first_name, :number, :position, :skill_move, :is_right_dominant,
+      :first_name, :number, :position_id, :skill_move, :is_right_dominant,
       :both_feet_level, :height, :weight, :birth_year, :nation_id
     ]
 
     INSTANCE_VARIABLE_NAMES = PLAYER_PROPERTY_NAMES
-    INSTANCE_VARIABLE_DEFAULT_VALUE = 1
+    INSTANCE_VARIABLE_DEFAULT_VALUE = YES
 
     attr_accessor *INSTANCE_VARIABLE_NAMES
 
@@ -92,20 +113,28 @@ class PlayersController < ApplicationController
       return columns
     end
 
-    HASH_RECOMMENDED = {
-      :position => '1', :skill_move => '1', :is_right_dominant => '1', :both_feet_level => '1', :height => '1',
-      :first_name => '0', :number => '0', :weight => '0', :birth_year => '0', :nation_id => '0'
-    }
+    RECOMMENDED_COLUMN_NAMES = [
+      :position_id, :skill_move, :is_right_dominant, :both_feet_level, :height,
+    ]
 
-    def self.instance_with_recommended_column
-      return ColumnFilter.new(HASH_RECOMMENDED)
+    def self.instance_with_recommended_columns
+      hash = Hash.new { |k, v| k[v] = NO }
+      PLAYER_PROPERTY_NAMES.each do |name|
+        hash[name] = YES if RECOMMENDED_COLUMN_NAMES.include?(name)
+      end
+      return ColumnFilter.new(hash)
+    end
+
+    def self.instance_with_all_or_no_columns(all=true)
+      value = all ? YES : NO
+      return ColumnFilter.new(Hash.new { |k, v| k[v] = value })
     end
 
     private
 
       def column_display?(column)
         return true unless INSTANCE_VARIABLE_NAMES.include?(column.name.intern)
-        return instance_variable_get("@#{column.name}") == '1'
+        return instance_variable_get("@#{column.name}") == YES
       end
   end
 end
