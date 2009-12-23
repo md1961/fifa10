@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091219070150) do
+ActiveRecord::Schema.define(:version => 20091222234521) do
 
   create_table "nations", :force => true do |t|
     t.string  "name",      :default => "", :null => false
@@ -56,6 +56,13 @@ ActiveRecord::Schema.define(:version => 20091219070150) do
   create_table "player_positions", :force => true do |t|
     t.integer "player_id",   :null => false
     t.integer "position_id", :null => false
+  end
+
+  create_table "player_values", :force => true do |t|
+    t.integer "player_id", :null => false
+    t.integer "overall",   :null => false
+    t.integer "value"
+    t.string  "note"
   end
 
   create_table "players", :force => true do |t|
