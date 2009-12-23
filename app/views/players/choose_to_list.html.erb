@@ -6,6 +6,7 @@
 
 <% form_tag :action => 'filter_on_list' do -%>
   Columns:<br />
+
   <% classColumnFilter.instance_variable_names.each do |name| -%>
     <%= check_box :column_filter, name %>
     <% displaying_name = case name
@@ -28,6 +29,7 @@
   <br />
 
   Players:<br />
+
   <%= radio_button :row_filter, :option, classRowFilter::USE_POSITION_CATEGORIES %>
   <label for="<%= 'row_filter_option_' + classRowFilter::USE_POSITION_CATEGORIES %>">
     Use Position Categories
@@ -40,7 +42,25 @@
       <%= name.to_s.camelize %>
     </label>
   <% end -%>
+
   <hr />
+
+  <%= radio_button :row_filter, :option, classRowFilter::USE_POSITIONS %>
+  <label for="<%= 'row_filter_option_' + classRowFilter::USE_POSITIONS %>">
+    Use Positions
+  </label>
+  <br />
+  &nbsp;&nbsp;&nbsp;
+  <% classRowFilter::POSITIONS.each do |name| -%>
+    &nbsp;
+    <%= check_box :row_filter, name %>
+    <label for="<%= 'row_filter_' + name.to_s %>">
+      <%= classRowFilter.name2pos(name) %>
+    </label>
+  <% end -%>
+
+  <hr />
+
   <%= radio_button :row_filter, :option, classRowFilter::USE_PLAYER_NAMES %>
   <label for="<%= 'row_filter_option_' + classRowFilter::USE_PLAYER_NAMES %>">
     Use Player Names

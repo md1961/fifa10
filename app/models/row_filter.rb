@@ -5,6 +5,15 @@ class RowFilter
 
   POSITION_CATEGORIES = Position.categories.map { |c| c.downcase.intern }
 
+  def self.pos2name(position)
+    return "pos_#{position.downcase}"
+  end
+  def self.name2pos(instance_variable_name)
+    return instance_variable_name.to_s[4..-1].upcase
+  end
+
+  POSITIONS = Position.find(:all).map { |pos| pos2name(pos.name).intern }
+
   def self.id2name(id)
     return "p#{id}"
   end
@@ -14,7 +23,7 @@ class RowFilter
   
   PLAYER_IDS = (0 .. MAX_PLAYERS - 1).map { |id| id2name(id).intern }
 
-  INSTANCE_VARIABLE_NAMES = POSITION_CATEGORIES + PLAYER_IDS
+  INSTANCE_VARIABLE_NAMES = POSITION_CATEGORIES + POSITIONS + PLAYER_IDS
   INSTANCE_VARIABLE_DEFAULT_VALUE = 1.to_s
 
   attr_accessor :option, *INSTANCE_VARIABLE_NAMES
