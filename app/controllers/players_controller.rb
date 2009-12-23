@@ -45,7 +45,7 @@ class PlayersController < ApplicationController
 
       team_id = session[:team_id]
       raise "no 'team_id' in session" unless team_id
-      row_filter.players = Player.find_all_by_team_id(team_id) if row_filter
+      row_filter.players = Player.list(team_id) if row_filter
 
       return row_filter
     end
@@ -76,10 +76,6 @@ class PlayersController < ApplicationController
         value = hash.nil? ? INSTANCE_VARIABLE_DEFAULT_VALUE : hash[name]
         instance_variable_set("@#{name}", value)
       end
-    end
-
-    def self.instance_variable_names
-      return INSTANCE_VARIABLE_NAMES
     end
 
     def displaying_columns

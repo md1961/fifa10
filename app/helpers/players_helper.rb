@@ -21,11 +21,11 @@ module PlayersHelper
   end
 
   DEFAULT_ALIGN = 'left'
+  HASH_ALIGN = {:L => 'left', :R => 'right', :C => 'center'}
 
   def column_align(column)
     align = column_attribute(column, 1)
-    return DEFAULT_ALIGN unless align
-    return align == :L ? 'left' : align == :R ? 'right' : 'center'
+    return HASH_ALIGN[align] || DEFAULT_ALIGN
   end
 
   def column_attribute(column, index)

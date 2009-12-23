@@ -7,7 +7,7 @@
 <% form_tag :action => 'filter_on_list' do -%>
   Columns:<br />
 
-  <% classColumnFilter.instance_variable_names.each do |name| -%>
+  <% classColumnFilter::INSTANCE_VARIABLE_NAMES.each do |name| -%>
     <%= check_box :column_filter, name %>
     <% displaying_name = case name
          when :is_right_dominant
@@ -35,7 +35,7 @@
     Use Position Categories
   </label>
   <br />
-  <% classRowFilter.position_categories.each do |name| -%>
+  <% classRowFilter::POSITION_CATEGORIES.each do |name| -%>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <%= check_box :row_filter, name %>
     <label for="<%= 'row_filter_' + name.to_s %>">

@@ -5,8 +5,8 @@ class RowFilter
 
   POSITION_CATEGORIES = Position.categories.map { |c| c.downcase.intern }
 
-  def self.pos2name(position)
-    return "pos_#{position.downcase}"
+  def self.pos2name(position_name)
+    return "pos_#{position_name.downcase}"
   end
   def self.name2pos(instance_variable_name)
     return instance_variable_name.to_s[4..-1].upcase
@@ -24,13 +24,13 @@ class RowFilter
   PLAYER_IDS = (0 .. MAX_PLAYERS - 1).map { |id| id2name(id).intern }
 
   INSTANCE_VARIABLE_NAMES = POSITION_CATEGORIES + POSITIONS + PLAYER_IDS
-  INSTANCE_VARIABLE_DEFAULT_VALUE = 1.to_s
+  INSTANCE_VARIABLE_DEFAULT_VALUE = '1'
 
   attr_accessor :option, *INSTANCE_VARIABLE_NAMES
 
-  USE_POSITION_CATEGORIES = 1.to_s
-  USE_POSITIONS           = 2.to_s
-  USE_PLAYER_NAMES        = 3.to_s
+  USE_POSITION_CATEGORIES = '1'
+  USE_POSITIONS           = '2'
+  USE_PLAYER_NAMES        = '3'
 
   DEFAULT_OPTION = USE_POSITION_CATEGORIES
 
@@ -45,14 +45,6 @@ class RowFilter
   def self.get_player(instance_variable_name)
     id = name2id(instance_variable_name)
     return @@players[id]
-  end
-
-  def self.instance_variable_names
-    return INSTANCE_VARIABLE_NAMES
-  end
-
-  def self.position_categories
-    return POSITION_CATEGORIES
   end
 
   def self.player_instance_variable_names
@@ -71,18 +63,29 @@ class RowFilter
   def displaying_players
     case @option
     when USE_POSITION_CATEGORIES
-      categories = Position.categories
-      categories = categories.select { |category| category_display?(category) }
+      categories = Position.categories.select do |category|
+        instance_variable_get("@#{category.downcase}") == '1'
+      end
       selected_players = @@players.select do |player|
         categories.include?(player.position.category)
       end
 
-      @@players.each_with_index do |player, index|
-        name = RowFilter.id2name(index)
-        instance_variable_set("@#{name}", selected_players.include?(player) ? '1' : '0')
+      Position.find(:all).each do |position|
+        name = RowFilter.pos2name(position.name)
+        instance_variable_set("@#{name}", categories.include?(position.category) ? '1' : '0')
       end
+
+      set_player_instance_variables(selected_players)
     when USE_POSITIONS
-      selected_players = @@players
+      positions = Position.find(:all).select do |position| 
+        instance_variable_get("@#{RowFilter.pos2name(position.name)}") == '1'
+      end
+
+      selected_players = @@players.select do |player|
+        player.positions.any? { |position| positions.include?(position) }
+      end
+
+      set_player_instance_variables(selected_players)
     when USE_PLAYER_NAMES
       selected_players = Array.new
       @@players.each_with_index do |player, index|
@@ -92,13 +95,17 @@ class RowFilter
     else
       raise "Impossible!! Check the code."
     end
+
     return selected_players
   end
 
   private
 
-    def category_display?(category)
-      return instance_variable_get("@#{category.downcase}") == '1'
+    def set_player_instance_variables(players)
+      @@players.each_with_index do |player, index|
+        name = RowFilter.id2name(index)
+        instance_variable_set("@#{name}", players.include?(player) ? '1' : '0')
+      end
     end
 end
 
