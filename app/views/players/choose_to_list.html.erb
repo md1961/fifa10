@@ -48,8 +48,8 @@
   <br />
   &nbsp;&nbsp;&nbsp;
   <% prev_category = nil -%>
-  <% classRowFilter.player_ids.each do |pid| -%>
-    <% player = Player.find(classRowFilter.pid2id(pid))
+  <% classRowFilter.player_instance_variable_names.each do |name| -%>
+    <% player = classRowFilter.get_player(name)
        category = player.position.category -%>
     <% if prev_category && category != prev_category -%>
       <br />
@@ -57,8 +57,8 @@
     <% end -%>
     <% prev_category = category -%>
     &nbsp;
-    <%= check_box :row_filter, pid %>
-    <label for="<%= 'row_filter_' + pid.to_s %>">
+    <%= check_box :row_filter, name %>
+    <label for="<%= 'row_filter_' + name.to_s %>">
       <%= player.name %>
     </label>
   <% end -%>
