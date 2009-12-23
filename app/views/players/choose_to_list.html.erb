@@ -1,6 +1,9 @@
 
 <h3><%= @page_title %></h3>
 
+<% classRowFilter    = PlayersController::RowFilter
+   classColumnFilter = PlayersController::ColumnFilter -%>
+
 <% form_tag :action => 'filter_on_list' do -%>
   Columns:<br />
   <% classColumnFilter.instance_variable_names.each do |name| -%>
