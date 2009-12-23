@@ -15,8 +15,8 @@
       <th><%= h column_index(column) %></th>
     <% end -%>
 
-    <% player_attribute_abbrs.each do |abbr| -%>
-      <th><%= abbr -%></th>
+    <% @attribute_columns.each do |column| -%>
+      <th><%= PlayerAttribute.abbr(column.name) %></th>
     <% end -%>
   </tr>
 
@@ -44,9 +44,9 @@
         </td>
       <% end -%>
 
-      <% is_leftmost = true -%>
-      <% attrs = player.player_attribute
-         PlayerAttribute.content_columns.each do |column| -%>
+      <% is_leftmost = true
+         attrs = player.player_attribute -%>
+      <% @attribute_columns.each do |column| -%>
         <% clazz = is_leftmost ? 'leftmost_of_attributes' : ''
            is_leftmost = false -%>
         <td align="right" class="<%= clazz %>"><%= attrs.send(:attributes)[column.name] %></td>

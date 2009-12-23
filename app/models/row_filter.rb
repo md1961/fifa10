@@ -1,6 +1,9 @@
 class RowFilter
   cattr_accessor :players
 
+  YES = '1'
+  NO  = '0'
+
   MAX_PLAYERS = 50
 
   POSITION_CATEGORIES = Position.categories.map { |c| c.downcase.intern }
@@ -24,7 +27,7 @@ class RowFilter
   PLAYER_IDS = (0 .. MAX_PLAYERS - 1).map { |id| id2name(id).intern }
 
   INSTANCE_VARIABLE_NAMES = POSITION_CATEGORIES + POSITIONS + PLAYER_IDS
-  INSTANCE_VARIABLE_DEFAULT_VALUE = '1'
+  INSTANCE_VARIABLE_DEFAULT_VALUE = YES
 
   attr_accessor :option, *INSTANCE_VARIABLE_NAMES
 
@@ -76,7 +79,7 @@ class RowFilter
     case @option
     when USE_POSITION_CATEGORIES
       categories = Position.categories.select do |category|
-        instance_variable_get("@#{category.downcase}") == '1'
+        instance_variable_get("@#{category.downcase}") == YES
       end
       selected_players = @@players.select do |player|
         categories.include?(player.position.category)
@@ -84,13 +87,13 @@ class RowFilter
 
       Position.find(:all).each do |position|
         name = RowFilter.pos2name(position.name)
-        instance_variable_set("@#{name}", categories.include?(position.category) ? '1' : '0')
+        instance_variable_set("@#{name}", categories.include?(position.category) ? YES : NO)
       end
 
       set_player_instance_variables(selected_players)
     when USE_POSITIONS
       positions = Position.find(:all).select do |position| 
-        instance_variable_get("@#{RowFilter.pos2name(position.name)}") == '1'
+        instance_variable_get("@#{RowFilter.pos2name(position.name)}") == YES
       end
 
       selected_players = @@players.select do |player|
@@ -102,7 +105,7 @@ class RowFilter
       selected_players = Array.new
       @@players.each_with_index do |player, index|
         name = RowFilter.id2name(index)
-        selected_players << player if instance_variable_get("@#{name}") == '1'
+        selected_players << player if instance_variable_get("@#{name}") == YES
       end
     else
       raise "Impossible!! Check the code."
@@ -116,7 +119,7 @@ class RowFilter
     def set_player_instance_variables(players)
       @@players.each_with_index do |player, index|
         name = RowFilter.id2name(index)
-        instance_variable_set("@#{name}", players.include?(player) ? '1' : '0')
+        instance_variable_set("@#{name}", players.include?(player) ? YES : NO)
       end
     end
 end

@@ -8,6 +8,11 @@ class PlayerAttribute < ActiveRecord::Base
     return ABBRS.map { |pair| [pair[1], pair[0].to_s] }
   end
 
+  def self.abbr(column_name)
+    entry = ABBRS.find { |name, abbr| name.to_s == column_name.to_s }
+    return entry ? entry[1] : nil
+  end
+
   ABBRS = [
     [:acceleration   , 'AC'],
     [:positiveness   , 'PV'],

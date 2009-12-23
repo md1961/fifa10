@@ -13,7 +13,7 @@
   <%= link_to 'None', :action => 'filter_with_no_columns' %>
   <br />
   <%= nbsp(5) -%>
-  <% ColumnFilter::INSTANCE_VARIABLE_NAMES.each do |name| -%>
+  <% ColumnFilter::PLAYER_PROPERTY_NAMES.each do |name| -%>
     <%= check_box :column_filter, name %>
     <% displaying_name = case name
          when :position_id
@@ -27,8 +27,24 @@
          else
            name.to_s
        end -%>
-    <label for="<%= 'column_filter_' + name.to_s %>">
+    <label for='<%= "column_filter_#{name}" %>'>
       <%= column_name2display(displaying_name) %>
+    </label>
+    <%= nbsp -%>
+  <% end -%>
+
+  <hr />
+
+  <%= nbsp(5) -%>
+  <% displaying_player_attribute_names.each do |name| -%>
+    <% if name.nil? -%>
+      <br />
+      <%= nbsp(5) -%>
+      <% next -%>
+    <% end -%>
+    <%= check_box :column_filter, name %>
+    <label for='<%= "column_filter_#{name}" %>'>
+      <%= column_name2display(name) %>
     </label>
     <%= nbsp -%>
   <% end -%>

@@ -8,7 +8,10 @@ class ColumnFilter
     :both_feet_level, :height, :weight, :birth_year, :nation_id
   ]
 
-  INSTANCE_VARIABLE_NAMES = PLAYER_PROPERTY_NAMES
+  PLAYER_ATTRIBUTE_COLUMNS = PlayerAttribute.content_columns
+  PLAYER_ATTRIBUTE_NAMES = PLAYER_ATTRIBUTE_COLUMNS.map { |column| column.name.intern }
+
+  INSTANCE_VARIABLE_NAMES = PLAYER_PROPERTY_NAMES + PLAYER_ATTRIBUTE_NAMES
   INSTANCE_VARIABLE_DEFAULT_VALUE = YES
 
   attr_accessor *INSTANCE_VARIABLE_NAMES
@@ -27,6 +30,10 @@ class ColumnFilter
     columns = columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
     columns = columns.select { |column| column_display?(column) }
     return columns
+  end
+
+  def displaying_attribute_columns
+    return PLAYER_ATTRIBUTE_COLUMNS.select { |column| instance_variable_get("@#{column.name}") == YES }
   end
 
   RECOMMENDED_COLUMN_NAMES = [

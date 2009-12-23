@@ -8,6 +8,7 @@ class PlayersController < ApplicationController
 
     column_filter = get_column_filter
     @columns = column_filter.displaying_columns
+    @attribute_columns = column_filter.displaying_attribute_columns
 
     team = Team.find(team_id)
     @page_title = "#{team.name} Rosters"
