@@ -1,22 +1,19 @@
 
 <h3><%= @page_title %></h3>
 
-<% classRowFilter    = PlayersController::RowFilter
-   classColumnFilter = PlayersController::ColumnFilter -%>
-
 <% form_tag :action => 'filter_on_list' do -%>
   <b>Columns:</b>
   <hr />
 
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= nbsp(6) -%>
   <%= link_to 'Recommended', :action => 'filter_with_recommended_columns' %>
-  &nbsp;
+  <%= nbsp(2) -%>
   <%= link_to 'All' , :action => 'filter_with_all_columns' %>
-  &nbsp;
+  <%= nbsp(2) -%>
   <%= link_to 'None', :action => 'filter_with_no_columns' %>
   <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <% classColumnFilter::INSTANCE_VARIABLE_NAMES.each do |name| -%>
+  <%= nbsp(5) -%>
+  <% ColumnFilter::INSTANCE_VARIABLE_NAMES.each do |name| -%>
     <%= check_box :column_filter, name %>
     <% displaying_name = case name
          when :position_id
@@ -33,7 +30,7 @@
     <label for="<%= 'column_filter_' + name.to_s %>">
       <%= column_name2display(displaying_name) %>
     </label>
-    &nbsp;
+    <%= nbsp -%>
   <% end -%>
 
   <br />
@@ -42,15 +39,15 @@
   <b>Players:</b>
   <hr />
 
-  <%= radio_button :row_filter, :option, classRowFilter::USE_POSITION_CATEGORIES %>
-  <label for="<%= 'row_filter_option_' + classRowFilter::USE_POSITION_CATEGORIES %>">
+  <%= radio_button :row_filter, :option, RowFilter::USE_POSITION_CATEGORIES %>
+  <label for="<%= 'row_filter_option_' + RowFilter::USE_POSITION_CATEGORIES %>">
     <span class="<%= @row_filter.use_position_categories? ? 'option_selected' : '' %>">
       Use Position Categories
     </span>
   </label>
   <br />
-  <% classRowFilter::POSITION_CATEGORIES.each do |name| -%>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <% RowFilter::POSITION_CATEGORIES.each do |name| -%>
+    <%= nbsp(5) -%>
     <%= check_box :row_filter, name %>
     <label for="<%= 'row_filter_' + name.to_s %>">
       <%= name.to_s.camelize %>
@@ -59,42 +56,42 @@
 
   <hr />
 
-  <%= radio_button :row_filter, :option, classRowFilter::USE_POSITIONS %>
-  <label for="<%= 'row_filter_option_' + classRowFilter::USE_POSITIONS %>">
+  <%= radio_button :row_filter, :option, RowFilter::USE_POSITIONS %>
+  <label for="<%= 'row_filter_option_' + RowFilter::USE_POSITIONS %>">
     <span class="<%= @row_filter.use_positions? ? 'option_selected' : '' %>">
       Use Positions
     </span>
   </label>
   <br />
-  &nbsp;&nbsp;&nbsp;
-  <% classRowFilter::POSITIONS.each do |name| -%>
-    &nbsp;
+  <%= nbsp(3) -%>
+  <% RowFilter::POSITIONS.each do |name| -%>
+    <%= nbsp -%>
     <%= check_box :row_filter, name %>
     <label for="<%= 'row_filter_' + name.to_s %>">
-      <%= classRowFilter.name2pos(name) %>
+      <%= RowFilter.name2pos(name) %>
     </label>
   <% end -%>
 
   <hr />
 
-  <%= radio_button :row_filter, :option, classRowFilter::USE_PLAYER_NAMES %>
-  <label for="<%= 'row_filter_option_' + classRowFilter::USE_PLAYER_NAMES %>">
+  <%= radio_button :row_filter, :option, RowFilter::USE_PLAYER_NAMES %>
+  <label for="<%= 'row_filter_option_' + RowFilter::USE_PLAYER_NAMES %>">
     <span class="<%= @row_filter.use_player_names? ? 'option_selected' : '' %>">
       Use Player Names
     </span>
   </label>
   <br />
-  &nbsp;&nbsp;&nbsp;
+  <%= nbsp(3) -%>
   <% prev_category = nil -%>
-  <% classRowFilter.player_instance_variable_names.each do |name| -%>
-    <% player = classRowFilter.get_player(name)
+  <% RowFilter.player_instance_variable_names.each do |name| -%>
+    <% player = RowFilter.get_player(name)
        category = player.position.category -%>
     <% if prev_category && category != prev_category -%>
       <br />
-      &nbsp;&nbsp;&nbsp;
+      <%= nbsp(3) -%>
     <% end -%>
     <% prev_category = category -%>
-    &nbsp;
+    <%= nbsp -%>
     <%= check_box :row_filter, name %>
     <label for="<%= 'row_filter_' + name.to_s %>">
       <%= player.name %>
@@ -103,7 +100,7 @@
 
   <p>
     <%= submit_tag 'Apply' %>
-    &nbsp;
+    <%= nbsp -%>
     <%= link_to 'Cancel', :action => 'list' %>
   </p>
 <% end -%>
