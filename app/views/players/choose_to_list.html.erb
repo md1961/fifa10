@@ -7,6 +7,9 @@
 <% form_tag :action => 'filter_on_list' do -%>
   Columns:<br />
 
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to 'Recom', :action => 'filter_with_recommended_columns' %>
+  &nbsp;
   <% classColumnFilter::INSTANCE_VARIABLE_NAMES.each do |name| -%>
     <%= check_box :column_filter, name %>
     <% displaying_name = case name

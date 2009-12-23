@@ -30,6 +30,13 @@ class PlayersController < ApplicationController
     redirect_to :action => 'list'
   end
 
+  def filter_with_recommended_columns
+    column_filter = ColumnFilter.instance_with_recommended_column
+    session[:column_filter] = column_filter
+
+    redirect_to :action => 'list'
+  end
+
   def show_attribute_legend
     @abbrs_with_full = PlayerAttribute.abbrs_with_full
 
@@ -83,6 +90,15 @@ class PlayersController < ApplicationController
       columns = columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
       columns = columns.select { |column| column_display?(column) }
       return columns
+    end
+
+    HASH_RECOMMENDED = {
+      :position => '1', :skill_move => '1', :is_right_dominant => '1', :both_feet_level => '1', :height => '1',
+      :first_name => '0', :number => '0', :weight => '0', :birth_year => '0', :nation_id => '0'
+    }
+
+    def self.instance_with_recommended_column
+      return ColumnFilter.new(HASH_RECOMMENDED)
     end
 
     private
