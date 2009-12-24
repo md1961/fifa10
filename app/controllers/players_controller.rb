@@ -56,6 +56,33 @@ class PlayersController < ApplicationController
 
       redirect_to :action => 'list'
     end
+    private :filter_with_specified_columns
+
+  OFFENSIVE_ATTRIBUTES = 'offensive_attributes'
+  ALL_ATTRIBUTES = 'all_attributes'
+  NO_ATTRIBUTES  = 'no_attributes'
+
+  def filter_with_offensive_attributes
+    #!!!
+  end
+  def filter_with_all_attributes
+    filter_with_specified_attributes(ALL_ATTRIBUTES)
+  end
+  def filter_with_no_attributes
+    filter_with_specified_attributes(NO_ATTRIBUTES)
+  end
+
+    def filter_with_specified_attributes(attributes)
+      column_filter = get_column_filter
+      if attributes == OFFENSIVE_ATTRIBUTES
+        column_filter.set_offensive_attributes
+      else
+        column_filter.set_all_or_no_attributes(attributes == ALL_ATTRIBUTES)
+      end
+      session[:column_filter] = column_filter
+
+      redirect_to :action => 'list'
+    end
 
   def show_attribute_legend
     @abbrs_with_full = PlayerAttribute.abbrs_with_full

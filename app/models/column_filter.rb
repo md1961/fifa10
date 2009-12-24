@@ -52,6 +52,16 @@ class ColumnFilter
     end
   end
 
+  def set_offensive_attributes
+    #!!!
+  end
+  def set_all_or_no_attributes(all=true)
+    value = all ? YES : NO
+    PLAYER_ATTRIBUTE_NAMES.each do |name|
+      instance_variable_set("@#{name}", value)
+    end
+  end
+
   private
 
     def column_display?(column)

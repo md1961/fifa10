@@ -35,6 +35,13 @@
 
   <hr />
 
+  <%= nbsp(6) -%>
+  <%= link_to 'Offensive', :action => 'filter_with_offensive_attributes' %>
+  <%= nbsp(2) -%>
+  <%= link_to 'All' , :action => 'filter_with_all_attributes' %>
+  <%= nbsp(2) -%>
+  <%= link_to 'None', :action => 'filter_with_no_attributes' %>
+  <br />
   <%= nbsp(5) -%>
   <% displaying_player_attribute_names.each do |name| -%>
     <% if name.nil? -%>
