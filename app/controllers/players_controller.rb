@@ -59,11 +59,15 @@ class PlayersController < ApplicationController
     private :filter_with_specified_columns
 
   OFFENSIVE_ATTRIBUTES = 'offensive_attributes'
+  DEFENSIVE_ATTRIBUTES = 'defensive_attributes'
   ALL_ATTRIBUTES = 'all_attributes'
   NO_ATTRIBUTES  = 'no_attributes'
 
   def filter_with_offensive_attributes
     filter_with_specified_attributes(OFFENSIVE_ATTRIBUTES)
+  end
+  def filter_with_defensive_attributes
+    filter_with_specified_attributes(DEFENSIVE_ATTRIBUTES)
   end
   def filter_with_all_attributes
     filter_with_specified_attributes(ALL_ATTRIBUTES)
@@ -74,8 +78,11 @@ class PlayersController < ApplicationController
 
     def filter_with_specified_attributes(attributes)
       column_filter = get_column_filter
-      if attributes == OFFENSIVE_ATTRIBUTES
+      case attributes
+      when OFFENSIVE_ATTRIBUTES
         column_filter.set_offensive_attributes
+      when DEFENSIVE_ATTRIBUTES
+        column_filter.set_defensive_attributes
       else
         column_filter.set_all_or_no_attributes(attributes == ALL_ATTRIBUTES)
       end
