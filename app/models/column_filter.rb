@@ -52,9 +52,25 @@ class ColumnFilter
     end
   end
 
+  GENERAL_ATTRIBUTE_NAMES_1   = [:acceleration, :positiveness, :quickness, :balance, :jump, :positioning]
+  GENERAL_ATTRIBUTE_NAMES_2   = [:reaction, :speed, :stamina, :physical, :tactics, :vision]
+  OFFENSIVE_ATTRIBUTE_NAMES_1 = [:control, :cross, :curve, :dribble, :goalmaking, :fk_accuracy, :head_accuracy]
+  OFFENSIVE_ATTRIBUTE_NAMES_2 = [:long_pass, :long_shot, :pk, :short_pass, :shot_power, :volley]
+  DEFENSIVE_ATTRIBUTE_NAMES   = [:mark, :sliding, :tackle]
+  GOALKEEPING_ATTRIBUTE_NAMES = [:gk_dive, :gk_handling, :gk_kick, :gk_positioning, :gk_reaction]
+
+  GENERAL_ATTRIBUTE_NAMES = GENERAL_ATTRIBUTE_NAMES_1 + GENERAL_ATTRIBUTE_NAMES_2
+  OFFENSIVE_ATTRIBUTE_NAMES = OFFENSIVE_ATTRIBUTE_NAMES_1 + OFFENSIVE_ATTRIBUTE_NAMES_2
+
   def set_offensive_attributes
-    #!!!
+    set_specified_attributes(OFFENSIVE_ATTRIBUTE_NAMES)
   end
+    def set_specified_attributes(attribute_names)
+      PLAYER_ATTRIBUTE_NAMES.each do |name|
+        instance_variable_set("@#{name}", attribute_names.include?(name) ? YES : NO)
+      end
+    end
+    private :set_specified_attributes
   def set_all_or_no_attributes(all=true)
     value = all ? YES : NO
     PLAYER_ATTRIBUTE_NAMES.each do |name|

@@ -63,7 +63,7 @@ class PlayersController < ApplicationController
   NO_ATTRIBUTES  = 'no_attributes'
 
   def filter_with_offensive_attributes
-    #!!!
+    filter_with_specified_attributes(OFFENSIVE_ATTRIBUTES)
   end
   def filter_with_all_attributes
     filter_with_specified_attributes(ALL_ATTRIBUTES)
