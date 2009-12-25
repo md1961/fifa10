@@ -90,6 +90,20 @@ class PlayersController < ApplicationController
     @page_title = "Player Attribute Legend"
   end
 
+  def depth_chart
+    players = players_of_team
+    @depth = Hash.new { |hash, key| hash[key] = Array.new }
+    Position.find(:all).each do |position|
+      players_at_position = players.select { |player| player.positions.include?(position) }
+      players_at_position.each do |player|
+        @depth[position] << player
+      end
+    end
+
+    team = Team.find(session[:team_id])
+    @page_title = "#{team.name} Depth Chart"
+  end
+
   private
 
     def get_row_filter(params=nil)
@@ -97,11 +111,15 @@ class PlayersController < ApplicationController
       row_filter = param ? nil : session[:row_filter]
       row_filter = RowFilter.new(param) unless row_filter
 
-      team_id = session[:team_id]
-      raise "no 'team_id' in session" unless team_id
-      row_filter.players = Player.list(team_id) if row_filter
+      row_filter.players = players_of_team if row_filter
 
       return row_filter
+    end
+
+    def players_of_team
+      team_id = session[:team_id]
+      raise "no 'team_id' in session" unless team_id
+      return Player.list(team_id)
     end
 
     def get_column_filter(params=nil)

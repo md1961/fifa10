@@ -1,0 +1,12 @@
+
+<h1><%= @page_title %></h1>
+
+<table id="table_depth_chart">
+  <% Position.find(:all).each do |position| -%>
+    <tr>
+      <th><%= position.name -%></th>
+      <td><%= @depth[position].map(&:name).join(' : ') %></td>
+    </tr>
+  <% end -%>
+</table>
+
