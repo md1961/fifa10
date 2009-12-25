@@ -26,12 +26,14 @@ module PlayersHelper
   end
 
   def displaying_player_attribute_names
-    return [:acceleration, :positiveness, :quickness, :balance, :jump, :positioning, nil,
-            :reaction, :speed, :stamina, :physical, :tactics, :vision, nil,
-            :control, :cross, :curve, :dribble, :goalmaking, :fk_accuracy, :head_accuracy, nil,
-            :long_pass, :long_shot, :pk, :short_pass, :shot_power, :volley, nil,
-            :mark, :sliding, :tackle, nil,
-            :gk_dive, :gk_handling, :gk_kick, :gk_positioning, :gk_reaction]
+    # [nil] to instruct to output <br />
+    return \
+        ColumnFilter::GENERAL_ATTRIBUTE_NAMES_1   + [nil] \
+      + ColumnFilter::GENERAL_ATTRIBUTE_NAMES_2   + [nil] \
+      + ColumnFilter::OFFENSIVE_ATTRIBUTE_NAMES_1 + [nil] \
+      + ColumnFilter::OFFENSIVE_ATTRIBUTE_NAMES_2 + [nil] \
+      + ColumnFilter::DEFENSIVE_ATTRIBUTE_NAMES   + [nil] \
+      + ColumnFilter::GOALKEEPING_ATTRIBUTE_NAMES
   end
 
   COLUMN_ATTRIBUTES = {

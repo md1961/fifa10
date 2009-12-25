@@ -1,6 +1,10 @@
 
 <h1><%= @page_title %></h1>
 
+<p>
+  <%= link_to 'Back to Rosters', 'list' %>
+</p>
+
 <table id="table_depth_chart">
   <% Position.find(:all).each do |position| -%>
     <tr>
