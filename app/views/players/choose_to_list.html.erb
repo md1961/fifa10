@@ -1,6 +1,10 @@
 
 <h3><%= @page_title %></h3>
 
+<p>
+  <%= link_to 'Cancel', :action => 'list' %>
+</p>
+
 <% form_tag :action => 'filter_on_list' do -%>
   <b>Columns:</b>
   <hr />
@@ -15,20 +19,8 @@
   <%= nbsp(5) -%>
   <% ColumnFilter::PLAYER_PROPERTY_NAMES.each do |name| -%>
     <%= check_box :column_filter, name %>
-    <% displaying_name = case name
-         when :position_id
-           'position'
-         when :is_right_dominant
-           'dominant_feet'
-         when :both_feet_level
-           'week_feet'
-         when :nation_id
-           'nation'
-         else
-           name.to_s
-       end -%>
     <label for='<%= "column_filter_#{name}" %>'>
-      <%= column_name2display(displaying_name) %>
+      <%= column_name2display(column_name2meaningful(name)) %>
     </label>
     <%= nbsp -%>
   <% end -%>

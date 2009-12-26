@@ -25,11 +25,12 @@ class ColumnFilter
 
   COLUMN_NAMES_NOT_TO_DISPLAY = %w(id team_id order_number)
 
+  def self.displaying_columns
+    return Player.columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
+  end
+
   def displaying_columns
-    columns = Player.columns
-    columns = columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
-    columns = columns.select { |column| column_display?(column) }
-    return columns
+    return ColumnFilter.displaying_columns.select { |column| column_display?(column) }
   end
 
   def displaying_attribute_columns

@@ -18,9 +18,25 @@ module PlayersHelper
     return attributes[index]
   end
 
+  def column_name2meaningful(column_name)
+    return \
+      case column_name.to_s
+      when 'position_id'
+        'position'
+      when 'is_right_dominant'
+        'dominant_feet'
+      when 'both_feet_level'
+        'week_feet'
+      when 'nation_id'
+        'nationality'
+      else
+        column_name.to_s
+      end
+  end
+
   def column_name2display(column_name)
     s = column_name.to_s.camelize
-    s.sub!(/([a-z])([A-Z])/, '\1 \2')
+    s.gsub!(/([a-z])([A-Z])/, '\1 \2')
     s.sub!(/([FGP])k/, '\1K')
     return s
   end

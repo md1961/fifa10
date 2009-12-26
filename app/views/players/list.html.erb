@@ -15,6 +15,8 @@
 
 <table id="table_players">
   <tr>
+    <th><%= nbsp %></th>
+
     <% @columns.each do |column| -%>
       <th><%= h column_index(column) %></th>
     <% end -%>
@@ -26,25 +28,12 @@
 
   <% @players.each do |player| -%>
     <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
+      <td><%= link_to '>', player %></td>
+
       <% @columns.each do |column| -%>
         <% clazz = column == last_column ? 'rightmost_of_players' : '' -%>
         <td align="<%= column_align(column) %>" class="<%= clazz %>">
-          <% case column.name
-             when 'name' -%>
-            <%= "<b>#{player.name}</b>" %>
-          <% when 'position_id' -%>
-            <%= "<b>#{player.position.name}</b> #{player.sub_positions.map(&:name).join(' ')}" %>
-          <% when 'skill_move' -%>
-            <%= '★' * player.skill_move %>
-          <% when 'is_right_dominant' -%>
-            <%= player.is_right_dominant ? 'R' : 'L' %>
-          <% when 'both_feet_level' -%>
-            <%= '☆' * player.both_feet_level %>
-          <% when 'nation_id' -%>
-            <%= player.nation.name -%>
-          <% else -%>
-            <%= h player.send(:attributes)[column.name] %>
-          <% end -%>
+          <%= render :partial => 'property_display', :locals => {:column => column, :player => player} %>
         </td>
       <% end -%>
 

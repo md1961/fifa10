@@ -1,0 +1,18 @@
+
+<% case column.name
+   when 'name' -%>
+  <%= "<b>#{player.name}</b>" %>
+<% when 'position_id' -%>
+  <%= "<b>#{player.position.name}</b> #{player.sub_positions.map(&:name).join(' ')}" %>
+<% when 'skill_move' -%>
+  <%= '★' * player.skill_move %>
+<% when 'is_right_dominant' -%>
+  <%= player.is_right_dominant ? 'R' : 'L' %>
+<% when 'both_feet_level' -%>
+  <%= '☆' * player.both_feet_level %>
+<% when 'nation_id' -%>
+  <%= player.nation.name -%>
+<% else -%>
+  <%= h player.send(:attributes)[column.name] %>
+<% end -%>
+
