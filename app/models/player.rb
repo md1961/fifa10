@@ -7,7 +7,7 @@ class Player < ActiveRecord::Base
   has_one :player_value
   has_one :player_attribute
 
-  ORDER_WHEN_LIST = "id"
+  ORDER_WHEN_LIST = "order_number"
 
   def self.list(team_id)
     return find_all_by_team_id(team_id, :order => ORDER_WHEN_LIST)

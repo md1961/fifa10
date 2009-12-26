@@ -122,12 +122,36 @@ class PlayersController < ApplicationController
 
   def edit_roster
     players = players_of_team
-    parse_roster_edit_command(params[:command], players)
+    commands = parse_roster_edit_command(params[:command], players)
+    update_roster(commands, players) if commands
 
     redirect_to :action => 'roster_chart'
   end
 
   private
+
+    def update_roster(commands, players)
+      player1, action, player2 = commands
+      begin
+        Player.transaction do
+          case action
+          when 'with'
+            n1 = player1.order_number
+            n2 = player2.order_number
+            player1.order_number = 999999
+            player1.save!
+            player2.order_number = n1
+            player2.save!
+            player1.order_number = n2
+            player1.save!
+          when 'to'
+          else
+          end
+        end
+      #rescue
+        #explain_error("DB Error", ["Failed database transaction"], [])
+      end
+    end
 
     LEGAL_ACTIONS = %w(with to)
 
@@ -155,6 +179,9 @@ class PlayersController < ApplicationController
       return unless players
       player1, player2 = players
 
+      return [player1, action, player2]
+
+      # for debug 
       msg = "#{player1.name} will be #{action=='to'?'inserted before':'exchanged with'} #{player2.name}"
       explain_error(title+" Not", [msg], [])
     end
@@ -208,16 +235,16 @@ class PlayersController < ApplicationController
       return row_filter
     end
 
-    def players_of_team
-      team_id = session[:team_id]
-      raise "no 'team_id' in session" unless team_id
-      return Player.list(team_id)
-    end
-
     def get_column_filter(params=nil)
       param = params ? params[:column_filter] : nil
       column_filter = param ? nil : session[:column_filter]
       column_filter = ColumnFilter.new(param) unless column_filter
       return column_filter
+    end
+
+    def players_of_team
+      team_id = session[:team_id]
+      raise "no 'team_id' in session" unless team_id
+      return Player.list(team_id)
     end
 end
