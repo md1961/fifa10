@@ -7,4 +7,9 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+
+  def sgn(n)
+    return 0 if n == 0
+    return n / n.abs
+  end
 end

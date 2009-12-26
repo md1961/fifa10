@@ -136,21 +136,54 @@ class PlayersController < ApplicationController
         Player.transaction do
           case action
           when 'with'
-            n1 = player1.order_number
-            n2 = player2.order_number
-            player1.order_number = 999999
-            player1.save!
-            player2.order_number = n1
-            player2.save!
-            player1.order_number = n2
-            player1.save!
+            exchange_player_order(player1, player2)
           when 'to'
+            insert_player_order_before(player1, player2, players)
           else
+            raise ActiveRecord::Rollback, "Unknown action '#{action}' in helper update_roster()"
           end
         end
       #rescue
         #explain_error("DB Error", ["Failed database transaction"], [])
       end
+    end
+
+    def exchange_player_order(player1, player2)
+      n1 = player1.order_number
+      n2 = player2.order_number
+      player1.order_number = 999999
+      player1.save!
+      player2.order_number = n1
+      player2.save!
+      player1.order_number = n2
+      player1.save!
+    end
+
+    def insert_player_order_before(player1, player2, players)
+      index1 = players.index(player1)
+      index2 = players.index(player2)
+      return if index1 == index2
+      if index1.nil? || index2.nil?
+        names = Array.new
+        names << player1.name if index1.nil?
+        names << player2.name if index2.nil?
+        raise ActiveRecord::Rollback, "Cannot find Player '#{names.join("', '")}' in 'players'"
+      end
+
+      player1 = players[index1]
+      n_prev = player1.order_number
+      player1.order_number = 999999
+      player1.save!
+      step = sgn(index2 - index1)
+      (index1 + step).step(index2, step) do |index|
+        player = players[index]
+        n = player.order_number
+        player.order_number = n_prev
+        player.save!
+        n_prev = n
+      end
+      player1.order_number = n_prev
+      player1.save!
     end
 
     LEGAL_ACTIONS = %w(with to)
