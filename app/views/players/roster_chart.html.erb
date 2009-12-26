@@ -12,53 +12,37 @@
 </div>
 
 <table id="table_starters" class="tables_roster_chart">
-  <caption>Starters:</caption>
-
-  <% @players[0, num_starters].each_with_index do |player, index| -%>
-    <tr>
-      <td class="index_number"><%= index + 1 %></td>
-      <td><%= player.name %></td>
-      <td><%= player.position.name %></td>
-    </tr>
-  <% end -%>
+  <%= render :partial => 'roster_table',
+    :locals => {:caption => 'Starters:',
+                :index_start => 0, :size => num_starters,
+                :index_offset => 0} %>
 </table>
 
 <table id="table_in_bench" class="tables_roster_chart">
-  <caption>Bench:</caption>
-
-  <% @players[num_starters, num_in_bench].each_with_index do |player, index| -%>
-    <tr>
-      <td class="index_number"><%= index + 1 %></td>
-      <td><%= player.name %></td>
-      <td><%= player.position.name %></td>
-    </tr>
-  <% end -%>
+  <%= render :partial => 'roster_table',
+    :locals => {:caption => 'Bench:',
+                :index_start => num_starters, :size => num_in_bench,
+                :index_offset => 0} %>
 </table>
 
-<% num = num_players_in_first_table_reserves -%>
+<% index_start = num_starters + num_in_bench
+   size = num_players_in_first_table_reserves -%>
 
 <table id="table_reserves_first" class="tables_roster_chart">
-  <caption>Reserves:</caption>
-
-  <% @players[num_starters + num_in_bench, num].each_with_index do |player, index| -%>
-    <tr>
-      <td class="index_number"><%= index + 1 %></td>
-      <td><%= player.name %></td>
-      <td><%= player.position.name %></td>
-    </tr>
-  <% end -%>
+  <%= render :partial => 'roster_table',
+    :locals => {:caption => 'Reserves:',
+                :index_start => index_start, :size => size,
+                :index_offset => 0} %>
 </table>
 
-<table class="tables_roster_chart">
-  <caption><%= nbsp %></caption>
+<% index_start += size
+   size = @players.size -%>
 
-  <% @players[num_starters + num_in_bench + num .. -1].each_with_index do |player, index| -%>
-    <tr>
-      <td class="index_number"><%= index + num + 1 %></td>
-      <td><%= player.name %></td>
-      <td><%= player.position.name %></td>
-    </tr>
-  <% end -%>
+<table class="tables_roster_chart">
+  <%= render :partial => 'roster_table',
+    :locals => {:caption => nbsp,
+                :index_start => index_start, :size => size,
+                :index_offset => num_players_in_first_table_reserves} %>
 </table>
 
 <p>

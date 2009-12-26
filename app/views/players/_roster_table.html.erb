@@ -1,0 +1,11 @@
+
+<caption><%= caption %></caption>
+
+<% @players[index_start, size].each_with_index do |player, index| -%>
+  <tr>
+    <td class="index_number"><%= index + index_offset + 1 %></td>
+    <td><%= player.name %></td>
+    <td><%= player.position.name %></td>
+  </tr>
+<% end -%>
+
