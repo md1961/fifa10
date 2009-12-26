@@ -7,8 +7,12 @@
   num_players_in_first_table_reserves = 10
 -%>
 
+<p>
+  <%= link_to 'Back to Rosters', 'list' %>
+</p>
+
 <div id="top_of_tables_roster_chart">
-  <%= "Total Number of Players = #{@players.size}" %>
+  <%= "Total Number of Players: #{@players.size}" %>
 </div>
 
 <table id="table_starters" class="tables_roster_chart">
@@ -45,10 +49,20 @@
                 :index_offset => num_players_in_first_table_reserves} %>
 </table>
 
-<p>
-  <% form_tag :action => 'filter_on_list' do -%>
-    <%= text_field_tag :command -%>
-    <%= submit_tag 'Execute' %>
-  <% end -%>
-</p>
+<p />
+
+<% if @error_explanation -%>
+  <%= @error_explanation %>
+<% end -%>
+
+<% form_tag :action => 'edit_roster' do -%>
+  <%= text_field_tag :command -%>
+  <%= submit_tag 'Execute' %>
+<% end -%>
+
+<div id="command_samples_for_roster_chart">
+  Command Samples:
+  <br />
+  <%= command_samples_for_roster_chart %>
+</div>
 

@@ -36,6 +36,13 @@ module PlayersHelper
       + ColumnFilter::GOALKEEPING_ATTRIBUTE_NAMES
   end
 
+  def command_samples_for_roster_chart
+    return [
+      "s9 with b2 : Exchange 'Starter 9' with 'Bench 2'",
+      "r21 to r13 : Insert 'Reserve 21' before 'Reserve 13'",
+    ].join('<br />')
+  end
+
   COLUMN_ATTRIBUTES = {
     :id                => ['id'        , :R],
     :name              => ['Name'      , :L],

@@ -188,6 +188,12 @@
   text-align: right;
 }
 
+#command_samples_for_roster_chart {
+  font-size: small;
+  margin-left: 10px;
+  margin-top:   5px;
+}
+
 /* */
 
 .copyright {

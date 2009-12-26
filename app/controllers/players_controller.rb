@@ -112,13 +112,91 @@ class PlayersController < ApplicationController
   end
 
   def roster_chart
+    @error_explanation = session[:error_explanation]
+    session[:error_explanation] = nil
     @players = players_of_team
 
     team = Team.find(session[:team_id])
     @page_title = "#{team.name} Roster Chart"
   end
 
+  def edit_roster
+    players = players_of_team
+    parse_roster_edit_command(params[:command], players)
+
+    redirect_to :action => 'roster_chart'
+  end
+
   private
+
+    LEGAL_ACTIONS = %w(with to)
+
+    def parse_roster_edit_command(command, players)
+      if command.blank?
+        explain_error("", ["No command specified"], [])
+        return
+      end
+
+      title = "Command \"#{command}\" was illegal"
+      terms = command.split
+      if terms.size != 3
+        explain_error(title, ["Command must be \"p# to/with p#\" (3 words)"], [])
+        return
+      end
+
+      action = terms[1]
+      unless LEGAL_ACTIONS.include?(action)
+        legal_actions = "'" + LEGAL_ACTIONS.join("', '") + "'"
+        explain_error(title, ["Legal actions are #{legal_actions}"], [])
+        return
+      end
+
+      players = terms2players(terms, players, title)
+      return unless players
+      player1, player2 = players
+
+      msg = "#{player1.name} will be #{action=='to'?'inserted before':'exchanged with'} #{player2.name}"
+      explain_error(title+" Not", [msg], [])
+    end
+
+    def terms2players(terms, players, title)
+      player1 = term2player(terms[0], players)
+      player2 = term2player(terms[2], players)
+      return [player1, player2] if player1 && player2
+
+      illegal_players = Array.new
+      illegal_players << terms[0] unless player1
+      illegal_players << terms[2] unless player2
+      players = "'#{illegal_players.join("' and '")}'"
+      mult = illegal_players.size > 1
+      message = "#{players} #{mult ? 'are' : 'is'} illegal player#{mult ? 's' : ''}"
+      explain_error(title, [message], [])
+
+      return nil
+    end
+
+    def term2player(term, players)
+      kind = term[0, 1]
+      return nil unless %w(s b r).include?(kind)
+      index = term[1..-1].to_i
+      return nil if index <= 0
+
+      num_starters = Constant.get(:num_starters)
+      num_in_bench = Constant.get(:num_in_bench)
+      return nil if kind == 's' && index > num_starters
+      return nil if kind == 'b' && index > num_in_bench
+      return nil if kind == 'r' && index > players.size - num_starters - num_in_bench
+      player_index = index - 1
+      player_index += num_starters unless kind == 's'
+      player_index += num_in_bench if     kind == 'r'
+
+      return players[player_index]
+    end
+
+    def explain_error(title, texts, lists)
+      session[:error_explanation] = ErrorExplanation.new(title, texts, lists)
+      return
+    end
 
     def get_row_filter(params=nil)
       param = params ? params[:row_filter] : nil
