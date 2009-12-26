@@ -151,6 +151,11 @@
   margin-right: 20px;
 }
 
+#table_reserves_first {
+  float: left;
+  margin-right: 10px;
+}
+
 .tables_roster_chart {
   font-size: medium;
   border: 1px black solid;

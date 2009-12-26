@@ -4,6 +4,7 @@
 <%
   num_starters = Constant.get(:num_starters)
   num_in_bench = Constant.get(:num_in_bench)
+  num_players_in_first_table_reserves = 10
 -%>
 
 <div id="top_of_tables_roster_chart">
@@ -34,10 +35,12 @@
   <% end -%>
 </table>
 
-<table class="tables_roster_chart">
+<% num = num_players_in_first_table_reserves -%>
+
+<table id="table_reserves_first" class="tables_roster_chart">
   <caption>Reserves:</caption>
 
-  <% @players[num_starters + num_in_bench .. -1].each_with_index do |player, index| -%>
+  <% @players[num_starters + num_in_bench, num].each_with_index do |player, index| -%>
     <tr>
       <td class="index_number"><%= index + 1 %></td>
       <td><%= player.name %></td>
@@ -45,4 +48,23 @@
     </tr>
   <% end -%>
 </table>
+
+<table class="tables_roster_chart">
+  <caption><%= nbsp %></caption>
+
+  <% @players[num_starters + num_in_bench + num .. -1].each_with_index do |player, index| -%>
+    <tr>
+      <td class="index_number"><%= index + num + 1 %></td>
+      <td><%= player.name %></td>
+      <td><%= player.position.name %></td>
+    </tr>
+  <% end -%>
+</table>
+
+<p>
+  <% form_tag :action => 'filter_on_list' do -%>
+    <%= text_field_tag :command -%>
+    <%= submit_tag 'Execute' %>
+  <% end -%>
+</p>
 
