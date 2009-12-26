@@ -16,14 +16,14 @@ class ColumnFilter
 
   attr_accessor *INSTANCE_VARIABLE_NAMES
 
-  COLUMN_NAMES_NOT_TO_DISPLAY = %w(id team_id)
-
   def initialize(hash=nil)
     INSTANCE_VARIABLE_NAMES.each do |name|
       value = hash.nil? ? INSTANCE_VARIABLE_DEFAULT_VALUE : hash[name]
       instance_variable_set("@#{name}", value)
     end
   end
+
+  COLUMN_NAMES_NOT_TO_DISPLAY = %w(id team_id order_number)
 
   def displaying_columns
     columns = Player.columns

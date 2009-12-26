@@ -111,6 +111,13 @@ class PlayersController < ApplicationController
     @page_title = "#{team.name} Depth Chart"
   end
 
+  def roster_chart
+    @players = players_of_team
+
+    team = Team.find(session[:team_id])
+    @page_title = "#{team.name} Roster Chart"
+  end
+
   private
 
     def get_row_filter(params=nil)

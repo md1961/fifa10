@@ -1,0 +1,48 @@
+
+<h1><%= @page_title %></h1>
+
+<%
+  num_starters = Constant.get(:num_starters)
+  num_in_bench = Constant.get(:num_in_bench)
+-%>
+
+<div id="top_of_tables_roster_chart">
+  <%= "Total Number of Players = #{@players.size}" %>
+</div>
+
+<table id="table_starters" class="tables_roster_chart">
+  <caption>Starters:</caption>
+
+  <% @players[0, num_starters].each_with_index do |player, index| -%>
+    <tr>
+      <td class="index_number"><%= index + 1 %></td>
+      <td><%= player.name %></td>
+      <td><%= player.position.name %></td>
+    </tr>
+  <% end -%>
+</table>
+
+<table id="table_in_bench" class="tables_roster_chart">
+  <caption>Bench:</caption>
+
+  <% @players[num_starters, num_in_bench].each_with_index do |player, index| -%>
+    <tr>
+      <td class="index_number"><%= index + 1 %></td>
+      <td><%= player.name %></td>
+      <td><%= player.position.name %></td>
+    </tr>
+  <% end -%>
+</table>
+
+<table class="tables_roster_chart">
+  <caption>Reserves:</caption>
+
+  <% @players[num_starters + num_in_bench .. -1].each_with_index do |player, index| -%>
+    <tr>
+      <td class="index_number"><%= index + 1 %></td>
+      <td><%= player.name %></td>
+      <td><%= player.position.name %></td>
+    </tr>
+  <% end -%>
+</table>
+
