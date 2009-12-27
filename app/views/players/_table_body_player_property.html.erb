@@ -8,8 +8,8 @@
     <td>
       <% case action
          when :show -%>
-         <%= render :partial => 'property_display',
-                    :locals => {:column => column, :player => @player, :show_unit => true} %>
+        <%= render :partial => 'property_display',
+                   :locals => {:column => column, :player => @player, :show_unit => true} %>
       <% when :edit -%>
         <% case name
            when 'position_id' -%>

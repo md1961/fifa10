@@ -101,7 +101,12 @@
   border-left: double medium black;
 }
 
-#table_player_property th {
+.table_player_properties_and_attributes {
+  float: left;
+  margin-right: 30px;
+}
+
+.table_player_properties_and_attributes th {
   font-size: small;
   font-weight: normal;
   text-align: left;
@@ -201,6 +206,10 @@
 }
 
 /* */
+
+.clear {
+  clear: both;
+}
 
 .copyright {
   font-size: xx-small;

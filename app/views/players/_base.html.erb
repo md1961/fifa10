@@ -1,5 +1,24 @@
 
-<table id="table_player_property">
+<table class="table_player_properties_and_attributes">
   <%= render :partial => 'table_body_player_property', :locals => {:action => action, :f => f} %>
 </table>
+
+<table class="table_player_properties_and_attributes">
+  <%= render :partial => 'table_body_player_attribute',
+             :locals => {:action => action, :f => f, :index_start =>  0, :size_attributes => 11} %>
+</table>
+
+<table class="table_player_properties_and_attributes">
+  <%= render :partial => 'table_body_player_attribute',
+             :locals => {:action => action, :f => f, :index_start => 11, :size_attributes => 11} %>
+</table>
+
+<table class="table_player_properties_and_attributes">
+  <%= render :partial => 'table_body_player_attribute',
+             :locals => {:action => action, :f => f, :index_start => 22, :size_attributes => 11} %>
+</table>
+
+<div class="clear" />
+
+<br />
 
