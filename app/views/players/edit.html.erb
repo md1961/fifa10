@@ -9,7 +9,7 @@
 
 <% form_for @player do |f| -%>
 
-  <%= render :partial => 'base', :locals => {:action => :edit, :player => @player, :f => f} %>
+  <%= render :partial => 'base', :locals => {:action => :edit, :f => f} %>
 
   <%= submit_tag 'Submit' %>
   <%= nbsp(2) %>

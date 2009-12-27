@@ -7,45 +7,45 @@
   <b>Columns:</b>
   <hr />
 
-  <%= nbsp(6) -%>
+  <%= nbsp(6) %>
   <%= link_to 'Recommended', :action => 'filter_with_recommended_columns' %>
-  <%= nbsp(2) -%>
+  <%= nbsp(2) %>
   <%= link_to 'All' , :action => 'filter_with_all_columns' %>
-  <%= nbsp(2) -%>
+  <%= nbsp(2) %>
   <%= link_to 'None', :action => 'filter_with_no_columns' %>
   <br />
-  <%= nbsp(5) -%>
+  <%= nbsp(5) %>
   <% ColumnFilter::PLAYER_PROPERTY_NAMES.each do |name| -%>
     <%= check_box :column_filter, name %>
     <label for='<%= "column_filter_#{name}" %>'>
       <%= column_name2display(column_name2meaningful(name)) %>
     </label>
-    <%= nbsp -%>
+    <%= nbsp %>
   <% end -%>
 
   <hr />
 
-  <%= nbsp(6) -%>
+  <%= nbsp(6) %>
   <%= link_to 'Offensive', :action => 'filter_with_offensive_attributes' %>
-  <%= nbsp(2) -%>
+  <%= nbsp(2) %>
   <%= link_to 'Defensive', :action => 'filter_with_defensive_attributes' %>
-  <%= nbsp(2) -%>
+  <%= nbsp(2) %>
   <%= link_to 'All' , :action => 'filter_with_all_attributes' %>
-  <%= nbsp(2) -%>
+  <%= nbsp(2) %>
   <%= link_to 'None', :action => 'filter_with_no_attributes' %>
   <br />
-  <%= nbsp(5) -%>
+  <%= nbsp(5) %>
   <% displaying_player_attribute_names.each do |name| -%>
     <% if name.nil? -%>
       <br />
-      <%= nbsp(5) -%>
+      <%= nbsp(5) %>
       <% next -%>
     <% end -%>
     <%= check_box :column_filter, name %>
     <label for='<%= "column_filter_#{name}" %>'>
       <%= column_name2display(name) %>
     </label>
-    <%= nbsp -%>
+    <%= nbsp %>
   <% end -%>
 
   <br />
@@ -62,7 +62,7 @@
   </label>
   <br />
   <% RowFilter::POSITION_CATEGORIES.each do |name| -%>
-    <%= nbsp(5) -%>
+    <%= nbsp(5) %>
     <%= check_box :row_filter, name %>
     <label for="<%= 'row_filter_' + name.to_s %>">
       <%= name.to_s.camelize %>
@@ -78,9 +78,9 @@
     </span>
   </label>
   <br />
-  <%= nbsp(3) -%>
+  <%= nbsp(3) %>
   <% RowFilter::POSITIONS.each do |name| -%>
-    <%= nbsp -%>
+    <%= nbsp %>
     <%= check_box :row_filter, name %>
     <label for="<%= 'row_filter_' + name.to_s %>">
       <%= RowFilter.name2pos(name) %>
@@ -96,17 +96,17 @@
     </span>
   </label>
   <br />
-  <%= nbsp(3) -%>
+  <%= nbsp(3) %>
   <% prev_category = nil -%>
   <% RowFilter.player_instance_variable_names.each do |name| -%>
     <% player = RowFilter.get_player(name)
        category = player.position.category -%>
     <% if prev_category && category != prev_category -%>
       <br />
-      <%= nbsp(3) -%>
+      <%= nbsp(3) %>
     <% end -%>
     <% prev_category = category -%>
-    <%= nbsp -%>
+    <%= nbsp %>
     <%= check_box :row_filter, name %>
     <label for="<%= 'row_filter_' + name.to_s %>">
       <%= player.name %>
@@ -115,7 +115,7 @@
 
   <p>
     <%= submit_tag 'Apply' %>
-    <%= nbsp -%>
+    <%= nbsp %>
     <%= link_to 'Cancel', :action => 'list' %>
   </p>
 <% end -%>
