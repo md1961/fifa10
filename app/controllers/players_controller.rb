@@ -16,12 +16,14 @@ class PlayersController < ApplicationController
 
   def show
     @player = Player.find(params[:id])
+    @prev_player, @next_player = prev_and_next_players(@player)
 
     @page_title = "#{@player.number} #{@player.name}, #{@player.first_name}"
   end
 
   def edit
     @player = Player.find(params[:id])
+    @prev_player, @next_player = prev_and_next_players(@player)
 
     @page_title = "Editing #{@player.name}, #{@player.first_name} ..."
   end
@@ -309,5 +311,16 @@ class PlayersController < ApplicationController
       team_id = session[:team_id]
       raise "no 'team_id' in session" unless team_id
       return Player.list(team_id)
+    end
+
+    def prev_and_next_players(player)
+      players = players_of_team
+      index = players.index(player)
+      return nil, nil unless index
+
+      size = players.size
+      prev_index = index == 0 ? size - 1 : index - 1
+      next_index = index == size - 1 ? 0 : index + 1
+      return [players[prev_index], players[next_index]]
     end
 end

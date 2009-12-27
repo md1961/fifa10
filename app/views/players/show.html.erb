@@ -1,8 +1,12 @@
 
 <p>
+  <%= link_to "<< #{@prev_player.name}", @prev_player %>
+  <%= nbsp(4) %>
   <%= link_to 'Back to Rosters', :action => 'list' %>
   <%= nbsp(4) %>
   <%= link_to 'Edit', :action => 'edit' %>
+  <%= nbsp(4) %>
+  <%= link_to "#{@next_player.name} >>", @next_player %>
 </p>
 
 <%= render :partial => 'base', :locals => {:action => :show, :f => nil} %>
