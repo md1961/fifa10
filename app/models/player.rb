@@ -4,7 +4,6 @@ class Player < ActiveRecord::Base
   belongs_to :position
   has_many :player_positions
   has_many :sub_positions, :through => :player_positions, :source => :position
-  has_one :player_value
   has_one :player_attribute
 
   ORDER_WHEN_LIST = "order_number"
