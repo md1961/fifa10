@@ -16,6 +16,12 @@
       <p class="alerting"><%= @error_message %></p>
     <% end -%>
 
+    <% if @page_title -%>
+      <% size = @page_title_size || 1
+         tag = "h#{size}" -%>
+      <%= "<#{tag}>#{@page_title}</#{tag}>" %>
+    <% end -%>
+
     <p style="color: green"><%= flash[:notice] %></p>
 
     <%= yield %>

@@ -25,11 +25,28 @@ class PlayersController < ApplicationController
 
     @page_title = "Editing #{@player.name}, #{@player.first_name} ..."
   end
+  
+  def update
+    @player = Player.find(params[:id])
+    begin
+      ActiveRecord::Base::transaction do
+        unless @player.update_attributes(params[:player])
+          raise ActiveRecord::Rollback, "Player update failed"
+        end
+        flash[:notice] = "Player '#{@player.name}' has been successfully updated"
+        redirect_to @player
+      end
+    rescue
+      flash[:error_message] = "Failed to update Player '#{@player.name}'"
+      redirect_to [:edit, @player]
+    end
+  end
 
   def choose_to_list
     @row_filter    = get_row_filter
     @column_filter = get_column_filter
 
+    @page_title_size = 3
     @page_title = "Choose Items to Display"
   end
 
@@ -106,6 +123,7 @@ class PlayersController < ApplicationController
   def show_attribute_legend
     @abbrs_with_full = PlayerAttribute.abbrs_with_full
 
+    @page_title_size = 3
     @page_title = "Player Attribute Legend"
   end
 
