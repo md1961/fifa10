@@ -3,10 +3,8 @@ class ColumnFilter
   YES = '1'
   NO  = '0'
 
-  PLAYER_PROPERTY_NAMES = [
-    :first_name, :number, :position_id, :skill_move, :is_right_dominant,
-    :both_feet_level, :height, :weight, :birth_year, :nation_id
-  ]
+  COLUMN_NAMES_NOT_TO_FILTER = [:id, :name, :team_id, :order_number, :note]
+  PLAYER_PROPERTY_NAMES = Player.columns.map { |c| c.name.intern }.select { |n| ! COLUMN_NAMES_NOT_TO_FILTER.include?(n) }
 
   PLAYER_ATTRIBUTE_COLUMNS = PlayerAttribute.content_columns
   PLAYER_ATTRIBUTE_NAMES = PLAYER_ATTRIBUTE_COLUMNS.map { |column| column.name.intern }
@@ -23,7 +21,7 @@ class ColumnFilter
     end
   end
 
-  COLUMN_NAMES_NOT_TO_DISPLAY = %w(id team_id order_number)
+  COLUMN_NAMES_NOT_TO_DISPLAY = %w(id team_id order_number note)
 
   def self.displaying_columns
     return Player.columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
@@ -38,7 +36,7 @@ class ColumnFilter
   end
 
   RECOMMENDED_COLUMN_NAMES = [
-    :position_id, :skill_move, :is_right_dominant, :both_feet_level, :height,
+    :position_id, :skill_move, :is_right_dominant, :both_feet_level, :height, :overall
   ]
 
   def set_recommended_columns

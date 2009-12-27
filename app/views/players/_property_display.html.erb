@@ -1,4 +1,6 @@
 
+<% show_unit = false unless defined?(show_unit) -%>
+
 <% case column.name
    when 'name' -%>
   <%= "<b>#{player.name}</b>" %>
@@ -10,6 +12,10 @@
   <%= player.is_right_dominant ? 'R' : 'L' %>
 <% when 'both_feet_level' -%>
   <%= '☆' * player.both_feet_level %>
+<% when 'height' -%>
+  <%= player.height.to_s + (show_unit ? ' cm' : '') %>
+<% when 'weight' -%>
+  <%= player.weight.to_s + (show_unit ? ' kg' : '') %>
 <% when 'nation_id' -%>
   <%= player.nation.name -%>
 <% else -%>
