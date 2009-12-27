@@ -1,0 +1,44 @@
+
+<table id="table_player_property">
+  <% ColumnFilter.displaying_columns.each do |column| -%>
+    <% name = column.name.to_s -%>
+    <tr>
+      <th>
+        <%= column_name2display(column_name2meaningful(name)) + ":" + nbsp(2) %>
+      </th>
+      <td>
+        <% case action
+           when :show -%>
+          <%= render :partial => 'property_display', :locals => {:column => column, :player => @player} %>
+        <% when :edit -%>
+          <% case name
+             when 'position_id' -%>
+            <%= f.collection_select name, Position.find(:all), :id, :name %>
+          <% when 'is_right_dominant' -%>
+            <font style="font-size: small;">
+              <%= f.radio_button name, true %>
+              <label for="player_is_right_dominant_true">Right</label>
+              <%= f.radio_button name, false %>
+              <label for="player_is_right_dominant_false">Left</label>
+            </font>
+          <% when 'nation_id' -%>
+            <%= f.collection_select name, Nation.find(:all,:order=>"name"), :id, :name %>
+          <% else -%>
+            <%= f.text_field name, :size => 20 %>
+          <% end -%>
+        <% end -%>
+      </td>
+    </tr>
+
+    <% if action == :edit && name == 'position_id' -%>
+      <tr>
+        <th>Sub-Positions:</th>
+        <td>
+          <%= f.collection_select :sub_position_ids, Position.find(:all), :id, :name, {},
+                                  {:multiple => true, :name => 'player[sub_position_ids][]'} %>
+        </td>
+      </tr>
+    <% end -%>
+  <% end -%>
+</table>
+

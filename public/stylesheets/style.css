@@ -101,6 +101,12 @@
   border-left: double medium black;
 }
 
+#table_player_property th {
+  font-size: small;
+  font-weight: normal;
+  text-align: left;
+}
+
 #table_player_attribute_legend {
   font-size: medium;
 }

@@ -20,6 +20,12 @@ class PlayersController < ApplicationController
     @page_title = "#{@player.number} #{@player.name}, #{@player.first_name}"
   end
 
+  def edit
+    @player = Player.find(params[:id])
+
+    @page_title = "Editing #{@player.name}, #{@player.first_name} ..."
+  end
+
   def choose_to_list
     @row_filter    = get_row_filter
     @column_filter = get_column_filter

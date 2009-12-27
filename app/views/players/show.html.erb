@@ -3,18 +3,9 @@
 
 <p>
   <%= link_to 'Back to Rosters', :action => 'list' %>
+  <%= nbsp(4) %>
+  <%= link_to 'Edit', :action => 'edit' %>
 </p>
 
-<table>
-  <% ColumnFilter.displaying_columns.each do |column| -%>
-    <tr>
-      <td align="left">
-        <%= column_name2display(column_name2meaningful(column.name)) + ":" + nbsp(2) %>
-      </td>
-      <td>
-        <%= render :partial => 'property_display', :locals => {:column => column, :player => @player} %>
-      </td>
-    </tr>
-  <% end -%>
-</table>
+<%= render :partial => 'base', :locals => {:action => :show, :player => @player} %>
 
