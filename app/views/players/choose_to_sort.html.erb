@@ -1,0 +1,5 @@
+
+<% form_tag {:action => 'choose_to_sort'}, {:multipart => true} do -%>
+  <% @sort_fields.each_with_index do |sort_field, i| -%>
+    <% @sort_field = sort_field -%>
+

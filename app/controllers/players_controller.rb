@@ -6,6 +6,9 @@ class PlayersController < ApplicationController
     row_filter = get_row_filter
     @players = row_filter.displaying_players
 
+    sort_fields = session[:sort_fields]
+    sort_players(@players, sort_fields) if sort_fields
+
     column_filter = get_column_filter
     @columns = column_filter.displaying_columns
     @attribute_columns = column_filter.displaying_attribute_columns
@@ -18,14 +21,14 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:id])
     @prev_player, @next_player = prev_and_next_players(@player)
 
-    @page_title = "#{@player.number} #{@player.name}, #{@player.first_name}"
+    @page_title = "#{@player.number} #{@player.last_name_first_name}"
   end
 
   def edit
     @player = Player.find(params[:id])
     @prev_player, @next_player = prev_and_next_players(@player)
 
-    @page_title = "Editing #{@player.name}, #{@player.first_name} ..."
+    @page_title = "Editing #{@player.last_name_first_name} ..."
   end
   
   def update
@@ -42,6 +45,30 @@ class PlayersController < ApplicationController
       flash[:error_message] = "Failed to update Player '#{@player.name}'"
       redirect_to [:edit, @player]
     end
+  end
+
+  NUM_SORT_FIELDS = 3
+
+  def choose_to_sort
+    @sort_fields = Array.new
+    NUM_SORT_FIELDS.times do |i|
+      @sort_fields << SortField.new
+    end
+
+    @page_title = "Choose Items to Sort by"
+  end
+
+  def prepare_sort_fields
+    sort_fields = Array.new
+    NUM_SORT_FIELDS.times do |i|
+      param = params[i.to_s]
+      field_name = param[:field_name]
+      ascending  = param[:ascending] == '1'
+      sort_fields << SortField.new(field_name, ascending)
+    end
+    session[:sort_fields] = sort_fields
+
+    redirect_to :action => 'list'
   end
 
   def choose_to_list
@@ -283,6 +310,9 @@ class PlayersController < ApplicationController
       player_index += num_in_bench if     kind == 'r'
 
       return players[player_index]
+    end
+
+    def sort_players(players, sort_fields)
     end
 
     def explain_error(title, texts, lists)

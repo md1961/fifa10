@@ -15,4 +15,11 @@ class Player < ActiveRecord::Base
   def positions
     return [position] + sub_positions
   end
+
+  def last_name_first_name
+    names = Array.new
+    names << name.sub(/\A[A-Z]\. /, "")
+    names << first_name unless first_name.blank?
+    return names.join(', ')
+  end
 end
