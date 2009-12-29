@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
     return 0 if n == 0
     return n / n.abs
   end
+
+  def log_debug(msg)
+    logger.debug "[DEBUG] #{msg}"
+  end
 end

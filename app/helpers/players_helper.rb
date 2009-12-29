@@ -35,8 +35,8 @@ module PlayersHelper
   end
 
   def column_name2display(column_name)
-    s = column_name.to_s.camelize
-    s.gsub!(/([a-z])([A-Z])/, '\1 \2')
+    s = column_name.to_s.titleize
+    #s.gsub!(/([a-z])([A-Z])/, '\1 \2')
     s.sub!(/([FGP])k/, '\1K')
     return s
   end

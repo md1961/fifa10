@@ -1,5 +1,39 @@
 
-<% form_tag {:action => 'choose_to_sort'}, {:multipart => true} do -%>
+<p>
+  <%= link_to 'Cancel', :action => 'list' %>
+</p>
+
+<% form_tag({:action => 'prepare_sort_fields'}, {:multipart => true}) do -%>
   <% @sort_fields.each_with_index do |sort_field, i| -%>
+    <%= "Order No.#{i + 1}:" %>
+    <br />
+
     <% @sort_field = sort_field -%>
+    <% SortField.field_names_for_display.each do |field_name| -%>
+      <% if field_name.nil? -%>
+        <br />
+        <% next -%>
+      <% end -%>
+
+      <% html_id = "sort_#{field_name}_#{i}" -%>
+      <%= radio_button :sort_field, :field_name, field_name, :id => html_id, :index => i %>
+      <label for="<%= html_id %>"><%= column_name2display(field_name) %></label>
+
+      <%= nbsp(8) if field_name == :none %>
+    <% end -%>
+
+    <br />
+    <% html_id = "ascending_#{i}" -%>
+    <%= check_box :sort_field, :ascending, :id => html_id, :index => i %>
+    <label for="<%= html_id %>">Ascending</label>
+
+    <hr />
+  <% end -%>
+
+  <p>
+    <%= submit_tag 'Apply' %>
+    <%= nbsp %>
+    <%= link_to 'Cancel', :action => 'list' %>
+  </p>
+<% end -%>
 

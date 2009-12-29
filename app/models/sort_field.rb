@@ -7,17 +7,27 @@ class SortField
   PLAYER_ATTRIBUTE_COLUMNS = PlayerAttribute.content_columns
   PLAYER_ATTRIBUTE_NAMES = PLAYER_ATTRIBUTE_COLUMNS.map { |column| column.name.intern }
 
-  SORT_FIELD_NAMES = [:none] + PLAYER_PROPERTY_NAMES + PLAYER_ATTRIBUTE_NAMES
+  FIELD_NAMES = [:none] + PLAYER_PROPERTY_NAMES + PLAYER_ATTRIBUTE_NAMES
 
-  DEFAULT_ASCENDING = true
+  DEFAULT_ASCENDING = '1'
+
+  attr_accessor :ascending
 
   def initialize(field_name=:none, ascending=DEFAULT_ASCENDING)
-    unless [true, false].include?(ascending)
-      raise ArgumentError.new("Argument ascending must be a boolean ('#{ascending}' given)")
-    end
-
     @field_name = field_name
     @ascending = ascending
+  end
+
+  FIELD_NAMES_AT_EOL = [:market_value, :jump, :tackle]
+
+  def self.field_names_for_display
+    field_names = Array.new
+    FIELD_NAMES.each do |name|
+      field_names << name
+      field_names << nil if FIELD_NAMES_AT_EOL.include?(name)
+    end
+
+    return field_names
   end
 
   def field_name
@@ -25,7 +35,7 @@ class SortField
   end
   def field_name=(name)
     name = name.intern if name.kind_of?(String)
-    unless SORT_FIELD_NAMES.include?(name)
+    unless FIELD_NAMES.include?(name)
       raise ArgumentError.new("Unknown field name '#{name}'")
     end
 
@@ -33,13 +43,7 @@ class SortField
   end
 
   def ascending?
-    return @ascending
-  end
-  def set_ascending
-    @ascending = true
-  end
-  def set_descending
-    @ascending = false
+    return @ascending == '1'
   end
 
 end

@@ -61,11 +61,12 @@ class PlayersController < ApplicationController
   def prepare_sort_fields
     sort_fields = Array.new
     NUM_SORT_FIELDS.times do |i|
-      param = params[i.to_s]
+      param = params[:sort_field][i.to_s]
       field_name = param[:field_name]
       ascending  = param[:ascending] == '1'
       sort_fields << SortField.new(field_name, ascending)
     end
+
     session[:sort_fields] = sort_fields
 
     redirect_to :action => 'list'
