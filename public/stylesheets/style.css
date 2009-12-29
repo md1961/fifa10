@@ -94,6 +94,10 @@
   border-spacing: 0;
 }
 
+#table_players .sorted_field {
+  background-color: pink;
+}
+
 #table_players .rightmost_of_attributes {
 }
 

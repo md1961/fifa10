@@ -24,8 +24,8 @@
 
     <br />
     <% html_id = "ascending_#{i}" -%>
-    <%= check_box :sort_field, :ascending, :id => html_id, :index => i %>
-    <label for="<%= html_id %>">Ascending</label>
+    <%= check_box :sort_field, :ascending, {:id => html_id, :index => i}, '0', '1' %>
+    <label for="<%= html_id %>">Descending</label>
 
     <hr />
   <% end -%>

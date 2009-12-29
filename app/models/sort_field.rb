@@ -9,7 +9,7 @@ class SortField
 
   NAMES = [:none] + PLAYER_PROPERTY_NAMES + PLAYER_ATTRIBUTE_NAMES
 
-  DEFAULT_ASCENDING = '1'
+  DEFAULT_ASCENDING = '0'
 
   attr_accessor :ascending
 

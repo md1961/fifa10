@@ -8,6 +8,7 @@ class PlayersController < ApplicationController
 
     sort_fields = session[:sort_fields]
     sort_players(@players, sort_fields) if sort_fields
+    @sorted_field_names = sort_fields.map(&:name)
 
     column_filter = get_column_filter
     @columns = column_filter.displaying_columns
