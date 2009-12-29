@@ -22,4 +22,12 @@ class Player < ActiveRecord::Base
     names << first_name unless first_name.blank?
     return names.join(', ')
   end
+
+  def get(name)
+    name = name.to_s
+    return 0 if name == 'none'
+    value = self.send(:attributes)[name]
+    value = self.player_attribute.send(:attributes)[name] unless value
+    return value
+  end
 end

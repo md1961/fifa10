@@ -9,17 +9,17 @@
     <br />
 
     <% @sort_field = sort_field -%>
-    <% SortField.field_names_for_display.each do |field_name| -%>
-      <% if field_name.nil? -%>
+    <% SortField.names_for_display.each do |name| -%>
+      <% if name.nil? -%>
         <br />
         <% next -%>
       <% end -%>
 
-      <% html_id = "sort_#{field_name}_#{i}" -%>
-      <%= radio_button :sort_field, :field_name, field_name, :id => html_id, :index => i %>
-      <label for="<%= html_id %>"><%= column_name2display(field_name) %></label>
+      <% html_id = "sort_#{name}_#{i}" -%>
+      <%= radio_button :sort_field, :name, name, :id => html_id, :index => i %>
+      <label for="<%= html_id %>"><%= column_name2display(name) %></label>
 
-      <%= nbsp(8) if field_name == :none %>
+      <%= nbsp(8) if name == :none %>
     <% end -%>
 
     <br />

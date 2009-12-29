@@ -50,9 +50,12 @@ class PlayersController < ApplicationController
   NUM_SORT_FIELDS = 3
 
   def choose_to_sort
-    @sort_fields = Array.new
-    NUM_SORT_FIELDS.times do |i|
-      @sort_fields << SortField.new
+    @sort_fields = session[:sort_fields]
+    if @sort_fields.nil? || @sort_fields.size != NUM_SORT_FIELDS
+      @sort_fields = Array.new
+      NUM_SORT_FIELDS.times do |i|
+        @sort_fields << SortField.new
+      end
     end
 
     @page_title = "Choose Items to Sort by"
@@ -62,9 +65,9 @@ class PlayersController < ApplicationController
     sort_fields = Array.new
     NUM_SORT_FIELDS.times do |i|
       param = params[:sort_field][i.to_s]
-      field_name = param[:field_name]
+      name = param[:name]
       ascending  = param[:ascending] == '1'
-      sort_fields << SortField.new(field_name, ascending)
+      sort_fields << SortField.new(name, ascending)
     end
 
     session[:sort_fields] = sort_fields
@@ -314,7 +317,24 @@ class PlayersController < ApplicationController
     end
 
     def sort_players(players, sort_fields)
+      players.sort! { |player1, player2| compare_players(player1, player2, sort_fields) }
     end
+
+      def compare_players(player1, player2, sort_fields)
+        sort_fields.each do |field|
+          name = field.name
+          return 0 if name.to_s == 'none'
+
+          ascending = field.ascending?
+          value1 = player1.get(name)
+          value2 = player2.get(name)
+          cmp = sgn(value1 - value2) * (ascending ? 1 : -1)
+          return cmp if cmp != 0
+        end
+
+        return 0
+      end
+      private :compare_players
 
     def explain_error(title, texts, lists)
       session[:error_explanation] = ErrorExplanation.new(title, texts, lists)
