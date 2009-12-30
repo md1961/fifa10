@@ -70,7 +70,7 @@ module PlayersHelper
     :both_feet_level   => ['Weak Ft'   , :L],
     :height            => ['H'         , :R],
     :weight            => ['W'         , :R],
-    :birth_year        => ['Age'       , :R],
+    :birth_year        => ['Ag'        , :R],
     :nation_id         => ['Nation'    , :L],
     :team_id           => ['Team'      , :L],
     :overall           => ['Ov'        , :R],

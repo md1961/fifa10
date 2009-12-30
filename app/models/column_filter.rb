@@ -36,7 +36,7 @@ class ColumnFilter
   end
 
   RECOMMENDED_COLUMN_NAMES = [
-    :position_id, :skill_move, :is_right_dominant, :both_feet_level, :height, :overall
+    :position_id, :skill_move, :is_right_dominant, :both_feet_level, :height, :birth_year, :overall
   ]
 
   def set_recommended_columns
@@ -56,21 +56,29 @@ class ColumnFilter
   OFFENSIVE_ATTRIBUTE_NAMES_1 = [:control, :cross, :curve, :dribble, :goalmaking, :fk_accuracy, :head_accuracy]
   OFFENSIVE_ATTRIBUTE_NAMES_2 = [:long_pass, :long_shot, :pk, :short_pass, :shot_power, :volley]
   DEFENSIVE_ATTRIBUTE_NAMES   = [:mark, :sliding, :tackle]
-  GOALKEEPING_ATTRIBUTE_NAMES = [:gk_dive, :gk_handling, :gk_kick, :gk_positioning, :gk_reaction]
+  GOALKEEPING_ATTRIBUTE_NAMES = [:acceleration, :positiveness, :balance, :jump, :positioning, :reaction, :stamina,
+                                 :physical, :tactics, :vision,
+                                 :gk_dive, :gk_handling, :gk_kick, :gk_positioning, :gk_reaction]
 
   GENERAL_ATTRIBUTE_NAMES = GENERAL_ATTRIBUTE_NAMES_1 + GENERAL_ATTRIBUTE_NAMES_2
   OFFENSIVE_ATTRIBUTE_NAMES = OFFENSIVE_ATTRIBUTE_NAMES_1 + OFFENSIVE_ATTRIBUTE_NAMES_2
 
+  def set_general_attributes
+    set_specified_attributes(GENERAL_ATTRIBUTE_NAMES)
+  end
   def set_offensive_attributes
     set_specified_attributes(OFFENSIVE_ATTRIBUTE_NAMES)
   end
   def set_defensive_attributes
-    set_specified_attributes(DEFENSIVE_ATTRIBUTE_NAMES + GENERAL_ATTRIBUTE_NAMES)
+    set_specified_attributes(DEFENSIVE_ATTRIBUTE_NAMES)
+  end
+  def set_goalkeeping_attributes
+    set_specified_attributes(GOALKEEPING_ATTRIBUTE_NAMES)
   end
 
     def set_specified_attributes(attribute_names)
       PLAYER_ATTRIBUTE_NAMES.each do |name|
-        instance_variable_set("@#{name}", attribute_names.include?(name) ? YES : NO)
+        instance_variable_set("@#{name}", YES) if attribute_names.include?(name)
       end
     end
     private :set_specified_attributes

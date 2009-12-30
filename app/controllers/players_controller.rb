@@ -131,34 +131,57 @@ class PlayersController < ApplicationController
     end
     private :filter_with_specified_columns
 
+  GENERAL_ATTRIBUTES = 'general_attributes'
   OFFENSIVE_ATTRIBUTES = 'offensive_attributes'
   DEFENSIVE_ATTRIBUTES = 'defensive_attributes'
+  GOALKEEPING_ATTRIBUTES = 'goalkeeping_attributes'
   ALL_ATTRIBUTES = 'all_attributes'
   NO_ATTRIBUTES  = 'no_attributes'
 
+  def filter_with_general_attributes
+    filter_with_specified_attributes([GENERAL_ATTRIBUTES])
+  end
   def filter_with_offensive_attributes
-    filter_with_specified_attributes(OFFENSIVE_ATTRIBUTES)
+    filter_with_specified_attributes([OFFENSIVE_ATTRIBUTES])
   end
   def filter_with_defensive_attributes
-    filter_with_specified_attributes(DEFENSIVE_ATTRIBUTES)
+    filter_with_specified_attributes([DEFENSIVE_ATTRIBUTES])
+  end
+  def filter_with_general_and_offensive_attributes
+    filter_with_specified_attributes([GENERAL_ATTRIBUTES, OFFENSIVE_ATTRIBUTES])
+  end
+  def filter_with_general_and_defensive_attributes
+    filter_with_specified_attributes([GENERAL_ATTRIBUTES, DEFENSIVE_ATTRIBUTES])
+  end
+  def filter_with_goalkeeping_attributes
+    filter_with_specified_attributes([GOALKEEPING_ATTRIBUTES])
   end
   def filter_with_all_attributes
-    filter_with_specified_attributes(ALL_ATTRIBUTES)
+    filter_with_specified_attributes([ALL_ATTRIBUTES])
   end
   def filter_with_no_attributes
-    filter_with_specified_attributes(NO_ATTRIBUTES)
+    filter_with_specified_attributes([NO_ATTRIBUTES])
   end
 
-    def filter_with_specified_attributes(attributes)
+    def filter_with_specified_attributes(list_of_attributes)
       column_filter = get_column_filter
-      case attributes
-      when OFFENSIVE_ATTRIBUTES
-        column_filter.set_offensive_attributes
-      when DEFENSIVE_ATTRIBUTES
-        column_filter.set_defensive_attributes
-      else
-        column_filter.set_all_or_no_attributes(attributes == ALL_ATTRIBUTES)
+      column_filter.set_all_or_no_attributes(false)
+
+      list_of_attributes.each do |attributes|
+        case attributes
+        when GENERAL_ATTRIBUTES
+          column_filter.set_general_attributes
+        when OFFENSIVE_ATTRIBUTES
+          column_filter.set_offensive_attributes
+        when DEFENSIVE_ATTRIBUTES
+          column_filter.set_defensive_attributes
+        when GOALKEEPING_ATTRIBUTES
+          column_filter.set_goalkeeping_attributes
+        else
+          column_filter.set_all_or_no_attributes(attributes == ALL_ATTRIBUTES)
+        end
       end
+
       session[:column_filter] = column_filter
 
       redirect_to :action => 'list'

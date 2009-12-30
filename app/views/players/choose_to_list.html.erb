@@ -26,9 +26,17 @@
   <hr />
 
   <%= nbsp(6) %>
+  <%= link_to 'Common', :action => 'filter_with_general_attributes' %>
+  <%= nbsp(2) %>
   <%= link_to 'Offensive', :action => 'filter_with_offensive_attributes' %>
   <%= nbsp(2) %>
+  <%= link_to 'Common+Off', :action => 'filter_with_general_and_offensive_attributes' %>
+  <%= nbsp(2) %>
   <%= link_to 'Defensive', :action => 'filter_with_defensive_attributes' %>
+  <%= nbsp(2) %>
+  <%= link_to 'Common+Def', :action => 'filter_with_general_and_defensive_attributes' %>
+  <%= nbsp(2) %>
+  <%= link_to 'Goalkeeping', :action => 'filter_with_goalkeeping_attributes' %>
   <%= nbsp(2) %>
   <%= link_to 'All' , :action => 'filter_with_all_attributes' %>
   <%= nbsp(2) %>
