@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091227075745) do
+ActiveRecord::Schema.define(:version => 20091230104100) do
 
   create_table "nations", :force => true do |t|
     t.string  "name",      :default => "", :null => false
@@ -96,7 +96,10 @@ ActiveRecord::Schema.define(:version => 20091227075745) do
   end
 
   create_table "teams", :force => true do |t|
-    t.string "name", :default => "", :null => false
+    t.string  "name",         :default => "", :null => false
+    t.integer "year_founded"
+    t.string  "ground"
+    t.integer "current_year",                 :null => false
   end
 
 end
