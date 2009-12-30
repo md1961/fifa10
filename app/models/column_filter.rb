@@ -67,12 +67,14 @@ class ColumnFilter
   def set_defensive_attributes
     set_specified_attributes(DEFENSIVE_ATTRIBUTE_NAMES + GENERAL_ATTRIBUTE_NAMES)
   end
+
     def set_specified_attributes(attribute_names)
       PLAYER_ATTRIBUTE_NAMES.each do |name|
         instance_variable_set("@#{name}", attribute_names.include?(name) ? YES : NO)
       end
     end
     private :set_specified_attributes
+
   def set_all_or_no_attributes(all=true)
     value = all ? YES : NO
     PLAYER_ATTRIBUTE_NAMES.each do |name|

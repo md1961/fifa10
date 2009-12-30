@@ -164,6 +164,25 @@ class PlayersController < ApplicationController
       redirect_to :action => 'list'
     end
 
+  ALL_POSITION_CATEGORIES = 'all_position_categories'
+  NO_POSITION_CATEGORIES  = 'no_position_categories'
+
+  def filter_with_all_position_categories
+    filter_with_specified_position_categories(ALL_POSITION_CATEGORIES)
+  end
+  def filter_with_no_position_categories
+    filter_with_specified_position_categories(NO_POSITION_CATEGORIES)
+  end
+
+    def filter_with_specified_position_categories(categories)
+      row_filter = get_row_filter
+      row_filter.set_all_or_no_position_categories(categories == ALL_POSITION_CATEGORIES)
+      session[:row_filter] = row_filter
+
+      redirect_to :action => 'list'
+    end
+    private :filter_with_specified_position_categories
+
   def show_attribute_legend
     @abbrs_with_full = PlayerAttribute.abbrs_with_full
 

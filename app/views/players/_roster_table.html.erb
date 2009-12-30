@@ -1,9 +1,12 @@
 
+<% kind = caption.at(0).downcase
+   kind = 'r' if kind == '&' -%>
+
 <caption><%= caption %></caption>
 
 <% @players[index_start, size].each_with_index do |player, index| -%>
   <tr>
-    <td class="index_number"><%= index + index_offset + 1 %></td>
+    <td class="index_number"><%= "#{kind}#{index + index_offset + 1}" %></td>
     <td class="name"><%= player.name %></td>
     <td><%= player.position.name %></td>
   </tr>

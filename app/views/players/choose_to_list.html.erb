@@ -60,6 +60,10 @@
       Use Position Categories
     </span>
   </label>
+  <%= nbsp(2) %>
+  <%= link_to 'All' , :action => 'filter_with_all_position_categories' %>
+  <%= nbsp(2) %>
+  <%= link_to 'None', :action => 'filter_with_no_position_categories' %>
   <br />
   <% RowFilter::POSITION_CATEGORIES.each do |name| -%>
     <%= nbsp(5) %>
