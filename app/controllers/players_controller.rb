@@ -22,15 +22,19 @@ class PlayersController < ApplicationController
   end
 
   def show
+    row_filter = get_row_filter
+    players = row_filter.displaying_players
     @player = Player.find(params[:id])
-    @prev_player, @next_player = prev_and_next_players(@player)
+    @prev_player, @next_player = prev_and_next_players(@player, players)
 
     @page_title = "#{@player.number} #{@player.last_name_first_name}"
   end
 
   def edit
+    row_filter = get_row_filter
+    players = row_filter.displaying_players
     @player = Player.find(params[:id])
-    @prev_player, @next_player = prev_and_next_players(@player)
+    @prev_player, @next_player = prev_and_next_players(@player, players)
 
     @page_title = "Editing #{@player.last_name_first_name} ..."
   end
@@ -371,8 +375,7 @@ class PlayersController < ApplicationController
       return Player.list(team_id)
     end
 
-    def prev_and_next_players(player)
-      players = players_of_team
+    def prev_and_next_players(player, players)
       index = players.index(player)
       return nil, nil unless index
 

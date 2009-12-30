@@ -192,8 +192,12 @@
   border-spacing: 0;
 }
 
-.tables_roster_chart caption {
+.tables_roster_chart .name {
   font-weight: bold;
+}
+
+.tables_roster_chart caption {
+  font-weight: normal;
   text-align: left;
   padding-left: 7px;
 }

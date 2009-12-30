@@ -15,16 +15,16 @@
 
 <table id="table_starters" class="tables_roster_chart">
   <%= render :partial => 'roster_table',
-    :locals => {:caption => 'Starters:',
-                :index_start => 0, :size => num_starters,
-                :index_offset => 0} %>
+             :locals => {:caption => 'Starters:',
+                         :index_start => 0, :size => num_starters,
+                         :index_offset => 0} %>
 </table>
 
 <table id="table_in_bench" class="tables_roster_chart">
   <%= render :partial => 'roster_table',
-    :locals => {:caption => 'Bench:',
-                :index_start => num_starters, :size => num_in_bench,
-                :index_offset => 0} %>
+             :locals => {:caption => 'Bench:',
+                         :index_start => num_starters, :size => num_in_bench,
+                         :index_offset => 0} %>
 </table>
 
 <% index_start = num_starters + num_in_bench
@@ -32,9 +32,9 @@
 
 <table id="table_reserves_first" class="tables_roster_chart">
   <%= render :partial => 'roster_table',
-    :locals => {:caption => 'Reserves:',
-                :index_start => index_start, :size => size,
-                :index_offset => 0} %>
+             :locals => {:caption => 'Reserves:',
+                         :index_start => index_start, :size => size,
+                         :index_offset => 0} %>
 </table>
 
 <% index_start += size
@@ -42,9 +42,9 @@
 
 <table class="tables_roster_chart">
   <%= render :partial => 'roster_table',
-    :locals => {:caption => nbsp,
-                :index_start => index_start, :size => size,
-                :index_offset => num_players_in_first_table_reserves} %>
+             :locals => {:caption => nbsp,
+                         :index_start => index_start, :size => size,
+                         :index_offset => num_players_in_first_table_reserves} %>
 </table>
 
 <p />
