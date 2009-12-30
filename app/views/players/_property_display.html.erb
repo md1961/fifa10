@@ -1,7 +1,7 @@
 
 <% show_unit = false unless defined?(show_unit) -%>
 
-<% case column.name
+<% case column_name
    when 'name' -%>
   <%= "<b>#{player.name}</b>" %>
 <% when 'position_id' -%>
@@ -16,11 +16,13 @@
   <%= player.height.to_s + (show_unit ? ' cm' : '') %>
 <% when 'weight' -%>
   <%= player.weight.to_s + (show_unit ? ' kg' : '') %>
+<% when 'birth_year' -%>
+  <%= player.age %>
 <% when 'nation_id' -%>
   <%= player.nation.name -%>
 <% when 'market_value' -%>
   <%= number_with_delimiter(player.market_value) + (show_unit ? ' K' + [0x00A3].pack('U') : '') %>
 <% else -%>
-  <%= h player.send(:attributes)[column.name] %>
+  <%= player.get(column_name) %>
 <% end -%>
 

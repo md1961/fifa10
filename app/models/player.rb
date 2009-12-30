@@ -23,11 +23,17 @@ class Player < ActiveRecord::Base
     return names.join(', ')
   end
 
+  def age(current_year=nil)
+    current_year = team.current_year
+    return current_year - birth_year
+  end
+
   def get(name)
     name = name.to_s
     return 0 if name == 'none'
     value = self.send(:attributes)[name]
     value = self.player_attribute.send(:attributes)[name] unless value
+    value = self.send(name) unless value
     return value
   end
 end

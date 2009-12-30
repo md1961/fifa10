@@ -18,7 +18,7 @@
     <th><%= nbsp %></th>
 
     <% @columns.each do |column| -%>
-      <th><%= h column_index(column) %></th>
+      <th><%= column_index(column) %></th>
     <% end -%>
 
     <% @attribute_columns.each do |column| -%>
@@ -31,20 +31,22 @@
       <td><%= link_to '>', player %></td>
 
       <% @columns.each do |column| -%>
-        <% clazz = column == last_column ? 'rightmost_of_players' : ''
-           clazz += @sorted_field_names.include?(column.name) ? ' sorted_field' : '' -%>
+        <% column_name = column.name
+           clazz = column == last_column ? 'rightmost_of_players' : ''
+           clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : '' -%>
         <td align="<%= column_align(column) %>" class="<%= clazz %>">
-          <%= render :partial => 'property_display', :locals => {:column => column, :player => player} %>
+          <%= render :partial => 'property_display', :locals => {:column_name => column_name, :player => player} %>
         </td>
       <% end -%>
 
       <% is_leftmost = true
          attrs = player.player_attribute -%>
       <% @attribute_columns.each do |column| -%>
-        <% clazz = is_leftmost ? 'leftmost_of_attributes' : ''
-           clazz += @sorted_field_names.include?(column.name) ? ' sorted_field' : ''
+        <% column_name = column.name
+           clazz = is_leftmost ? 'leftmost_of_attributes' : ''
+           clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : ''
            is_leftmost = false -%>
-        <td align="right" class="<%= clazz %>"><%= attrs.send(:attributes)[column.name] %></td>
+        <td align="right" class="<%= clazz %>"><%= attrs.send(:attributes)[column_name] %></td>
       <% end -%>
     </tr>
   <% end -%>

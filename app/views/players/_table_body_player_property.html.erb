@@ -19,13 +19,17 @@
   <% name = column.name -%>
   <tr>
     <th>
-      <%= column_name2display(column_name2meaningful(name)) + ":" + nbsp(2) %>
+      <% if name == 'birth_year' -%>
+        <%= action == :show ? "Age:" : "Birth Year (or Age):" %>
+      <% else -%>
+        <%= column_name2display(column_name2meaningful(name)) + ":" + nbsp(2) %>
+      <% end -%>
     </th>
     <td>
       <% case action
          when :show -%>
         <%= render :partial => 'property_display',
-                   :locals => {:column => column, :player => @player, :show_unit => true} %>
+                   :locals => {:column_name => name, :player => @player, :show_unit => true} %>
       <% when :edit -%>
         <% case name
            when 'position_id' -%>

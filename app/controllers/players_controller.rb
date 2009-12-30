@@ -18,7 +18,7 @@ class PlayersController < ApplicationController
     @attribute_columns = column_filter.displaying_attribute_columns
 
     team = Team.find(team_id)
-    @page_title = "#{team.name} Rosters"
+    @page_title = "#{team.name_and_year} Rosters"
   end
 
   def show
@@ -37,6 +37,8 @@ class PlayersController < ApplicationController
   
   def update
     @player = Player.find(params[:id])
+    birth_year = Integer(params[:player][:birth_year])
+    params[:player][:birth_year] = @player.team.current_year - birth_year if birth_year < 100
     begin
       ActiveRecord::Base::transaction do
         unless @player.update_attributes(params[:player])
@@ -62,6 +64,7 @@ class PlayersController < ApplicationController
       end
     end
 
+    @page_title_size = 3
     @page_title = "Choose Items to Sort by"
   end
 
@@ -175,7 +178,7 @@ class PlayersController < ApplicationController
     end
 
     team = Team.find(session[:team_id])
-    @page_title = "#{team.name} Depth Chart"
+    @page_title = "#{team.name_and_year} Depth Chart"
   end
 
   def roster_chart
@@ -184,7 +187,7 @@ class PlayersController < ApplicationController
     @players = players_of_team
 
     team = Team.find(session[:team_id])
-    @page_title = "#{team.name} Roster Chart"
+    @page_title = "#{team.name_and_year} Roster Chart"
   end
 
   def edit_roster
