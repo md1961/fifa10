@@ -56,9 +56,9 @@ class ColumnFilter
   OFFENSIVE_ATTRIBUTE_NAMES_1 = [:control, :cross, :curve, :dribble, :goalmaking, :fk_accuracy, :head_accuracy]
   OFFENSIVE_ATTRIBUTE_NAMES_2 = [:long_pass, :long_shot, :pk, :short_pass, :shot_power, :volley]
   DEFENSIVE_ATTRIBUTE_NAMES   = [:mark, :sliding, :tackle]
-  GOALKEEPING_ATTRIBUTE_NAMES = [:acceleration, :positiveness, :balance, :jump, :positioning, :reaction, :stamina,
-                                 :physical, :tactics, :vision,
-                                 :gk_dive, :gk_handling, :gk_kick, :gk_positioning, :gk_reaction]
+  GOALKEEPING_ATTRIBUTE_NAMES = [:gk_dive, :gk_handling, :gk_kick, :gk_positioning, :gk_reaction]
+  GENERAL_GOALKEEPING_ATTRIBUTE_NAMES = [:acceleration, :positiveness, :balance, :jump, :positioning, :reaction, :stamina,
+                                         :physical, :tactics, :vision]
 
   GENERAL_ATTRIBUTE_NAMES = GENERAL_ATTRIBUTE_NAMES_1 + GENERAL_ATTRIBUTE_NAMES_2
   OFFENSIVE_ATTRIBUTE_NAMES = OFFENSIVE_ATTRIBUTE_NAMES_1 + OFFENSIVE_ATTRIBUTE_NAMES_2
@@ -73,7 +73,7 @@ class ColumnFilter
     set_specified_attributes(DEFENSIVE_ATTRIBUTE_NAMES)
   end
   def set_goalkeeping_attributes
-    set_specified_attributes(GOALKEEPING_ATTRIBUTE_NAMES)
+    set_specified_attributes(GENERAL_GOALKEEPING_ATTRIBUTE_NAMES + GOALKEEPING_ATTRIBUTE_NAMES)
   end
 
     def set_specified_attributes(attribute_names)

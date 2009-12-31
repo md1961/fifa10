@@ -44,12 +44,10 @@ module PlayersHelper
   def displaying_player_attribute_names
     # [nil] to instruct to output <br />
     return \
-        ColumnFilter::GENERAL_ATTRIBUTE_NAMES_1   + [nil] \
-      + ColumnFilter::GENERAL_ATTRIBUTE_NAMES_2   + [nil] \
+        ColumnFilter::GENERAL_ATTRIBUTE_NAMES_1   + ColumnFilter::GENERAL_ATTRIBUTE_NAMES_2   + [nil] \
       + ColumnFilter::OFFENSIVE_ATTRIBUTE_NAMES_1 + [nil] \
       + ColumnFilter::OFFENSIVE_ATTRIBUTE_NAMES_2 + [nil] \
-      + ColumnFilter::DEFENSIVE_ATTRIBUTE_NAMES   + [nil] \
-      + ColumnFilter::GOALKEEPING_ATTRIBUTE_NAMES
+      + ColumnFilter::DEFENSIVE_ATTRIBUTE_NAMES   + ColumnFilter::GOALKEEPING_ATTRIBUTE_NAMES
   end
 
   def command_samples_for_roster_chart
