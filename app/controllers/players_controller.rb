@@ -104,6 +104,10 @@ class PlayersController < ApplicationController
     redirect_to :action => 'list'
   end
 
+  def take_command_to_filter
+    raise "NOT implemeted yet!"
+  end
+
   RECOMMENDED_COLUMNS = 'recommended_columns'
   ALL_COLUMNS         = 'all_columns'
   NO_COLUMNS          = 'no_columns'
@@ -221,6 +225,7 @@ class PlayersController < ApplicationController
       players_at_position.each do |player|
         @depth[position] << player
       end
+      @depth[position].sort! { |p1, p2| p1.overall.<=>(p2.overall) * -1 }
     end
 
     team = Team.find(session[:team_id])

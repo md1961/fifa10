@@ -7,7 +7,17 @@
   <% Position.find(:all).each do |position| -%>
     <tr>
       <th><%= position.name -%></th>
-      <td><%= @depth[position].map(&:name).join(' : ') %></td>
+      <td>
+        <% players = @depth[position]
+           size = players.size
+           players.each_with_index do |player, i| -%>
+          <%= player.name %>
+          <span class="property">
+            <%= "(#{player.overall})" %>
+            <%= " : " if i < size - 1 %>
+          </span>
+        <% end -%>
+      </td>
     </tr>
   <% end -%>
 </table>

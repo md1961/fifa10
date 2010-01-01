@@ -137,6 +137,7 @@
 }
 
 #table_depth_chart th {
+  font-weight: normal;
   padding: 1px 4px 1px;
   border: 1px black solid;
   border-collapse: collapse;
@@ -144,10 +145,16 @@
 }
 
 #table_depth_chart td {
+  font-weight: bold;
   padding: 1px 4px 1px;
   border: 1px black solid;
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+#table_depth_chart td .property {
+  font-weight: normal;
+  font-size: small;
 }
 
 #top_of_tables_roster_chart {

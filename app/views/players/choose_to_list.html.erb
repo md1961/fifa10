@@ -1,7 +1,17 @@
 
-<p>
-  <%= link_to 'Cancel', :action => 'list' %>
-</p>
+<%= link_to 'Cancel', {:action => 'list'}, {:style => "float: left"} %>
+<div style="float: left;"><%= nbsp(4) %></div>
+
+<% if @error_explanation -%>
+  <%= @error_explanation %>
+<% end -%>
+
+<% form_tag :action => 'take_command_to_filter' do -%>
+  <label for="command">Position/Name? </label>
+  <%= text_field_tag :command -%>
+  <%= submit_tag 'Enter' %>
+<% end -%>
+<br />
 
 <% form_tag :action => 'filter_on_list' do -%>
   <b>Columns:</b>
