@@ -1,9 +1,11 @@
 
 <%= link_to 'Cancel', {:action => 'list'}, {:style => "float: left"} %>
-<div style="float: left;"><%= nbsp(4) %></div>
 
 <% if @error_explanation -%>
+  <br />
   <%= @error_explanation %>
+<% else -%>
+  <div style="float: left;"><%= nbsp(4) %></div>
 <% end -%>
 
 <% form_tag :action => 'take_command_to_filter' do -%>

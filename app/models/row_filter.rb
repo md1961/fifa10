@@ -75,6 +75,10 @@ class RowFilter
     return @option == USE_PLAYER_NAMES
   end
 
+  def set_no_position_categories
+    set_all_or_no_position_categories(false)
+  end
+
   def set_all_or_no_position_categories(all=true)
     value = all ? YES : NO
     POSITION_CATEGORIES.each do |name|
@@ -82,6 +86,18 @@ class RowFilter
     end
 
     @option = USE_POSITION_CATEGORIES
+  end
+
+  def set_no_positions
+    POSITIONS.each do |name|
+      instance_variable_set("@#{name}", NO)
+    end
+
+    @option = USE_POSITIONS
+  end
+
+  def set_position(position_name, bool_value=true)
+    instance_variable_set("@#{RowFilter.pos2name(position_name)}", bool_value ? YES : NO)
   end
 
   def displaying_players
