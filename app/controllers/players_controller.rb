@@ -92,6 +92,7 @@ class PlayersController < ApplicationController
 
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
+    @last_command = session[:last_command_to_filter] if @error_explanation
 
     @page_title_size = 3
     @page_title = "Choose Items to Display"
@@ -108,7 +109,9 @@ class PlayersController < ApplicationController
   end
 
   def take_command_to_filter
-    is_good = parse_commant_to_filter(params[:command])
+    command = params[:command]
+    session[:last_command_to_filter] = command
+    is_good = parse_commant_to_filter(command)
 
     redirect_to :action => is_good ? 'list' : 'choose_to_list'
   end
