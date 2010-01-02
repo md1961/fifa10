@@ -150,6 +150,9 @@ class PlayersController < ApplicationController
   ALL_ATTRIBUTES = 'all_attributes'
   NO_ATTRIBUTES  = 'no_attributes'
 
+  def filter_with_field_attributes
+    filter_with_specified_attributes([GENERAL_ATTRIBUTES, OFFENSIVE_ATTRIBUTES, DEFENSIVE_ATTRIBUTES])
+  end
   def filter_with_general_attributes
     filter_with_specified_attributes([GENERAL_ATTRIBUTES])
   end

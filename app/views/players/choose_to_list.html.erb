@@ -16,7 +16,7 @@
 <% end -%>
 </div>
 
-<span style="font-size: small; vertical-align: bottom; padding-bottom: 0px;">
+<span style="font-size: small; vertical-align: bottom; margin-bottom: 0px;">
   <%= nbsp(2) %>
   positions/player names with space delimited.
   <%= nbsp(2) %>
@@ -52,6 +52,8 @@
   <hr />
 
   <%= nbsp(6) %>
+  <%= link_to 'Field', :action => 'filter_with_field_attributes' %>
+  <%= nbsp(2) %>
   <%= link_to 'Common', :action => 'filter_with_general_attributes' %>
   <%= nbsp(2) %>
   <%= link_to 'Offensive', :action => 'filter_with_offensive_attributes' %>
