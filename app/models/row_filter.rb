@@ -15,7 +15,8 @@ class RowFilter
     return instance_variable_name.to_s[4..-1].upcase
   end
 
-  POSITIONS = Position.find(:all).map { |pos| pos2name(pos.name).intern }
+  RAW_POSITIONS = Position.find(:all)
+  POSITIONS = RAW_POSITIONS.map { |pos| pos2name(pos.name).intern }
 
   def self.id2name(id)
     return "p#{id}"
@@ -96,6 +97,10 @@ class RowFilter
     @option = USE_POSITIONS
   end
 
+  def self.position?(name)
+    return RAW_POSITIONS.map(&:name).include?(name.upcase)
+  end
+
   def set_position_by_name(position_name, bool_value=true)
     instance_variable_set("@#{RowFilter.pos2name(position_name)}", bool_value ? YES : NO)
   end
@@ -108,11 +113,18 @@ class RowFilter
     @option = USE_PLAYER_NAMES
   end
 
-  def set_player_by_name(player_name, bool_value=true)
-    player = @@players.find { |player| player.name.gsub(/ /, '').downcase == player_name.downcase }
-    raise CannotFindPlayerException.new("No such Player '#{player_name}'") unless player
-    id = @@players.index(player)
-    instance_variable_set("@#{RowFilter.id2name(id)}", bool_value ? YES : NO)
+  def self.player_name_match(name)
+    pattern = name.gsub(/\*/, '.*')
+    pattern = pattern.gsub(/%/, '.*')
+    pattern = /\A#{pattern}\z/i
+    return @@players.select { |player| pattern =~ player.name.gsub(/ /, '') }
+  end
+
+  def set_player_by_name(name, bool_value=true)
+    RowFilter.player_name_match(name).each do |player|
+      id = @@players.index(player)
+      instance_variable_set("@#{RowFilter.id2name(id)}", bool_value ? YES : NO)
+    end
   end
 
   def displaying_players

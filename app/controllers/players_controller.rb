@@ -402,20 +402,13 @@ class PlayersController < ApplicationController
     end
 
     def parse_commant_to_filter(command)
-      position_names = Position.find(:all).map { |position| position.name.downcase }
-
-      players = players_of_team
-      player_names = players.map { |player| player.name.downcase.gsub(/ /, '') }
-      map_name2player = Hash.new
-      player_names.each_with_index do |name, i|
-        map_name2player[name] = players[i]
-      end
-
       command = command.strip
       if command.blank?
         explain_error("No command specified", ["No command specified"], [])
         return false
       end
+
+      row_filter = get_row_filter
 
       title = "Command '#{command}' specified"
 
@@ -424,23 +417,22 @@ class PlayersController < ApplicationController
       command.split.each do |name|
         name = name.downcase
         if kind.nil?
-          is_position = position_names.include?(name)
-          is_player   = player_names  .include?(name)
+          is_position = RowFilter.position?(name)
+          is_player   = RowFilter.player_name_match(name).size > 0
           if ! is_position && ! is_player
             explain_error(title, ["Unknown position/player name '#{name}'"], [])
             return false
           end
           kind = is_position ? 'position' : 'player'
         end
-        names_to_look = eval("#{kind}_names")
-        unless names_to_look.include?(name)
+        found = kind == 'position' ? RowFilter.position?(name) : RowFilter.player_name_match(name).size > 0
+        unless found
           explain_error(title, ["Unknown #{kind} name '#{name}'"], [])
           return false
         end
         names << name
       end
 
-      row_filter = get_row_filter
       eval("row_filter.set_no_#{kind}s")
       names.each do |name|
         begin

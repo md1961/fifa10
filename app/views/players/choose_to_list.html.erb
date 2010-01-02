@@ -8,11 +8,25 @@
   <div style="float: left;"><%= nbsp(4) %></div>
 <% end -%>
 
+<div style="float: left;">
 <% form_tag :action => 'take_command_to_filter' do -%>
   <label for="command">Position/Name? </label>
   <%= text_field_tag :command, @last_command -%>
   <%= submit_tag 'Enter' %>
 <% end -%>
+</div>
+
+<span style="font-size: small; vertical-align: bottom; padding-bottom: 0px;">
+  <%= nbsp(2) %>
+  positions/player names with space delimited.
+  <%= nbsp(2) %>
+  omit spaces.
+  <%= nbsp(2) %>
+  'abc%' for prefix search.
+  <%= nbsp(2) %>
+  '%xyz' for postfix search.
+</span>
+<br />
 <br />
 
 <% form_tag :action => 'filter_on_list' do -%>
