@@ -12,6 +12,18 @@ class Player < ActiveRecord::Base
     return find_all_by_team_id(team_id, :order => ORDER_WHEN_LIST)
   end
 
+  def self.player_attribute_top_values(order, players)
+    map_values = Hash.new
+    PlayerAttribute.content_columns.map(&:name).each do |name|
+      values = players.map(&:player_attribute).map do |attribute|
+        attribute.send(:attributes)[name]
+      end
+      map_values[name] = values.sort.reverse[order - 1]
+    end
+
+    return map_values
+  end
+
   def positions
     return [position] + sub_positions
   end

@@ -124,6 +124,10 @@
   height: 16px;
 }
 
+.top_five_values {
+  background-color: cyan;
+}
+
 .option_selected {
   font-size: large;
   font-weight: bold;

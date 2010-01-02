@@ -43,10 +43,13 @@
          attrs = player.player_attribute -%>
       <% @attribute_columns.each do |column| -%>
         <% column_name = column.name
+           value = attrs.send(:attributes)[column_name]
            clazz = is_leftmost ? 'leftmost_of_attributes' : ''
            clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : ''
+           top_five_value = @attribute_top_five_values[column_name]
+           clazz += ' top_five_values' if value >= top_five_value
            is_leftmost = false -%>
-        <td align="right" class="<%= clazz %>"><%= attrs.send(:attributes)[column_name] %></td>
+        <td align="right" class="<%= clazz %>"><%= value %></td>
       <% end -%>
     </tr>
   <% end -%>
