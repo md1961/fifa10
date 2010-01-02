@@ -438,12 +438,15 @@ class PlayersController < ApplicationController
       end
 
       row_filter = get_row_filter
-      row_filter.set_no_positions
+      eval("row_filter.set_no_#{kind}s")
       names.each do |name|
-        row_filter.set_position(name)
+        begin
+          eval("row_filter.set_#{kind}_by_name(name)")
+        rescue RowFilter::CannotFindPlayerException
+          explain_error(title, ["Unknown Player name '#{name}'"], [])
+          return false
+        end
       end
-
-      log_debug "row_filter = #{row_filter.inspect}"
 
       session[:row_filter] = row_filter
 

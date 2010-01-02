@@ -96,8 +96,23 @@ class RowFilter
     @option = USE_POSITIONS
   end
 
-  def set_position(position_name, bool_value=true)
+  def set_position_by_name(position_name, bool_value=true)
     instance_variable_set("@#{RowFilter.pos2name(position_name)}", bool_value ? YES : NO)
+  end
+
+  def set_no_players
+    PLAYER_IDS.each do |id|
+      instance_variable_set("@#{id}", NO)
+    end
+
+    @option = USE_PLAYER_NAMES
+  end
+
+  def set_player_by_name(player_name, bool_value=true)
+    player = @@players.find { |player| player.name.gsub(/ /, '').downcase == player_name.downcase }
+    raise CannotFindPlayerException.new("No such Player '#{player_name}'") unless player
+    id = @@players.index(player)
+    instance_variable_set("@#{RowFilter.id2name(id)}", bool_value ? YES : NO)
   end
 
   def displaying_players
@@ -147,5 +162,10 @@ class RowFilter
         instance_variable_set("@#{name}", players.include?(player) ? YES : NO)
       end
     end
+
+  public
+
+  class CannotFindPlayerException < Exception
+  end
 end
 
