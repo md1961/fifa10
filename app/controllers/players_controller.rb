@@ -50,6 +50,9 @@ class PlayersController < ApplicationController
         unless @player.update_attributes(params[:player])
           raise ActiveRecord::Rollback, "Player update failed"
         end
+        unless @player.player_attribute.update_attributes(params[:player_attribute])
+          raise ActiveRecord::Rollback, "PlayerAttribute update failed"
+        end
         flash[:notice] = "Player '#{@player.name}' has been successfully updated"
         redirect_to @player
       end
