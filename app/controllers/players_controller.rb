@@ -62,6 +62,25 @@ class PlayersController < ApplicationController
     end
   end
 
+  def new
+    @player = Player.new
+
+    @page_title = "Creating a new Player ..."
+  end
+
+  def create
+    @player = Player.new(params[:player])
+    @player.attribute = PlayerAttribute.new(params[:player_attribute])
+    begin
+      @player.save!
+      redirect_to @player
+      #redirect_to :action => 'show', :id => @player
+    rescue
+      flash[:error_message] = "Failed to create Player '#{@player.name}'"
+      render :action => 'new'
+    end
+  end
+
   NUM_SORT_FIELDS = 3
 
   def choose_to_sort
