@@ -13,6 +13,14 @@ class PlayerAttribute < ActiveRecord::Base
     return entry ? entry[1] : nil
   end
 
+  def self.zeros
+    obj = new
+    content_columns.each do |column|
+      obj.write_attribute(column.name, 0)
+    end
+    return obj
+  end
+
   ABBRS = [
     [:acceleration   , 'AC'],
     [:positiveness   , 'PV'],

@@ -64,19 +64,26 @@ class PlayersController < ApplicationController
 
   def new
     @player = Player.new
+    @player.player_attribute = PlayerAttribute.zeros
 
+    @page_title_size = 3
     @page_title = "Creating a new Player ..."
   end
 
   def create
+    team_id = session[:team_id]
     @player = Player.new(params[:player])
-    @player.attribute = PlayerAttribute.new(params[:player_attribute])
+    @player.team = Team.find(team_id)
+    @player.order_number = Player.next_order_number(team_id)
+    @player.player_attribute = PlayerAttribute.new(params[:player_attribute])
     begin
       @player.save!
       redirect_to @player
       #redirect_to :action => 'show', :id => @player
-    rescue
+    rescue ActiveRecord::RecordInvalid
       flash[:error_message] = "Failed to create Player '#{@player.name}'"
+      @page_title_size = 3
+      @page_title = "Creating a new Player ..."
       render :action => 'new'
     end
   end
