@@ -45,7 +45,8 @@ class Player < ActiveRecord::Base
     return 1 + maximum(:order_number, :conditions => ["team_id = ?", team_id])
   end
 
-  def self.player_attribute_top_values(order, players)
+  def self.player_attribute_top_values(order, team_id)
+    players = find_all_by_team_id(team_id)
     map_values = Hash.new
     PlayerAttribute.content_columns.map(&:name).each do |name|
       values = players.map(&:player_attribute).map do |attribute|

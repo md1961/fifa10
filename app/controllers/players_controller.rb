@@ -17,7 +17,7 @@ class PlayersController < ApplicationController
     @columns = column_filter.displaying_columns
     @attribute_columns = column_filter.displaying_attribute_columns
 
-    @attribute_top_five_values = Player.player_attribute_top_values(5, @players)
+    @attribute_top_five_values = Player.player_attribute_top_values(5, team_id)
 
     team = Team.find(team_id)
     @page_title = "#{team.name_and_year} Rosters"
