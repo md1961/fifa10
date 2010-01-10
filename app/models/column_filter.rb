@@ -76,12 +76,12 @@ class ColumnFilter
     set_specified_attributes(GENERAL_GOALKEEPING_ATTRIBUTE_NAMES + GOALKEEPING_ATTRIBUTE_NAMES)
   end
 
-    def set_specified_attributes(attribute_names)
-      PLAYER_ATTRIBUTE_NAMES.each do |name|
-        instance_variable_set("@#{name}", YES) if attribute_names.include?(name)
-      end
+  def set_specified_attributes(attribute_names)
+    attribute_names = attribute_names.map { |name| name.kind_of?(Symbol) ? name : name.intern }
+    PLAYER_ATTRIBUTE_NAMES.each do |name|
+      instance_variable_set("@#{name}", YES) if attribute_names.include?(name)
     end
-    private :set_specified_attributes
+  end
 
   def set_all_or_no_attributes(all=true)
     value = all ? YES : NO

@@ -1,9 +1,16 @@
 
 <p>
   <%= link_to 'Cancel', :action => 'list' %>
+  <%= nbsp(4) %>
+  <%= link_to 'Clear All', :action => 'clear_all_sort_fields' %>
 </p>
 
 <% form_tag({:action => 'prepare_sort_fields'}, {:multipart => true}) do -%>
+  <%= check_box_tag :shows_sort_only %>
+  <label for="shows_sort_only">Display sorted column(s) only</label>
+  <br />
+  <br />
+
   <% @sort_fields.each_with_index do |sort_field, i| -%>
     <%= "Order No.#{i + 1}:" %>
     <br />

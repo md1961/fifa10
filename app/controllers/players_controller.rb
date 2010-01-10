@@ -103,6 +103,16 @@ class PlayersController < ApplicationController
     @page_title = "Choose Items to Sort by"
   end
 
+  def clear_all_sort_fields
+    sort_fields = Array.new
+    NUM_SORT_FIELDS.times do |i|
+      sort_fields << SortField.new
+    end
+    session[:sort_fields] = sort_fields
+
+    redirect_to :action => 'list'
+  end
+
   def prepare_sort_fields
     sort_fields = Array.new
     NUM_SORT_FIELDS.times do |i|
@@ -111,10 +121,14 @@ class PlayersController < ApplicationController
       ascending  = param[:ascending] == '1'
       sort_fields << SortField.new(name, ascending)
     end
-
     session[:sort_fields] = sort_fields
 
-    redirect_to :action => 'list'
+    if params[:shows_sort_only] == '1'
+      attribute_names = sort_fields.map(&:name).select { |name| name != 'none' }
+      filter_with_specified_attributes([DESIGNATED_ATTRIBUTES], attribute_names)
+    else
+      redirect_to :action => 'list'
+    end
   end
 
   def choose_to_list
@@ -178,6 +192,7 @@ class PlayersController < ApplicationController
   OFFENSIVE_ATTRIBUTES = 'offensive_attributes'
   DEFENSIVE_ATTRIBUTES = 'defensive_attributes'
   GOALKEEPING_ATTRIBUTES = 'goalkeeping_attributes'
+  DESIGNATED_ATTRIBUTES  = 'designated_attributes'
   ALL_ATTRIBUTES = 'all_attributes'
   NO_ATTRIBUTES  = 'no_attributes'
 
@@ -209,7 +224,7 @@ class PlayersController < ApplicationController
     filter_with_specified_attributes([NO_ATTRIBUTES])
   end
 
-    def filter_with_specified_attributes(list_of_attributes)
+    def filter_with_specified_attributes(list_of_attributes, attribute_names=nil)
       column_filter = get_column_filter
       column_filter.set_all_or_no_attributes(false)
 
@@ -223,6 +238,8 @@ class PlayersController < ApplicationController
           column_filter.set_defensive_attributes
         when GOALKEEPING_ATTRIBUTES
           column_filter.set_goalkeeping_attributes
+        when DESIGNATED_ATTRIBUTES
+          column_filter.set_specified_attributes(attribute_names)
         else
           column_filter.set_all_or_no_attributes(attributes == ALL_ATTRIBUTES)
         end

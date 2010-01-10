@@ -1,0 +1,27 @@
+0	Liverpool	1892	Anfield	\N
+0	Chelsea	1905	Stamford Bridge	\N
+0	Arsenal	1886	Emirates Stadium	\N
+0	Everton	1878	Goodison Park	\N
+0	Aston Villa	1874	Villa Park	\N
+0	Tottenham Hotspur	1882	White Hart Lane	\N
+0	Manchester City	1887	City of Manchester Stadium	\N
+0	Fulham	1879	Craven Cottage	\N
+0	West Ham United	1895	Upton Park	\N
+0	Wigan Athletic	1932	DW Stadium	\N
+0	Stoke City	1863	Britannia Stadium	\N
+0	Bolton Wanderers	1874	Reebok Stadium	\N
+0	Portsmouth	1898	Fratton Park	\N
+0	Blackburn Rovers	1875	Ewood Park	\N
+0	Sunderland	1879	Stadium of Light	\N
+0	Hull City	1904	KC Stadium	\N
+0	Wolverhampton	1877	Molineux Stadium	\N
+0	Birmingham City	1875	St. Andrew's Stadium	\N
+0	Burnley	1882	Turf Moor	\N
+0	Newcastle United	1892	St. James' Park	\N
+0	Derby County	1884	Pride Park Stadium	\N
+0	Leeds United	1919	Elland Road	\N
+0	Norwich City	1902	Carrow Road	\N
+0	West Bromwich Albion	1878	The Hawthorns	\N
+0	Nottingham Forest	1865	City Ground	\N
+0	Cardiff City	1899	Cardiff City Stadium	\N
+0	Sheffield United	1889	Bramall Lane	\N
