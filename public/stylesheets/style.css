@@ -98,6 +98,10 @@
   background-color: pink;
 }
 
+#table_players .superior_attribute_value {
+  font-weight: bold;
+}
+
 #table_players .rightmost_of_attributes {
 }
 

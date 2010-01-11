@@ -28,6 +28,8 @@
     <% end -%>
   </tr>
 
+  <% @superior_attribute_values = prepare_superior_attribute_values -%>
+
   <% @players.each do |player| -%>
     <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
       <td><%= link_to '>', player %></td>
@@ -43,13 +45,9 @@
 
       <% is_leftmost = true
          attrs = player.player_attribute -%>
-      <% @attribute_columns.each do |column| -%>
-        <% column_name = column.name
-           value = attrs.send(:attributes)[column_name]
-           clazz = is_leftmost ? 'leftmost_of_attributes' : ''
-           clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : ''
-           top_five_value = @attribute_top_five_values[column_name]
-           clazz += ' top_five_values' if value >= top_five_value
+      <% @attribute_columns.map(&:name).each do |attr_name| -%>
+        <% value = attrs.read_attribute(attr_name)
+           clazz = html_class_for_attribute_display(attr_name, value, is_leftmost)
            is_leftmost = false -%>
         <td align="right" class="<%= clazz %>"><%= value %></td>
       <% end -%>
