@@ -1,4 +1,5 @@
 class Team < ActiveRecord::Base
+  has_many :seasons
   has_many :players
 
   def name_and_year
