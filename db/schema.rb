@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100113124614) do
+ActiveRecord::Schema.define(:version => 20100114120528) do
 
   create_table "chronicles", :force => true do |t|
     t.string "name", :default => "", :null => false
@@ -61,6 +61,14 @@ ActiveRecord::Schema.define(:version => 20100113124614) do
     t.integer "player_id",   :null => false
     t.integer "position_id", :null => false
   end
+
+  create_table "player_seasons", :force => true do |t|
+    t.integer "player_id", :null => false
+    t.integer "season_id", :null => false
+  end
+
+  add_index "player_seasons", ["player_id"], :name => "fk_player_seasons_players"
+  add_index "player_seasons", ["season_id"], :name => "fk_player_seasons_seasons"
 
   create_table "player_values", :force => true do |t|
     t.integer "player_id", :null => false
