@@ -1,6 +1,7 @@
 class Player < ActiveRecord::Base
   belongs_to :nation
-  belongs_to :team
+  has_many :player_seasons
+  has_many :seasons, :through => :player_seasons
   belongs_to :position
   has_many :player_positions
   has_many :sub_positions, :through => :player_positions, :source => :position
@@ -35,18 +36,21 @@ class Player < ActiveRecord::Base
     :market_value      => 1430,
   }
 
-  ORDER_WHEN_LIST = "order_number"
-
-  def self.list(team_id)
-    return find_all_by_team_id(team_id, :order => ORDER_WHEN_LIST)
+  def self.list(season_id)
+    season = Season.find(season_id)
+    players = season.players
+    players.sort!
+    return players
   end
 
-  def self.next_order_number(team_id)
-    return 1 + maximum(:order_number, :conditions => ["team_id = ?", team_id])
+  def self.next_order_number(season_id)
+    #TODO: Plan to move COLUMN order_number to TABLE player_seasons
+    players = list(season_id)
+    return 1 + players.map(&:order_number).max
   end
 
-  def self.player_attribute_top_values(order, team_id)
-    players = find_all_by_team_id(team_id)
+  def self.player_attribute_top_values(order, season_id)
+    players = list(season_id)
     map_values = Hash.new
     PlayerAttribute.content_columns.map(&:name).each do |name|
       values = players.map(&:player_attribute).map do |attribute|
@@ -70,7 +74,9 @@ class Player < ActiveRecord::Base
   end
 
   def age(current_year=nil)
-    current_year = team.current_year
+    #TODO: Have to find way to get current_year
+    #current_year = team.current_year
+    current_year = 2010
     return current_year - birth_year
   end
 
@@ -81,5 +87,9 @@ class Player < ActiveRecord::Base
     value = self.player_attribute.send(:attributes)[name] unless value
     value = self.send(name) unless value
     return value
+  end
+
+  def <=>(other)
+    return self.order_number.<=>(other.order_number)
   end
 end

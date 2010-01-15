@@ -1,7 +1,7 @@
 class PlayersController < ApplicationController
 
   def list
-    session[:team_id] = team_id = 1
+    session[:season_id] = season_id = 2
 
     row_filter = get_row_filter
     @players = row_filter.displaying_players
@@ -17,11 +17,17 @@ class PlayersController < ApplicationController
     @columns = column_filter.displaying_columns
     @attribute_columns = column_filter.displaying_attribute_columns
 
-    @attribute_top_five_values = Player.player_attribute_top_values(5, team_id)
+    @attribute_top_five_values = Player.player_attribute_top_values(5, season_id)
 
-    team = Team.find(team_id)
-    @page_title = "#{team.name_and_year} Rosters"
+    @page_title = "#{team_name_and_season_years} Rosters"
   end
+
+    def team_name_and_season_years
+      season = Season.find(session[:season_id])
+      team = season.team
+      return "#{team.name} #{season.years}"
+    end
+    private :team_name_and_season_years
 
   def show
     row_filter = get_row_filter
@@ -71,10 +77,10 @@ class PlayersController < ApplicationController
   end
 
   def create
-    team_id = session[:team_id]
+    season_id = session[:season_id]
     @player = Player.new(params[:player])
-    @player.team = Team.find(team_id)
-    @player.order_number = Player.next_order_number(team_id)
+    @player.seasons << Season.find(season_id)
+    @player.order_number = Player.next_order_number(season_id)
     @player.player_attribute = PlayerAttribute.new(params[:player_attribute])
     begin
       @player.save!
@@ -287,8 +293,7 @@ class PlayersController < ApplicationController
       @depth[position].sort! { |p1, p2| p1.overall.<=>(p2.overall) * -1 }
     end
 
-    team = Team.find(session[:team_id])
-    @page_title = "#{team.name_and_year} Depth Chart"
+    @page_title = "#{team_name_and_season_years} Depth Chart"
   end
 
   def roster_chart
@@ -296,8 +301,7 @@ class PlayersController < ApplicationController
     session[:error_explanation] = nil
     @players = players_of_team
 
-    team = Team.find(session[:team_id])
-    @page_title = "#{team.name_and_year} Roster Chart"
+    @page_title = "#{team_name_and_season_years} Roster Chart"
   end
 
   def edit_roster
@@ -522,9 +526,9 @@ class PlayersController < ApplicationController
     end
 
     def players_of_team
-      team_id = session[:team_id]
-      raise "no 'team_id' in session" unless team_id
-      return Player.list(team_id)
+      season_id = session[:season_id]
+      raise "no 'season_id' in session" unless season_id
+      return Player.list(season_id)
     end
 
     def prev_and_next_players(player, players)

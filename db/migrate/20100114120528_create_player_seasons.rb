@@ -13,7 +13,9 @@ class CreatePlayerSeasons < ActiveRecord::Migration
     foreign_key :player_seasons, :season_id, :seasons
 
     [
-      [ 2,  1, 39]
+      [ 1,  1, 22],
+      [ 1, 23, 38],
+      [ 2,  1, 39],
     ].each do |season_id, min_player_id, max_player_id|
       (min_player_id .. max_player_id).each do |player_id|
         PlayerSeason.create(:player_id => player_id, :season_id => season_id)
