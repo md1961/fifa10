@@ -68,13 +68,18 @@
 }
 
 #chronicle_list {
-  font-size: xx-large;
+  font-size: x-large;
   list-style-image: url(../images/WorldCupBall2006.gif);
 }
 
 #season_list {
   font-size: x-large;
   list-style-image: url(../images/WorldCupBall2006.gif);
+}
+
+#season_list .closed {
+  font-style: italic;
+  list-style: square;
 }
 
 #table_players {
