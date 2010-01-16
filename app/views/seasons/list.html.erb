@@ -1,0 +1,12 @@
+
+<h3>Choose a Season</h3>
+
+<ul id="season_list">
+  <% @seasons.each do |season| -%>
+    <% label = "#{season.team.name} #{season.years}" -%>
+    <li>
+      <%= link_to label, :controller => 'players', :action => 'list', :season_id => season %>
+    </li>
+  <% end -%>
+</ul>
+

@@ -73,6 +73,11 @@
   list-style-image: url(../images/WorldCupBall2006.gif);
 }
 
+#season_list {
+  font-size: x-large;
+  list-style-image: url(../images/WorldCupBall2006.gif);
+}
+
 #table_players {
   font-size: small;
   border: 1px black solid;

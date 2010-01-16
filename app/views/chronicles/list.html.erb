@@ -4,7 +4,7 @@
 <ul id="chronicle_list">
   <% @chronicles.each do |chronicle| -%>
     <li>
-      <%= link_to chronicle.name, :controller => 'season', :chronicle_id => chronicle %>
+      <%= link_to chronicle.name, :controller => 'seasons', :action => 'list', :chronicle_id => chronicle %>
     </li>
   <% end -%>
 </ul>
