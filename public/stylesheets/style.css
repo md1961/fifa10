@@ -66,10 +66,9 @@
 .tableRow1 {
   background-color: #ccc;
 }
-/* There's another .tableRow1 */
 
 #chronicle_list {
-  font-size: x-large;
+  font-size: xx-large;
   list-style-image: url(../images/WorldCupBall2006.gif);
 }
 

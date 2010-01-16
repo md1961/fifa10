@@ -1,7 +1,11 @@
 class PlayersController < ApplicationController
 
   def list
-    session[:season_id] = season_id = 2
+    season_id = (params[:season_id] || session[:season_id]).to_i
+    if season_id.nil? || season_id <= 0
+      raise "No 'season_id' in params nor session (#{session.inspect})"
+    end
+    session[:season_id] = season_id
 
     row_filter = get_row_filter
     @players = row_filter.displaying_players
@@ -527,7 +531,7 @@ class PlayersController < ApplicationController
 
     def players_of_team
       season_id = session[:season_id]
-      raise "no 'season_id' in session" unless season_id
+      raise "no 'season_id' in session (#{session.inspect})" unless season_id
       return Player.list(season_id)
     end
 
