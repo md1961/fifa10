@@ -3,7 +3,7 @@ class ColumnFilter
   YES = '1'
   NO  = '0'
 
-  COLUMN_NAMES_NOT_TO_FILTER = [:id, :name, :team_id, :order_number, :note]
+  COLUMN_NAMES_NOT_TO_FILTER = [:id, :name, :order_number, :note]
   PLAYER_PROPERTY_NAMES = Player.columns.map { |c| c.name.intern }.select { |n| ! COLUMN_NAMES_NOT_TO_FILTER.include?(n) }
 
   PLAYER_ATTRIBUTE_COLUMNS = PlayerAttribute.content_columns
@@ -21,7 +21,7 @@ class ColumnFilter
     end
   end
 
-  COLUMN_NAMES_NOT_TO_DISPLAY = %w(id team_id order_number note)
+  COLUMN_NAMES_NOT_TO_DISPLAY = %w(id order_number note)
 
   def self.displaying_columns
     return Player.columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }

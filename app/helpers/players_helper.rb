@@ -95,7 +95,6 @@ module PlayersHelper
     :weight            => ['W'         , :R],
     :birth_year        => ['Ag'        , :R],
     :nation_id         => ['Nation'    , :L],
-    :team_id           => ['Team'      , :L],
     :overall           => ['Ov'        , :R],
     :market_value      => ['MV'        , :R],
   }.freeze

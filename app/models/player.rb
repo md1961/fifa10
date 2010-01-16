@@ -8,7 +8,7 @@ class Player < ActiveRecord::Base
   has_one :player_attribute
 
   validates_presence_of :name, :number, :position_id, :skill_move, :both_feet_level, \
-                        :height, :weight, :birth_year, :nation_id, :team_id, :overall
+                        :height, :weight, :birth_year, :nation_id, :overall
   validates_inclusion_of :is_right_dominant, :in => [true, false]
   validates_uniqueness_of :name, :number
   validates_numericality_of :number,          :only_integer => true, :greater_than =>    0
