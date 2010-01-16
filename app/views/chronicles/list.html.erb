@@ -1,0 +1,11 @@
+
+<h3>Choose a Chronicle (Series of Seasons)</h3>
+
+<ul id="chronicle_list">
+  <% @chronicles.each do |chronicle| -%>
+    <li>
+      <%= link_to chronicle.name, :controller => 'season', :chronicle_id => chronicle %>
+    </li>
+  <% end -%>
+</ul>
+
