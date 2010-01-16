@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100114120528) do
+ActiveRecord::Schema.define(:version => 20100115234855) do
 
   create_table "chronicles", :force => true do |t|
     t.string "name", :default => "", :null => false
@@ -63,12 +63,13 @@ ActiveRecord::Schema.define(:version => 20100114120528) do
   end
 
   create_table "player_seasons", :force => true do |t|
-    t.integer "player_id", :null => false
-    t.integer "season_id", :null => false
+    t.integer "player_id",    :null => false
+    t.integer "season_id",    :null => false
+    t.integer "order_number", :null => false
   end
 
   add_index "player_seasons", ["player_id"], :name => "fk_player_seasons_players"
-  add_index "player_seasons", ["season_id"], :name => "fk_player_seasons_seasons"
+  add_index "player_seasons", ["season_id", "order_number"], :name => "index_player_seasons_on_season_id_and_order_number", :unique => true
 
   create_table "player_values", :force => true do |t|
     t.integer "player_id", :null => false
@@ -90,13 +91,10 @@ ActiveRecord::Schema.define(:version => 20100114120528) do
     t.integer "birth_year",                        :null => false
     t.integer "nation_id",                         :null => false
     t.integer "team_id",                           :null => false
-    t.integer "order_number",                      :null => false
     t.integer "overall",                           :null => false
     t.integer "market_value"
     t.string  "note"
   end
-
-  add_index "players", ["team_id", "order_number"], :name => "players_unq01", :unique => true
 
   create_table "positions", :force => true do |t|
     t.string "name",     :default => "", :null => false

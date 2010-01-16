@@ -39,14 +39,14 @@ class Player < ActiveRecord::Base
   def self.list(season_id)
     season = Season.find(season_id)
     players = season.players
-    players.sort!
+    players.sort! { |p1, p2| p1.order_number(season_id).<=>(p2.order_number(season_id)) }
     return players
   end
 
   def self.next_order_number(season_id)
-    #TODO: Plan to move COLUMN order_number to TABLE player_seasons
     players = list(season_id)
-    return 1 + players.map(&:order_number).max
+    order_numbers = players.map { |p| p.order_number(season_id) }
+    return order_numbers.max + 1
   end
 
   def self.player_attribute_top_values(order, season_id)
@@ -80,6 +80,11 @@ class Player < ActiveRecord::Base
     return current_year - birth_year
   end
 
+  def order_number(season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    return player_season ? player_season.order_number : nil
+  end
+
   def get(name)
     name = name.to_s
     return 0 if name == 'none'
@@ -87,9 +92,5 @@ class Player < ActiveRecord::Base
     value = self.player_attribute.send(:attributes)[name] unless value
     value = self.send(name) unless value
     return value
-  end
-
-  def <=>(other)
-    return self.order_number.<=>(other.order_number)
   end
 end
