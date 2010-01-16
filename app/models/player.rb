@@ -36,8 +36,11 @@ class Player < ActiveRecord::Base
     :market_value      => 1430,
   }
 
+  @@current_year = Constant.get(:default_current_year)
+
   def self.list(season_id)
     season = Season.find(season_id)
+    @@current_year = season.year_start
     players = season.players
     players.sort! { |p1, p2| p1.order_number(season_id).<=>(p2.order_number(season_id)) }
     return players
@@ -74,10 +77,7 @@ class Player < ActiveRecord::Base
   end
 
   def age(current_year=nil)
-    #TODO: Have to find way to get current_year
-    #current_year = team.current_year
-    current_year = 2010
-    return current_year - birth_year
+    return (current_year || @@current_year) - birth_year
   end
 
   def order_number(season_id)
