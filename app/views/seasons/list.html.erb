@@ -1,6 +1,8 @@
 
 <h3>Choose a Season</h3>
 
+<%= link_to 'Chronicles', :controller => 'chronicles', :action => 'list' %>
+
 <ul id="season_list">
   <% @seasons.each do |season| -%>
     <% label = "#{season.team.name} #{season.years}" -%>
