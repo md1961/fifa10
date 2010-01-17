@@ -16,4 +16,10 @@ class ApplicationController < ActionController::Base
   def log_debug(msg)
     logger.debug "[DEBUG] #{msg}"
   end
+
+  def team_name_and_season_years
+    season = Season.find(session[:season_id])
+    team = season.team
+    return "#{team.name} #{season.years}"
+  end
 end

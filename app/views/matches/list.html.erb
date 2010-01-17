@@ -1,0 +1,41 @@
+
+<%
+  column_names = %w(date_match series_id opponent_id ground scores_own scorers_own scorers_opp pks_own)
+-%>
+
+<p>
+  <%= link_to 'Rosters', :controller => 'players', :action => 'list' %>
+</p>
+
+<table id="table_matches">
+  <!--
+  <tr>
+    <% column_names.each do |column_name| -%>
+      <th><%= column_name %></th>
+    <% end -%>
+  </tr>
+  -->
+
+  <% @matches.each do |match| -%>
+    <tr>
+      <% column_names.each do |column_name| -%>
+        <% value = match.read_attribute(column_name) %>
+        <td>
+          <%= case column_name
+              when 'series_id'
+                match.series.abbr + match.subname
+              when 'opponent_id'
+                match.opponent.name
+              when 'scores_own'
+                "#{match.result} #{match.scores_own} - #{match.scores_opp}"
+              when 'pks_own'
+                match.pks_own.nil? ? "" : "PK #{match.pks_own}-#{match.pks_opp}"
+              else
+                value
+              end %>
+        </td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+

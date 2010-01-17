@@ -29,13 +29,6 @@ class PlayersController < ApplicationController
     @page_title = "#{team_name_and_season_years} Rosters"
   end
 
-    def team_name_and_season_years
-      season = Season.find(session[:season_id])
-      team = season.team
-      return "#{team.name} #{season.years}"
-    end
-    private :team_name_and_season_years
-
   def show
     row_filter = get_row_filter
     players = row_filter.displaying_players

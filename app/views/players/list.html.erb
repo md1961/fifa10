@@ -17,7 +17,9 @@
 <%= nbsp(4) %>
 <%= link_to '>> Chronicles', :controller => 'chronicles', :action => 'list' %>
 <%= nbsp %>
-<%= link_to ' > Seasons'    , :controller => 'seasons'   , :action => 'list', :chronicle_id => @chronicle %>
+<%= link_to ' > Seasons'   , :controller => 'seasons'   , :action => 'list', :chronicle_id => @chronicle %>
+<%= nbsp(4) %>
+<%= link_to 'Fixtures/Results', :controller => 'matches', :action => 'list' %>
 
 <table id="table_players">
   <tr>
