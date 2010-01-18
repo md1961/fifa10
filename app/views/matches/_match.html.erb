@@ -1,0 +1,14 @@
+
+<%= case column_name
+    when 'series_id'
+      match.series.abbr + match.subname
+    when 'opponent_id'
+      match.opponent.name
+    when 'scores_own'
+      "#{match.result} #{match.scores_own} - #{match.scores_opp}"
+    when 'pks_own'
+      match.pks_own.nil? ? "" : "PK #{match.pks_own}-#{match.pks_opp}"
+    else
+      match.read_attribute(column_name)
+    end %>
+

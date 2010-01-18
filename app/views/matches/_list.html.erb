@@ -1,0 +1,19 @@
+
+<!-- -->
+<tr>
+  <% column_names.each do |column_name| -%>
+    <th><%= column_name %></th>
+  <% end -%>
+</tr>
+<!-- -->
+
+<% @matches.each do |match| -%>
+  <tr>
+    <% column_names.each do |column_name| -%>
+      <td>
+        <%= render :partial => 'match', :object => match, :locals => {:column_name => column_name} %>
+      </td>
+    <% end -%>
+  </tr>
+<% end -%>
+
