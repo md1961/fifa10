@@ -1,20 +1,20 @@
 
-<%= f.text_field column_name %>
-
-<!--
-<%#= case column_name
-    when 'date_match'
-      f.text_field column_name
-    when 'series_id'
-      match.series.abbr + match.subname
-    when 'opponent_id'
-      match.opponent.name
-    when 'scores_own'
-      "#{match.result} #{match.scores_own} - #{match.scores_opp}"
-    when 'pks_own'
-      match.pks_own.nil? ? "" : "PK #{match.pks_own}-#{match.pks_opp}"
-    else
-      match.read_attribute(column_name)
-    end %>
-    -->
+<% case column_name
+   when 'series_id' -%>
+  <%= f.collection_select 'series_id', Series.premier_all, :id, :abbr %>
+  <%= f.text_field 'subname'   , :size => 10 %>
+<% when 'opponent_id' -%>
+  <%= f.collection_select 'opponent_id', Team.find(:all, :order => 'name'), :id, :name %>
+<% when 'scores_own' -%>
+  <%= f.text_field 'scores_own', :size =>  2 %>
+  -
+  <%= f.text_field 'scores_opp', :size =>  2 %>
+<% when 'pks_own' -%>
+  PK
+  <%= f.text_field 'pks_own'   , :size =>  2 %>
+  -
+  <%= f.text_field 'pks_opp'   , :size =>  2 %>
+<% else -%>
+  <%= f.text_field column_name , :size => text_field_size(column_name) %>
+<% end -%>
 
