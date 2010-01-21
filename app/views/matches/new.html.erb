@@ -11,7 +11,7 @@
   <%= render :partial => 'list', :locals => {:column_names => column_names} %> 
 
   <tr>
-    <% form_for :match, :url => {:action => 'create'} do |f| -%>
+    <% form_for @match do |f| -%>
       <% column_names.each do |column_name| -%>
         <td>
           <%= render :partial => 'form', :locals => {:match => @match, :f => f, :column_name => column_name} %>
@@ -20,4 +20,6 @@
     <% end -%>
   </tr>
 </table>
+
+<%= error_messages_for :match %>
 

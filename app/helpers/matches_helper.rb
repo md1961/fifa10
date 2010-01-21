@@ -11,4 +11,19 @@ module MatchesHelper
   def text_field_size(column_name)
     return HASH_TEXT_FIELD_SIZE[column_name.intern] || DEFAULT_TEXT_FIELD_SIZE
   end
+
+  HASH_COLUMN_INDEX = {
+    :date_match  => 'Date',
+    :series_id   => 'Series',
+    :opponent_id => 'Opponent',
+    :ground      => 'G',
+    :scores_own  => 'Score',
+    :scorers_own => 'Scores Own',
+    :scorers_opp => 'Scores Opp.',
+    :pks_own     => 'PK',
+  }
+
+  def column_heading(column_name)
+    return HASH_COLUMN_INDEX[column_name.intern] || ''
+  end
 end
