@@ -3,11 +3,9 @@
   column_names = %w(date_match series_id opponent_id ground scores_own scorers_own scorers_opp pks_own)
 -%>
 
-<p>
-  <%= link_to 'Rosters', :controller => 'players', :action => 'list' %>
-  <%= nbsp(4) %>
-  <%= link_to 'New Match', :action => 'new' %>
-</p>
+<%= link_to 'Rosters', :controller => 'players', :action => 'list' %>
+<%= nbsp(4) %>
+<%= link_to 'New Match', :action => 'new' %>
 
 <table id="table_matches">
   <%= render :partial => 'list', :locals => {:column_names => column_names} %> 

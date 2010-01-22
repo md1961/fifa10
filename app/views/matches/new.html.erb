@@ -11,15 +11,27 @@
   <%= render :partial => 'list', :locals => {:column_names => column_names} %> 
 
   <tr>
+    <td colspan="<%= column_names.size %>">
+      <%= error_messages_for :match %>
+    </td>
+  </tr>
+
+  <tr>
     <% form_for @match do |f| -%>
       <% column_names.each do |column_name| -%>
         <td>
           <%= render :partial => 'form', :locals => {:match => @match, :f => f, :column_name => column_name} %>
         </td>
       <% end -%>
+
+      <td style="border-style: hidden hidden hidden none">
+        <%= submit_tag 'Submit' %>
+      </td>
     <% end -%>
   </tr>
 </table>
 
-<%= error_messages_for :match %>
+<p>
+  <%= link_to 'Cancel', :action => 'list' %>
+</p>
 

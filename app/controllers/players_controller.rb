@@ -85,7 +85,6 @@ class PlayersController < ApplicationController
     begin
       @player.save!
       redirect_to @player
-      #redirect_to :action => 'show', :id => @player
     rescue ActiveRecord::RecordInvalid
       flash[:error_message] = "Failed to create Player '#{@player.name}'"
       @page_title_size = 3

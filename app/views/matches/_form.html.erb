@@ -4,7 +4,9 @@
   <%= f.collection_select 'series_id', Series.premier_all, :id, :abbr %>
   <%= f.text_field 'subname'   , :size => 10 %>
 <% when 'opponent_id' -%>
-  <%= f.collection_select 'opponent_id', Team.find(:all, :order => 'name'), :id, :name %>
+  <%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name %>
+<% when 'ground' -%>
+  <%= f.select 'ground', grounds_for_select %>
 <% when 'scores_own' -%>
   <%= f.text_field 'scores_own', :size =>  2 %>
   -

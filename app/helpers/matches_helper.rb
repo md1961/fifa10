@@ -26,4 +26,20 @@ module MatchesHelper
   def column_heading(column_name)
     return HASH_COLUMN_INDEX[column_name.intern] || ''
   end
+
+  def teams_for_collection_select
+    season_id = session[:season_id]
+    return [Team.new(:name => 'Choose a team', :id => 0)] + Team.find(:all, :order => 'name')
+  end
+
+  GROUNDS = [
+    ['Choose' , '0'],
+    ['Home'   , 'H'],
+    ['Away'   , 'A'],
+    ['Neutral', 'N'],
+  ]
+
+  def grounds_for_select
+    return GROUNDS
+  end
 end
