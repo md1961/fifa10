@@ -1,7 +1,7 @@
 module MatchesHelper
 
   COLUMN_NAMES_FOR_LIST = %w(
-    date_match series_id opponent_id ground scores_own scorers_own scorers_opp pks_own
+    date_match series_id ground opponent_id scores_own scorers_own scorers_opp pks_own
   ).freeze
 
   def column_names_for_list

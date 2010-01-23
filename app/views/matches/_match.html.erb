@@ -1,7 +1,7 @@
 
 <% case column_name
    when 'series_id' -%>
-     <td><%= match.series.abbr + match.subname %></td>
+     <td><%= "#{match.series.abbr} #{match.subname}" %></td>
 <% when 'opponent_id' -%>
      <td><%= match.opponent.name %></td>
 <% when 'scores_own' -%>

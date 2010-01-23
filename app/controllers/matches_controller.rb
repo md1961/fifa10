@@ -1,7 +1,12 @@
 class MatchesController < ApplicationController
 
   def list
-    season_id = session[:season_id]
+    season_id = (params[:season_id] || session[:season_id]).to_i
+    if season_id.nil? || season_id <= 0
+      raise "No 'season_id' in params nor session (#{session.inspect})"
+    end
+    session[:season_id] = season_id
+
     @matches = Match.list(season_id)
 
     @chronicle = Season.find(season_id).chronicle
@@ -31,14 +36,27 @@ class MatchesController < ApplicationController
   end
 
     def make_match(params)
-      date_match = params[:match][:date_match]
-      params[:match][:date_match] = '20' + date_match if date_match.to_i < 100
+      adjust_date_match(params)
+
       match = Match.new(params[:match])
       match.season_id = session[:season_id]
       
       return match
     end
     private :make_match
+
+    def adjust_date_match(params)
+      date_match = params[:match][:date_match]
+      if date_match.length <= 5
+        month = date_match.to_i
+        season = Season.find(session[:season_id])
+        year = month >= Season::MONTH_START ? season.year_start : season.year_end
+        params[:match][:date_match] = "#{year}/#{date_match}"
+      elsif date_match.to_i < 100
+        params[:match][:date_match] = '20' + date_match
+      end
+    end
+    private :adjust_date_match
 
     def prepare_page_title_for_new
       @page_title_size = 3
@@ -56,6 +74,7 @@ class MatchesController < ApplicationController
 
   def update
     @match = Match.find(params[:id])
+    adjust_date_match(params)
     if @match.update_attributes(params[:match])
       redirect_to :action => 'list'
     else
