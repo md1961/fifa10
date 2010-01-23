@@ -38,6 +38,44 @@ INSERT INTO `chronicles` VALUES (1,'FIFA 10 Manager Mode',0);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `matches`
+--
+
+DROP TABLE IF EXISTS `matches`;
+CREATE TABLE `matches` (
+  `id` int(11) NOT NULL auto_increment,
+  `date_match` date default NULL,
+  `series_id` int(11) default NULL,
+  `subname` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `opponent_id` int(11) NOT NULL,
+  `ground` varchar(255) collate utf8_unicode_ci default NULL,
+  `scores_own` int(11) default NULL,
+  `scores_opp` int(11) default NULL,
+  `pks_own` int(11) default NULL,
+  `pks_opp` int(11) default NULL,
+  `scorers_own` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `scorers_opp` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `season_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `fk_matches_series` (`series_id`),
+  KEY `fk_matches_teams` (`opponent_id`),
+  KEY `fk_matches_seasons` (`season_id`),
+  CONSTRAINT `fk_matches_seasons` FOREIGN KEY (`season_id`) REFERENCES `seasons` (`id`),
+  CONSTRAINT `fk_matches_series` FOREIGN KEY (`series_id`) REFERENCES `series` (`id`),
+  CONSTRAINT `fk_matches_teams` FOREIGN KEY (`opponent_id`) REFERENCES `teams` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `matches`
+--
+
+LOCK TABLES `matches` WRITE;
+/*!40000 ALTER TABLE `matches` DISABLE KEYS */;
+INSERT INTO `matches` VALUES (1,'2011-01-08',4,'',17,'H',3,0,NULL,NULL,'Welbeck 7 88, Fletcher 86','',2),(2,'2011-01-15',4,'',8,'A',3,0,NULL,NULL,'Rooney 13 59, Scholes 40','',2),(3,'2011-01-22',4,'',29,'H',1,0,NULL,NULL,'Scholes 57','',2),(4,'2010-08-08',7,'',4,'N',2,0,NULL,NULL,'','',2),(5,'2010-08-14',4,'',16,'A',3,1,NULL,NULL,'','',2),(6,'2010-08-21',4,'',10,'H',1,0,NULL,NULL,'','',2),(7,'2010-08-28',4,'',17,'A',2,1,NULL,NULL,'','',2),(8,'2010-09-04',4,'',8,'H',0,2,NULL,NULL,'','',2),(9,'2010-09-11',4,'',29,'A',3,0,NULL,NULL,'','',2),(10,'2010-09-14',6,'Round 2',30,'A',4,0,NULL,NULL,'','',2),(11,'2010-09-18',4,'',21,'H',0,2,NULL,NULL,'','',2),(12,'2010-09-21',1,'GL #1/6',31,'A',3,0,NULL,NULL,'','',2),(13,'2010-09-28',1,'GL #2/6',33,'H',2,0,NULL,NULL,'','',2),(14,'2010-09-25',4,'',14,'A',3,0,NULL,NULL,'','',2),(15,'2010-10-02',4,'',5,'H',0,1,NULL,NULL,'','',2),(16,'2010-10-09',4,'',6,'A',2,1,NULL,NULL,'','',2),(17,'2010-10-12',6,'Round 3',14,'A',1,0,NULL,NULL,'','',2),(18,'2010-10-16',4,'',12,'A',0,0,NULL,NULL,'','',2),(19,'2010-10-23',4,'',11,'H',5,0,NULL,NULL,'','',2),(20,'2010-10-27',1,'GL #3/6',34,'H',1,0,NULL,NULL,'','',2),(21,'2010-10-30',4,'',7,'A',6,0,NULL,NULL,'','',2),(22,'2010-11-02',6,'Round 4',4,'A',1,0,NULL,NULL,'','',2),(23,'2010-11-06',4,'',3,'H',1,2,NULL,NULL,'','',2),(24,'2010-11-09',1,'GL #4/6',34,'A',1,1,NULL,NULL,'','',2),(25,'2010-11-13',4,'',2,'A',1,1,NULL,NULL,'','',2),(26,'2010-11-20',4,'',15,'A',4,0,NULL,NULL,'','',2),(27,'2010-11-27',4,'',35,'A',4,0,NULL,NULL,'','',2),(28,'2010-12-01',1,'GL #5/6',33,'A',2,3,NULL,NULL,'','',2),(29,'2010-12-04',4,'',9,'H',3,1,NULL,NULL,'','',2),(30,'2010-12-08',1,'GL #6/6',31,'H',2,2,NULL,NULL,'','',2),(31,'2010-12-11',4,'',4,'A',4,1,NULL,NULL,'','',2),(32,'2010-12-18',4,'',18,'H',3,1,NULL,NULL,'','',2),(33,'2010-12-21',6,'QSF',3,'A',1,0,NULL,NULL,'Rooney 120','',2),(34,'2010-12-25',4,'',16,'H',1,1,NULL,NULL,'','',2),(35,'2011-01-01',4,'',10,'A',2,0,NULL,NULL,'','',2),(36,'2011-01-08',5,'Round 3',36,'A',4,0,NULL,NULL,'','',2),(37,'2011-01-08',4,'',17,'H',3,0,NULL,NULL,'','',2),(38,'2011-01-11',6,'SF 1st Leg',5,'H',0,1,NULL,NULL,'','',2),(40,'2011-01-18',6,'SF 2nd Leg',5,'A',4,0,NULL,NULL,'','',2),(41,'2011-01-29',5,'R4',14,'H',4,0,NULL,NULL,'Welbeck 7, Owen 24, Macheda 86 89','',2),(42,'2011-01-29',4,'',21,'A',4,1,NULL,NULL,'Berbatov 13 34 45, Valencia 86','Ranger 6',2),(43,'2011-02-05',4,'',14,'H',NULL,NULL,NULL,NULL,'','',2);
+/*!40000 ALTER TABLE `matches` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `nations`
 --
 
@@ -47,7 +85,7 @@ CREATE TABLE `nations` (
   `name` varchar(255) collate utf8_unicode_ci NOT NULL,
   `region_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `nations`
@@ -55,7 +93,7 @@ CREATE TABLE `nations` (
 
 LOCK TABLES `nations` WRITE;
 /*!40000 ALTER TABLE `nations` DISABLE KEYS */;
-INSERT INTO `nations` VALUES (1,'Belgium',1),(2,'Brazil',6),(3,'Bulgaria',1),(4,'England',1),(5,'Equador',6),(6,'France',1),(7,'Germany',1),(8,'Ireland',1),(9,'Italy',1),(10,'Korea',3),(11,'Netherland',1),(12,'Northern Ireland',1),(13,'Norway',1),(14,'Poland',1),(15,'Portugal',1),(16,'Scotland',1),(17,'Serbia',1),(18,'South Africa',2),(19,'Wales',1),(20,'Burundi',2);
+INSERT INTO `nations` VALUES (1,'Belgium',1),(2,'Brazil',5),(3,'Bulgaria',1),(4,'England',1),(5,'Equador',5),(6,'France',1),(7,'Germany',1),(8,'Ireland',1),(9,'Italy',1),(10,'Korea',3),(11,'Netherlands',1),(12,'Northern Ireland',1),(13,'Norway',1),(14,'Poland',1),(15,'Portugal',1),(16,'Scotland',1),(17,'Serbia',1),(18,'South Africa',2),(19,'Wales',1),(20,'Burundi',2),(21,'Turkey',1),(22,'Spain',1);
 /*!40000 ALTER TABLE `nations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +139,7 @@ CREATE TABLE `player_attributes` (
   `gk_positioning` int(11) NOT NULL,
   `gk_reaction` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `player_attributes`
@@ -109,7 +147,7 @@ CREATE TABLE `player_attributes` (
 
 LOCK TABLES `player_attributes` WRITE;
 /*!40000 ALTER TABLE `player_attributes` DISABLE KEYS */;
-INSERT INTO `player_attributes` VALUES (1,1,32,57,21,51,22,14,12,13,8,11,12,58,27,11,12,24,55,66,27,29,11,41,63,10,76,78,40,12,80,84,83,90,75),(2,2,66,87,51,69,66,70,56,42,31,33,73,70,59,28,76,32,83,70,69,47,81,62,69,79,75,90,69,55,7,9,5,13,12),(3,3,71,84,52,80,73,45,51,58,39,27,87,88,73,29,88,54,88,78,74,59,87,74,76,94,85,80,69,51,21,20,30,20,22),(4,4,73,93,57,87,67,41,44,49,42,49,97,93,65,36,91,63,92,82,76,61,89,76,81,98,93,87,63,42,10,12,16,18,6),(5,5,90,83,89,78,83,83,78,88,53,52,77,84,81,51,82,59,82,92,85,75,94,90,94,87,71,79,73,54,13,14,12,5,8),(6,6,88,69,81,79,85,85,76,87,65,69,62,64,60,80,46,64,73,83,71,83,42,89,82,49,75,73,78,68,15,8,13,5,8),(7,7,70,86,62,75,86,83,74,76,67,67,75,69,93,85,65,77,94,80,91,88,42,68,68,57,75,93,94,85,13,10,8,9,8),(8,8,72,74,67,81,81,80,75,74,67,79,73,73,90,82,83,79,92,84,89,83,80,77,87,85,80,89,90,77,9,10,13,11,14),(9,9,79,58,85,70,88,89,87,83,78,82,66,65,82,73,26,81,87,73,86,77,45,77,66,46,61,84,90,81,10,9,12,9,8),(10,10,87,96,84,94,94,83,83,88,93,82,75,74,82,89,28,85,86,85,90,94,33,84,88,38,90,82,90,96,11,7,5,11,12),(11,11,73,61,83,82,93,77,77,86,93,71,90,86,64,80,13,80,92,94,89,90,19,74,62,25,78,77,89,94,7,8,8,12,8),(12,12,86,56,82,82,80,66,69,76,80,65,79,73,45,57,31,84,89,86,72,75,10,82,68,28,54,80,72,78,15,6,8,7,11),(13,13,89,59,92,79,86,81,76,86,69,75,45,52,59,83,30,63,60,69,70,81,33,87,72,30,62,60,74,76,5,12,13,6,12),(14,14,76,85,59,74,81,77,58,72,61,47,73,80,77,73,83,50,81,78,84,61,74,76,93,79,77,77,73,58,9,10,13,11,12),(15,15,79,81,78,77,85,82,80,73,50,85,67,69,80,79,78,73,91,90,86,76,81,83,81,85,76,90,83,60,6,13,9,6,11),(16,16,73,84,53,83,71,64,62,63,38,34,84,85,66,39,81,47,80,74,80,61,78,76,80,80,83,84,71,63,5,6,4,9,4),(17,17,68,81,53,68,60,60,32,39,28,25,77,83,55,25,80,34,76,74,71,42,81,63,78,82,75,74,56,46,7,8,5,11,6),(18,18,53,55,47,62,18,10,15,14,18,17,14,70,21,22,10,18,69,63,21,27,9,53,48,10,66,59,51,9,81,76,78,75,80),(19,19,86,81,84,83,85,70,79,85,58,79,54,68,80,65,63,79,81,77,84,83,60,84,79,69,78,77,85,71,9,8,7,9,8),(20,20,84,74,81,82,79,76,63,82,76,53,66,44,59,66,55,71,83,77,75,72,51,84,92,59,60,76,73,77,10,7,5,14,5),(21,21,85,40,79,68,75,71,58,77,74,67,64,66,39,74,20,66,75,60,61,78,21,83,68,24,61,62,57,70,3,5,6,5,3),(22,22,76,46,75,70,75,64,65,69,77,51,69,73,23,75,20,64,63,71,69,77,12,76,68,11,68,61,62,76,2,8,5,5,6),(23,23,85,64,71,71,70,75,68,61,55,59,37,57,61,42,52,61,68,69,64,51,41,87,69,47,59,68,67,47,7,7,9,6,5),(24,24,81,81,81,72,81,79,48,81,57,72,57,58,75,78,78,64,75,75,76,79,70,84,80,78,71,79,75,75,4,5,6,8,8),(25,25,69,81,49,67,59,70,41,43,22,24,73,79,53,29,79,35,77,64,62,43,83,72,75,80,78,77,56,31,7,6,10,10,10),(26,26,84,67,81,46,74,76,58,76,62,77,49,61,70,69,72,72,62,72,74,79,72,81,76,75,43,58,72,67,7,5,9,1,6),(27,27,50,62,52,55,26,15,12,25,14,12,15,67,26,23,23,21,61,69,35,25,23,53,68,25,60,58,63,15,76,69,53,68,76),(28,28,70,71,53,74,73,75,45,58,54,65,63,72,75,83,71,34,74,68,76,84,52,77,83,58,73,68,69,66,7,5,14,8,9),(29,29,80,38,75,52,80,76,75,77,68,82,50,64,65,75,20,61,69,56,73,79,13,77,71,14,48,68,72,67,7,6,5,7,6),(30,30,74,38,74,64,74,65,51,81,60,39,43,48,40,52,14,63,45,62,65,69,15,74,53,17,65,43,49,58,7,1,4,3,4),(31,31,60,65,57,56,57,38,38,30,23,38,65,64,24,35,62,28,52,64,49,38,72,65,64,68,57,59,47,29,4,9,2,5,5),(32,32,64,75,51,64,46,58,27,38,21,32,62,65,47,41,64,24,63,54,52,60,65,72,65,66,67,63,48,23,6,5,19,7,15),(33,33,72,52,69,49,68,45,45,62,42,72,44,55,65,56,34,40,49,65,69,74,48,68,72,56,49,50,67,59,1,2,3,5,6),(34,34,52,35,22,66,17,8,6,10,12,9,13,71,12,9,10,12,17,61,13,23,26,44,43,24,55,18,24,12,69,54,51,50,64),(35,35,71,57,55,31,65,45,43,56,55,43,47,38,60,63,40,52,53,54,66,72,32,65,66,49,49,42,63,50,1,4,7,4,1),(36,36,62,75,43,61,59,37,37,38,42,34,37,61,47,42,52,31,58,68,57,62,64,78,59,66,72,51,48,33,7,2,1,2,9),(37,37,78,32,56,30,57,36,45,45,53,47,61,27,31,54,10,48,46,54,43,71,11,74,39,11,62,49,21,44,2,8,4,8,4),(38,38,62,33,53,54,62,41,41,53,54,43,54,63,62,55,57,53,39,52,63,66,42,58,64,44,64,41,57,45,8,3,6,5,5),(39,39,56,78,67,75,41,31,37,19,19,39,25,76,38,24,79,33,57,65,31,17,85,68,78,69,75,51,52,24,4,1,3,6,2),(40,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO `player_attributes` VALUES (1,1,32,57,21,51,22,14,12,13,8,11,12,58,27,11,12,24,55,66,27,29,11,41,63,10,76,78,40,12,80,84,83,90,75),(2,2,66,87,51,69,66,70,56,42,31,33,73,70,59,28,76,32,83,70,69,47,81,62,69,79,75,90,69,55,7,9,5,13,12),(3,3,71,84,52,80,73,45,51,58,39,27,87,88,73,29,88,54,88,78,74,59,87,74,76,94,85,80,69,51,21,20,30,20,22),(4,4,73,93,57,87,67,41,44,49,42,49,97,93,65,36,91,63,92,82,76,61,89,76,81,98,93,87,63,42,10,12,16,18,6),(5,5,90,83,89,78,83,83,78,88,53,52,77,84,81,51,82,59,82,92,85,75,94,90,94,87,71,79,73,54,13,14,12,5,8),(6,6,88,69,81,79,85,85,76,87,65,69,62,64,60,80,46,64,73,83,71,83,42,89,82,49,75,73,78,68,15,8,13,5,8),(7,7,70,86,62,75,86,83,74,76,67,67,75,69,93,85,65,77,94,80,91,88,42,68,68,57,75,93,94,85,13,10,8,9,8),(8,8,72,74,67,81,81,80,75,74,67,79,73,73,90,82,83,79,92,84,89,83,80,77,87,85,80,89,90,77,9,10,13,11,14),(9,9,79,58,85,70,88,89,87,83,78,82,66,65,82,73,26,81,87,73,86,77,45,77,66,46,61,84,90,81,10,9,12,9,8),(10,10,87,96,84,94,94,83,83,88,93,82,75,74,82,89,28,85,86,85,90,94,33,84,88,38,90,82,90,96,11,7,5,11,12),(11,11,73,61,83,82,93,77,77,86,93,71,90,86,64,80,13,80,92,94,89,90,19,74,62,25,78,77,89,94,7,8,8,12,8),(12,12,86,56,82,82,80,66,69,76,80,65,79,73,45,57,31,84,89,86,72,75,10,82,68,28,54,80,72,78,15,6,8,7,11),(13,13,89,59,92,79,86,81,76,86,69,75,45,52,59,83,30,63,60,69,70,81,33,87,72,30,62,60,74,76,5,12,13,6,12),(14,14,76,85,59,74,81,77,58,72,61,47,73,80,77,73,83,50,81,78,84,61,74,76,93,79,77,77,73,58,9,10,13,11,12),(15,15,79,81,78,77,85,82,80,73,50,85,67,69,80,79,78,73,91,90,86,76,81,83,81,85,76,90,83,60,6,13,9,6,11),(16,16,73,84,53,83,71,64,62,63,38,34,84,85,66,39,81,47,80,74,80,61,78,76,80,80,83,84,71,63,5,6,4,9,4),(17,17,68,81,53,68,60,60,32,39,28,25,77,83,55,25,80,34,76,74,71,42,81,63,78,82,75,74,56,46,7,8,5,11,6),(18,18,53,55,47,62,18,10,15,14,18,17,14,70,21,22,10,18,69,63,21,27,9,53,48,10,66,59,51,9,81,76,78,75,80),(19,19,86,81,84,83,85,70,79,85,58,79,54,68,80,65,63,79,81,77,84,83,60,84,79,69,78,77,85,71,9,8,7,9,8),(20,20,84,74,81,82,79,76,63,82,76,53,66,44,59,66,55,71,83,77,75,72,51,84,92,59,60,76,73,77,10,7,5,14,5),(21,21,85,40,79,68,75,71,58,77,74,67,64,66,39,74,20,66,75,60,61,78,21,83,68,24,61,62,57,70,3,5,6,5,3),(22,22,76,46,75,70,75,64,65,69,77,51,69,73,23,75,20,64,63,71,69,77,12,76,68,11,68,61,62,76,2,8,5,5,6),(23,23,85,64,71,71,70,75,68,61,55,59,37,57,61,42,52,61,68,69,64,51,41,87,69,47,59,68,67,47,7,7,9,6,5),(24,24,81,81,81,72,81,79,48,81,57,72,57,58,75,78,78,64,75,75,76,79,70,84,80,78,71,79,75,75,4,5,6,8,8),(25,25,69,81,49,67,59,70,41,43,22,24,73,79,53,29,79,35,77,64,62,43,83,72,75,80,78,77,56,31,7,6,10,10,10),(26,26,84,67,81,46,74,76,58,76,62,77,49,61,70,69,72,72,62,72,74,79,72,81,76,75,43,58,72,67,7,5,9,1,6),(27,27,50,62,52,55,26,15,12,25,14,12,15,67,26,23,23,21,61,69,35,25,23,53,68,25,60,58,63,15,76,69,53,68,76),(28,28,70,71,53,74,73,75,45,58,54,65,63,72,75,83,71,34,74,68,76,84,52,77,83,58,73,68,69,66,7,5,14,8,9),(29,29,80,38,75,52,80,76,75,77,68,82,50,64,65,75,20,61,69,56,73,79,13,77,71,14,48,68,72,67,7,6,5,7,6),(30,30,74,38,74,64,74,65,51,81,60,39,43,48,40,52,14,63,45,62,65,69,15,74,53,17,65,43,49,58,7,1,4,3,4),(31,31,60,65,57,56,57,38,38,30,23,38,65,64,24,35,62,28,52,64,49,38,72,65,64,68,57,59,47,29,4,9,2,5,5),(32,32,64,75,51,64,46,58,27,38,21,32,62,65,47,41,64,24,63,54,52,60,65,72,65,66,67,63,48,23,6,5,19,7,15),(33,33,72,52,69,49,68,45,45,62,42,72,44,55,65,56,34,40,49,65,69,74,48,68,72,56,49,50,67,59,1,2,3,5,6),(34,34,52,35,22,66,17,8,6,10,12,9,13,71,12,9,10,12,17,61,13,23,26,44,43,24,55,18,24,12,69,54,51,50,64),(35,35,71,57,55,31,65,45,43,56,55,43,47,38,60,63,40,52,53,54,66,72,32,65,66,49,49,42,63,50,1,4,7,4,1),(36,36,62,75,43,61,59,37,37,38,42,34,37,61,47,42,52,31,58,68,57,62,64,78,59,66,72,51,48,33,7,2,1,2,9),(37,37,78,32,56,30,57,36,45,45,53,47,61,27,31,54,10,48,46,54,43,71,11,74,39,11,62,49,21,44,2,8,4,8,4),(38,38,62,33,53,54,62,41,41,53,54,43,54,63,62,55,57,53,39,52,63,66,42,58,64,44,64,41,57,45,8,3,6,5,5),(39,39,56,78,67,75,41,31,37,19,19,39,25,76,38,24,79,33,57,65,31,17,85,68,78,69,75,51,52,24,4,1,3,6,2),(40,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(41,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `player_attributes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +188,7 @@ CREATE TABLE `player_seasons` (
   KEY `fk_player_seasons_players` (`player_id`),
   CONSTRAINT `fk_player_seasons_players` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`),
   CONSTRAINT `fk_player_seasons_seasons` FOREIGN KEY (`season_id`) REFERENCES `seasons` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `player_seasons`
@@ -207,7 +245,7 @@ CREATE TABLE `players` (
   `market_value` int(11) default NULL,
   `note` varchar(255) collate utf8_unicode_ci default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `players`
@@ -250,7 +288,7 @@ CREATE TABLE `regions` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(255) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `regions`
@@ -258,7 +296,7 @@ CREATE TABLE `regions` (
 
 LOCK TABLES `regions` WRITE;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
-INSERT INTO `regions` VALUES (1,'Europe'),(2,'Africa'),(3,'Asia'),(4,'Oceania'),(5,'North'),(6,'America'),(7,'South'),(8,'America');
+INSERT INTO `regions` VALUES (1,'Europe'),(2,'Africa'),(3,'Asia'),(4,'Oceania'),(5,'North America'),(6,'South America');
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +316,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20091213140109'),('20091213140924'),('20091214104031'),('20091214104312'),('20091214140704'),('20091218123850'),('20091219070150'),('20091222234521'),('20091225231523'),('20091227075745'),('20091230104100'),('20100113115430'),('20100113124614'),('20100114120528'),('20100115234855'),('20100116085624'),('20100116090112'),('20100116105859'),('20100116121347');
+INSERT INTO `schema_migrations` VALUES ('20091213140109'),('20091213140924'),('20091214104031'),('20091214104312'),('20091214140704'),('20091218123850'),('20091219070150'),('20091222234521'),('20091225231523'),('20091227075745'),('20091230104100'),('20100113115430'),('20100113124614'),('20100114120528'),('20100115234855'),('20100116085624'),('20100116090112'),('20100116105859'),('20100116121347'),('20100116133545'),('20100116134903'),('20100117010630');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,6 +345,28 @@ INSERT INTO `seasons` VALUES (1,'2009-2010',1,1,1),(2,'2010-2011',1,1,0);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `series`
+--
+
+DROP TABLE IF EXISTS `series`;
+CREATE TABLE `series` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `abbr` varchar(255) collate utf8_unicode_ci default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `series`
+--
+
+LOCK TABLES `series` WRITE;
+/*!40000 ALTER TABLE `series` DISABLE KEYS */;
+INSERT INTO `series` VALUES (1,'UEFA Champions League','UEFA CL'),(2,'UEFA Europa League','UEFA EL'),(3,'UEFA Super Cup','UEFA SC'),(4,'Premier League','Premier'),(5,'FA Cup','FA Cup'),(6,'League Cup','L. Cup'),(7,'Community Shield','C. Shield'),(8,'League Championship','Championship');
+/*!40000 ALTER TABLE `series` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `teams`
 --
 
@@ -316,8 +376,11 @@ CREATE TABLE `teams` (
   `name` varchar(255) collate utf8_unicode_ci NOT NULL,
   `year_founded` int(11) default NULL,
   `ground` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `nation_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `fk_teams_nations` (`nation_id`),
+  CONSTRAINT `fk_teams_nations` FOREIGN KEY (`nation_id`) REFERENCES `nations` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `teams`
@@ -325,7 +388,7 @@ CREATE TABLE `teams` (
 
 LOCK TABLES `teams` WRITE;
 /*!40000 ALTER TABLE `teams` DISABLE KEYS */;
-INSERT INTO `teams` VALUES (1,'Manchester United',1878,'Old Trafford'),(2,'Liverpool',1892,'Anfield'),(3,'Chelsea',1905,'Stamford Bridge'),(4,'Arsenal',1886,'Emirates Stadium'),(5,'Everton',1878,'Goodison Park'),(6,'Aston Villa',1874,'Villa Park'),(7,'Tottenham Hotspur',1882,'White Hart Lane'),(8,'Manchester City',1887,'City of Manchester Stadium'),(9,'Fulham',1879,'Craven Cottage'),(10,'West Ham United',1895,'Upton Park'),(11,'Wigan Athletic',1932,'DW Stadium'),(12,'Stoke City',1863,'Britannia Stadium'),(13,'Bolton Wanderers',1874,'Reebok Stadium'),(14,'Portsmouth',1898,'Fratton Park'),(15,'Blackburn Rovers',1875,'Ewood Park'),(16,'Sunderland',1879,'Stadium of Light'),(17,'Hull City',1904,'KC Stadium'),(18,'Wolverhampton',1877,'Molineux Stadium'),(19,'Birmingham City',1875,'St. Andrew\'s Stadium'),(20,'Burnley',1882,'Turf Moor'),(21,'Newcastle United',1892,'St. James\' Park'),(22,'Derby County',1884,'Pride Park Stadium'),(23,'Leeds United',1919,'Elland Road'),(24,'Norwich City',1902,'Carrow Road'),(25,'West Bromwich Albion',1878,'The Hawthorns'),(26,'Nottingham Forest',1865,'City Ground'),(27,'Cardiff City',1899,'Cardiff City Stadium'),(28,'Sheffield United',1889,'Bramall Lane');
+INSERT INTO `teams` VALUES (1,'Manchester United',1878,'Old Trafford',4),(2,'Liverpool',1892,'Anfield',4),(3,'Chelsea',1905,'Stamford Bridge',4),(4,'Arsenal',1886,'Emirates Stadium',4),(5,'Everton',1878,'Goodison Park',4),(6,'Aston Villa',1874,'Villa Park',4),(7,'Tottenham Hotspur',1882,'White Hart Lane',4),(8,'Manchester City',1887,'City of Manchester Stadium',4),(9,'Fulham',1879,'Craven Cottage',4),(10,'West Ham United',1895,'Upton Park',4),(11,'Wigan Athletic',1932,'DW Stadium',4),(12,'Stoke City',1863,'Britannia Stadium',4),(13,'Bolton Wanderers',1874,'Reebok Stadium',4),(14,'Portsmouth',1898,'Fratton Park',4),(15,'Blackburn Rovers',1875,'Ewood Park',4),(16,'Sunderland',1879,'Stadium of Light',4),(17,'Hull City',1904,'KC Stadium',4),(18,'Wolverhampton',1877,'Molineux Stadium',4),(19,'Birmingham City',1875,'St. Andrew\'s Stadium',4),(20,'Burnley',1882,'Turf Moor',4),(21,'Newcastle United',1892,'St. James\' Park',4),(22,'Derby County',1884,'Pride Park Stadium',4),(23,'Leeds United',1919,'Elland Road',4),(24,'Norwich City',1902,'Carrow Road',4),(25,'West Bromwich Albion',1878,'The Hawthorns',4),(26,'Nottingham Forest',1865,'City Ground',4),(27,'Cardiff City',1899,'Cardiff City Stadium',4),(28,'Sheffield United',1889,'Bramall Lane',4),(29,'Ipswich Town',1878,'Portman Road',4),(30,'Dagenham & Redbridge',1992,'Victoria Road',4),(31,'Standard Liege',1898,'Stade Maurice Dufrasne',6),(32,'Galatasaray SK',1905,'Ali Sami Yen Stadium',21),(33,'Alkmaar Zaanstreek',1967,'DSB Stadion',11),(34,'Atletico Madrid',1903,'Vicente Calderon',22),(35,'Middlesbrough',1876,'Riverside Stadium',4),(36,'Bradford Park Avenue',1863,'Horsfall Stadium',4),(37,'Coventry City',1883,'Ricoh Arena',4),(38,'Swansea City',1912,'Liberty Stadium',4),(39,'Leicester City',1884,'Walkers Stadium',4),(40,'Crystal Palace',1905,'Selhurst Park',4);
 /*!40000 ALTER TABLE `teams` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -338,4 +401,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-01-16 12:28:38
+-- Dump completed on 2010-01-23 23:02:01
