@@ -99,6 +99,7 @@
 }
 
 #table_matches td {
+  font-weight: bold;
   padding: 1px 4px 1px;
   border: 1px black solid;
   border-collapse: collapse;
@@ -107,6 +108,20 @@
 
 #table_matches .no_right_border {
   border-right: 1px black hidden;
+}
+
+#table_matches .tableRow0 {
+  color: white;
+  background-color: red;
+}
+
+#table_matches .tableRow1 {
+  color: white;
+  background-color: black;
+}
+
+#table_matches a {
+  color: white;
 }
 
 #table_players {

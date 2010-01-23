@@ -6,6 +6,7 @@ default_current_year : 2010
 
 # 重要度が中程度の定数（見栄えが悪くなる、入出力に支障が出るなど）
 default_table_attributes : border="1" cellpadding="5" cellspacing="0"
+column_heading_for_matches : false
 
 # 重要度が低い定数（補助的な表示文字列など）
 copyright : Copyright (c) 2009-2010 Naoyuki Kumagai, All rights reserved.
