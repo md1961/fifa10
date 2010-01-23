@@ -1,4 +1,8 @@
 
+<%= link_to '>> Chronicles', :controller => 'chronicles', :action => 'list' %>
+<%= nbsp %>
+<%= link_to ' > Seasons'   , :controller => 'seasons'   , :action => 'list', :chronicle_id => @chronicle %>
+<%= nbsp(4) %>
 <%= link_to 'Rosters', :controller => 'players', :action => 'list' %>
 <%= nbsp(4) %>
 <%= link_to 'New Match', :action => 'new' %>

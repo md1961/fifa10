@@ -4,6 +4,8 @@ class MatchesController < ApplicationController
     season_id = session[:season_id]
     @matches = Match.list(season_id)
 
+    @chronicle = Season.find(season_id).chronicle
+
     @page_title = "#{team_name_and_season_years} Fixtures and Results"
   end
 
@@ -29,6 +31,8 @@ class MatchesController < ApplicationController
   end
 
     def make_match(params)
+      date_match = params[:match][:date_match]
+      params[:match][:date_match] = '20' + date_match if date_match.to_i < 100
       match = Match.new(params[:match])
       match.season_id = session[:season_id]
       

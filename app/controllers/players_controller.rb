@@ -23,8 +23,7 @@ class PlayersController < ApplicationController
 
     @attribute_top_five_values = Player.player_attribute_top_values(5, season_id)
 
-    season = Season.find(season_id)
-    @chronicle = season.chronicle
+    @chronicle = Season.find(season_id).chronicle
 
     @page_title = "#{team_name_and_season_years} Rosters"
   end

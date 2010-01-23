@@ -105,6 +105,10 @@
   border-spacing: 0;
 }
 
+#table_matches .no_right_border {
+  border-right: 1px black hidden;
+}
+
 #table_players {
   font-size: small;
   border: 1px black solid;

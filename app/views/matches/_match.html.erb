@@ -1,18 +1,26 @@
 
-<%= case column_name
-    when 'series_id'
-      match.series.abbr + match.subname
-    when 'opponent_id'
-      match.opponent.name
-    when 'scores_own'
-      if match.scores_own.nil?
-        ""
-      else
-        link_to "#{match.result} #{match.scores_own} - #{match.scores_opp}", :action => 'edit', :id => match
-      end
-    when 'pks_own'
-      match.pks_own.nil? ? "" : "PK #{match.pks_own}-#{match.pks_opp}"
-    else
-      match.read_attribute(column_name)
-    end %>
+<% case column_name
+   when 'series_id' -%>
+     <td><%= match.series.abbr + match.subname %></td>
+<% when 'opponent_id' -%>
+     <td><%= match.opponent.name %></td>
+<% when 'scores_own' -%>
+     <% if match.scores_own.nil? -%>
+       <td colspan="2" align="center">
+         <%= link_to nbsp(10), :action => 'edit', :id => match %>
+       </td>
+     <% else -%>
+       <td align="center" class="no_right_border">
+         <%= "#{match.result}" %>
+       </td>
+       <td align="center">
+         <%= link_to "#{match.scores_own} - #{match.scores_opp}", :action => 'edit', :id => match %>
+       </td>
+     <% end -%>
+<% when 'pks_own' -%>
+     <td><%= match.pks_own.nil? ? "" : "PK #{match.pks_own}-#{match.pks_opp}" %></td>
+<% else -%>
+     <% align = column_name == 'ground' ? "center" : "left" -%>
+     <td align="<%= align %>"><%= match.read_attribute(column_name) %></td>
+<% end -%>
 

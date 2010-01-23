@@ -2,7 +2,8 @@
 <!-- -->
 <tr>
   <% column_names.each do |column_name| -%>
-    <th><%= column_heading(column_name) %></th>
+    <% colspan = column_name == 'scores_own' ? 2 : 1 -%>
+    <th colspan="<%= colspan %>"><%= column_heading(column_name) %></th>
   <% end -%>
 </tr>
 <!-- -->
@@ -13,9 +14,7 @@
   <% else -%>
     <tr>
       <% column_names.each do |column_name| -%>
-        <td>
-            <%= render :partial => 'match', :object => match, :locals => {:column_name => column_name} %>
-        </td>
+        <%= render :partial => 'match', :object => match, :locals => {:column_name => column_name} %>
       <% end -%>
     </tr>
   <% end -%>
