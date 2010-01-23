@@ -1,5 +1,13 @@
 module MatchesHelper
 
+  COLUMN_NAMES_FOR_LIST = %w(
+    date_match series_id opponent_id ground scores_own scorers_own scorers_opp pks_own
+  ).freeze
+
+  def column_names_for_list
+    return COLUMN_NAMES_FOR_LIST
+  end
+
   HASH_TEXT_FIELD_SIZE = {
     :date_match  => 10,
     :ground      =>  2,

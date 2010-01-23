@@ -5,7 +5,11 @@
     when 'opponent_id'
       match.opponent.name
     when 'scores_own'
-      "#{match.result} #{match.scores_own} - #{match.scores_opp}"
+      if match.scores_own.nil?
+        ""
+      else
+        link_to "#{match.result} #{match.scores_own} - #{match.scores_opp}", :action => 'edit', :id => match
+      end
     when 'pks_own'
       match.pks_own.nil? ? "" : "PK #{match.pks_own}-#{match.pks_opp}"
     else

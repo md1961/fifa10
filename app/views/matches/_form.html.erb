@@ -1,22 +1,42 @@
 
-<% case column_name
-   when 'series_id' -%>
-  <%= f.collection_select 'series_id', Series.premier_all, :id, :abbr %>
-  <%= f.text_field 'subname'   , :size => 10 %>
-<% when 'opponent_id' -%>
-  <%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name %>
-<% when 'ground' -%>
-  <%= f.select 'ground', grounds_for_select %>
-<% when 'scores_own' -%>
-  <%= f.text_field 'scores_own', :size =>  2 %>
-  -
-  <%= f.text_field 'scores_opp', :size =>  2 %>
-<% when 'pks_own' -%>
-  PK
-  <%= f.text_field 'pks_own'   , :size =>  2 %>
-  -
-  <%= f.text_field 'pks_opp'   , :size =>  2 %>
-<% else -%>
-  <%= f.text_field column_name , :size => text_field_size(column_name) %>
+<% unless @match.errors.empty? -%>
+  <tr>
+    <td colspan="<%= column_names.size %>">
+      <%= error_messages_for :match %>
+    </td>
+  </tr>
 <% end -%>
+
+<tr>
+  <% form_for @match do |f| -%>
+    <% column_names.each do |column_name| -%>
+      <td>
+        <% case column_name
+           when 'series_id' -%>
+          <%= f.collection_select 'series_id', Series.premier_all, :id, :abbr %>
+          <%= f.text_field 'subname'   , :size => 10 %>
+        <% when 'opponent_id' -%>
+          <%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name %>
+        <% when 'ground' -%>
+          <%= f.select 'ground', grounds_for_select %>
+        <% when 'scores_own' -%>
+          <%= f.text_field 'scores_own', :size =>  2 %>
+          -
+          <%= f.text_field 'scores_opp', :size =>  2 %>
+        <% when 'pks_own' -%>
+          PK
+          <%= f.text_field 'pks_own'   , :size =>  2 %>
+          -
+          <%= f.text_field 'pks_opp'   , :size =>  2 %>
+        <% else -%>
+          <%= f.text_field column_name , :size => text_field_size(column_name) %>
+        <% end -%>
+      </td>
+    <% end -%>
+
+    <td style="border-style: hidden hidden hidden none">
+      <%= submit_tag 'Submit' %>
+    </td>
+  <% end -%>
+</tr>
 

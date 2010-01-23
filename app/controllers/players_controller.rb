@@ -72,26 +72,29 @@ class PlayersController < ApplicationController
     @player = Player.new
     @player.player_attribute = PlayerAttribute.zeros
 
-    @page_title_size = 3
-    @page_title = "Creating a new Player ..."
+    prepare_page_title_for_new
   end
 
   def create
     season_id = session[:season_id]
     @player = Player.new(params[:player])
-    @player.seasons << Season.find(season_id)
-    @player.order_number = Player.next_order_number(season_id)
+    @player.set_next_order_number(season_id)
     @player.player_attribute = PlayerAttribute.new(params[:player_attribute])
     begin
       @player.save!
       redirect_to @player
     rescue ActiveRecord::RecordInvalid
       flash[:error_message] = "Failed to create Player '#{@player.name}'"
-      @page_title_size = 3
-      @page_title = "Creating a new Player ..."
+      prepare_page_title_for_new
       render :action => 'new'
     end
   end
+
+  def prepare_page_title_for_new
+    @page_title_size = 3
+    @page_title = "Creating a new Player ..."
+  end
+  private :prepare_page_title_for_new
 
   NUM_SORT_FIELDS = 3
 

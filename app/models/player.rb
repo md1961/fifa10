@@ -85,6 +85,11 @@ class Player < ActiveRecord::Base
     return player_season ? player_season.order_number : nil
   end
 
+  def set_next_order_number(season_id)
+    player_seasons << PlayerSeason.new(:season_id => season_id,
+                                       :order_number => Player.next_order_number(season_id))
+  end
+
   def get(name)
     name = name.to_s
     return 0 if name == 'none'

@@ -8,12 +8,16 @@
 <!-- -->
 
 <% @matches.each do |match| -%>
-  <tr>
-    <% column_names.each do |column_name| -%>
-      <td>
-        <%= render :partial => 'match', :object => match, :locals => {:column_name => column_name} %>
-      </td>
-    <% end -%>
-  </tr>
+  <% if match.id == id_to_edit -%>
+    <%= render :partial => 'form', :locals => {:column_names => column_names} %>
+  <% else -%>
+    <tr>
+      <% column_names.each do |column_name| -%>
+        <td>
+            <%= render :partial => 'match', :object => match, :locals => {:column_name => column_name} %>
+        </td>
+      <% end -%>
+    </tr>
+  <% end -%>
 <% end -%>
 

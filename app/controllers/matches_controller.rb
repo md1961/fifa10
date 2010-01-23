@@ -12,8 +12,7 @@ class MatchesController < ApplicationController
     @matches = Match.list(season_id)
     @match = Match.new
 
-    @page_title_size = 3
-    @page_title = "#{team_name_and_season_years} New Fixture/Result"
+    prepare_page_title_for_new
   end
 
   def create
@@ -23,14 +22,50 @@ class MatchesController < ApplicationController
     else
       season_id = session[:season_id]
       @matches = Match.list(season_id)
+
+      prepare_page_title_for_new
       render :action => 'new'
     end
   end
 
     def make_match(params)
       match = Match.new(params[:match])
+      match.season_id = session[:season_id]
       
       return match
     end
     private :make_match
+
+    def prepare_page_title_for_new
+      @page_title_size = 3
+      @page_title = "#{team_name_and_season_years} New Fixture/Result"
+    end
+    private :prepare_page_title_for_new
+
+  def edit
+    season_id = session[:season_id]
+    @matches = Match.list(season_id)
+    @match = Match.find(params[:id])
+
+    prepare_page_title_for_edit
+  end
+
+  def update
+    @match = Match.find(params[:id])
+    if @match.update_attributes(params[:match])
+      redirect_to :action => 'list'
+    else
+      season_id = session[:season_id]
+      @matches = Match.list(season_id)
+
+      prepare_page_title_for_edit
+      render :action => 'edit', :id => @match
+    end
+  end
+
+    def prepare_page_title_for_edit
+      @page_title_size = 3
+      @page_title = "#{team_name_and_season_years} New Fixture/Result"
+    end
+    private :prepare_page_title_for_edit
 end
