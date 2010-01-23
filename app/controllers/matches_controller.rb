@@ -11,6 +11,7 @@ class MatchesController < ApplicationController
 
     @chronicle = Season.find(season_id).chronicle
 
+    @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Fixtures and Results"
   end
 

@@ -4,7 +4,7 @@ class Series < ActiveRecord::Base
     hash_order = {
       "Premier"    => 1,
       "FA Cup"     => 2,
-      "Carling C." => 3,
+      "L. Cup"     => 3,
       "UEFA CL"    => 4,
       "UEFA EL"    => 5,
       "UEFA SC"    => 6,

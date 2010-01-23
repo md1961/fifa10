@@ -4,7 +4,9 @@ class CreateRegions < ActiveRecord::Migration
       t.column :name, :string, :null => false
     end
 
-    %w(Europe Africa Asia Oceania North America South America).each do |name|
+    [
+      'Europe', 'Africa', 'Asia', 'Oceania', 'North America', 'South America'
+    ].each do |name|
       Region.create :name => name
     end
   end
