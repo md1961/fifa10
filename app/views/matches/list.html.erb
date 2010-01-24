@@ -15,6 +15,7 @@
 <%= link_to 'New Match', :action => 'new' %>
 
 <table id="table_matches">
-  <%= render :partial => 'list', :locals => {:id_to_edit => nil, :column_names => column_names_for_list} %> 
+  <%= render :partial => 'list',
+             :locals => {:id_to_edit => nil, :column_names => column_names_for_list, :shows_link => true} %> 
 </table>
 

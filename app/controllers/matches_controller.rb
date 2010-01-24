@@ -7,9 +7,7 @@ class MatchesController < ApplicationController
     end
     session[:season_id] = season_id
 
-    @matches = Match.list(season_id)
-    match_filter = get_match_filter
-    @matches = match_filter.displaying_matches(@matches)
+    @matches = get_matches(season_id)
 
     @chronicle = Season.find(season_id).chronicle
 
@@ -17,9 +15,16 @@ class MatchesController < ApplicationController
     @page_title = "#{team_name_and_season_years} Fixtures and Results"
   end
 
+    def get_matches(season_id)
+      matches = Match.list(season_id)
+      match_filter = get_match_filter
+      return match_filter.displaying_matches(matches)
+    end
+    private :get_matches
+
   def new
     season_id = session[:season_id]
-    @matches = Match.list(season_id)
+    @matches = get_matches(season_id)
     @match = Match.new
 
     prepare_page_title_for_new
@@ -69,7 +74,7 @@ class MatchesController < ApplicationController
 
   def edit
     season_id = session[:season_id]
-    @matches = Match.list(season_id)
+    @matches = get_matches(season_id)
     @match = Match.find(params[:id])
 
     prepare_page_title_for_edit

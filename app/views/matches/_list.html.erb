@@ -14,7 +14,8 @@
   <% else -%>
     <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
       <% column_names.each do |column_name| -%>
-        <%= render :partial => 'match', :object => match, :locals => {:column_name => column_name} %>
+        <%= render :partial => 'match', :object => match,
+                   :locals => {:column_name => column_name, :shows_link => shows_link} %>
       <% end -%>
     </tr>
   <% end -%>

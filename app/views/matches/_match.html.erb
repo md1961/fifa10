@@ -7,14 +7,14 @@
 <% when 'scores_own' -%>
      <% if match.scores_own.nil? -%>
        <td colspan="2" align="center">
-         <%= link_to nbsp(10), :action => 'edit', :id => match %>
+         <%= link_to_if shows_link, nbsp(10), :action => 'edit', :id => match %>
        </td>
      <% else -%>
        <td align="center" class="no_right_border">
          <%= "#{match.result}" %>
        </td>
        <td align="center">
-         <%= link_to "#{match.scores_own} - #{match.scores_opp}", :action => 'edit', :id => match %>
+         <%= link_to_if shows_link, "#{match.scores_own} - #{match.scores_opp}", :action => 'edit', :id => match %>
        </td>
      <% end -%>
 <% when 'pks_own' -%>
