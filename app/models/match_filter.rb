@@ -22,6 +22,14 @@ class MatchFilter
     end
   end
 
+  def selected_series
+    # TODO: Series.premier_all is magic word
+    return Series.premier_all.select do |series|
+      attr_name = MatchFilter.abbr2attr_name(series.abbr)
+      instance_variable_get("@#{attr_name}") == YES
+    end
+  end
+
   def reset_all_series
     SERIES_NAMES.each do |name|
       instance_variable_set("@#{name}", NO)

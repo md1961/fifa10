@@ -13,7 +13,12 @@
       <td colspan="<%= column_name == 'scores_own' ? 2 : 1 %>">
         <% case column_name
            when 'series_id' -%>
-          <%= f.collection_select 'series_id', Series.premier_all, :id, :abbr %>
+          <% series = series_for_collection_select -%>
+          <% if series.size == 1 -%>
+            <%= series[0].abbr %>
+          <% else -%>
+            <%= f.collection_select 'series_id', series, :id, :abbr %>
+          <% end -%>
           <%= f.text_field 'subname'   , :size => 10 %>
         <% when 'opponent_id' -%>
           <%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name %>

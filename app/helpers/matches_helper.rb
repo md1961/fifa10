@@ -35,6 +35,11 @@ module MatchesHelper
     return HASH_COLUMN_INDEX[column_name.intern] || ''
   end
 
+  def series_for_collection_select
+    match_filter = session[:match_filter]
+    return match_filter.selected_series
+  end
+
   def teams_for_collection_select
     season_id = session[:season_id]
     own_team = Season.find(season_id).team
