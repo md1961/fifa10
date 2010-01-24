@@ -1,0 +1,77 @@
+0	Andorra	1	AD
+0	Albania	1	AL
+0	Armenia	1	AM
+0	Angola	2	AO
+0	Argentina	6	AR
+0	Austria	1	AT
+0	Australia	2	AU
+0	Bosnia And Herzegowina	1	BA
+0	Benin	2	BJ
+0	Bolivia	6	BO
+0	Botswana	2	BW
+0	Belarus	1	BY
+0	Canada	5	CA
+0	Congo	2	CG
+0	Switzerland	1	CH
+0	Ivory Coast	2	CI
+0	Chile	6	CL
+0	Cameroon	2	CM
+0	China	3	CN
+0	Colombia	6	CO
+0	Costa Rica	5	CR
+0	Cuba	5	CU
+0	Czech	1	CZ
+0	Denmark	1	DK
+0	Dominican Republic	5	DO
+0	Algeria	2	DZ
+0	Estonia	1	EE
+0	Egypt	2	EG
+0	Western Sahara	2	EH
+0	Ethiopia	2	ET
+0	Finland	1	FI
+0	Gabon	2	GA
+0	Georgia	1	GE
+0	Ghana	2	GH
+0	Gambia	2	GM
+0	Guinea	2	GN
+0	Greece	1	GR
+0	Guatemala	5	GT
+0	Honduras	5	HN
+0	Croatia	1	HR
+0	Hungary	1	HU
+0	Israel	1	IL
+0	Iceland	1	IS
+0	Jamaica	5	JM
+0	Japan	3	JP
+0	Kenya	2	KE
+0	Lithuania	1	LT
+0	Latvia	1	LV
+0	Moldova	1	MD
+0	Macedonia	1	MK
+0	Mexico	5	MX
+0	Namibia	2	NA
+0	Niger	2	NE
+0	Nigeria	2	NG
+0	Nicaragua	5	NI
+0	New Zealand	2	NZ
+0	Peru	6	PE
+0	Paraguay	6	PY
+0	Romania	1	RO
+0	Russia	1	RU
+0	Sudan	2	SD
+0	Sweden	1	SE
+0	Slovenia	1	SI
+0	Slovakia	1	SK
+0	Senegal	2	SN
+0	Somalia	2	SO
+0	El Salvador	5	SV
+0	Togo	2	TG
+0	Tunisia	2	TN
+0	Ukraine	1	UA
+0	United States	5	US
+0	Uruguay	6	UY
+0	Venezuela	6	VE
+0	Yugoslavia	1	YU
+0	Zambia	2	ZM
+0	Zaire	2	ZR
+0	Zimbabwe	2	ZW

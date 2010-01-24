@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100117010630) do
+ActiveRecord::Schema.define(:version => 20100123162508) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20100117010630) do
   create_table "nations", :force => true do |t|
     t.string  "name",      :default => "", :null => false
     t.integer "region_id",                 :null => false
+    t.string  "abbr"
   end
 
   create_table "player_attributes", :force => true do |t|
