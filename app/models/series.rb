@@ -6,7 +6,7 @@ class Series < ActiveRecord::Base
       "FA Cup"     => 2,
       "L. Cup"     => 3,
       "UEFA CL"    => 4,
-      "UEFA EL"    => 5,
+      #"UEFA EL"    => 5,
       "UEFA SC"    => 6,
       "C. Shield"  => 7,
     }

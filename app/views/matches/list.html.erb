@@ -5,6 +5,13 @@
 <%= nbsp(4) %>
 <%= link_to 'Rosters', :controller => 'players', :action => 'list' %>
 <%= nbsp(4) %>
+<%= link_to 'All Series', :action => 'filter_with_series', :series_ids => Series.premier_all %>
+<% Series.premier_all.each do |series| -%>
+  <% abbr = series.abbr -%>
+  <%= nbsp(1) %>
+  <%= link_to abbr, :action => 'filter_with_series', :series_ids => [Series.find_by_abbr(abbr)] %>
+<% end -%>
+<%= nbsp(4) %>
 <%= link_to 'New Match', :action => 'new' %>
 
 <table id="table_matches">

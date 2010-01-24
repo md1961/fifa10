@@ -8,6 +8,8 @@ class MatchesController < ApplicationController
     session[:season_id] = season_id
 
     @matches = Match.list(season_id)
+    match_filter = get_match_filter
+    @matches = match_filter.displaying_matches(@matches)
 
     @chronicle = Season.find(season_id).chronicle
 
@@ -87,9 +89,31 @@ class MatchesController < ApplicationController
     end
   end
 
+  def filter_with_series
+    series_ids = params[:series_ids]
+
+    log_debug "series_ids = #{series_ids.inspect}"
+
+    match_filter = get_match_filter
+    match_filter.reset_all_series
+    match_filter.set_series_ids(series_ids)
+    session[:match_filter] = match_filter
+
+    redirect_to :action => 'list'
+  end
+
+  private
+
     def prepare_page_title_for_edit
       @page_title_size = 3
       @page_title = "#{team_name_and_season_years} New Fixture/Result"
     end
-    private :prepare_page_title_for_edit
+
+    def get_match_filter(params=nil)
+      param = params ? params[:match_filter] : nil
+      match_filter = param ? nil : session[:match_filter]
+      match_filter = MatchFilter.new(param) unless match_filter
+
+      return match_filter
+    end
 end
