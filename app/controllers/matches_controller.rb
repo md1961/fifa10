@@ -107,6 +107,23 @@ class MatchesController < ApplicationController
     redirect_to :action => 'list'
   end
 
+  def choose_to_list
+    @match_filter = get_match_filter
+
+    @page_title_size = 3
+    @page_title = "Specify conditions to filter"
+  end
+
+  def filter_on_list
+    player_name_input = params[:match_filter][:player_name]
+    player_name_input = nil if player_name_input.empty?
+    match_filter = get_match_filter
+    match_filter.player_name = player_name_input
+    session[:match_filter] = match_filter
+
+    redirect_to :action => 'list'
+  end
+
   private
 
     def prepare_page_title_for_edit

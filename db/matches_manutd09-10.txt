@@ -1,0 +1,57 @@
+0	2009-08-09	7	 	3	N	2	2	1	4	"Nani 10, Rooney 92"	"Carvalho 52, Lampard 71"	3
+0	2009-08-16	4	 	19	H	1	0	\N	\N	Rooney 34(1)		3
+0	2009-08-19	4	 	20	A	0	1	\N	\N		Blake 19	3
+0	2009-08-22	4	 	11	A	5	0	\N	\N	"Rooney 56 65(3), Berbatov 58(1), Owen 85(1), Nani 92(1)"		3
+0	2009-08-29	4	 	4	H	2	1	\N	\N	"Rooney 59(PK, 4), OG(Diaby) 64"	Arshavin 40	3
+0	2009-09-12	4	 	7	A	3	1	\N	\N	"Giggs 25(1), Anderson 41(1), Rooney 78(5)"	Defoe 1	3
+0	2009-09-15	1	GL #1/6	42	A	1	0	\N	\N	Scholes 77		3
+0	2009-09-20	4	 	8	H	4	3	\N	\N	"Rooney 5(6), Fletcher 48 80(2), Owen 95(2)"	"Barry 16, Bellamy 52 90"	3
+0	2009-09-23	6	 	18	H	1	0	\N	\N	Welbeck 66		3
+0	2009-09-26	4	 	12	A	2	0	\N	\N	"Berbatov 62(2), O'Shea 76(1)"		3
+0	2009-09-30	1	GL #2/6	43	H	2	1	\N	\N	"Giggs 59, Carrick 78"	Dzeko 55	3
+0	2009-10-03	4	 	16	H	2	2	\N	\N	"Berbatov 51(3), OG(Ferdinand) 92"	"Bent 7, Jones 58"	3
+0	2009-10-17	4	 	13	H	2	1	\N	\N	"OG(Knight) 5, Valencia 33(1)"	Taylor 75	3
+0	2009-10-21	1	GL #3/6	44	A	1	0	\N	\N	Valencia 86		3
+0	2009-10-25	4	 	2	A	0	2	\N	\N		"Torres 65, Ngog 96"	3
+0	2009-10-31	4	 	15	H	2	0	\N	\N	"Berbatov 55(4), Rooney 87(7)"		3
+0	2009-11-03	1	GL #4/6	44	H	3	3	\N	\N	"Owen 29, Scholes 84, OG(Schennikov) 92"	"Dzagoev 25, Krasic 31, Berezutski 47"	3
+0	2009-11-08	4	 	3	A	0	1	\N	\N		Terry 76	3
+0	2009-11-21	4	 	5	H	3	0	\N	\N	"Fletcher 35(3), Carrick 67(1), Valencia 76(2)"		3
+0	2009-11-25	1	GL #5/6	42	H	0	1	\N	\N		Tello 18	3
+0	2009-11-28	4	 	14	A	4	1	\N	\N	"Rooney 25(PK) 48 54(PK, 10), Giggs 87(2)"	Boateng 32(PK)	3
+0	2009-12-01	6	QF	7	H	2	0	\N	\N	Gibson 16 38		3
+0	2009-12-05	4	 	10	A	4	0	\N	\N	"Scholes 45(1), Gibson 61(1), Valencia 70(3), Rooney 72(11)"		3
+0	2009-12-08	1	GL #6/6	43	A	3	1	\N	\N	Owen 44 83 90	Dzeko 55	3
+0	2009-12-12	4	 	6	H	0	1	\N	\N		Agbonlahor 21	3
+0	2009-12-15	4	 	18	H	3	0	\N	\N	"Rooney 30(PK,12), Vidic 44(1), Valencia 66(4)"		3
+0	2009-12-19	4	 	9	A	0	3	\N	\N		"Murphy 22, Zamora 46, Duff 75"	3
+0	2009-12-26	4	 	17	A	3	1	\N	\N	"Rooney 47(13), Dawson 73(OG), Berbatov 82(5)"	Fagan 59(PK)	3
+0	2009-12-30	4	 	11	H	5	0	\N	\N	"Rooney 28(14), Carrick 32(2), Rafael 45(1), Berbatov 50(6), Valencia 75(5)"		3
+0	2010-01-03	5	Round 3	23	H	0	1	\N	\N		Beckford 19	3
+0	2010-01-09	4	 	19	A	1	1	\N	\N	OG(Dann) 63	Jerome 39	3
+0	2010-01-16	4	 	20	H	3	0	\N	\N	"Bervatov 64(7), Rooney 69(15), Diouf 90(1)"		3
+0	2010-01-19	6	SF 1st Leg	8	A	1	2	\N	\N	Giggs 17	Tevez 42 65	3
+0	2010-01-23	4	 	17	H	\N	\N	\N	\N	 	 	3
+0	2010-01-27	6	SF 2nd Leg	8	H	\N	\N	\N	\N	 	 	3
+0	2010-01-30	4	 	4	A	\N	\N	\N	\N	 	 	3
+0	2010-02-06	4	 	14	H	\N	\N	\N	\N	 	 	3
+0	2010-02-10	4	 	6	A	\N	\N	\N	\N	 	 	3
+0	2010-02-16	1	R1 1st Leg	41	A	\N	\N	\N	\N	 	 	3
+0	2010-02-20	4	 	5	A	\N	\N	\N	\N	 	 	3
+0	2010-02-27	4	 	10	H	\N	\N	\N	\N	 	 	3
+0	2010-03-06	4	 	18	A	\N	\N	\N	\N	 	 	3
+0	2010-03-10	1	R1 2nd Leg	41	H	\N	\N	\N	\N	 	 	3
+0	2010-03-13	4	 	9	H	\N	\N	\N	\N	 	 	3
+0	2010-03-20	4	 	2	H	\N	\N	\N	\N	 	 	3
+0	2010-03-27	4	 	13	A	\N	\N	\N	\N	 	 	3
+0	2010-03-30	1	QF 1st Leg	45		\N	\N	\N	\N	 	 	3
+0	2010-04-03	4	 	3	H	\N	\N	\N	\N	 	 	3
+0	2010-04-06	1	QF 2nd Leg	45		\N	\N	\N	\N	 	 	3
+0	2010-04-10	4	 	15	A	\N	\N	\N	\N	 	 	3
+0	2010-04-17	4	 	8	A	\N	\N	\N	\N	 	 	3
+0	2010-04-20	1	SF 1st Leg	45		\N	\N	\N	\N	 	 	3
+0	2010-04-24	4	 	7	H	\N	\N	\N	\N	 	 	3
+0	2010-04-27	1	SF 2nd Leg	45		\N	\N	\N	\N	 	 	3
+0	2010-05-01	4	 	16	A	\N	\N	\N	\N	 	 	3
+0	2010-05-09	4	 	12	H	\N	\N	\N	\N	 	 	3
+0	2010-05-22	1	Final	45	N	\N	\N	\N	\N	 	 	3

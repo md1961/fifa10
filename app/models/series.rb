@@ -1,5 +1,7 @@
 class Series < ActiveRecord::Base
 
+  #TODO: many-to-many with Season thru TABLE SeasonSeries
+
   def self.premier_all
     hash_order = {
       "Premier"    => 1,

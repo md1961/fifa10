@@ -4,6 +4,8 @@ class Season < ActiveRecord::Base
   has_many :player_seasons
   has_many :players, :through => :player_seasons
 
+  #TODO: many-to-many with Series thru TABLE SeasonSeries
+
   MONTH_START = 7
 
   def self.list(chronicle_id)
