@@ -25,7 +25,7 @@ CREATE TABLE `chronicles` (
   `name` varchar(255) collate utf8_unicode_ci NOT NULL,
   `closed` tinyint(1) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `chronicles`
@@ -33,7 +33,7 @@ CREATE TABLE `chronicles` (
 
 LOCK TABLES `chronicles` WRITE;
 /*!40000 ALTER TABLE `chronicles` DISABLE KEYS */;
-INSERT INTO `chronicles` VALUES (1,'FIFA 10 Manager Mode',0);
+INSERT INTO `chronicles` VALUES (1,'FIFA 10 Manager Mode',0),(2,'Manchester United (in Real)',0);
 /*!40000 ALTER TABLE `chronicles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `matches` (
   CONSTRAINT `fk_matches_seasons` FOREIGN KEY (`season_id`) REFERENCES `seasons` (`id`),
   CONSTRAINT `fk_matches_series` FOREIGN KEY (`series_id`) REFERENCES `series` (`id`),
   CONSTRAINT `fk_matches_teams` FOREIGN KEY (`opponent_id`) REFERENCES `teams` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `matches`
@@ -71,7 +71,7 @@ CREATE TABLE `matches` (
 
 LOCK TABLES `matches` WRITE;
 /*!40000 ALTER TABLE `matches` DISABLE KEYS */;
-INSERT INTO `matches` VALUES (1,'2011-01-08',4,'',17,'H',3,0,NULL,NULL,'Welbeck 7 88, Fletcher 86','',2),(2,'2011-01-15',4,'',8,'A',3,0,NULL,NULL,'Rooney 13 59, Scholes 40','',2),(3,'2011-01-22',4,'',29,'H',1,0,NULL,NULL,'Scholes 57','',2),(4,'2010-08-08',7,'',4,'N',2,0,NULL,NULL,'','',2),(5,'2010-08-14',4,'',16,'A',3,1,NULL,NULL,'','',2),(6,'2010-08-21',4,'',10,'H',1,0,NULL,NULL,'','',2),(7,'2010-08-28',4,'',17,'A',2,1,NULL,NULL,'','',2),(8,'2010-09-04',4,'',8,'H',0,2,NULL,NULL,'','',2),(9,'2010-09-11',4,'',29,'A',3,0,NULL,NULL,'','',2),(10,'2010-09-14',6,'Round 2',30,'A',4,0,NULL,NULL,'','',2),(11,'2010-09-18',4,'',21,'H',0,2,NULL,NULL,'','',2),(12,'2010-09-21',1,'GL #1/6',31,'A',3,0,NULL,NULL,'','',2),(13,'2010-09-28',1,'GL #2/6',33,'H',2,0,NULL,NULL,'','',2),(14,'2010-09-25',4,'',14,'A',3,0,NULL,NULL,'','',2),(15,'2010-10-02',4,'',5,'H',0,1,NULL,NULL,'','',2),(16,'2010-10-09',4,'',6,'A',2,1,NULL,NULL,'','',2),(17,'2010-10-12',6,'Round 3',14,'A',1,0,NULL,NULL,'','',2),(18,'2010-10-16',4,'',12,'A',0,0,NULL,NULL,'','',2),(19,'2010-10-23',4,'',11,'H',5,0,NULL,NULL,'','',2),(20,'2010-10-27',1,'GL #3/6',34,'H',1,0,NULL,NULL,'','',2),(21,'2010-10-30',4,'',7,'A',6,0,NULL,NULL,'','',2),(22,'2010-11-02',6,'Round 4',4,'A',1,0,NULL,NULL,'','',2),(23,'2010-11-06',4,'',3,'H',1,2,NULL,NULL,'','',2),(24,'2010-11-09',1,'GL #4/6',34,'A',1,1,NULL,NULL,'','',2),(25,'2010-11-13',4,'',2,'A',1,1,NULL,NULL,'','',2),(26,'2010-11-20',4,'',15,'A',4,0,NULL,NULL,'','',2),(27,'2010-11-27',4,'',35,'A',4,0,NULL,NULL,'','',2),(28,'2010-12-01',1,'GL #5/6',33,'A',2,3,NULL,NULL,'','',2),(29,'2010-12-04',4,'',9,'H',3,1,NULL,NULL,'','',2),(30,'2010-12-08',1,'GL #6/6',31,'H',2,2,NULL,NULL,'','',2),(31,'2010-12-11',4,'',4,'A',4,1,NULL,NULL,'','',2),(32,'2010-12-18',4,'',18,'H',3,1,NULL,NULL,'','',2),(33,'2010-12-21',6,'QSF',3,'A',1,0,NULL,NULL,'Rooney 120','',2),(34,'2010-12-25',4,'',16,'H',1,1,NULL,NULL,'','',2),(35,'2011-01-01',4,'',10,'A',2,0,NULL,NULL,'','',2),(36,'2011-01-08',5,'Round 3',36,'A',4,0,NULL,NULL,'','',2),(37,'2011-01-08',4,'',17,'H',3,0,NULL,NULL,'','',2),(38,'2011-01-11',6,'SF 1st Leg',5,'H',0,1,NULL,NULL,'','',2),(40,'2011-01-18',6,'SF 2nd Leg',5,'A',4,0,NULL,NULL,'','',2),(41,'2011-01-29',5,'R4',14,'H',4,0,NULL,NULL,'Welbeck 7, Owen 24, Macheda 86 89','',2),(42,'2011-01-29',4,'',21,'A',4,1,NULL,NULL,'Berbatov 13 34 45, Valencia 86','Ranger 6',2),(43,'2011-02-05',4,'',14,'H',NULL,NULL,NULL,NULL,'','',2);
+INSERT INTO `matches` VALUES (1,'2011-01-08',4,'',17,'H',3,0,NULL,NULL,'Welbeck 7 88, Fletcher 86','',2),(2,'2011-01-15',4,'',8,'A',3,0,NULL,NULL,'Rooney 13 59, Scholes 40','',2),(3,'2011-01-22',4,'',29,'H',1,0,NULL,NULL,'Scholes 57','',2),(4,'2010-08-08',7,'',4,'N',2,0,NULL,NULL,'','',2),(5,'2010-08-14',4,'',16,'A',3,1,NULL,NULL,'','',2),(6,'2010-08-21',4,'',10,'H',1,0,NULL,NULL,'','',2),(7,'2010-08-28',4,'',17,'A',2,1,NULL,NULL,'','',2),(8,'2010-09-04',4,'',8,'H',0,2,NULL,NULL,'','',2),(9,'2010-09-11',4,'',29,'A',3,0,NULL,NULL,'','',2),(10,'2010-09-14',6,'Round 2',30,'A',4,0,NULL,NULL,'','',2),(11,'2010-09-18',4,'',21,'H',0,2,NULL,NULL,'','',2),(12,'2010-09-21',1,'GL #1/6',31,'A',3,0,NULL,NULL,'','',2),(13,'2010-09-28',1,'GL #2/6',33,'H',2,0,NULL,NULL,'','',2),(14,'2010-09-25',4,'',14,'A',3,0,NULL,NULL,'','',2),(15,'2010-10-02',4,'',5,'H',0,1,NULL,NULL,'','',2),(16,'2010-10-09',4,'',6,'A',2,1,NULL,NULL,'','',2),(17,'2010-10-12',6,'Round 3',14,'A',1,0,NULL,NULL,'','',2),(18,'2010-10-16',4,'',12,'A',0,0,NULL,NULL,'','',2),(19,'2010-10-23',4,'',11,'H',5,0,NULL,NULL,'','',2),(20,'2010-10-27',1,'GL #3/6',34,'H',1,0,NULL,NULL,'','',2),(21,'2010-10-30',4,'',7,'A',6,0,NULL,NULL,'','',2),(22,'2010-11-02',6,'Round 4',4,'A',1,0,NULL,NULL,'','',2),(23,'2010-11-06',4,'',3,'H',1,2,NULL,NULL,'','',2),(24,'2010-11-09',1,'GL #4/6',34,'A',1,1,NULL,NULL,'','',2),(25,'2010-11-13',4,'',2,'A',1,1,NULL,NULL,'','',2),(26,'2010-11-20',4,'',15,'A',4,0,NULL,NULL,'','',2),(27,'2010-11-27',4,'',35,'A',4,0,NULL,NULL,'','',2),(28,'2010-12-01',1,'GL #5/6',33,'A',2,3,NULL,NULL,'','',2),(29,'2010-12-04',4,'',9,'H',3,1,NULL,NULL,'','',2),(30,'2010-12-08',1,'GL #6/6',31,'H',2,2,NULL,NULL,'','',2),(31,'2010-12-11',4,'',4,'A',4,1,NULL,NULL,'','',2),(32,'2010-12-18',4,'',18,'H',3,1,NULL,NULL,'','',2),(33,'2010-12-21',6,'QSF',3,'A',1,0,NULL,NULL,'Rooney 120','',2),(34,'2010-12-25',4,'',16,'H',1,1,NULL,NULL,'','',2),(35,'2011-01-01',4,'',10,'A',2,0,NULL,NULL,'','',2),(36,'2011-01-08',5,'Round 3',36,'A',4,0,NULL,NULL,'','',2),(38,'2011-01-11',6,'SF 1st Leg',5,'H',0,1,NULL,NULL,'','',2),(40,'2011-01-18',6,'SF 2nd Leg',5,'A',4,0,NULL,NULL,'','',2),(41,'2011-01-29',5,'Round 4',14,'H',4,0,NULL,NULL,'Welbeck 7, Owen 24, Macheda 86 89','',2),(42,'2011-01-29',4,'',21,'A',4,1,NULL,NULL,'Berbatov 13 34 45, Valencia 86','Ranger 6',2),(43,'2011-02-05',4,'',14,'H',NULL,NULL,NULL,NULL,'','',2),(101,'2009-08-09',7,' ',3,'N',2,2,1,4,'Nani 10, Rooney 92','Carvalho 52, Lampard 71',3),(102,'2009-08-16',4,' ',19,'H',1,0,NULL,NULL,'Rooney 34(1)','',3),(103,'2009-08-19',4,' ',20,'A',0,1,NULL,NULL,'','Blake 19',3),(104,'2009-08-22',4,' ',11,'A',5,0,NULL,NULL,'Rooney 56 65(3), Berbatov 58(1), Owen 85(1), Nani 92(1)','',3),(105,'2009-08-29',4,' ',4,'H',2,1,NULL,NULL,'Rooney 59(PK, 4), OG(Diaby) 64','Arshavin 40',3),(106,'2009-09-12',4,' ',7,'A',3,1,NULL,NULL,'Giggs 25(1), Anderson 41(1), Rooney 78(5)','Defoe 1',3),(107,'2009-09-15',1,'GL #1/6',42,'A',1,0,NULL,NULL,'Scholes 77','',3),(108,'2009-09-20',4,' ',8,'H',4,3,NULL,NULL,'Rooney 5(6), Fletcher 48 80(2), Owen 95(2)','Barry 16, Bellamy 52 90',3),(109,'2009-09-23',6,' ',18,'H',1,0,NULL,NULL,'Welbeck 66','',3),(110,'2009-09-26',4,' ',12,'A',2,0,NULL,NULL,'Berbatov 62(2), O\'Shea 76(1)','',3),(111,'2009-09-30',1,'GL #2/6',43,'H',2,1,NULL,NULL,'Giggs 59, Carrick 78','Dzeko 55',3),(112,'2009-10-03',4,' ',16,'H',2,2,NULL,NULL,'Berbatov 51(3), OG(Ferdinand) 92','Bent 7, Jones 58',3),(113,'2009-10-17',4,' ',13,'H',2,1,NULL,NULL,'OG(Knight) 5, Valencia 33(1)','Taylor 75',3),(114,'2009-10-21',1,'GL #3/6',44,'A',1,0,NULL,NULL,'Valencia 86','',3),(115,'2009-10-25',4,' ',2,'A',0,2,NULL,NULL,'','Torres 65, Ngog 96',3),(116,'2009-10-31',4,' ',15,'H',2,0,NULL,NULL,'Berbatov 55(4), Rooney 87(7)','',3),(117,'2009-11-03',1,'GL #4/6',44,'H',3,3,NULL,NULL,'Owen 29, Scholes 84, OG(Schennikov) 92','Dzagoev 25, Krasic 31, Berezutski 47',3),(118,'2009-11-08',4,' ',3,'A',0,1,NULL,NULL,'','Terry 76',3),(119,'2009-11-21',4,' ',5,'H',3,0,NULL,NULL,'Fletcher 35(3), Carrick 67(1), Valencia 76(2)','',3),(120,'2009-11-25',1,'GL #5/6',42,'H',0,1,NULL,NULL,'','Tello 18',3),(121,'2009-11-28',4,' ',14,'A',4,1,NULL,NULL,'Rooney 25(PK) 48 54(PK, 10), Giggs 87(2)','Boateng 32(PK)',3),(122,'2009-12-01',6,'QF',7,'H',2,0,NULL,NULL,'Gibson 16 38','',3),(123,'2009-12-05',4,' ',10,'A',4,0,NULL,NULL,'Scholes 45(1), Gibson 61(1), Valencia 70(3), Rooney 72(11)','',3),(124,'2009-12-08',1,'GL #6/6',43,'A',3,1,NULL,NULL,'Owen 44 83 90','Dzeko 55',3),(125,'2009-12-12',4,' ',6,'H',0,1,NULL,NULL,'','Agbonlahor 21',3),(126,'2009-12-15',4,' ',18,'H',3,0,NULL,NULL,'Rooney 30(PK,12), Vidic 44(1), Valencia 66(4)','',3),(127,'2009-12-19',4,' ',9,'A',0,3,NULL,NULL,'','Murphy 22, Zamora 46, Duff 75',3),(128,'2009-12-26',4,' ',17,'A',3,1,NULL,NULL,'Rooney 47(13), Dawson 73(OG), Berbatov 82(5)','Fagan 59(PK)',3),(129,'2009-12-30',4,' ',11,'H',5,0,NULL,NULL,'Rooney 28(14), Carrick 32(2), Rafael 45(1), Berbatov 50(6), Valencia 75(5)','',3),(130,'2010-01-03',5,'Round 3',23,'H',0,1,NULL,NULL,'','Beckford 19',3),(131,'2010-01-09',4,' ',19,'A',1,1,NULL,NULL,'OG(Dann) 63','Jerome 39',3),(132,'2010-01-16',4,' ',20,'H',3,0,NULL,NULL,'Bervatov 64(7), Rooney 69(15), Diouf 90(1)','',3),(133,'2010-01-19',6,'SF 1st Leg',8,'A',1,2,NULL,NULL,'Giggs 17','Tevez 42 65',3),(134,'2010-01-23',4,' ',17,'H',NULL,NULL,NULL,NULL,' ',' ',3),(135,'2010-01-27',6,'SF 2nd Leg',8,'H',NULL,NULL,NULL,NULL,' ',' ',3),(136,'2010-01-30',4,' ',4,'A',NULL,NULL,NULL,NULL,' ',' ',3),(137,'2010-02-06',4,' ',14,'H',NULL,NULL,NULL,NULL,' ',' ',3),(138,'2010-02-10',4,' ',6,'A',NULL,NULL,NULL,NULL,' ',' ',3),(139,'2010-02-16',1,'R1 1st Leg',41,'A',NULL,NULL,NULL,NULL,' ',' ',3),(140,'2010-02-20',4,' ',5,'A',NULL,NULL,NULL,NULL,' ',' ',3),(141,'2010-02-27',4,' ',10,'H',NULL,NULL,NULL,NULL,' ',' ',3),(142,'2010-03-06',4,' ',18,'A',NULL,NULL,NULL,NULL,' ',' ',3),(143,'2010-03-10',1,'R1 2nd Leg',41,'H',NULL,NULL,NULL,NULL,' ',' ',3),(144,'2010-03-13',4,' ',9,'H',NULL,NULL,NULL,NULL,' ',' ',3),(145,'2010-03-20',4,' ',2,'H',NULL,NULL,NULL,NULL,' ',' ',3),(146,'2010-03-27',4,' ',13,'A',NULL,NULL,NULL,NULL,' ',' ',3),(147,'2010-03-30',1,'QF 1st Leg',45,'',NULL,NULL,NULL,NULL,' ',' ',3),(148,'2010-04-03',4,' ',3,'H',NULL,NULL,NULL,NULL,' ',' ',3),(149,'2010-04-06',1,'QF 2nd Leg',45,'',NULL,NULL,NULL,NULL,' ',' ',3),(150,'2010-04-10',4,' ',15,'A',NULL,NULL,NULL,NULL,' ',' ',3),(151,'2010-04-17',4,' ',8,'A',NULL,NULL,NULL,NULL,' ',' ',3),(152,'2010-04-20',1,'SF 1st Leg',45,'',NULL,NULL,NULL,NULL,' ',' ',3),(153,'2010-04-24',4,' ',7,'H',NULL,NULL,NULL,NULL,' ',' ',3),(154,'2010-04-27',1,'SF 2nd Leg',45,'',NULL,NULL,NULL,NULL,' ',' ',3),(155,'2010-05-01',4,' ',16,'A',NULL,NULL,NULL,NULL,' ',' ',3),(156,'2010-05-09',4,' ',12,'H',NULL,NULL,NULL,NULL,' ',' ',3),(157,'2010-05-22',1,'Final',45,'N',NULL,NULL,NULL,NULL,' ',' ',3);
 /*!40000 ALTER TABLE `matches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,8 +84,9 @@ CREATE TABLE `nations` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(255) collate utf8_unicode_ci NOT NULL,
   `region_id` int(11) NOT NULL,
+  `abbr` varchar(255) collate utf8_unicode_ci default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `nations`
@@ -93,7 +94,7 @@ CREATE TABLE `nations` (
 
 LOCK TABLES `nations` WRITE;
 /*!40000 ALTER TABLE `nations` DISABLE KEYS */;
-INSERT INTO `nations` VALUES (1,'Belgium',1),(2,'Brazil',5),(3,'Bulgaria',1),(4,'England',1),(5,'Equador',5),(6,'France',1),(7,'Germany',1),(8,'Ireland',1),(9,'Italy',1),(10,'Korea',3),(11,'Netherlands',1),(12,'Northern Ireland',1),(13,'Norway',1),(14,'Poland',1),(15,'Portugal',1),(16,'Scotland',1),(17,'Serbia',1),(18,'South Africa',2),(19,'Wales',1),(20,'Burundi',2),(21,'Turkey',1),(22,'Spain',1);
+INSERT INTO `nations` VALUES (1,'Belgium',1,'BE'),(2,'Brazil',5,'BR'),(3,'Bulgaria',1,'BG'),(4,'England',1,'EL'),(5,'Ecuador',5,'EC'),(6,'France',1,'FR'),(7,'Germany',1,'DE'),(8,'Ireland',1,'IE'),(9,'Italy',1,'IT'),(10,'Korea',3,'KR'),(11,'Netherlands',1,'NL'),(12,'Northern Ireland',1,'ND'),(13,'Norway',1,'NO'),(14,'Poland',1,'PL'),(15,'Portugal',1,'PT'),(16,'Scotland',1,'SS'),(17,'Serbia',1,'RS'),(18,'South Africa',2,'ZA'),(19,'Wales',1,'WL'),(20,'Burundi',2,'BI'),(21,'Turkey',1,'TR'),(22,'Spain',1,'ES'),(23,'Andorra',1,'AD'),(24,'Albania',1,'AL'),(25,'Armenia',1,'AM'),(26,'Angola',2,'AO'),(27,'Argentina',6,'AR'),(28,'Austria',1,'AT'),(29,'Australia',2,'AU'),(30,'Bosnia And Herzegowina',1,'BA'),(31,'Benin',2,'BJ'),(32,'Bolivia',6,'BO'),(33,'Botswana',2,'BW'),(34,'Belarus',1,'BY'),(35,'Canada',5,'CA'),(36,'Congo',2,'CG'),(37,'Switzerland',1,'CH'),(38,'Ivory Coast',2,'CI'),(39,'Chile',6,'CL'),(40,'Cameroon',2,'CM'),(41,'China',3,'CN'),(42,'Colombia',6,'CO'),(43,'Costa Rica',5,'CR'),(44,'Cuba',5,'CU'),(45,'Czech',1,'CZ'),(46,'Denmark',1,'DK'),(47,'Dominican Republic',5,'DO'),(48,'Algeria',2,'DZ'),(49,'Estonia',1,'EE'),(50,'Egypt',2,'EG'),(51,'Western Sahara',2,'EH'),(52,'Ethiopia',2,'ET'),(53,'Finland',1,'FI'),(54,'Gabon',2,'GA'),(55,'Georgia',1,'GE'),(56,'Ghana',2,'GH'),(57,'Gambia',2,'GM'),(58,'Guinea',2,'GN'),(59,'Greece',1,'GR'),(60,'Guatemala',5,'GT'),(61,'Honduras',5,'HN'),(62,'Croatia',1,'HR'),(63,'Hungary',1,'HU'),(64,'Israel',1,'IL'),(65,'Iceland',1,'IS'),(66,'Jamaica',5,'JM'),(67,'Japan',3,'JP'),(68,'Kenya',2,'KE'),(69,'Lithuania',1,'LT'),(70,'Latvia',1,'LV'),(71,'Moldova',1,'MD'),(72,'Macedonia',1,'MK'),(73,'Mexico',5,'MX'),(74,'Namibia',2,'NA'),(75,'Niger',2,'NE'),(76,'Nigeria',2,'NG'),(77,'Nicaragua',5,'NI'),(78,'New Zealand',2,'NZ'),(79,'Peru',6,'PE'),(80,'Paraguay',6,'PY'),(81,'Romania',1,'RO'),(82,'Russia',1,'RU'),(83,'Sudan',2,'SD'),(84,'Sweden',1,'SE'),(85,'Slovenia',1,'SI'),(86,'Slovakia',1,'SK'),(87,'Senegal',2,'SN'),(88,'Somalia',2,'SO'),(89,'El Salvador',5,'SV'),(90,'Togo',2,'TG'),(91,'Tunisia',2,'TN'),(92,'Ukraine',1,'UA'),(93,'United States',5,'US'),(94,'Uruguay',6,'UY'),(95,'Venezuela',6,'VE'),(96,'Yugoslavia',1,'YU'),(97,'Zambia',2,'ZM'),(98,'Zaire',2,'ZR'),(99,'Zimbabwe',2,'ZW');
 /*!40000 ALTER TABLE `nations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +189,7 @@ CREATE TABLE `player_seasons` (
   KEY `fk_player_seasons_players` (`player_id`),
   CONSTRAINT `fk_player_seasons_players` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`),
   CONSTRAINT `fk_player_seasons_seasons` FOREIGN KEY (`season_id`) REFERENCES `seasons` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `player_seasons`
@@ -245,7 +246,7 @@ CREATE TABLE `players` (
   `market_value` int(11) default NULL,
   `note` varchar(255) collate utf8_unicode_ci default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `players`
@@ -316,7 +317,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20091213140109'),('20091213140924'),('20091214104031'),('20091214104312'),('20091214140704'),('20091218123850'),('20091219070150'),('20091222234521'),('20091225231523'),('20091227075745'),('20091230104100'),('20100113115430'),('20100113124614'),('20100114120528'),('20100115234855'),('20100116085624'),('20100116090112'),('20100116105859'),('20100116121347'),('20100116133545'),('20100116134903'),('20100117010630');
+INSERT INTO `schema_migrations` VALUES ('20091213140109'),('20091213140924'),('20091214104031'),('20091214104312'),('20091214140704'),('20091218123850'),('20091219070150'),('20091222234521'),('20091225231523'),('20091227075745'),('20091230104100'),('20100113115430'),('20100113124614'),('20100114120528'),('20100115234855'),('20100116085624'),('20100116090112'),('20100116105859'),('20100116121347'),('20100116133545'),('20100116134903'),('20100117010630'),('20100123162508');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,7 +333,7 @@ CREATE TABLE `seasons` (
   `team_id` int(11) default NULL,
   `closed` tinyint(1) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `seasons`
@@ -340,7 +341,7 @@ CREATE TABLE `seasons` (
 
 LOCK TABLES `seasons` WRITE;
 /*!40000 ALTER TABLE `seasons` DISABLE KEYS */;
-INSERT INTO `seasons` VALUES (1,'2009-2010',1,1,1),(2,'2010-2011',1,1,0);
+INSERT INTO `seasons` VALUES (1,'2009-2010',1,1,1),(2,'2010-2011',1,1,0),(3,'2009-2010',2,1,0);
 /*!40000 ALTER TABLE `seasons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,7 +381,7 @@ CREATE TABLE `teams` (
   PRIMARY KEY  (`id`),
   KEY `fk_teams_nations` (`nation_id`),
   CONSTRAINT `fk_teams_nations` FOREIGN KEY (`nation_id`) REFERENCES `nations` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `teams`
@@ -388,7 +389,7 @@ CREATE TABLE `teams` (
 
 LOCK TABLES `teams` WRITE;
 /*!40000 ALTER TABLE `teams` DISABLE KEYS */;
-INSERT INTO `teams` VALUES (1,'Manchester United',1878,'Old Trafford',4),(2,'Liverpool',1892,'Anfield',4),(3,'Chelsea',1905,'Stamford Bridge',4),(4,'Arsenal',1886,'Emirates Stadium',4),(5,'Everton',1878,'Goodison Park',4),(6,'Aston Villa',1874,'Villa Park',4),(7,'Tottenham Hotspur',1882,'White Hart Lane',4),(8,'Manchester City',1887,'City of Manchester Stadium',4),(9,'Fulham',1879,'Craven Cottage',4),(10,'West Ham United',1895,'Upton Park',4),(11,'Wigan Athletic',1932,'DW Stadium',4),(12,'Stoke City',1863,'Britannia Stadium',4),(13,'Bolton Wanderers',1874,'Reebok Stadium',4),(14,'Portsmouth',1898,'Fratton Park',4),(15,'Blackburn Rovers',1875,'Ewood Park',4),(16,'Sunderland',1879,'Stadium of Light',4),(17,'Hull City',1904,'KC Stadium',4),(18,'Wolverhampton',1877,'Molineux Stadium',4),(19,'Birmingham City',1875,'St. Andrew\'s Stadium',4),(20,'Burnley',1882,'Turf Moor',4),(21,'Newcastle United',1892,'St. James\' Park',4),(22,'Derby County',1884,'Pride Park Stadium',4),(23,'Leeds United',1919,'Elland Road',4),(24,'Norwich City',1902,'Carrow Road',4),(25,'West Bromwich Albion',1878,'The Hawthorns',4),(26,'Nottingham Forest',1865,'City Ground',4),(27,'Cardiff City',1899,'Cardiff City Stadium',4),(28,'Sheffield United',1889,'Bramall Lane',4),(29,'Ipswich Town',1878,'Portman Road',4),(30,'Dagenham & Redbridge',1992,'Victoria Road',4),(31,'Standard Liege',1898,'Stade Maurice Dufrasne',6),(32,'Galatasaray SK',1905,'Ali Sami Yen Stadium',21),(33,'Alkmaar Zaanstreek',1967,'DSB Stadion',11),(34,'Atletico Madrid',1903,'Vicente Calderon',22),(35,'Middlesbrough',1876,'Riverside Stadium',4),(36,'Bradford Park Avenue',1863,'Horsfall Stadium',4),(37,'Coventry City',1883,'Ricoh Arena',4),(38,'Swansea City',1912,'Liberty Stadium',4),(39,'Leicester City',1884,'Walkers Stadium',4),(40,'Crystal Palace',1905,'Selhurst Park',4);
+INSERT INTO `teams` VALUES (1,'Manchester United',1878,'Old Trafford',4),(2,'Liverpool',1892,'Anfield',4),(3,'Chelsea',1905,'Stamford Bridge',4),(4,'Arsenal',1886,'Emirates Stadium',4),(5,'Everton',1878,'Goodison Park',4),(6,'Aston Villa',1874,'Villa Park',4),(7,'Tottenham Hotspur',1882,'White Hart Lane',4),(8,'Manchester City',1887,'City of Manchester Stadium',4),(9,'Fulham',1879,'Craven Cottage',4),(10,'West Ham United',1895,'Upton Park',4),(11,'Wigan Athletic',1932,'DW Stadium',4),(12,'Stoke City',1863,'Britannia Stadium',4),(13,'Bolton Wanderers',1874,'Reebok Stadium',4),(14,'Portsmouth',1898,'Fratton Park',4),(15,'Blackburn Rovers',1875,'Ewood Park',4),(16,'Sunderland',1879,'Stadium of Light',4),(17,'Hull City',1904,'KC Stadium',4),(18,'Wolverhampton',1877,'Molineux Stadium',4),(19,'Birmingham City',1875,'St. Andrew\'s Stadium',4),(20,'Burnley',1882,'Turf Moor',4),(21,'Newcastle United',1892,'St. James\' Park',4),(22,'Derby County',1884,'Pride Park Stadium',4),(23,'Leeds United',1919,'Elland Road',4),(24,'Norwich City',1902,'Carrow Road',4),(25,'West Bromwich Albion',1878,'The Hawthorns',4),(26,'Nottingham Forest',1865,'City Ground',4),(27,'Cardiff City',1899,'Cardiff City Stadium',4),(28,'Sheffield United',1889,'Bramall Lane',4),(29,'Ipswich Town',1878,'Portman Road',4),(30,'Dagenham & Redbridge',1992,'Victoria Road',4),(31,'Standard Liege',1898,'Stade Maurice Dufrasne',6),(32,'Galatasaray SK',1905,'Ali Sami Yen Stadium',21),(33,'Alkmaar Zaanstreek',1967,'DSB Stadion',11),(34,'Atletico Madrid',1903,'Vicente Calderon',22),(35,'Middlesbrough',1876,'Riverside Stadium',4),(36,'Bradford Park Avenue',1863,'Horsfall Stadium',4),(37,'Coventry City',1883,'Ricoh Arena',4),(38,'Swansea City',1912,'Liberty Stadium',4),(39,'Leicester City',1884,'Walkers Stadium',4),(40,'Crystal Palace',1905,'Selhurst Park',4),(41,'AC Milan',1899,'San Siro',9),(42,'Besiktas',1903,'BJK Inonu Stadium',21),(43,'VfL Wolfsburg',1945,'Volkswagen Arena',7),(44,'CSKA Moscow',1911,'Luzhniki Stadium',82),(45,'TBD',NULL,'To be determined...',4);
 /*!40000 ALTER TABLE `teams` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -401,4 +402,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-01-23 23:02:01
+-- Dump completed on 2010-01-25 13:48:58
