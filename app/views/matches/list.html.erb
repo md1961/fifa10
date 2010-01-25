@@ -13,6 +13,8 @@
 <% end -%>
 <%= nbsp(2) %>
 <%= link_to 'Filter', :action => 'choose_to_list' %>
+<font size="-1"><%= "('#{@match_filter.player_name}')" %></font>
+<%= link_to 'clear', :action => 'filter_on_list', :match_filter => {:player_name => nil} %>
 <%= nbsp(4) %>
 <%= link_to 'New Match', :action => 'new' %>
 

@@ -8,8 +8,8 @@ class MatchesController < ApplicationController
     session[:season_id] = season_id
 
     @matches = get_matches(season_id)
-
     @chronicle = Season.find(season_id).chronicle
+    @match_filter = get_match_filter
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Fixtures and Results"
