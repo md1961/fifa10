@@ -136,6 +136,7 @@ class MatchesController < ApplicationController
       param = params ? params[:match_filter] : nil
       match_filter = param ? nil : session[:match_filter]
       match_filter = MatchFilter.new(param) unless match_filter
+      session[:match_filter] = match_filter
 
       return match_filter
     end
