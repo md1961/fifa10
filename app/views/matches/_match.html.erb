@@ -1,9 +1,11 @@
 
 <% case column_name
-   when 'series_id' -%>
+   when 'date_match' %>
+     <td align="center"><%= match.date_match.strftime("%m-%d") %></td>
+<% when 'series_id' -%>
      <td><%= "#{match.series.abbr} #{match.subname}" %></td>
 <% when 'opponent_id' -%>
-     <td><%= match.opponent.name %></td>
+     <td><%= match.opponent.abbr || match.opponent.name %></td>
 <% when 'scores_own' -%>
      <% if match.scores_own.nil? -%>
        <td colspan="2" align="center">

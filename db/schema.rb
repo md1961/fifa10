@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100123162508) do
+ActiveRecord::Schema.define(:version => 20100126000710) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -142,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20100123162508) do
     t.integer "year_founded"
     t.string  "ground"
     t.integer "nation_id",                    :null => false
+    t.string  "abbr"
+    t.string  "nickname"
   end
 
   add_index "teams", ["nation_id"], :name => "fk_teams_nations"
