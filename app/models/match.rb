@@ -21,14 +21,33 @@ class Match < ActiveRecord::Base
     return GROUNDS
   end
 
-  def result
-    diff = scores_own - scores_opp
-    diff = pks_own - pks_opp if pks_own
-    if diff > 0
-      return 'W'
-    elsif diff < 0
-      return 'L'
-    end
-    return pks_own ? '?' : 'D'
+  WIN  = 'win_in_match'
+  LOSE = 'lose_in_match'
+  DRAW = 'draw_in_match'
+  UNKNOWN_RESULT = 'unknown_result_in_match'
+
+  def win?
+    return result == WIN
   end
+
+  def lose?
+    return result == LOSE
+  end
+
+  def draw?
+    return result == DRAW
+  end
+
+  private
+
+    def result
+      diff = scores_own - scores_opp
+      diff = pks_own - pks_opp if pks_own
+      if diff > 0
+        return WIN
+      elsif diff < 0
+        return LOSE
+      end
+      return pks_own ? UNKNOWN_RESULT : DRAW
+    end
 end

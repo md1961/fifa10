@@ -60,4 +60,8 @@ module MatchesHelper
   def grounds_for_select
     return GROUNDS
   end
+
+  def one_char_result(match)
+    return match.win? ? 'W' : match.lose? ? 'L' : match.draw? ? 'D' : '?'
+  end
 end
