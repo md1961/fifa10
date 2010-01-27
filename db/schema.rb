@@ -149,9 +149,11 @@ ActiveRecord::Schema.define(:version => 20100126230813) do
   add_index "teams", ["nation_id"], :name => "fk_teams_nations"
 
   create_table "users", :force => true do |t|
-    t.string   "name",            :default => "", :null => false
+    t.string   "name",            :default => "",    :null => false
     t.string   "hashed_password"
     t.string   "salt"
+    t.boolean  "is_writer",       :default => false, :null => false
+    t.boolean  "is_admin",        :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -20,6 +20,14 @@ class User < ActiveRecord::Base
     return encrypted_password == user.hashed_password ? user : nil
   end
 
+  def writer?
+    return is_writer
+  end
+
+  def admin?
+    return is_admin
+  end
+
   # 'password' is a virtual attribute
   def password
     return @password
@@ -29,7 +37,7 @@ class User < ActiveRecord::Base
     @password = value
     return if value.blank?
     create_new_salt
-    self.hashed_password = encrypted_password
+    self.hashed_password = User.encrypted_password(password, salt)
   end
 
   private
