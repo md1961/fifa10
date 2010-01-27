@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100126000710) do
+ActiveRecord::Schema.define(:version => 20100126230813) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -147,5 +147,15 @@ ActiveRecord::Schema.define(:version => 20100126000710) do
   end
 
   add_index "teams", ["nation_id"], :name => "fk_teams_nations"
+
+  create_table "users", :force => true do |t|
+    t.string   "name",            :default => "", :null => false
+    t.string   "hashed_password"
+    t.string   "salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["name"], :name => "index_users_on_name", :unique => true
 
 end
