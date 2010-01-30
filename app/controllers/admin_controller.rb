@@ -1,6 +1,8 @@
 class AdminController < ApplicationController
 
   def login
+    @page_title = "Football Tracker"
+
     return unless request.post?
 
     if user = User.authenticated_user(params[:username], params[:password])
@@ -12,6 +14,9 @@ class AdminController < ApplicationController
   end
 
   def logout
+    session[:user_id] = nil
+    flash[:notice] = "Logged out"
+    redirect_to :action => 'login'
   end
 
   def index

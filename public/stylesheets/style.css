@@ -47,6 +47,10 @@
   font-size: medium;
 }
 
+#page_title {
+  float: left;
+}
+
 .stand_out_text {
   background-color: yellow;
   border-style: outset;
@@ -65,6 +69,16 @@
 
 .tableRow1 {
   background-color: #ccc;
+}
+
+#login_form legend {
+  font-size: x-large;
+}
+
+#logout {
+  font-size: large;
+  padding-left: 90px;
+  vertical-align: bottom;
 }
 
 #chronicle_list {
