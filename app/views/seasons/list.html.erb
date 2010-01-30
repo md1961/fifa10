@@ -6,9 +6,9 @@
   <% @seasons.each do |season| -%>
     <% label = "#{season.team.name} #{season.years}" -%>
     <li class="<%= season.closed? ? 'closed' : '' %>">
-      <%= link_to label, :controller => 'players', :action => 'list', :season_id => season %>
+      <%= link_to label, :controller => 'matches', :action => 'list', :season_id => season %>
       <font size="-1">
-        <%= link_to 'fixtures and results', :controller => 'matches', :action => 'list', :season_id => season %>
+        <%= link_to 'Players', :controller => 'players', :action => 'list', :season_id => season %>
       </font>
     </li>
   <% end -%>

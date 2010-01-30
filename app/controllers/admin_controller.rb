@@ -2,8 +2,8 @@ class AdminController < ApplicationController
 
   def login
     return unless request.post?
-    user = User.authenticated_user(params[:username], params[:password])
-    if user
+
+    if user = User.authenticated_user(params[:username], params[:password])
       session[:user_id] = user.id
       redirect_to :action => 'index'
     else
@@ -15,6 +15,7 @@ class AdminController < ApplicationController
   end
 
   def index
+    redirect_to :controller => 'chronicles'
   end
-
 end
+

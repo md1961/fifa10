@@ -2,6 +2,9 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+
+  before_filter :authorize, :except => :login
+
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -22,4 +25,13 @@ class ApplicationController < ActionController::Base
     team = season.team
     return "#{team.name} #{season.years}"
   end
+
+  protected
+
+    def authorize
+      unless User.find_by_id(session[:user_id])
+        flash[:notice] = "Please log in"
+        redirect_to :controller => 'admin', :action => 'login'
+      end
+    end
 end
