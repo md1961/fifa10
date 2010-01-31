@@ -3,22 +3,40 @@ class ColumnFilter
   YES = '1'
   NO  = '0'
 
-  COLUMN_NAMES_NOT_TO_FILTER = [:id, :name, :order_number, :note]
-  PLAYER_PROPERTY_NAMES = Player.columns.map { |c| c.name.intern }.select { |n| ! COLUMN_NAMES_NOT_TO_FILTER.include?(n) }
-
-  PLAYER_ATTRIBUTE_COLUMNS = PlayerAttribute.content_columns
-  PLAYER_ATTRIBUTE_NAMES = PLAYER_ATTRIBUTE_COLUMNS.map { |column| column.name.intern }
-
-  INSTANCE_VARIABLE_NAMES = PLAYER_PROPERTY_NAMES + PLAYER_ATTRIBUTE_NAMES
   INSTANCE_VARIABLE_DEFAULT_VALUE = YES
 
-  attr_accessor *INSTANCE_VARIABLE_NAMES
-
   def initialize(hash=nil)
-    INSTANCE_VARIABLE_NAMES.each do |name|
+    ColumnFilter.instance_variable_names.each do |name|
       value = hash.nil? ? INSTANCE_VARIABLE_DEFAULT_VALUE : hash[name]
       instance_variable_set("@#{name}", value)
     end
+  end
+
+  def self.instance_variable_names
+    unless defined?(@@instance_variable_names)
+      ColumnFilter.initialize_attr_accessors
+    end
+
+    return @@instance_variable_names
+  end
+
+  PLAYER_PROPERTY_NAMES_NOT_TO_FILTER = [:id, :name, :order_number, :note]
+
+  def self.initialize_attr_accessors
+    @@player_attribute_columns = PlayerAttribute.content_columns
+    @@player_attribute_names = @@player_attribute_columns.map { |column| column.name.intern }
+
+    @@instance_variable_names = ColumnFilter.player_property_names + @@player_attribute_names
+
+    attr_accessor *@@instance_variable_names
+  end
+
+  def self.player_property_names
+    unless defined?(@@player_property_names)
+      @@player_property_names = Player.columns.map { |column| column.name.intern } \
+            .select { |name| ! PLAYER_PROPERTY_NAMES_NOT_TO_FILTER.include?(name) }
+    end
+    return @@player_property_names
   end
 
   COLUMN_NAMES_NOT_TO_DISPLAY = %w(id order_number note)
@@ -32,7 +50,7 @@ class ColumnFilter
   end
 
   def displaying_attribute_columns
-    return PLAYER_ATTRIBUTE_COLUMNS.select { |column| instance_variable_get("@#{column.name}") == YES }
+    return @@player_attribute_columns.select { |column| instance_variable_get("@#{column.name}") == YES }
   end
 
   RECOMMENDED_COLUMN_NAMES = [
@@ -40,13 +58,13 @@ class ColumnFilter
   ]
 
   def set_recommended_columns
-    PLAYER_PROPERTY_NAMES.each do |name|
+    @@player_property_names.each do |name|
       instance_variable_set("@#{name}", RECOMMENDED_COLUMN_NAMES.include?(name) ? YES : NO)
     end
   end
   def set_all_or_no_columns(all=true)
     value = all ? YES : NO
-    PLAYER_PROPERTY_NAMES.each do |name|
+    @@player_property_names.each do |name|
       instance_variable_set("@#{name}", value)
     end
   end
@@ -78,14 +96,14 @@ class ColumnFilter
 
   def set_specified_attributes(attribute_names)
     attribute_names = attribute_names.map { |name| name.kind_of?(Symbol) ? name : name.intern }
-    PLAYER_ATTRIBUTE_NAMES.each do |name|
+    @@player_attribute_names.each do |name|
       instance_variable_set("@#{name}", YES) if attribute_names.include?(name)
     end
   end
 
   def set_all_or_no_attributes(all=true)
     value = all ? YES : NO
-    PLAYER_ATTRIBUTE_NAMES.each do |name|
+    @@player_attribute_names.each do |name|
       instance_variable_set("@#{name}", value)
     end
   end
@@ -93,7 +111,7 @@ class ColumnFilter
   private
 
     def column_display?(column)
-      return true unless INSTANCE_VARIABLE_NAMES.include?(column.name.intern)
+      return true unless ColumnFilter.instance_variable_names.include?(column.name.intern)
       return instance_variable_get("@#{column.name}") == YES
     end
 end
