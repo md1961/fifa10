@@ -5,6 +5,7 @@ class CreateSeries < ActiveRecord::Migration
       t.string :abbr
     end
 
+=begin
     [
       ["UEFA Champions League", "UEFA CL"     ],
       ["UEFA Europa League"   , "UEFA EL"     ],
@@ -17,6 +18,7 @@ class CreateSeries < ActiveRecord::Migration
     ].each do |name, abbr|
       Series.create(:name => name, :abbr => abbr)
     end
+=end
   end
 
   def self.down

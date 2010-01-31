@@ -6,12 +6,14 @@ class CreateSeasons < ActiveRecord::Migration
       t.integer :team_id
     end
 
+=begin
     [
       ["2009-2010", 1, 1],
       ["2010-2011", 1, 1],
     ].each do |years, c_id, t_id|
       Season.create(:years => years, :chronicle_id => c_id, :team_id => t_id)
     end
+=end
   end
 
   def self.down

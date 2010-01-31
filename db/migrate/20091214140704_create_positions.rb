@@ -5,6 +5,7 @@ class CreatePositions < ActiveRecord::Migration
       t.column :category, :string , :null => false
     end
 
+=begin
     [
       ['GK' , 'Goalkeeper'],
       ['SW' , 'Defender'],
@@ -27,6 +28,7 @@ class CreatePositions < ActiveRecord::Migration
     ].each do |name, category|
       Position.create :name => name, :category => category
     end
+=end
   end
 
   def self.down

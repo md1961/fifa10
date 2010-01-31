@@ -7,11 +7,13 @@ class CreateTeams < ActiveRecord::Migration
       t.column :current_year, :integer, :null => false
     end
 
+=begin
     [
       ["Manchester United", 1878, "Old Trafford", 2010],
     ].each do |name, founded, ground, current|
       Team.create :name => name, :year_founded => founded, :ground => ground, :current_year => current
     end
+=end
   end
 
   def self.down

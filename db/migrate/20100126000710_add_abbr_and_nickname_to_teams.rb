@@ -3,12 +3,14 @@ class AddAbbrAndNicknameToTeams < ActiveRecord::Migration
     add_column :teams, :abbr    , :string
     add_column :teams, :nickname, :string
 
+=begin
     DATA.each do |name, abbr, nickname|
       team = Team.find_by_name(name)
       team.abbr     = abbr
       team.nickname = nickname
       team.save!
     end
+=end
   end
 
   def self.down

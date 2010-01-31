@@ -15,6 +15,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.column :team_id          , :integer, :null => false
     end
 
+=begin
     [
       ["Van Der Sar", "Edwin", 1, 1, 1, true, 3, 197, 89, 1971, 11],
       ["Neville", "Gary", 2, 4, 2, true, 3, 179, 79, 1975, 4],
@@ -60,6 +61,7 @@ class CreatePlayers < ActiveRecord::Migration
                     :height => height, :weight => weight, :birth_year => birth_year, :nation_id => nation_id, \
                     :team_id => 1
     end
+=end
   end
 
   def self.down

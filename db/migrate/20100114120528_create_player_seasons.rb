@@ -23,6 +23,7 @@ class CreatePlayerSeasons < ActiveRecord::Migration
     foreign_key :player_seasons, :player_id, :players
     foreign_key :player_seasons, :season_id, :seasons
 
+=begin
     [
       [ 1,  1, 22],
       [ 1, 23, 38],
@@ -33,6 +34,7 @@ class CreatePlayerSeasons < ActiveRecord::Migration
         PlayerSeason.create(:player_id => player_id, :season_id => season_id, :order_number => order_number)
       end
     end
+=end
 
     add_index :player_seasons, [:season_id, :order_number], :unique => true
   end

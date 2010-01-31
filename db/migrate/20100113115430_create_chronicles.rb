@@ -4,11 +4,13 @@ class CreateChronicles < ActiveRecord::Migration
       t.string :name, :null => false
     end
 
+=begin
     [
       "FIFA 10 Manager Mode",
     ].each do |name|
       Chronicle.create(:name => name)
     end
+=end
   end
 
   def self.down

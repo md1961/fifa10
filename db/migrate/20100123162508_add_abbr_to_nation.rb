@@ -2,6 +2,7 @@ class AddAbbrToNation < ActiveRecord::Migration
   def self.up
     add_column :nations, :abbr, :string
 
+=begin
     [
       ['Belgium',  'BE'],
       ['Brazil',   'BR'],
@@ -30,6 +31,7 @@ class AddAbbrToNation < ActiveRecord::Migration
       nation.abbr = abbr
       nation.save!
     end
+=end
   end
 
   def self.down

@@ -5,6 +5,7 @@ class CreateNations < ActiveRecord::Migration
       t.column :region_id, :integer, :null => false
     end
 
+=begin
     [
       ["Belgium"         , 1],
       ["Brazil"          , 6],
@@ -28,6 +29,7 @@ class CreateNations < ActiveRecord::Migration
     ].each do |name, region_id|
       Nation.create :name => name, :region_id => region_id
     end
+=end
   end
 
   def self.down

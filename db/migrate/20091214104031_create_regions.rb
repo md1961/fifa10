@@ -4,11 +4,13 @@ class CreateRegions < ActiveRecord::Migration
       t.column :name, :string, :null => false
     end
 
+=begin
     [
       'Europe', 'Africa', 'Asia', 'Oceania', 'North America', 'South America'
     ].each do |name|
       Region.create :name => name
     end
+=end
   end
 
   def self.down

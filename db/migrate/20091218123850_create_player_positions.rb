@@ -5,6 +5,7 @@ class CreatePlayerPositions < ActiveRecord::Migration
       t.column :position_id, :integer, :null => false
     end
 
+=begin
     [
       [ 2,  3], [ 2,  6], [ 3,  8], [ 3,  2], [ 4,  8], [ 5,  5], [ 5, 11], [ 6, 10], [ 6, 12], [ 6, 15],
       [ 7, 12], [ 7, 15], [ 8,  8], [ 8, 12], [ 9,  9], [ 9, 12], [ 9, 14], [10, 18], [10, 14], [10, 17],
@@ -17,6 +18,7 @@ class CreatePlayerPositions < ActiveRecord::Migration
     ].each do |player_id, position_id|
       PlayerPosition.create :player_id => player_id, :position_id => position_id
     end
+=end
   end
 
   def self.down
