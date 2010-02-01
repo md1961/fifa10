@@ -4,7 +4,11 @@ class ColumnFilter
   NO  = '0'
 
   COLUMN_NAMES_NOT_TO_FILTER = [:id, :name, :order_number, :note]
-  PLAYER_PROPERTY_NAMES = Player.columns.map { |c| c.name.intern }.select { |n| ! COLUMN_NAMES_NOT_TO_FILTER.include?(n) }
+
+  # To create this, use the following statement:
+  # PLAYER_PROPERTY_NAMES = Player.columns.map { |c| c.name.intern }.select { |n| ! COLUMN_NAMES_NOT_TO_FILTER.include?(n) }
+  PLAYER_PROPERTY_NAMES = [:first_name, :number, :position_id, :skill_move, :is_right_dominant, :both_feet_level,
+                           :height, :weight, :birth_year, :nation_id, :overall, :market_value]
 
   PLAYER_ATTRIBUTE_COLUMNS = PlayerAttribute.content_columns
   PLAYER_ATTRIBUTE_NAMES = PLAYER_ATTRIBUTE_COLUMNS.map { |column| column.name.intern }
