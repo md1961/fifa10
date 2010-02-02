@@ -10,8 +10,7 @@ class Season < ActiveRecord::Base
 
   def self.list(chronicle_id)
     seasons = find_all_by_chronicle_id(chronicle_id)
-    seasons.sort!
-    return seasons
+    return seasons.sort.reverse
   end
 
   def year_start
