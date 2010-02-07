@@ -3,6 +3,12 @@
   last_column = @columns[-1]
 -%>
 
+<%= link_to '>> Chronicles', :controller => 'chronicles', :action => 'list' %>
+<%= nbsp %>
+<%= link_to ' > Seasons'   , :controller => 'seasons'   , :action => 'list', :chronicle_id => @chronicle %>
+<%= nbsp(4) %>
+<%= link_to 'Fixtures/Results', :controller => 'matches', :action => 'list' %>
+<%= nbsp(4) %>
 <%= link_to 'Filter Rows/Columns', :action => 'choose_to_list' %>
 <%= nbsp(2) %>
 <%= link_to 'Sort by Columns', :action => 'choose_to_sort' %>
@@ -14,12 +20,6 @@
 <%= link_to 'Roster Chart', :action => 'roster_chart' %>
 <%= nbsp(4) %>
 <%= link_to 'New Player', :action => 'new' %>
-<%= nbsp(4) %>
-<%= link_to '>> Chronicles', :controller => 'chronicles', :action => 'list' %>
-<%= nbsp %>
-<%= link_to ' > Seasons'   , :controller => 'seasons'   , :action => 'list', :chronicle_id => @chronicle %>
-<%= nbsp(4) %>
-<%= link_to 'Fixtures/Results', :controller => 'matches', :action => 'list' %>
 
 <table id="table_players">
   <tr>
