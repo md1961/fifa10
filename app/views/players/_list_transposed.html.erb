@@ -1,0 +1,52 @@
+
+<%
+  last_column = @columns[-1]
+-%>
+
+<tr>
+  <th><%= nbsp %></th>
+
+  <% @players.each do |player| -%>
+    <th><%= player.name %></th>
+  <% end -%>
+</tr>
+
+<% @superior_attribute_values = prepare_superior_attribute_values -%>
+
+<% @columns.each do |column| -%>
+  <tr>
+    <td><%= column_name2display(column.name) %></td>
+
+    <% @players.each do |player| -%>
+      <% column_name = column.name
+         clazz = column == last_column ? 'rightmost_of_players' : ''
+         clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : '' -%>
+      <td align="<%= column_align(column) %>" class="<%= clazz %>">
+        <%= render :partial => 'property_display', :locals => {:column_name => column_name, :player => player} %>
+      </td>
+    <% end -%>
+  </tr>
+<% end -%>
+
+<% @attribute_columns.map(&:name).each do |attr_name| -%>
+  <tr>
+    <td><%= column_name2display(attr_name) %></td>
+
+    <% @players.each do |player| -%>
+      <% attrs = player.player_attribute
+         value = attrs.read_attribute(attr_name)
+         clazz = html_class_for_attribute_display(attr_name, value, false) -%>
+      <td align="right" class="<%= clazz %>"><%= value %></td>
+    <% end -%>
+  </tr>
+<% end -%>
+
+<% @players.each do |player| -%>
+  <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
+
+    <% @columns.each do |column| -%>
+    <% end -%>
+
+  </tr>
+<% end -%>
+

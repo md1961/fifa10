@@ -1,8 +1,4 @@
 
-<%
-  last_column = @columns[-1]
--%>
-
 <%= link_to '>> Chronicles', :controller => 'chronicles', :action => 'list' %>
 <%= nbsp %>
 <%= link_to ' > Seasons'   , :controller => 'seasons'   , :action => 'list', :chronicle_id => @chronicle %>
@@ -21,43 +17,12 @@
 <%= nbsp(4) %>
 <%= link_to 'New Player', :action => 'new' %>
 
+<%
+  max_players_to_transpose = 4
+  table_body = @players.size <= max_players_to_transpose ? 'list_transposed' : 'list_normal'
+-%>
+
 <table id="table_players">
-  <tr>
-    <th><%= nbsp %></th>
-
-    <% @columns.each do |column| -%>
-      <th><%= column_index(column) %></th>
-    <% end -%>
-
-    <% @attribute_columns.each do |column| -%>
-      <th><%= PlayerAttribute.abbr(column.name) %></th>
-    <% end -%>
-  </tr>
-
-  <% @superior_attribute_values = prepare_superior_attribute_values -%>
-
-  <% @players.each do |player| -%>
-    <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
-      <td><%= link_to '>', player %></td>
-
-      <% @columns.each do |column| -%>
-        <% column_name = column.name
-           clazz = column == last_column ? 'rightmost_of_players' : ''
-           clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : '' -%>
-        <td align="<%= column_align(column) %>" class="<%= clazz %>">
-          <%= render :partial => 'property_display', :locals => {:column_name => column_name, :player => player} %>
-        </td>
-      <% end -%>
-
-      <% is_leftmost = true
-         attrs = player.player_attribute -%>
-      <% @attribute_columns.map(&:name).each do |attr_name| -%>
-        <% value = attrs.read_attribute(attr_name)
-           clazz = html_class_for_attribute_display(attr_name, value, is_leftmost)
-           is_leftmost = false -%>
-        <td align="right" class="<%= clazz %>"><%= value %></td>
-      <% end -%>
-    </tr>
-  <% end -%>
+  <%= render :partial => table_body %>
 </table>
 
