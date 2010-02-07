@@ -11,8 +11,8 @@ module MatchesHelper
   HASH_TEXT_FIELD_SIZE = {
     :date_match  => 10,
     :ground      =>  2,
-    :scorers_own => 20,
-    :scorers_opp => 20,
+    :scorers_own => 60,
+    :scorers_opp => 40,
   }
   DEFAULT_TEXT_FIELD_SIZE = 8
 

@@ -101,7 +101,7 @@
   border: 10px black solid;
   border-collapse: collapse;
   border-spacing: 0;
-  margin: 0px;
+  margin-top: 6px;
 }
 
 #table_matches th {
