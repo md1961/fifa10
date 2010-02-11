@@ -64,4 +64,17 @@ module MatchesHelper
   def one_char_result(match)
     return match.win? ? 'W' : match.lose? ? 'L' : match.draw? ? 'D' : '?'
   end
+
+  RECORD_NOT_PLAYED = "-"
+
+  def record_display(match)
+    return RECORD_NOT_PLAYED unless match.played? && match.series.premier?
+    h_record = match.record
+    wins   = h_record[Match::WIN ]
+    draws  = h_record[Match::DRAW]
+    loses  = h_record[Match::LOSE]
+    points = h_record[Match::POINT]
+    games  = wins + draws + loses
+    return "G#{games}-P#{points}-W#{wins}-D#{loses}-L#{draws}"
+  end
 end

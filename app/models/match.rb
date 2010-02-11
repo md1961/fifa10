@@ -21,10 +21,16 @@ class Match < ActiveRecord::Base
     return GROUNDS
   end
 
-  WIN  = 'win_in_match'
-  LOSE = 'lose_in_match'
-  DRAW = 'draw_in_match'
-  UNKNOWN_RESULT = 'unknown_result_in_match'
+  def played?
+    return ! scores_own.nil?
+  end
+
+  WIN   = :win
+  LOSE  = :lose
+  DRAW  = :draw
+  NOT_PLAYED = :not_played
+  UNKNOWN_RESULT = :unknown_result
+  POINT = :point
 
   def win?
     return result == WIN
@@ -38,9 +44,26 @@ class Match < ActiveRecord::Base
     return result == DRAW
   end
 
+  POINT_FOR_WIN  = 3
+  POINT_FOR_DRAW = 1
+
+  def record
+    return {} unless played?
+    matches_so_far = Match.find_all_by_season_id_and_series_id(season_id, series_id,
+                             :conditions => ["date_match <= ?", date_match], :order => 'date_match')
+    h_record = Hash.new { |h, k| h[k] = 0 }
+    h_record = matches_so_far.inject(h_record) do |h_record, match|
+      h_record[match.send(:result)] += 1
+      h_record
+    end
+    h_record[POINT] = h_record[WIN] * POINT_FOR_WIN + h_record[DRAW] * POINT_FOR_DRAW
+    return h_record
+  end
+
   private
 
     def result
+      return NOT_PLAYED unless played?
       diff = scores_own - scores_opp
       diff = pks_own - pks_opp if pks_own
       if diff > 0
