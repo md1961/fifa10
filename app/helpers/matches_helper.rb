@@ -75,6 +75,6 @@ module MatchesHelper
     loses  = h_record[Match::LOSE]
     points = h_record[Match::POINT]
     games  = wins + draws + loses
-    return "G#{games}-P#{points}-W#{wins}-D#{loses}-L#{draws}"
+    return "G#{games}-P#{points}-W#{wins}-D#{draws}-L#{loses}"
   end
 end
