@@ -56,9 +56,11 @@ class MatchFilter
       instance_variable_get("@#{attr_name}") == YES
     end
 
+    #TODO: Match not only scores but opponent team name 
     if @player_name
+      re = Regexp.compile(@player_name, Regexp::IGNORECASE)
       new_matches = new_matches.select do |match|
-        /#{@player_name}/i =~ match.scorers_own
+        re =~ match.scorers_own || re =~ match.opponent.name
       end
     end
 
