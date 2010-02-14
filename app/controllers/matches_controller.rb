@@ -1,20 +1,32 @@
 class MatchesController < ApplicationController
 
   def list
-    season_id = (params[:season_id] || session[:season_id]).to_i
-    if season_id.nil? || season_id <= 0
-      raise "No 'season_id' in params nor session (#{session.inspect})"
-    end
-    session[:season_id] = season_id
+    season_id = get_and_save_season_id(params)
 
     @matches = get_matches(season_id)
     @chronicle = Season.find(season_id).chronicle
     @match_filter = get_match_filter
 
+    @shows_link = true
+    if shows_link = params[:shows_link]
+      @shows_link = shows_link == '1'
+    end
+
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Fixtures and Results" \
                   + " <font size='-1'>(#{@chronicle.name})</font>"
   end
+
+    def get_and_save_season_id(params)
+      season_id = params[:season_id] || session[:season_id]
+      season_id = season_id.to_i if season_id
+      if season_id.nil? || season_id <= 0
+        raise "No 'season_id' in params nor session (#{session.inspect})"
+      end
+      session[:season_id] = season_id
+      return season_id
+    end
+    private :get_and_save_season_id
 
     def get_matches(season_id)
       matches = Match.list(season_id)

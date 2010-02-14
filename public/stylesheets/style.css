@@ -71,8 +71,8 @@
   background-color: #ccc;
 }
 
-#login_form legend {
-  font-size: x-large;
+#login_form {
+  font-size: small;
 }
 
 #logout {

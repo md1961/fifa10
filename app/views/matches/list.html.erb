@@ -15,14 +15,17 @@
 <%= link_to 'Filter', :action => 'choose_to_list' %>
 <font size="-1"><%= "('#{@match_filter.player_name}')" %></font>
 <%= link_to 'clear', :action => 'filter_on_list', :match_filter => {:player_name => nil} %>
-<%= nbsp(4) %>
-<%= link_to 'New Match', :action => 'new' %>
+<%= nbsp(2) %>
+<% label, value = @shows_link ? ["No Link", '0'] : ["Show Link", '1'] -%>
+<%= link_to label, :action => 'list', :shows_link => value %>
 
 <table id="table_matches">
   <%= render :partial => 'list',
              :locals => {:action => :list,
                          :id_to_edit => nil,
                          :column_names => column_names_for_list,
-                         :shows_link => true} %> 
+                         :shows_link => @shows_link} %> 
 </table>
+
+<%= link_to 'New Match', :action => 'new' %>
 
