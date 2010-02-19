@@ -18,8 +18,8 @@
 <%= link_to 'New Player', :action => 'new' %>
 
 <%
-  max_players_to_transpose = 4
-  table_body = @players.size <= max_players_to_transpose ? 'list_transposed' : 'list_normal'
+  max_players = Constant.get(:max_players_to_transpose)
+  table_body = @players.size <= max_players ? 'list_transposed' : 'list_normal'
 -%>
 
 <table id="table_players">
