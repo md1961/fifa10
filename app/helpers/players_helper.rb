@@ -1,19 +1,19 @@
 module PlayersHelper
 
-  def column_index(column)
-    return column_attribute(column, 0)
+  def column_index(column_name)
+    return column_attribute(column_name, 0)
   end
 
   DEFAULT_ALIGN = 'left'
   HASH_ALIGN = {:L => 'left', :R => 'right', :C => 'center'}
 
-  def column_align(column)
-    align = column_attribute(column, 1)
+  def column_align(column_name)
+    align = column_attribute(column_name, 1)
     return HASH_ALIGN[align] || DEFAULT_ALIGN
   end
 
-  def column_attribute(column, index)
-    attributes = COLUMN_ATTRIBUTES[column.name.intern]
+  def column_attribute(column_name, index)
+    attributes = COLUMN_ATTRIBUTES[column_name.intern]
     return nil unless attributes
     return attributes[index]
   end

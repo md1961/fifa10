@@ -1,27 +1,27 @@
 
 <%
-  last_column = @columns[-1]
+  column_names_not_to_display = %w(name)
+  attr_names_to_insert_index_before = %(positioning)
+
+  column_names = @columns.map(&:name) - column_names_not_to_display
+
+  last_column_name = column_names[-1]
 -%>
 
-<tr>
-  <th><%= nbsp %></th>
-
-  <% @players.each do |player| -%>
-    <th><%= player.name %></th>
-  <% end -%>
-</tr>
+<%= render :partial => 'column_index_transposed' %>
 
 <% @superior_attribute_values = prepare_superior_attribute_values -%>
 
-<% @columns.each do |column| -%>
+<% column_names.each do |column_name| -%>
+  <% next if column_names_not_to_display.include?(column_name) -%>
+
   <tr>
-    <td><%= column_name2display(column.name) %></td>
+    <td><%= column_name2display(column_name) %></td>
 
     <% @players.each do |player| -%>
-      <% column_name = column.name
-         clazz = column == last_column ? 'rightmost_of_players' : ''
+      <% clazz = column_name == last_column_name ? 'rightmost_of_players' : ''
          clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : '' -%>
-      <td align="<%= column_align(column) %>" class="<%= clazz %>">
+      <td align="<%= column_align(column_name) %>" class="<%= clazz %>">
         <%= render :partial => 'property_display', :locals => {:column_name => column_name, :player => player} %>
       </td>
     <% end -%>
@@ -29,6 +29,10 @@
 <% end -%>
 
 <% @attribute_columns.map(&:name).each do |attr_name| -%>
+  <% if attr_names_to_insert_index_before.include?(attr_name) -%>
+    <%= render :partial => 'column_index_transposed' %>
+  <% end -%>
+
   <tr>
     <td><%= column_name2display(attr_name) %></td>
 

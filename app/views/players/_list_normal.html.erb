@@ -6,8 +6,8 @@
 <tr>
   <th><%= nbsp %></th>
 
-  <% @columns.each do |column| -%>
-    <th><%= column_index(column) %></th>
+  <% @columns.map(&:name).each do |column_name| -%>
+    <th><%= column_index(column_name) %></th>
   <% end -%>
 
   <% @attribute_columns.each do |column| -%>
@@ -21,11 +21,10 @@
   <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
     <td><%= link_to '>', player %></td>
 
-    <% @columns.each do |column| -%>
-      <% column_name = column.name
-         clazz = column == last_column ? 'rightmost_of_players' : ''
+    <% @columns.map(&:name).each do |column_name| -%>
+      <% clazz = column_name == last_column ? 'rightmost_of_players' : ''
          clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : '' -%>
-      <td align="<%= column_align(column) %>" class="<%= clazz %>">
+      <td align="<%= column_align(column_name) %>" class="<%= clazz %>">
         <%= render :partial => 'property_display', :locals => {:column_name => column_name, :player => player} %>
       </td>
     <% end -%>
