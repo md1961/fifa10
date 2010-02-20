@@ -15,7 +15,7 @@
 <% column_names.each do |column_name| -%>
   <% next if column_names_not_to_display.include?(column_name) -%>
 
-  <tr>
+  <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
     <td><%= column_name2display(column_name2meaningful(column_name)) %></td>
 
     <% @players.each do |player| -%>
@@ -28,18 +28,21 @@
   </tr>
 <% end -%>
 
+<% is_top_of_attributes = true -%>
 <% @attribute_columns.map(&:name).each do |attr_name| -%>
   <% if attr_names_to_insert_index_before.include?(attr_name) -%>
     <%= render :partial => 'column_index_transposed' %>
   <% end -%>
 
-  <tr>
-    <td><%= column_name2display(attr_name) %></td>
+  <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
+    <% clazz0 = is_top_of_attributes ? 'top_of_attributes ' : ''
+       is_top_of_attributes = false -%>
+    <td class="<%= clazz0 %>"><%= column_name2display(attr_name) %></td>
 
     <% @players.each do |player| -%>
       <% attrs = player.player_attribute
          value = attrs.read_attribute(attr_name)
-         clazz = html_class_for_attribute_display(attr_name, value, false) -%>
+         clazz = clazz0 + html_class_for_attribute_display(attr_name, value, false) -%>
       <td align="right" class="<%= clazz %>"><%= value %></td>
     <% end -%>
   </tr>

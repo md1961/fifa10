@@ -181,6 +181,10 @@
   border-left: double medium black;
 }
 
+#table_players .top_of_attributes {
+  border-top: double medium black;
+}
+
 .table_player_properties_and_attributes {
   float: left;
   margin-right: 30px;

@@ -1,6 +1,6 @@
 
 <%
-  last_column = @columns[-1]
+  last_column_name = @columns[-1].name
 -%>
 
 <tr>
@@ -22,7 +22,7 @@
     <td><%= link_to '>', player %></td>
 
     <% @columns.map(&:name).each do |column_name| -%>
-      <% clazz = column_name == last_column ? 'rightmost_of_players' : ''
+      <% clazz = column_name == last_column_name ? 'rightmost_of_players' : ''
          clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : '' -%>
       <td align="<%= column_align(column_name) %>" class="<%= clazz %>">
         <%= render :partial => 'property_display', :locals => {:column_name => column_name, :player => player} %>
