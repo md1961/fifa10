@@ -27,6 +27,8 @@ module PlayersHelper
         'dominant_feet'
       when 'both_feet_level'
         'week_feet'
+      when 'birth_year'
+        'age'
       when 'nation_id'
         'nationality'
       else
