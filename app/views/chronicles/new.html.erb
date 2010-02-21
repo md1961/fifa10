@@ -1,0 +1,18 @@
+
+<%= error_messages_for :chronicle %>
+
+<% form_for :chronicle, :url => {:action => 'create'} do |f| -%>
+  <label for="chronicle_name">Name:&nbsp;</label>
+  <%= f.text_field :name, :size => 60 %>
+
+  <div id="chronicle_examples">
+    <%= "Example: \"#{Chronicle.find(:all).map(&:name).join('", "')}\"" %>
+  </div>
+
+  <p>
+    <%= submit_tag 'Create' %>
+    <%= nbsp(2) %>
+    <%= link_to 'Cancel', :action => 'list' %>
+  </p>
+<% end -%>
+

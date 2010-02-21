@@ -86,6 +86,17 @@
   list-style-image: url(../images/WorldCupBall2006.gif);
 }
 
+#link_new_chronicle {
+  font-size: large;
+  margin: 20px;
+}
+
+#chronicle_examples {
+  font-size: small;
+  margin-top:   5px;
+  margin-left: 50px;
+}
+
 #season_list {
   font-size: x-large;
   list-style-image: url(../images/WorldCupBall2006.gif);
