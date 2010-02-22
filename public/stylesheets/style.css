@@ -107,6 +107,11 @@
   list-style: square;
 }
 
+#link_new_season {
+  font-size: large;
+  margin: 20px;
+}
+
 #table_matches {
   font-size: small;
   border: 10px black solid;
