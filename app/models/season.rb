@@ -13,12 +13,12 @@ class Season < ActiveRecord::Base
     return seasons.sort.reverse
   end
 
-  def year_start
-    return years[0, years.index('-')].to_i
+  def year_end
+    return year_start + 1
   end
 
-  def year_end
-    return years[years.index('-') + 1, years.length].to_i
+  def years
+    return "#{year_start}-#{year_end}"
   end
 
   def <=>(other)

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100126230813) do
+ActiveRecord::Schema.define(:version => 20100222111020) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -30,10 +30,6 @@ ActiveRecord::Schema.define(:version => 20100126230813) do
     t.string  "scorers_opp", :default => "", :null => false
     t.integer "season_id",                   :null => false
   end
-
-  add_index "matches", ["opponent_id"], :name => "fk_matches_teams"
-  add_index "matches", ["season_id"], :name => "fk_matches_seasons"
-  add_index "matches", ["series_id"], :name => "fk_matches_series"
 
   create_table "nations", :force => true do |t|
     t.string  "name",      :default => "", :null => false
@@ -126,10 +122,10 @@ ActiveRecord::Schema.define(:version => 20100126230813) do
   end
 
   create_table "seasons", :force => true do |t|
-    t.string  "years"
     t.integer "chronicle_id"
     t.integer "team_id"
     t.boolean "closed",       :default => false
+    t.integer "year_start",                      :null => false
   end
 
   create_table "series", :force => true do |t|
