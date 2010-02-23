@@ -20,7 +20,12 @@ class AdminController < ApplicationController
   end
 
   def index
-    redirect_to :controller => 'chronicles'
+    startup_chronicle = Chronicle.find_by_name(Constant.get(:startup_chronicle_name))
+    if startup_chronicle
+      redirect_to :controller => 'seasons', :action => 'list', :chronicle_id => startup_chronicle
+    else
+      redirect_to :controller => 'chronicles'
+    end
   end
 end
 
