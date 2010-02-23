@@ -106,6 +106,12 @@ class MatchesController < ApplicationController
       render :action => 'edit', :id => @match
     end
   end
+  
+  def destroy
+    Match.find(params[:id]).destroy
+
+    redirect_to :action => 'list'
+  end
 
   def filter_with_series
     series_ids = params[:series_ids]

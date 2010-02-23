@@ -60,6 +60,12 @@ class Match < ActiveRecord::Base
     return h_record
   end
 
+  def to_s
+    s = "#{date_match} vs #{opponent.name}"
+    s += scores_own ? " #{scores_own}-#{scores_opp}" : " (TBP)"
+    return s
+  end
+
   private
 
     def result

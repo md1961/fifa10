@@ -42,6 +42,15 @@
     <td style="border-style: hidden hidden hidden none">
       <%= submit_tag 'Submit' %>
     </td>
+    <% unless @match.new_record? -%>
+      <td style="border-style: hidden hidden hidden none">
+        <%= link_to 'Delete', {:action => 'destroy', :id => @match},
+                               :confirm => "OK to delete \"#{@match}\"?",
+                               :class => "alertingBackground",
+                               :method => :delete
+                               %>
+      </td>
+    <% end -%>
   <% end -%>
 </tr>
 
