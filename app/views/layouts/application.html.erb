@@ -10,6 +10,9 @@
     <%= javascript_include_tag 'prototype' %>
   </head>
 
+  <% controller_name = controller.controller_name
+     is_admin = controller_name == 'admin' -%>
+
   <body>
     <% if defined?(@error_message) && @error_message -%>
       <% @error_message = @error_message.join("\n") if @error_message.kind_of?(Array) -%>
@@ -22,7 +25,7 @@
       <%= "<#{tag} id='page_title'>#{@page_title}</#{tag}>" %>
     <% end -%>
 
-    <% unless controller.controller_name == 'admin' -%>
+    <% unless is_admin -%>
       <div id="logout">
         <%= link_to 'Logout', :controller => 'admin', :action => 'logout' %>
       </div>
@@ -34,7 +37,11 @@
 
     <%= yield %>
 
-    <p class="copyright"><%= Constant.get('copyright') %></p>
+    <% unless is_admin -%>
+      <p class="copyright">
+        <%= Constant.get('copyright') %>
+      </p>
+    <% end -%>
   </body>
 
 </html>

@@ -1,6 +1,7 @@
 class MatchesController < ApplicationController
 
   def list
+    #TODO: use @season_id and do not store it in the session
     season_id = get_and_save_season_id(params)
 
     @matches = get_matches(season_id)
