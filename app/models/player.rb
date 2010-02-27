@@ -10,15 +10,18 @@ class Player < ActiveRecord::Base
   validates_presence_of :name, :number, :position_id, :skill_move, :both_feet_level, \
                         :height, :weight, :birth_year, :nation_id, :overall
   validates_inclusion_of :is_right_dominant, :in => [true, false]
-  validates_uniqueness_of :name, :number
+  # TODO: uniqueness of :name and :number?
+  #validates_uniqueness_of :name  , :scope => [:season]
+  #validates_uniqueness_of :number, :scope => [:season]
   validates_numericality_of :number,          :only_integer => true, :greater_than =>    0
   validates_numericality_of :skill_move,      :only_integer => true, :greater_than =>    0, :less_than_or_equal_to => 5
   validates_numericality_of :both_feet_level, :only_integer => true, :greater_than =>    0, :less_than_or_equal_to => 5
   validates_numericality_of :height,          :only_integer => true, :greater_than =>  150, :less_than => 220
   validates_numericality_of :weight,          :only_integer => true, :greater_than =>   50, :less_than => 100
-  validates_numericality_of :birth_year,      :only_integer => true, :greater_than => 1950
-  validates_numericality_of :overall,         :only_integer => true, :greater_than =>   40, :less_than => 100
-  validates_numericality_of :market_value,    :only_integer => true
+  # TODO: validates with :birth_year, :overall and :market_value?
+  #validates_numericality_of :birth_year,      :only_integer => true, :greater_than => 1950
+  #validates_numericality_of :overall,         :only_integer => true, :greater_than =>   40, :less_than => 100
+  #validates_numericality_of :market_value,    :only_integer => true
 
   TEST_DATA_FOR_NEW = {
     :name              => 'Kumagai',
@@ -49,7 +52,7 @@ class Player < ActiveRecord::Base
   def self.next_order_number(season_id)
     players = list(season_id)
     order_numbers = players.map { |p| p.order_number(season_id) }
-    return order_numbers.max + 1
+    return (order_numbers.empty? ? 0 : order_numbers.max) + 1
   end
 
   def self.player_attribute_top_values(order, season_id)

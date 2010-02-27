@@ -21,7 +21,11 @@
 <% when 'nation_id' -%>
   <%= player.nation.name -%>
 <% when 'market_value' -%>
-  <%= number_with_delimiter(player.market_value) + (show_unit ? ' K' + [0x00A3].pack('U') : '') %>
+  <% if (mv = player.market_value).nil? -%>
+    <%= "(n/a)" %>
+  <% else -%>
+    <%= number_with_delimiter(player.market_value) + (show_unit ? ' K' + [0x00A3].pack('U') : '') %>
+  <% end -%>
 <% else -%>
   <%= player.get(column_name) %>
 <% end -%>

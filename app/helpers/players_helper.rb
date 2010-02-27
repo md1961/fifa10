@@ -71,7 +71,8 @@ module PlayersHelper
     clazz = ''
     clazz =  'leftmost_of_attributes' if is_leftmost
     clazz += ' sorted_field'    if @sorted_field_names.include?(attr_name)
-    clazz += ' top_five_values' if value >= @attribute_top_five_values[attr_name]
+    top_five = @attribute_top_five_values[attr_name]
+    clazz += ' top_five_values' if ! top_five.nil? && value >= top_five
     superior_value = @superior_attribute_values[attr_name]
     clazz += ' superior_attribute_value' if superior_value > 0 and value >= superior_value
     return clazz

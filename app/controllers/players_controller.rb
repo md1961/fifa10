@@ -1,11 +1,7 @@
 class PlayersController < ApplicationController
 
   def list
-    season_id = (params[:season_id] || session[:season_id]).to_i
-    if season_id.nil? || season_id <= 0
-      raise "No 'season_id' in params nor session (#{session.inspect})"
-    end
-    session[:season_id] = season_id
+    season_id = get_season_id(params)
 
     row_filter = get_row_filter
     @players = row_filter.displaying_players
@@ -28,6 +24,16 @@ class PlayersController < ApplicationController
     @page_title = "#{team_name_and_season_years} Rosters"
   end
 
+    def get_season_id(params)
+      season_id = (params[:season_id] || session[:season_id]).to_i
+      if season_id.nil? || season_id <= 0
+        raise "No 'season_id' in params nor session (#{session.inspect})"
+      end
+      session[:season_id] = season_id
+      return season_id
+    end
+    private :get_season_id
+
   def show
     row_filter = get_row_filter
     players = row_filter.displaying_players
@@ -49,7 +55,9 @@ class PlayersController < ApplicationController
   def update
     @player = Player.find(params[:id])
     birth_year = Integer(params[:player][:birth_year])
-    params[:player][:birth_year] = @player.team.current_year - birth_year if birth_year < 100
+    season_id = get_season_id(params)
+    season = Season.find(season_id)
+    params[:player][:birth_year] = season.year_start - birth_year if birth_year < 100
     begin
       ActiveRecord::Base::transaction do
         unless @player.update_attributes(params[:player])
@@ -69,6 +77,7 @@ class PlayersController < ApplicationController
 
   def new
     @player = Player.new
+    @player.overall = 0
     @player.player_attribute = PlayerAttribute.zeros
 
     prepare_page_title_for_new
