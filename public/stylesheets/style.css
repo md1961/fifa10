@@ -284,6 +284,7 @@
   border: 1px black solid;
   border-collapse: collapse;
   border-spacing: 0;
+  margin-bottom: 10px;
 }
 
 .tables_roster_chart th {

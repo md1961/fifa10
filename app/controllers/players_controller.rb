@@ -343,13 +343,14 @@ class PlayersController < ApplicationController
     end
 
     def exchange_player_order(player1, player2)
-      n1 = player1.order_number
-      n2 = player2.order_number
-      player1.order_number = 999999
+      season_id = get_season_id(params)
+      n1 = player1.order_number(season_id)
+      n2 = player2.order_number(season_id)
+      player1.set_order_number(999999, season_id)
       player1.save!
-      player2.order_number = n1
+      player2.set_order_number(n1, season_id)
       player2.save!
-      player1.order_number = n2
+      player1.set_order_number(n2, season_id)
       player1.save!
     end
 
@@ -364,19 +365,20 @@ class PlayersController < ApplicationController
         raise ActiveRecord::Rollback, "Cannot find Player '#{names.join("', '")}' in 'players'"
       end
 
+      season_id = get_season_id(params)
       player1 = players[index1]
-      n_prev = player1.order_number
-      player1.order_number = 999999
+      n_prev = player1.order_number(season_id)
+      player1.set_order_number(999999, season_id)
       player1.save!
       step = sgn(index2 - index1)
       (index1 + step).step(index2, step) do |index|
         player = players[index]
-        n = player.order_number
-        player.order_number = n_prev
+        n = player.order_number(season_id)
+        player.set_order_number(n_prev, season_id)
         player.save!
         n_prev = n
       end
-      player1.order_number = n_prev
+      player1.set_order_number(n_prev, season_id)
       player1.save!
     end
 
