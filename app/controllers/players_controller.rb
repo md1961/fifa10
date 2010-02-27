@@ -153,7 +153,7 @@ class PlayersController < ApplicationController
 
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
-    @last_command = session[:last_command_to_filter] if @error_explanation
+    @last_command = session[:last_command_to_filter] || ""
 
     @page_title_size = 3
     @page_title = "Choose Items to Display"

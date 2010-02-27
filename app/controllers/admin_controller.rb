@@ -18,6 +18,7 @@ class AdminController < ApplicationController
 
     session[:season_id] = nil
     session[:match_filter] = nil
+    session[:last_command_to_filter] = nil
 
     flash[:notice] = "Logged out"
     redirect_to :action => 'login'
