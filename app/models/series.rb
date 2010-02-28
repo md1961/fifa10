@@ -19,6 +19,10 @@ class Series < ActiveRecord::Base
     return series
   end
 
+  def self.premier_all_but_friendly
+    return premier_all.select { |s| s.abbr != 'Friendly' }
+  end
+
   def premier?
     return abbr == 'Premier'
   end

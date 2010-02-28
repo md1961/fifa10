@@ -117,8 +117,6 @@ class MatchesController < ApplicationController
   def filter_with_series
     series_ids = params[:series_ids]
 
-    log_debug "series_ids = #{series_ids.inspect}"
-
     match_filter = get_match_filter
     match_filter.reset_all_series
     match_filter.set_series_ids(series_ids)

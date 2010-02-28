@@ -5,7 +5,7 @@
 <%= nbsp(4) %>
 <%= link_to 'Rosters', :controller => 'players', :action => 'list' %>
 <%= nbsp(4) %>
-<%= link_to 'All Series', :action => 'filter_with_series', :series_ids => Series.premier_all %>
+<%= link_to 'All', :action => 'filter_with_series', :series_ids => Series.premier_all_but_friendly %>
 <% Series.premier_all.each do |series| -%>
   <% abbr = series.abbr -%>
   <%= nbsp %>
