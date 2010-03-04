@@ -3,8 +3,6 @@ class MatchesController < ApplicationController
   def list
     #TODO: use @season_id and do not store it in the session
     season_id = get_and_save_season_id(params)
-    season = Season.find(season_id)
-    @team_abbr = season.team.abbr.downcase
 
     @matches = get_matches(season_id)
     @chronicle = Season.find(season_id).chronicle
@@ -14,6 +12,8 @@ class MatchesController < ApplicationController
     if shows_link = params[:shows_link]
       @shows_link = shows_link == '1'
     end
+
+    @team_abbr = team_abbr
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Fixtures and Results" \
@@ -42,6 +42,8 @@ class MatchesController < ApplicationController
     season_id = session[:season_id]
     @matches = get_matches(season_id)
     @match = Match.new
+
+    @team_abbr = team_abbr
 
     prepare_page_title_for_new
   end
@@ -92,6 +94,8 @@ class MatchesController < ApplicationController
     season_id = session[:season_id]
     @matches = get_matches(season_id)
     @match = Match.find(params[:id])
+
+    @team_abbr = team_abbr
 
     prepare_page_title_for_edit
   end

@@ -26,6 +26,11 @@ class ApplicationController < ActionController::Base
     return "#{team.name} #{season.years}"
   end
 
+  def team_abbr
+    season = Season.find(session[:season_id])
+    return season.team.abbr.downcase
+  end
+
   protected
 
     def authorize
