@@ -3,6 +3,8 @@ class MatchesController < ApplicationController
   def list
     #TODO: use @season_id and do not store it in the session
     season_id = get_and_save_season_id(params)
+    season = Season.find(season_id)
+    @team_abbr = season.team.abbr.downcase
 
     @matches = get_matches(season_id)
     @chronicle = Season.find(season_id).chronicle
