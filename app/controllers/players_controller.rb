@@ -1,5 +1,9 @@
 class PlayersController < ApplicationController
 
+  #TODO: Display top players for each attribute
+  def top_attribute_list
+  end
+
   def list
     season_id = get_season_id(params)
 

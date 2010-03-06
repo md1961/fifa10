@@ -20,6 +20,8 @@ class AdminController < ApplicationController
     session[:match_filter] = nil
     session[:last_command_to_filter] = nil
 
+    #TODO: clear session, but HOW?
+
     flash[:notice] = "Logged out"
     redirect_to :action => 'login'
   end
