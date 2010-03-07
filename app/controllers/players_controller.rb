@@ -17,6 +17,14 @@ class PlayersController < ApplicationController
       @map_top_players[attr_name].concat(top_players)
     end
 
+    get_row_filter # to set RowFilter::@@players
+    @names = params[:names]
+    @players_focus = Array.new
+    (@names || "").split.each do |name|
+      @players_focus.concat(RowFilter.player_name_match(name))
+    end
+
+    @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Top Attribute Chart"
   end
 
@@ -41,6 +49,7 @@ class PlayersController < ApplicationController
 
     @chronicle = Season.find(season_id).chronicle
 
+    @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Rosters"
   end
 
@@ -60,6 +69,7 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:id])
     @prev_player, @next_player = prev_and_next_players(@player, players)
 
+    @page_title_size = 3
     @page_title = "#{@player.number} #{@player.last_name_first_name}"
   end
 
@@ -69,6 +79,7 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:id])
     @prev_player, @next_player = prev_and_next_players(@player, players)
 
+    @page_title_size = 3
     @page_title = "Editing #{@player.last_name_first_name} ..."
   end
   
@@ -323,6 +334,7 @@ class PlayersController < ApplicationController
       @depth[position].sort! { |p1, p2| p1.overall.<=>(p2.overall) * -1 }
     end
 
+    @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Depth Chart"
   end
 
@@ -331,6 +343,7 @@ class PlayersController < ApplicationController
     session[:error_explanation] = nil
     @players = players_of_team
 
+    @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Roster Chart"
   end
 

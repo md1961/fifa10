@@ -18,6 +18,7 @@ class AdminController < ApplicationController
 
     session[:season_id] = nil
     session[:match_filter] = nil
+    session[:row_filter] = nil
     session[:last_command_to_filter] = nil
 
     #TODO: clear session, but HOW?

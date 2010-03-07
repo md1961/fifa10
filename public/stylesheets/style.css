@@ -231,6 +231,11 @@
   border-spacing: 0;
 }
 
+#table_top_attribute_list .player_focus {
+  font-weight: bold;
+  background-color: cyan;
+}
+
 .table_player_properties_and_attributes {
   float: left;
   margin-right: 30px;
