@@ -113,14 +113,28 @@
 }
 
 /* TODO: */
-#table_base {
+.table_base {
+  border: 10px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table_base th {
+  padding: 0px 4px 0px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table_base td {
+  padding: 0px 4px 0px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 #table_matches {
   font-size: small;
-  border: 10px black solid;
-  border-collapse: collapse;
-  border-spacing: 0;
   margin-top: 6px;
   margin-bottom: 6px;
 }
@@ -128,18 +142,10 @@
 #table_matches th {
   color: white;
   background-color: #666;
-  padding: 0px 4px 0px;
-  border: 1px black solid;
-  border-collapse: collapse;
-  border-spacing: 0;
 }
 
 #table_matches td {
   font-weight: bold;
-  padding: 0px 4px 0px;
-  border: 1px black solid;
-  border-collapse: collapse;
-  border-spacing: 0;
 }
 
 #table_matches .no_right_border {

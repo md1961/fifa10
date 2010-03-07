@@ -19,7 +19,7 @@
 <% label, value = @shows_link ? ["No Link", '0'] : ["Show Link", '1'] -%>
 <%= link_to label, :action => 'list', :shows_link => value %>
 
-<table id="table_matches">
+<table id="table_matches" class="table_base">
   <%= render :partial => 'list',
              :locals => {:action => :list,
                          :id_to_edit => nil,
