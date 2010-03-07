@@ -17,14 +17,14 @@
   <%= "Total Number of Players: #{@players.size}" %>
 </div>
 
-<table id="table_starters" class="tables_roster_chart">
+<table id="table_starters" class="table_base tables_roster_chart">
   <%= render :partial => 'roster_table',
              :locals => {:caption => 'Starters:',
                          :index_start => 0, :size => num_starters,
                          :index_offset => 0} %>
 </table>
 
-<table id="table_in_bench" class="tables_roster_chart">
+<table id="table_in_bench" class="table_base tables_roster_chart">
   <%= render :partial => 'roster_table',
              :locals => {:caption => 'Bench:',
                          :index_start => num_starters, :size => num_in_bench,
@@ -34,7 +34,7 @@
 <% index_start = num_starters + num_in_bench
    size = num_players_in_first_table_reserves -%>
 
-<table id="table_reserves_first" class="tables_roster_chart">
+<table id="table_reserves_first" class="table_base tables_roster_chart">
   <%= render :partial => 'roster_table',
              :locals => {:caption => 'Reserves:',
                          :index_start => index_start, :size => size,

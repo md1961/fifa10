@@ -7,7 +7,7 @@
   <%= link_to 'Top Players', :action => 'top_attribute_list' %>
 </p>
 
-<table id="table_depth_chart">
+<table id="table_depth_chart" class="table_base">
   <% Position.find(:all).each do |position| -%>
     <tr>
       <th><%= position.name -%></th>
