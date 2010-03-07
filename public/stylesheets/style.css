@@ -112,6 +112,10 @@
   margin: 20px;
 }
 
+/* TODO: */
+#table_base {
+}
+
 #table_matches {
   font-size: small;
   border: 10px black solid;
@@ -200,6 +204,31 @@
 
 #table_players .top_of_attributes {
   border-top: double medium black;
+}
+
+#table_top_attribute_list {
+  font-size: small;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-top: 2px;
+}
+
+#table_top_attribute_list th {
+  color: white;
+  text-align: left;
+  background-color: #666;
+  padding: 1px 4px 1px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#table_top_attribute_list td {
+  padding: 1px 4px 1px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 .table_player_properties_and_attributes {

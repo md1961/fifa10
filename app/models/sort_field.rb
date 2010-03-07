@@ -9,7 +9,9 @@ class SortField
 
   NAMES = [:none] + PLAYER_PROPERTY_NAMES + PLAYER_ATTRIBUTE_NAMES
 
-  DEFAULT_ASCENDING = '0'
+  ASCENDING  = '0'
+  DESCENDING = '1'
+  DEFAULT_ASCENDING = DESCENDING
 
   attr_accessor :ascending
 
@@ -43,7 +45,7 @@ class SortField
   end
 
   def ascending?
-    return @ascending == '1'
+    return @ascending == ASCENDING
   end
 
 end

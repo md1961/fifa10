@@ -1,5 +1,9 @@
 class PlayerAttribute < ActiveRecord::Base
 
+  def self.fulls
+    return ABBRS.map { |pair| pair[0] }
+  end
+
   def self.abbrs
     return ABBRS.map { |pair| pair[1] }
   end
