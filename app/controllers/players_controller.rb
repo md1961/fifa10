@@ -1,33 +1,5 @@
 class PlayersController < ApplicationController
 
-  #TODO: Display top players for each attribute
-  def top_attribute_list
-    num_top = 5
-
-    season_id = get_season_id(params)
-
-    players = players_of_team
-    @top_values = Player.player_attribute_top_values(num_top, season_id)
-    @map_top_players = Hash.new { |h, k| h[k] = Array.new }
-    PlayerAttribute.fulls.each do |attr_name|
-      top_players = players.select do |player|
-        player.player_attribute.read_attribute(attr_name) >= @top_values[attr_name.to_s]
-      end
-      sort_players(top_players, [SortField.new(attr_name)])
-      @map_top_players[attr_name].concat(top_players)
-    end
-
-    get_row_filter # to set RowFilter::@@players
-    @names = params[:names]
-    @players_focus = Array.new
-    (@names || "").split.each do |name|
-      @players_focus.concat(RowFilter.player_name_match(name))
-    end
-
-    @page_title_size = 3
-    @page_title = "#{team_name_and_season_years} Top Attribute Chart"
-  end
-
   def list
     season_id = get_season_id(params)
 
@@ -353,6 +325,33 @@ class PlayersController < ApplicationController
     update_roster(commands, players) if commands
 
     redirect_to :action => 'roster_chart'
+  end
+
+  def top_attribute_list
+    num_top = 5
+
+    season_id = get_season_id(params)
+
+    players = players_of_team
+    @top_values = Player.player_attribute_top_values(num_top, season_id)
+    @map_top_players = Hash.new { |h, k| h[k] = Array.new }
+    PlayerAttribute.fulls.each do |attr_name|
+      top_players = players.select do |player|
+        player.player_attribute.read_attribute(attr_name) >= @top_values[attr_name.to_s]
+      end
+      sort_players(top_players, [SortField.new(attr_name)])
+      @map_top_players[attr_name].concat(top_players)
+    end
+
+    get_row_filter # to set RowFilter::@@players
+    @names = params[:names]
+    @players_focus = Array.new
+    (@names || "").split.each do |name|
+      @players_focus.concat(RowFilter.player_name_match(name))
+    end
+
+    @page_title_size = 3
+    @page_title = "#{team_name_and_season_years} Top Attribute Chart"
   end
 
   private

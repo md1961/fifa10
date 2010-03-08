@@ -13,15 +13,15 @@ class AdminController < ApplicationController
     end
   end
 
+  SESSION_KEYS_TO_DELETE = [
+    :user_id, :season_id, :match_filter, :row_filter, :column_filter,
+    :last_command_to_filter, :error_explanation, :sort_fields,
+  ]
+
   def logout
-    session[:user_id] = nil
-
-    session[:season_id] = nil
-    session[:match_filter] = nil
-    session[:row_filter] = nil
-    session[:last_command_to_filter] = nil
-
-    #TODO: clear session, but HOW?
+    SESSION_KEYS_TO_DELETE.each do |key|
+      session[key] = nil
+    end
 
     flash[:notice] = "Logged out"
     redirect_to :action => 'login'
