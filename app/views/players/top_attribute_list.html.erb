@@ -25,7 +25,7 @@
       <% @map_top_players[attr_name].each do |player| -%>
         <% clazz = @players_focus.include?(player) ? "player_focus" : "" -%>
         <td class="<%= clazz %>"><%= player.name %></td>
-        <td><%= player.get(attr_name) %></td>
+        <td class="<%= clazz %>" text-align="right"><%= player.get(attr_name) %></td>
       <% end -%>
     </tr>
   <% end -%>
