@@ -4,7 +4,11 @@
 <%= link_to ' > Seasons'   , :controller => 'seasons'   , :action => 'list', :chronicle_id => @chronicle %>
 <%= nbsp(4) %>
 <%= link_to 'Rosters', :controller => 'players', :action => 'list' %>
-<%= nbsp(4) %>
+<%= nbsp(2) %>
+<%= link_to 'Depth Chart', :controller => 'players', :action => 'depth_chart' %>
+<%= nbsp(2) %>
+<%= link_to 'Roster Chart', :controller => 'players', :action => 'roster_chart' %>
+<br />
 <%= link_to 'All', :action => 'filter_with_series', :series_ids => Series.premier_all_but_friendly %>
 <% Series.premier_all.each do |series| -%>
   <% abbr = series.abbr -%>
@@ -18,6 +22,9 @@
 <%= nbsp(2) %>
 <% label, value = @shows_link ? ["No Link", '0'] : ["Show Link", '1'] -%>
 <%= link_to label, :action => 'list', :shows_link => value %>
+<%= nbsp(2) %>
+<% label, value = @is_font_bold ? ["Normal Font", '0'] : ["Bold Font", '1'] -%>
+<%= link_to label, :action => 'set_is_font_bold', :is_font_bold => value %>
 
 <table id="table_matches" class="table_base">
   <%= render :partial => 'list',
