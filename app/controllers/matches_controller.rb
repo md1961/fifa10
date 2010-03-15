@@ -13,20 +13,25 @@ class MatchesController < ApplicationController
       @shows_link = shows_link == '1'
     end
 
-    @is_font_bold = true
-    @is_font_bold = session[:is_font_bold] unless session[:is_font_bold].nil?
-    unless @is_font_bold
-      @css_add = Array.new unless @css_add
-      @css_add << 'table_match_font_normal'
-    end
-    session[:is_font_bold] = @is_font_bold
-
     @team_abbr = team_abbr
+
+    set_font_weight
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Fixtures and Results" \
                   + " <font size='-1'>(#{@chronicle.name})</font>"
   end
+
+    def set_font_weight
+      @is_font_bold = true
+      @is_font_bold = session[:is_font_bold] unless session[:is_font_bold].nil?
+      unless @is_font_bold
+        @css_add = Array.new unless @css_add
+        @css_add << 'table_match_font_normal'
+      end
+      session[:is_font_bold] = @is_font_bold
+    end
+    private :set_font_weight
 
   def set_is_font_bold
     is_font_bold = params[:is_font_bold] || '1'
@@ -58,6 +63,8 @@ class MatchesController < ApplicationController
     @match = Match.new
 
     @team_abbr = team_abbr
+
+    set_font_weight
 
     prepare_page_title_for_new
   end
@@ -110,6 +117,8 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
 
     @team_abbr = team_abbr
+
+    set_font_weight
 
     prepare_page_title_for_edit
   end
