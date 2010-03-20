@@ -12,7 +12,12 @@
     <tr>
       <% @column_names.each do |column_name| -%>
         <td align="<%= column_align(column_name) %>">
-          <%= team.get(column_name) %>
+          <% value = team.get(column_name) -%>
+          <% if column_name == 'id' -%>
+            <%= link_to value, :action => 'edit', :id => team %>
+          <% else -%>
+            <%= value %>
+          <% end -%>
         </td>
       <% end -%>
     </tr>

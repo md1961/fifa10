@@ -7,4 +7,6 @@ class Team < ActiveRecord::Base
     return nation.name if name == 'nation_id'
     return read_attribute(name)
   end
+
+  COLUMN_NAMES_TO_LIST = %()
 end

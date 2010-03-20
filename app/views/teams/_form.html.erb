@@ -1,0 +1,33 @@
+
+<%= error_messages_for :team %>
+
+<table>
+  <% form_for :team do |f| -%>
+    <% @column_names.each do |column_name| -%>
+      <tr>
+        <td>
+          <label for="<%= "team_#{column_name}" %>">
+            <%= column_name2display(column_name) %>:
+          </label>
+        </td>
+        <td>
+          <% if column_name == 'nation_id' -%>
+            <%= f.select column_name, options_from_collection_for_select(@nations, :id, :name, @team.nation_id) %>
+          <% else -%>
+            <%= f.text_field column_name %>
+          <% end -%>
+        </td>
+      </tr>
+    <% end -%>
+
+    <tr />
+    <tr style="height: 30px; vertical-align: bottom;">
+      <td>
+        <%= submit_tag 'Enter' %>
+        <%= nbsp(2) %>
+        <%= link_to 'Cancel', :action => 'list' %>
+      </td>
+    </tr>
+  <% end -%>
+</table>
+
