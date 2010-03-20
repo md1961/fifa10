@@ -132,6 +132,20 @@
   border-spacing: 0;
 }
 
+#table_teams {
+  font-size: small;
+  margin-top: 6px;
+}
+
+#table_teams th {
+  color: white;
+  background-color: #666;
+}
+
+#table_teams td {
+  font-weight: normal;
+}
+
 #table_matches {
   border: 10px black solid;
   font-size: small;

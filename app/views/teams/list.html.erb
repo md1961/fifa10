@@ -1,0 +1,21 @@
+
+<%= link_to 'Chronicles', :controller => 'chronicles', :action => 'list' %>
+
+<table id="table_teams" class="table_base">
+  <tr>
+    <% @column_names.each do |column_name| -%>
+      <th><%= column_name2display(column_name) %></th>
+    <% end -%>
+  </tr>
+
+  <% @teams.each do |team| -%>
+    <tr>
+      <% @column_names.each do |column_name| -%>
+        <td align="<%= column_align(column_name) %>">
+          <%= team.get(column_name) %>
+        </td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+

@@ -25,6 +25,8 @@
 <%= nbsp(2) %>
 <% label, value = @is_font_bold ? ["Normal Font", '0'] : ["Bold Font", '1'] -%>
 <%= link_to label, :action => 'set_is_font_bold', :is_font_bold => value %>
+<%= nbsp(4) %>
+<%= link_to 'New Match', :action => 'new' %>
 
 <table id="table_matches" class="table_base">
   <%= render :partial => 'list',

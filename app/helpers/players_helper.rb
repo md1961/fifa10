@@ -36,13 +36,6 @@ module PlayersHelper
       end
   end
 
-  def column_name2display(column_name)
-    s = column_name.to_s.titleize
-    #s.gsub!(/([a-z])([A-Z])/, '\1 \2')
-    s.sub!(/([FGP])k/, '\1K')
-    return s
-  end
-
   def displaying_player_attribute_names
     # [nil] to instruct to output <br />
     return \

@@ -36,6 +36,7 @@ module MatchesHelper
   end
 
   def series_for_collection_select
+    #TODO: When editing, need to return all the possible series to select.
     match_filter = session[:match_filter]
     return match_filter.selected_series
   end
