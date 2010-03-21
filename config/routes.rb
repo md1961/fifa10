@@ -12,9 +12,10 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
-  map.resources :players  , :requirements => {:id => /\d+/}
   map.resources :countries, :requirements => {:id => /\d+/}
+  map.resources :teams    , :requirements => {:id => /\d+/}
   map.resources :matches  , :requirements => {:id => /\d+/}
+  map.resources :players  , :requirements => {:id => /\d+/}
 
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }

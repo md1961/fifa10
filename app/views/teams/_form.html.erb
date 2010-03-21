@@ -2,7 +2,7 @@
 <%= error_messages_for :team %>
 
 <table>
-  <% form_for :team do |f| -%>
+  <% form_for :team, :url => {:action => action} do |f| -%>
     <% @column_names.each do |column_name| -%>
       <tr>
         <td>
