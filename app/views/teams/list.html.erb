@@ -6,7 +6,8 @@
 <table id="table_teams" class="table_base">
   <tr>
     <% @column_names.each do |column_name| -%>
-      <th><%= column_name2display(column_name) %></th>
+      <% name = column_name == 'year_founded' ? 'founded' : column_name -%>
+      <th><%= column_name2display(name) %></th>
     <% end -%>
   </tr>
 
