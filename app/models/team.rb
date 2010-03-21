@@ -5,6 +5,7 @@ class Team < ActiveRecord::Base
 
   validates_presence_of   :name
   validates_uniqueness_of :name
+  validates_numericality_of :year_founded, :greater_than => 1800, :less_than => 2000, :allow_nil => true
 
   def get(name)
     return nation.name if name == 'nation_id'
