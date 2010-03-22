@@ -148,7 +148,7 @@ class MatchesController < ApplicationController
 
     match_filter = get_match_filter
     match_filter.reset_all_series
-    match_filter.set_series_by_abbr(series_abbrs)
+    match_filter.series_abbrs = series_abbrs
     session[:match_filter] = match_filter
 
     redirect_to :action => 'list'

@@ -3,6 +3,9 @@ class MatchFilter
   YES = '1'
   NO  = '0'
 
+  ALL_SERIES = 'all_series'
+  DEFAULT_SERIES_ABBRS = ALL_SERIES
+
   def self.abbr2attr_name(abbr)
     # Substitute spaces with '_', then remove periods.
     return abbr.gsub(/\s+/, '_').gsub(/\./, '').downcase
@@ -25,6 +28,7 @@ class MatchFilter
       instance_variable_set("@#{name}", hash[name])
     end
     @player_name = nil
+    @series_abbrs = DEFAULT_SERIES_ABBRS
   end
 
   def selected_series
@@ -46,20 +50,24 @@ class MatchFilter
     instance_variable_set("@#{attr_name}", value)
   end
 
-  ALL = 'all'
+  def series_abbrs
+    return @series_abbrs
+  end
 
-  def set_series_by_abbr(series_abbrs)
-    if series_abbrs == ALL
+  def series_abbrs=(series_abbrs)
+    if series_abbrs == ALL_SERIES
+      series_abbrs = [ALL_SERIES]
       #TODO: This is a magic word.
       series_ids = Series.premier_all_but_friendly.map(&:id)
     else
       series_abbrs = [series_abbrs] if series_abbrs.kind_of?(String)
       series_ids = series_abbrs.map { |abbr| Series.find_by_abbr(abbr).id }
     end
+    @series_abbrs = series_abbrs
     set_series_ids(series_ids)
   end
 
-    #TODO: Merge into set_series_by_abbr().
+    #TODO: Merge into series_abbrs().
     def set_series_ids(series_ids)
       series_ids.each do |series_id|
         series = Series.find(series_id)
