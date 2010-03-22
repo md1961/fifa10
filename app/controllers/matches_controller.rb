@@ -144,11 +144,11 @@ class MatchesController < ApplicationController
   end
 
   def filter_with_series
-    series_ids = params[:series_ids]
+    series_abbrs = params[:series_abbrs]
 
     match_filter = get_match_filter
     match_filter.reset_all_series
-    match_filter.set_series_ids(series_ids)
+    match_filter.set_series_by_abbr(series_abbrs)
     session[:match_filter] = match_filter
 
     redirect_to :action => 'list'

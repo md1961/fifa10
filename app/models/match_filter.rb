@@ -46,12 +46,27 @@ class MatchFilter
     instance_variable_set("@#{attr_name}", value)
   end
 
-  def set_series_ids(series_ids)
-    series_ids.each do |series_id|
-      series = Series.find(series_id)
-      set_series(series, YES)
+  ALL = 'all'
+
+  def set_series_by_abbr(series_abbrs)
+    if series_abbrs == ALL
+      #TODO: This is a magic word.
+      series_ids = Series.premier_all_but_friendly.map(&:id)
+    else
+      series_abbrs = [series_abbrs] if series_abbrs.kind_of?(String)
+      series_ids = series_abbrs.map { |abbr| Series.find_by_abbr(abbr).id }
     end
+    set_series_ids(series_ids)
   end
+
+    #TODO: Merge into set_series_by_abbr().
+    def set_series_ids(series_ids)
+      series_ids.each do |series_id|
+        series = Series.find(series_id)
+        set_series(series, YES)
+      end
+    end
+    private :set_series_ids
 
   def displaying_matches(matches)
     new_matches = matches.select do |match|

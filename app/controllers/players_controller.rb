@@ -21,6 +21,8 @@ class PlayersController < ApplicationController
 
     @chronicle = Season.find(season_id).chronicle
 
+    log_debug "row_filter.to_yaml = {#{row_filter.to_yaml}(len = #{row_filter.to_yaml.length})}"
+
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Rosters"
   end

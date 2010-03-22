@@ -9,11 +9,11 @@
 <%= nbsp(2) %>
 <%= link_to 'Roster Chart', :controller => 'players', :action => 'roster_chart' %>
 <br />
-<%= link_to 'All', :action => 'filter_with_series', :series_ids => Series.premier_all_but_friendly %>
+<%= link_to 'All', :action => 'filter_with_series', :series_abbrs => MatchFilter::ALL %>
 <% Series.premier_all.each do |series| -%>
   <% abbr = series.abbr -%>
   <%= nbsp %>
-  <%= link_to abbr, :action => 'filter_with_series', :series_ids => [Series.find_by_abbr(abbr)] %>
+  <%= link_to abbr, :action => 'filter_with_series', :series_abbrs => [abbr] %>
 <% end -%>
 <%= nbsp(2) %>
 <%= link_to 'Filter', :action => 'choose_to_list' %>
