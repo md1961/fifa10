@@ -22,8 +22,10 @@ class MatchesController < ApplicationController
                   + " <font size='-1'>(#{@chronicle.name})</font>"
   end
 
+    DEFAULT_IS_FONT_BOLD = false
+
     def set_font_weight
-      @is_font_bold = true
+      @is_font_bold = DEFAULT_IS_FONT_BOLD
       @is_font_bold = session[:is_font_bold] unless session[:is_font_bold].nil?
       unless @is_font_bold
         @css_add = Array.new unless @css_add

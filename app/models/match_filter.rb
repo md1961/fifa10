@@ -3,7 +3,7 @@ class MatchFilter
   YES = '1'
   NO  = '0'
 
-  ALL_SERIES = 'all_series'
+  ALL_SERIES = 'All'
   DEFAULT_SERIES_ABBRS = ALL_SERIES
 
   def self.abbr2attr_name(abbr)
@@ -28,7 +28,7 @@ class MatchFilter
       instance_variable_set("@#{name}", hash[name])
     end
     @player_name = nil
-    @series_abbrs = DEFAULT_SERIES_ABBRS
+    @series_abbrs = [DEFAULT_SERIES_ABBRS]
   end
 
   def selected_series

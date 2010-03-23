@@ -78,4 +78,11 @@ module MatchesHelper
     games  = wins + draws + loses
     return "G#{games}-P#{points}-W#{wins}-D#{draws}-L#{loses}"
   end
+
+  def link_to_filter_with_series(abbr, current_abbr)
+    param = abbr == MatchFilter::ALL_SERIES ? abbr : [abbr]
+    is_current = abbr == current_abbr
+    label = is_current ? "<b>#{abbr}</b>" : abbr
+    return link_to_unless is_current, label, :action => 'filter_with_series', :series_abbrs => param
+  end
 end
