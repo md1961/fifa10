@@ -8,19 +8,28 @@ class MatchesController < ApplicationController
     @chronicle = Season.find(season_id).chronicle
     @match_filter = get_match_filter
 
-    @shows_link = true
-    if shows_link = params[:shows_link]
-      @shows_link = shows_link == '1'
-    end
-
     @team_abbr = team_abbr
 
+    set_params(params)
     set_font_weight
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Fixtures and Results" \
                   + " <font size='-1'>(#{@chronicle.name})</font>"
   end
+
+    def set_params(params)
+      @shows_link = true
+      if shows_link = params[:shows_link]
+        @shows_link = shows_link == '1'
+      end
+
+      @shows_records = true
+      if shows_records = params[:shows_records]
+        @shows_records = shows_records == '1'
+      end
+    end
+    private :set_params
 
     DEFAULT_IS_FONT_BOLD = false
 
@@ -74,7 +83,7 @@ class MatchesController < ApplicationController
   def create
     @match = make_match(params)
     if @match.save
-      redirect_to :action => 'list'
+      redirect_to :action => 'list', :shows_records => params[:shows_records]
     else
       season_id = session[:season_id]
       @matches = Match.list(season_id)
@@ -129,7 +138,7 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     adjust_date_match(params)
     if @match.update_attributes(params[:match])
-      redirect_to :action => 'list'
+      redirect_to :action => 'list', :shows_records => params[:shows_records]
     else
       season_id = session[:season_id]
       @matches = Match.list(season_id)

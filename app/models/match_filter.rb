@@ -67,7 +67,6 @@ class MatchFilter
     set_series_ids(series_ids)
   end
 
-    #TODO: Merge into series_abbrs().
     def set_series_ids(series_ids)
       series_ids.each do |series_id|
         series = Series.find(series_id)

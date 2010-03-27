@@ -24,7 +24,10 @@
 <%= nbsp(2) %>
 <% label, value = @shows_link ? ["No Link", '0'] : ["Show Link", '1'] -%>
 <%= link_to label, :action => 'list', :shows_link => value %>
-<%= nbsp(2) %>
+<%= nbsp %>
+<% label, value = @shows_records ? ["No Record", '0'] : ["Show Record", '1'] -%>
+<%= link_to label, :action => 'list', :shows_records => value %>
+<%= nbsp %>
 <% label, value = @is_font_bold ? ["Normal Font", '0'] : ["Bold Font", '1'] -%>
 <%= link_to label, :action => 'set_is_font_bold', :is_font_bold => value %>
 <%= nbsp(4) %>
