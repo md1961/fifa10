@@ -22,7 +22,7 @@
                    :locals => {:column_name => column_name, :shows_link => shows_link} %>
       <% end -%>
 
-      <% if action == :list && @shows_records -%>
+      <% if action == :list && @shows_records == '1' -%>
         <td align="center"><%= record_display(match) %></td>
       <% end -%>
     </tr>

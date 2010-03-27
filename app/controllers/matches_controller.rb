@@ -24,10 +24,8 @@ class MatchesController < ApplicationController
         @shows_link = shows_link == '1'
       end
 
-      @shows_records = true
-      if shows_records = params[:shows_records]
-        @shows_records = shows_records == '1'
-      end
+      @shows_records = params[:shows_records] || session[:shows_records] || '1'
+      session[:shows_records] = @shows_records
     end
     private :set_params
 
@@ -83,7 +81,7 @@ class MatchesController < ApplicationController
   def create
     @match = make_match(params)
     if @match.save
-      redirect_to :action => 'list', :shows_records => params[:shows_records]
+      redirect_to :action => 'list'
     else
       season_id = session[:season_id]
       @matches = Match.list(season_id)
@@ -138,7 +136,7 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     adjust_date_match(params)
     if @match.update_attributes(params[:match])
-      redirect_to :action => 'list', :shows_records => params[:shows_records]
+      redirect_to :action => 'list'
     else
       season_id = session[:season_id]
       @matches = Match.list(season_id)

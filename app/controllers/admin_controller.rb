@@ -16,6 +16,7 @@ class AdminController < ApplicationController
   SESSION_KEYS_TO_DELETE = [
     :user_id, :season_id, :match_filter, :row_filter, :column_filter,
     :last_command_to_filter, :error_explanation, :sort_fields, :is_font_bold
+    :shows_records,
   ]
 
   def logout
