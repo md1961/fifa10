@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :authorize, :except => :login
 
-  helper :all # include all helpers, all the time
+  #helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
