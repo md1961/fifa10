@@ -58,7 +58,8 @@ class MatchFilter
     if series_abbrs == ALL_SERIES
       series_abbrs = [ALL_SERIES]
       #TODO: This is a magic word.
-      series_ids = Series.premier_all_but_friendly.map(&:id)
+      #series_ids = Series.premier_all_but_friendly.map(&:id)
+      series_ids = Series.premier_all.map(&:id)
     else
       series_abbrs = [series_abbrs] if series_abbrs.kind_of?(String)
       series_ids = series_abbrs.map { |abbr| Series.find_by_abbr(abbr).id }

@@ -86,6 +86,11 @@
   list-style-image: url(../images/WorldCupBall2006.gif);
 }
 
+#chronicle_list .closed {
+  font-style: italic;
+  list-style: square;
+}
+
 #link_new_chronicle {
   font-size: large;
   margin: 20px;

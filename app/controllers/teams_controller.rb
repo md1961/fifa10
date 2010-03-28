@@ -20,6 +20,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(params[:team])
+    #TODO: abbr = nil if no input
     if @team.save
       redirect_to :action => 'list'
     else
