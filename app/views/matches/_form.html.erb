@@ -11,8 +11,12 @@
   <tr>
     <td colspan="2"><%= f.text_field :date_match, :size => 10 %></td>
     <% series = series_for_collection_select -%>
-    <td colspan="3"><%= series.size == 1 ? series[0].abbr : f.collection_select('series_id', series, :id, :abbr) %></td>
-    <td colspan="2"><%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name %></td>
+    <td colspan="2"><%= series.size == 1 ? series[0].abbr : f.collection_select('series_id', series, :id, :abbr) %></td>
+    <td colspan="2"><%= f.text_field :subname, :size => 8 %></td>
+    <td>
+      <%= f.select 'ground', grounds_for_select %>
+      <%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name %>
+    </td>
   </tr>
   <tr>
     <td colspan="2"><%= f.text_field 'scores_own', :size =>  2 %> - <%= f.text_field 'scores_opp', :size => 2 %> </td>
