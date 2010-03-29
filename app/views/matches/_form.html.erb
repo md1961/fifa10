@@ -7,50 +7,31 @@
   </tr>
 <% end -%>
 
-<tr>
-  <% form_for @match do |f| -%>
-    <% column_names.each do |column_name| -%>
-      <td colspan="<%= column_name == 'scores_own' ? 2 : 1 %>">
-        <% case column_name
-           when 'series_id' -%>
-          <% series = series_for_collection_select -%>
-          <% if series.size == 1 -%>
-            <%= series[0].abbr %>
-          <% else -%>
-            <%= f.collection_select 'series_id', series, :id, :abbr %>
-          <% end -%>
-          <%= f.text_field 'subname'   , :size => 10 %>
-        <% when 'opponent_id' -%>
-          <%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name %>
-        <% when 'ground' -%>
-          <%= f.select 'ground', grounds_for_select %>
-        <% when 'scores_own' -%>
-          <%= f.text_field 'scores_own', :size =>  2 %>
-          -
-          <%= f.text_field 'scores_opp', :size =>  2 %>
-        <% when 'pks_own' -%>
-          PK
-          <%= f.text_field 'pks_own'   , :size =>  2 %>
-          -
-          <%= f.text_field 'pks_opp'   , :size =>  2 %>
-        <% else -%>
-          <%= f.text_field column_name , :size => text_field_size(column_name) %>
-        <% end -%>
-      </td>
-    <% end -%>
-
-    <td style="border-style: hidden hidden hidden none">
+<% form_for @match do |f| -%>
+  <tr>
+    <td colspan="2"><%= f.text_field :date_match, :size => 10 %></td>
+    <% series = series_for_collection_select -%>
+    <td colspan="3"><%= series.size == 1 ? series[0].abbr : f.collection_select('series_id', series, :id, :abbr) %></td>
+    <td colspan="2"><%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name %></td>
+  </tr>
+  <tr>
+    <td colspan="2"><%= f.text_field 'scores_own', :size =>  2 %> - <%= f.text_field 'scores_opp', :size => 2 %> </td>
+    <td colspan="5">own: <%= f.text_field :scorers_own, :size => 80 %></td>
+  </tr>
+  <tr>
+    <td colspan="2">PK <%= f.text_field 'pks_own', :size =>  2 %> - <%= f.text_field 'pks_opp', :size => 2 %> </td>
+    <td colspan="5">opp: <%= f.text_field :scorers_opp, :size => 80 %></td>
+    <td>
       <%= submit_tag 'Submit' %>
-    </td>
-    <% unless @match.new_record? -%>
-      <td style="border-style: hidden hidden hidden none">
+      <% unless @match.new_record? -%>
+        <%= nbsp(6) %>
         <%= link_to 'Delete', {:action => 'destroy', :id => @match},
                                :confirm => "OK to delete \"#{@match}\"?",
                                :class => "alertingBackground",
                                :method => :delete
                                %>
-      </td>
-    <% end -%>
-  <% end -%>
-</tr>
+      <% end -%>
+    </td>
+  </tr>
+<% end -%>
 

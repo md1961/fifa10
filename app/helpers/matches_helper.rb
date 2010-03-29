@@ -8,18 +8,6 @@ module MatchesHelper
     return COLUMN_NAMES_FOR_LIST
   end
 
-  HASH_TEXT_FIELD_SIZE = {
-    :date_match  => 10,
-    :ground      =>  2,
-    :scorers_own => 60,
-    :scorers_opp => 40,
-  }
-  DEFAULT_TEXT_FIELD_SIZE = 8
-
-  def text_field_size(column_name)
-    return HASH_TEXT_FIELD_SIZE[column_name.intern] || DEFAULT_TEXT_FIELD_SIZE
-  end
-
   HASH_COLUMN_INDEX = {
     :date_match  => 'Date',
     :series_id   => 'Series',
