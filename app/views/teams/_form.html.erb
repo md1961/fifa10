@@ -22,10 +22,18 @@
 
     <tr />
     <tr style="height: 30px; vertical-align: bottom;">
-      <td>
+      <td colspan="2">
         <%= submit_tag 'Enter' %>
         <%= nbsp(2) %>
         <%= link_to 'Cancel', :action => 'list' %>
+        <% if action == :update -%>
+          <%= nbsp(12) %>
+          <%= link_to 'Delete', {:action => 'destroy', :id => @team},
+                                 :confirm => "OK to delete \"#{@team}\"?",
+                                 :class => "alertingBackground",
+                                 :method => :delete
+                                 %>
+        <% end -%>
       </td>
     </tr>
   <% end -%>

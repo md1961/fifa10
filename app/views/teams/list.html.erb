@@ -18,6 +18,8 @@
           <% value = team.get(column_name) -%>
           <% if column_name == 'id' -%>
             <%= link_to value, :action => 'edit', :id => team %>
+          <% elsif column_name == 'abbr' && value.nil? -%>
+            (same)
           <% else -%>
             <%= value %>
           <% end -%>

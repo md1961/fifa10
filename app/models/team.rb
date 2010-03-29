@@ -12,5 +12,9 @@ class Team < ActiveRecord::Base
     return read_attribute(name)
   end
 
+  def to_s
+    return name
+  end
+
   COLUMN_NAMES_TO_LIST = %()
 end

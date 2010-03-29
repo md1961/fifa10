@@ -20,7 +20,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(params[:team])
-    #TODO: abbr = nil if no input
+    @team.abbr = nil if @team.abbr.blank?
     if @team.save
       redirect_to :action => 'list'
     else
@@ -48,11 +48,18 @@ class TeamsController < ApplicationController
 
   def update
     @team = Team.find(params[:id])
+    params[:team][:abbr] = nil if params[:team][:abbr].blank?
     if @team.update_attributes(params[:team])
       redirect_to :action => 'list'
     else
       prepare_for_new_or_edit(:edit)
       render :action => 'edit'
     end
+  end
+  
+  def destroy
+    Team.find(params[:id]).destroy
+
+    redirect_to :action => 'list'
   end
 end
