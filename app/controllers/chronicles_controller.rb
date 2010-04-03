@@ -4,7 +4,7 @@ class ChroniclesController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  ORDER_BY = "name"
+  ORDER_BY = "closed, name"
 
   def list
     @chronicles = Chronicle.find(:all, :order => ORDER_BY)
