@@ -2,13 +2,7 @@
 <%= error_messages_for :player %>
 
 <p>
-  <%= link_to "<< #{@prev_player.name}", [:edit, @prev_player] %>
-  <%= nbsp(4) %>
-  <%= link_to 'Back to Rosters', :action => 'list' %>
-  <%= nbsp(4) %>
   <%= link_to 'Cancel', :action => 'show' %>
-  <%= nbsp(4) %>
-  <%= link_to "#{@next_player.name} >>", [:edit, @next_player] %>
 </p>
 
 <% form_for @player do |f| -%>
