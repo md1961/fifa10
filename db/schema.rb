@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100222111020) do
+ActiveRecord::Schema.define(:version => 20100403231624) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -80,20 +80,14 @@ ActiveRecord::Schema.define(:version => 20100222111020) do
   end
 
   create_table "player_seasons", :force => true do |t|
-    t.integer "player_id",    :null => false
-    t.integer "season_id",    :null => false
-    t.integer "order_number", :null => false
+    t.integer "player_id",                       :null => false
+    t.integer "season_id",                       :null => false
+    t.integer "order_number",                    :null => false
+    t.boolean "on_loan",      :default => false, :null => false
   end
 
   add_index "player_seasons", ["player_id"], :name => "fk_player_seasons_players"
   add_index "player_seasons", ["season_id", "order_number"], :name => "index_player_seasons_on_season_id_and_order_number", :unique => true
-
-  create_table "player_values", :force => true do |t|
-    t.integer "player_id", :null => false
-    t.integer "overall",   :null => false
-    t.integer "value"
-    t.string  "note"
-  end
 
   create_table "players", :force => true do |t|
     t.string  "name",              :default => "", :null => false
@@ -121,6 +115,13 @@ ActiveRecord::Schema.define(:version => 20100222111020) do
     t.string "name", :default => "", :null => false
   end
 
+  create_table "season_with_name", :id => false, :force => true do |t|
+    t.integer "id",             :default => 0,  :null => false
+    t.string  "chronicle_name", :default => "", :null => false
+    t.string  "team_name",      :default => "", :null => false
+    t.integer "year_start",                     :null => false
+  end
+
   create_table "seasons", :force => true do |t|
     t.integer "chronicle_id"
     t.integer "team_id"
@@ -135,11 +136,11 @@ ActiveRecord::Schema.define(:version => 20100222111020) do
 
   create_table "teams", :force => true do |t|
     t.string  "name",         :default => "", :null => false
-    t.integer "year_founded"
-    t.string  "ground"
-    t.integer "nation_id",                    :null => false
     t.string  "abbr"
     t.string  "nickname"
+    t.string  "ground"
+    t.integer "year_founded"
+    t.integer "nation_id",                    :null => false
   end
 
   add_index "teams", ["nation_id"], :name => "fk_teams_nations"

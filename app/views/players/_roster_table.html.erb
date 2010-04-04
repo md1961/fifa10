@@ -7,7 +7,10 @@
 <% unless index_start >= @players.size -%>
   <% @players[index_start, size].each_with_index do |player, index| -%>
     <tr>
-      <td class="index_number"><%= "#{kind}#{index + index_offset + 1}" %></td>
+      <td class="index_number">
+        <% label = "#{kind}#{index + index_offset + 1}" -%>
+        <%= link_to label, :action => 'show', :id => player %>
+      </td>
       <td class="name"><%= player.name %></td>
       <td><font size="-1"><%= player.overall %></font></td>
       <td><%= player.position.name %></td>

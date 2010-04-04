@@ -88,6 +88,11 @@ class Player < ActiveRecord::Base
     return player_season ? player_season.order_number : nil
   end
 
+  def on_loan?(season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    return player_season ? player_season.on_loan : false
+  end
+
   def set_order_number(number, season_id)
     player_season = player_seasons.find_by_season_id(season_id)
     if player_season
@@ -101,6 +106,11 @@ class Player < ActiveRecord::Base
   def set_next_order_number(season_id)
     player_seasons << PlayerSeason.new(:season_id => season_id,
                                        :order_number => Player.next_order_number(season_id))
+  end
+
+  def remove_from_rosters(season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    player_season.destroy
   end
 
   def get(name)

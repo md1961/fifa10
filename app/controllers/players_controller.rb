@@ -5,6 +5,7 @@ class PlayersController < ApplicationController
 
     row_filter = get_row_filter
     @players = row_filter.displaying_players
+    @players = @players.select { |player| ! player.on_loan?(season_id) }
 
     sort_fields = session[:sort_fields]
     @sorted_field_names = []
@@ -101,6 +102,14 @@ class PlayersController < ApplicationController
       prepare_page_title_for_new
       render :action => 'new'
     end
+  end
+
+  def remove_from_rosters
+    season_id = session[:season_id]
+    player = Player.find(params[:id])
+    player.remove_from_rosters(season_id)
+
+    redirect_to :action => 'list'
   end
 
   def prepare_page_title_for_new
