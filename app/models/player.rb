@@ -93,6 +93,12 @@ class Player < ActiveRecord::Base
     return player_season ? player_season.on_loan : false
   end
 
+  def set_on_loan(on_loan, season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    player_season.on_loan = on_loan
+    player_season.save!
+  end
+
   def set_order_number(number, season_id)
     player_season = player_seasons.find_by_season_id(season_id)
     if player_season

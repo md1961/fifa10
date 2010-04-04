@@ -341,6 +341,10 @@
   text-align: right;
 }
 
+.tables_roster_chart .on_loan {
+  background-color: grey;
+}
+
 #command_samples_for_roster_chart {
   font-size: small;
   margin-left: 10px;

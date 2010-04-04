@@ -75,6 +75,7 @@ module PlayersHelper
     return [
       "s9 with b2 : Exchange 'Starter 9' with 'Bench 2'",
       "r21 to r13 : Insert 'Reserve 21' before 'Reserve 13'",
+      "loan r15   : Loan/Back from loan 'Reserve 15'",
     ].join('<br />')
   end
 

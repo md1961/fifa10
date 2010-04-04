@@ -28,7 +28,7 @@ class PlayersController < ApplicationController
     @page_title = "#{team_name_and_season_years} Rosters"
   end
 
-    def get_season_id(params)
+    def get_season_id(params={})
       season_id = (params[:season_id] || session[:season_id]).to_i
       if season_id.nil? || season_id <= 0
         raise "No 'season_id' in params nor session (#{session.inspect})"
@@ -325,6 +325,7 @@ class PlayersController < ApplicationController
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
     @players = players_of_team
+    @season_id = get_season_id
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Roster Chart"
@@ -376,6 +377,8 @@ class PlayersController < ApplicationController
             exchange_player_order(player1, player2)
           when 'to'
             insert_player_order_before(player1, player2, players)
+          when 'loan'
+            loan_player(player2)
           else
             raise ActiveRecord::Rollback, "Unknown action '#{action}' in helper update_roster()"
           end
@@ -425,7 +428,13 @@ class PlayersController < ApplicationController
       player1.save!
     end
 
-    LEGAL_ACTIONS = %w(with to)
+    def loan_player(player)
+      season_id = get_season_id(params)
+      on_loan = player.on_loan?(season_id)
+      player.set_on_loan(! on_loan, season_id)
+    end
+
+    LEGAL_ACTIONS = %w(with to loan)
 
     def parse_roster_edit_command(command, players)
       if command.blank?
@@ -435,8 +444,9 @@ class PlayersController < ApplicationController
 
       title = "Command \"#{command}\" was illegal"
       terms = command.split
-      if terms.size != 3
-        explain_error(title, ["Command must be \"p# to/with p#\" (3 words)"], [])
+      terms.unshift('s1') if terms[0] == 'loan'  # not to be used
+      unless terms.size == 3
+        explain_error(title, ["Command must be \"p# to/with p#\" or \"loan p#\""], [])
         return
       end
 

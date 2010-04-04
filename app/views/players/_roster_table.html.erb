@@ -6,7 +6,7 @@
 
 <% unless index_start >= @players.size -%>
   <% @players[index_start, size].each_with_index do |player, index| -%>
-    <tr>
+    <tr class="<%= player.on_loan?(@season_id) ? 'on_loan' : '' %>">
       <td class="index_number">
         <% label = "#{kind}#{index + index_offset + 1}" -%>
         <%= link_to label, :action => 'show', :id => player %>
