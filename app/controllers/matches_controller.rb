@@ -190,7 +190,12 @@ class MatchesController < ApplicationController
     def get_match_filter(params=nil)
       param = params ? params[:match_filter] : nil
       match_filter = param ? nil : session[:match_filter]
-      match_filter = MatchFilter.new(param) unless match_filter
+      unless match_filter
+        season_id = session[:season_id]
+        match_last_played = Match.last_played(season_id)
+        includes_friendly = match_last_played && match_last_played.friendly?
+        match_filter = MatchFilter.new(param, includes_friendly)
+      end
       session[:match_filter] = match_filter
 
       return match_filter

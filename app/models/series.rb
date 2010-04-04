@@ -26,4 +26,8 @@ class Series < ActiveRecord::Base
   def premier?
     return abbr == 'Premier'
   end
+
+  def friendly?
+    return abbr == 'Friendly'
+  end
 end

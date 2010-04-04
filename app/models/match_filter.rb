@@ -19,10 +19,10 @@ class MatchFilter
   attr_accessor *INSTANCE_VARIABLE_NAMES
   attr_accessor :player_name
 
-  def initialize(hash=nil)
+  def initialize(hash=nil, includes_friendly=false)
     unless hash
       hash = Hash.new { |h, k| h[k] = INSTANCE_VARIABLE_DEFAULT_VALUE }
-      hash['friendly'] = NO
+      hash['friendly'] = includes_friendly ? YES : NO
     end
     INSTANCE_VARIABLE_NAMES.each do |name|
       instance_variable_set("@#{name}", hash[name])
