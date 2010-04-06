@@ -69,6 +69,7 @@ module MatchesHelper
 
   def link_to_filter_with_series(abbr, current_abbr)
     param = abbr == MatchFilter::ALL_SERIES ? abbr : [abbr]
+    param << MatchFilter::ALL_SERIES if param == ['Friendly']
     is_current = abbr == current_abbr
     label = is_current ? "<b>#{abbr}</b>" : abbr
     return link_to_unless is_current, label, :action => 'filter_with_series', :series_abbrs => param

@@ -55,14 +55,15 @@ class MatchFilter
   end
 
   def series_abbrs=(series_abbrs)
-    if series_abbrs == ALL_SERIES
-      series_abbrs = [ALL_SERIES]
-      #TODO: This is a magic word.
-      #series_ids = Series.premier_all_but_friendly.map(&:id)
-      series_ids = Series.premier_all.map(&:id)
-    else
-      series_abbrs = [series_abbrs] if series_abbrs.kind_of?(String)
-      series_ids = series_abbrs.map { |abbr| Series.find_by_abbr(abbr).id }
+    series_abbrs = [series_abbrs] if series_abbrs.kind_of?(String)
+    series_ids = Array.new
+    series_abbrs.each do |series_abbr|
+      if series_abbr == ALL_SERIES
+        #TODO: This is a magic word.
+        series_ids.concat(Series.premier_all_but_friendly.map(&:id))
+      else
+        series_ids << Series.find_by_abbr(series_abbr).id
+      end
     end
     @series_abbrs = series_abbrs
     set_series_ids(series_ids)
