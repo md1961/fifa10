@@ -8,6 +8,8 @@
 <%= link_to 'Depth Chart', :controller => 'players', :action => 'depth_chart' %>
 <%= nbsp(2) %>
 <%= link_to 'Roster Chart', :controller => 'players', :action => 'roster_chart' %>
+<%= nbsp(2) %>
+<%= link_to 'Top Players', :controller => 'players', :action => 'top_attribute_list' %>
 <br />
 <% series_abbr = @match_filter.series_abbrs[0] -%>
 <%= link_to_filter_with_series MatchFilter::ALL_SERIES, series_abbr %>
