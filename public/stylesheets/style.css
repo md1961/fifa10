@@ -238,6 +238,11 @@
   padding: 1px 4px 1px;
 }
 
+#table_top_attribute_list .attr_focus {
+  color: cyan;
+  font-weight: bold;
+}
+
 #table_top_attribute_list .player_focus {
   font-weight: bold;
   background-color: cyan;

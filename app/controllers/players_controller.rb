@@ -362,6 +362,16 @@ class PlayersController < ApplicationController
       @players_focus.concat(RowFilter.player_name_match(name))
     end
 
+    @attr_names_focus = Array.new
+    @map_top_players.each do |attr_name, players|
+      players.each do |player|
+        if @players_focus.include?(player)
+          @attr_names_focus << attr_name
+          break
+        end
+      end
+    end
+
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Top Attribute Chart"
   end
