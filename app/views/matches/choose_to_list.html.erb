@@ -2,6 +2,10 @@
 <% form_for :match_filter, :url => {:action => 'filter_on_list'} do |f| -%>
   <label for="match_filter_player_name">Player Name (part, regexp): </label>
   <%= f.text_field :player_name %>
-  <%= submit_tag 'Submit' %>
+  <p>
+    <%= submit_tag 'Submit' %>
+    <%= nbsp(3) %>
+    <%= link_to 'Cancel', :action => 'list' %>
+  </p>
 <% end -%>
 
