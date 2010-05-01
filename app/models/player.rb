@@ -41,10 +41,11 @@ class Player < ActiveRecord::Base
 
   @@current_year = Constant.get(:default_current_year)
 
-  def self.list(season_id)
+  def self.list(season_id, includes_on_loan=true)
     season = Season.find(season_id)
     @@current_year = season.year_start
     players = season.players
+    players = players.select { |player| ! player.on_loan?(season_id) } unless includes_on_loan
     players.sort! { |p1, p2| p1.order_number(season_id).<=>(p2.order_number(season_id)) }
     return players
   end

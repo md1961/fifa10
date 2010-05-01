@@ -307,7 +307,7 @@ class PlayersController < ApplicationController
   end
 
   def depth_chart
-    players = players_of_team
+    players = players_of_team(includes_on_loan=false)
     @depth = Hash.new { |hash, key| hash[key] = Array.new }
     Position.find(:all).each do |position|
       players_at_position = players.select { |player| player.positions.include?(position) }
@@ -600,10 +600,10 @@ class PlayersController < ApplicationController
       return column_filter
     end
 
-    def players_of_team
+    def players_of_team(includes_on_loan=true)
       season_id = session[:season_id]
       raise "no 'season_id' in session (#{session.inspect})" unless season_id
-      return Player.list(season_id)
+      return Player.list(season_id, includes_on_loan)
     end
 
     def prev_and_next_players(player, players)
