@@ -1,6 +1,6 @@
 class Match < ActiveRecord::Base
   belongs_to :series
-  belongs_to :opponent, :class_name => 'Team', :foreign_key => 'opponent_id'
+  belongs_to :opponent, :polymorphic => true
   belongs_to :season
 
   GROUNDS = %w(H A N).freeze
