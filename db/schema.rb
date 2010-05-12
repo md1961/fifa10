@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100510121457) do
+ActiveRecord::Schema.define(:version => 20100512140904) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -115,6 +115,14 @@ ActiveRecord::Schema.define(:version => 20100510121457) do
   create_table "regions", :force => true do |t|
     t.string "name", :default => "", :null => false
   end
+
+  create_table "season_series", :force => true do |t|
+    t.integer "season_id", :null => false
+    t.integer "series_id", :null => false
+  end
+
+  add_index "season_series", ["season_id"], :name => "fk_season_series_seasons"
+  add_index "season_series", ["series_id"], :name => "fk_season_series_series"
 
   create_table "season_with_name", :id => false, :force => true do |t|
     t.integer "id",             :default => 0,  :null => false
