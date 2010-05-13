@@ -3,6 +3,8 @@ class Season < ActiveRecord::Base
   belongs_to :team
   has_many :player_seasons
   has_many :players, :through => :player_seasons
+  has_many :season_series
+  has_many :series, :through => :season_series
 
   validates_presence_of     :year_start
   validates_numericality_of :year_start, :only_integer => true, :greater_than_or_equal_to => 1990

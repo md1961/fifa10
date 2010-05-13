@@ -1,4 +1,6 @@
 class Series < ActiveRecord::Base
+  has_many :season_series
+  has_many :season, :through => :season_series
 
   #TODO: many-to-many with Season thru TABLE SeasonSeries
 
