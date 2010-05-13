@@ -10,8 +10,6 @@ class Season < ActiveRecord::Base
   validates_numericality_of :year_start, :only_integer => true, :greater_than_or_equal_to => 1990
   validates_uniqueness_of   :year_start, :scope => [:chronicle_id, :team_id]
 
-  #TODO: many-to-many with Series thru TABLE SeasonSeries
-
   MONTH_START = 7
 
   def self.list(chronicle_id)
