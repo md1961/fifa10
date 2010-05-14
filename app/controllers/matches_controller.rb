@@ -125,6 +125,7 @@ class MatchesController < ApplicationController
     season_id = session[:season_id]
     @matches = get_matches(season_id)
     @match = Match.find(params[:id])
+    @scores_only = params[:scores_only] == '1'
 
     @team_abbr = team_abbr
 

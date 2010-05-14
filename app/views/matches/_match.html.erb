@@ -1,7 +1,9 @@
 
 <% case column_name
    when 'date_match' %>
-     <td align="center"><%= match.date_match.strftime("%m-%d") %></td>
+     <td align="center">
+       <%= link_to_if shows_link, match.date_match.strftime("%m-%d"), :action => 'edit', :id => match %>
+     </td>
 <% when 'series_id' -%>
      <td><%= "#{match.series.abbr} #{match.subname}" %></td>
 <% when 'opponent_id' -%>
@@ -9,14 +11,15 @@
 <% when 'scores_own' -%>
      <% if match.scores_own.nil? -%>
        <td colspan="2" align="center">
-         <%= link_to_if shows_link, nbsp(10), :action => 'edit', :id => match %>
+         <%= link_to_if shows_link, nbsp(10), :action => 'edit', :id => match, :scores_only => 1 %>
        </td>
      <% else -%>
        <td align="center" class="no_right_border">
          <%= "#{one_char_result(match)}" %>
        </td>
        <td align="center">
-         <%= link_to_if shows_link, "#{match.scores_own} - #{match.scores_opp}", :action => 'edit', :id => match %>
+         <%= link_to_if shows_link, "#{match.scores_own} - #{match.scores_opp}",
+                                              :action => 'edit', :id => match, :scores_only => 1 %>
        </td>
      <% end -%>
 <% when 'pks_own' -%>
