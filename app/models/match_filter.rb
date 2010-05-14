@@ -31,9 +31,9 @@ class MatchFilter
     @series_abbrs = [DEFAULT_SERIES_ABBRS]
   end
 
-  def selected_series
-    # TODO: Series.premier_all is magic word.  Introduce SeasonSeries.
-    return Series.premier_all.select do |series|
+  def selected_series(season_id)
+    season = Season.find(season_id)
+    return season.series.select do |series|
       attr_name = MatchFilter.abbr2attr_name(series.abbr)
       instance_variable_get("@#{attr_name}") == YES
     end

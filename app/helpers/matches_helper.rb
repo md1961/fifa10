@@ -23,10 +23,10 @@ module MatchesHelper
     return HASH_COLUMN_INDEX[column_name.intern] || ''
   end
 
-  def series_for_collection_select
+  def series_for_collection_select(season_id)
     #TODO: When editing, need to return all the possible series to select.
     match_filter = session[:match_filter]
-    return match_filter.selected_series
+    return match_filter.selected_series(season_id)
   end
 
   def teams_for_collection_select

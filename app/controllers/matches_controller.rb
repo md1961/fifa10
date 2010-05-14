@@ -68,8 +68,8 @@ class MatchesController < ApplicationController
     private :get_matches
 
   def new
-    season_id = session[:season_id]
-    @matches = get_matches(season_id)
+    @season_id = session[:season_id]
+    @matches = get_matches(@season_id)
     @match = Match.new
 
     @team_abbr = team_abbr
@@ -122,8 +122,8 @@ class MatchesController < ApplicationController
     private :prepare_page_title_for_new
 
   def edit
-    season_id = session[:season_id]
-    @matches = get_matches(season_id)
+    @season_id = session[:season_id]
+    @matches = get_matches(@season_id)
     @match = Match.find(params[:id])
     @scores_only = params[:scores_only] == '1'
 

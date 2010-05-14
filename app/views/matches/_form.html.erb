@@ -20,7 +20,7 @@
       </td>
     <% else -%>
       <td colspan="2"><%= f.text_field :date_match, :size => 10 %></td>
-      <% series = series_for_collection_select -%>
+      <% series = series_for_collection_select(@season_id) -%>
       <td colspan="2"><%= series.size == 1 ? series[0].abbr : f.collection_select('series_id', series, :id, :abbr) %></td>
       <td colspan="2"><%= f.text_field :subname, :size => 8 %></td>
       <td>
