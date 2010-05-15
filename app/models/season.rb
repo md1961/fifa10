@@ -17,12 +17,16 @@ class Season < ActiveRecord::Base
     return seasons.sort.reverse
   end
 
+  def club_team?
+    return team_type == 'Team'
+  end
+
   def year_end
     return year_start + 1
   end
 
   def years
-    return "#{year_start}-#{year_end}"
+    return year_start.to_s + (club_team? ? "-#{year_end}" : "")
   end
 
   def <=>(other)

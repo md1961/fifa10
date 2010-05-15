@@ -23,6 +23,7 @@
   <%= f.check_box :closed %>
   <label for="season_closed">Closed</label>
 
+  <%= f.hidden_field :team_type %>
   <%= f.hidden_field :chronicle_id, :value => @chronicle_id %>
 
   <br />
@@ -31,7 +32,7 @@
   <div style="font-size: small; margin-left: 10px;">
     <% @series.each do |series| -%>
       <% checked = @initial_series_selection.include?(series) -%>
-      <%= check_box_tag "series[#{series}]", '1', checked %>
+      <%= check_box_tag "series_ids[#{series.id}]", '1', checked %>
       <%= series.name %><br />
     <% end -%>
   </div>

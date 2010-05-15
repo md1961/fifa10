@@ -17,8 +17,7 @@ class SeasonsController < ApplicationController
 
   def new
     @season = Season.new
-    team_type = params[:team_type]
-    @season.team_type = team_type || DEFALUT_TEAM_TYPE
+    @season.team_type = team_type = params[:team_type] || DEFALUT_TEAM_TYPE
     @season.closed = false
 
     @teams = eval(team_type).find(:all, :order => TEAM_ORDER)
@@ -34,6 +33,8 @@ class SeasonsController < ApplicationController
 
   def create
     @season = Season.new(params[:season])
+    series_id_selected = params['series_ids'].select { |k, v| v == '1' }.map { |a| a[0] }
+    @season.series = series_id_selected.map { |id| Series.find(id) }
     if @season.save
       redirect_to :action => 'list', :chronicle_id => @season.chronicle_id
     else
