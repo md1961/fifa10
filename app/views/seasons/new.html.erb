@@ -1,8 +1,12 @@
 
 <font size="-1">
-  <%= link_to "Use Club Team"    , :action => 'new', :team_type => 'Team'  , :chronicle_id => @chronicle_id %>
-  <%= nbsp(2) %>
-  <%= link_to "Use National Team", :action => 'new', :team_type => 'Nation', :chronicle_id => @chronicle_id %>
+  <% [
+       ["Use Club Team"    , 'Team'  ],
+       ["Use National Team", 'Nation']
+     ].each do |label, team_type| -%>
+    <%= link_to label, :action => 'new', :team_type => team_type, :chronicle_id => @chronicle_id %>
+    <%= nbsp(2) %>
+  <% end -%>
 </font>
 <br />
 <br />
@@ -20,6 +24,17 @@
   <label for="season_closed">Closed</label>
 
   <%= f.hidden_field :chronicle_id, :value => @chronicle_id %>
+
+  <br />
+  <br />
+  Series:<br />
+  <div style="font-size: small; margin-left: 10px;">
+    <% @series.each do |series| -%>
+      <% checked = @initial_series_selection.include?(series) -%>
+      <%= check_box_tag "series[#{series}]", '1', checked %>
+      <%= series.name %><br />
+    <% end -%>
+  </div>
 
   <p>
     <%= submit_tag 'Create' %>

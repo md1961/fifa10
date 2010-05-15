@@ -10,12 +10,22 @@ class SeasonsController < ApplicationController
 
   DEFALUT_TEAM_TYPE = 'Team'
   TEAM_ORDER = 'name'
+  INITIAL_SERIES_ABBRS = {
+    'Team'   => ["CL", "Premier", "FA Cup", "L. Cup", "Friendly"],
+    'Nation' => [],
+  }
 
   def new
     @season = Season.new
     @season.team_type = params[:team_type] || DEFALUT_TEAM_TYPE
     @season.closed = false
+
     @teams = (@season.team_type == 'Team' ? Team : Nation).find(:all, :order => TEAM_ORDER)
+    @series = Series.find(:all)
+    @initial_series_selection = INITIAL_SERIES_ABBRS[@season.team_type].map do |abbr|
+      Series.find_by_abbr(abbr)
+    end
+
     @chronicle_id = params[:chronicle_id]
 
     prepare_page_title_for_new
