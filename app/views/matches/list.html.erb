@@ -13,7 +13,8 @@
 <br />
 <% series_abbr = @match_filter.series_abbrs[0] -%>
 <%= link_to_filter_with_series MatchFilter::ALL_SERIES, series_abbr %>
-<% Series.premier_all.each do |series| -%>
+<% @series.each do |series| -%>
+<%# Series.premier_all.each do |series| -%>
   <%= nbsp %>
   <%= link_to_filter_with_series series.abbr, series_abbr %>
 <% end -%>

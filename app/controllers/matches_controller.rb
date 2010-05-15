@@ -2,10 +2,11 @@ class MatchesController < ApplicationController
 
   def list
     #TODO: use @season_id and do not store it in the session
-    season_id = get_and_save_season_id(params)
+    @season_id = get_and_save_season_id(params)
 
-    @matches = get_matches(season_id)
-    @chronicle = Season.find(season_id).chronicle
+    @matches = get_matches(@season_id)
+    @series = Season.find(@season_id).series
+    @chronicle = Season.find(@season_id).chronicle
     @match_filter = get_match_filter
 
     @team_abbr = team_abbr
@@ -86,8 +87,8 @@ class MatchesController < ApplicationController
     if @match.save
       redirect_to :action => 'list'
     else
-      season_id = session[:season_id]
-      @matches = Match.list(season_id)
+      @season_id = session[:season_id]
+      @matches = Match.list(@season_id)
 
       prepare_page_title_for_new
       render :action => 'new'

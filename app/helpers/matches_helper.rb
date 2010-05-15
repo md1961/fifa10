@@ -31,9 +31,13 @@ module MatchesHelper
 
   def teams_for_collection_select
     season_id = session[:season_id]
-    own_team = Season.find(season_id).team
-    tbd = Team.find_by_name('TBD')
-    opponent_teams = Team.find(:all, :conditions => ["id not in (?)", [own_team.id, tbd.id]], :order => 'name')
+    season = Season.find(season_id)
+    own_team  = season.team
+    team_type = season.team_type
+    team_class = eval(team_type)
+
+    tbd = team_class.find_by_name('TBD')
+    opponent_teams = team_class.find(:all, :conditions => ["id not in (?)", [own_team.id, tbd.id]], :order => 'name')
 
     direction_at_first = Team.new(:name => 'Choose a team', :id => 0) 
     return [direction_at_first, tbd] + opponent_teams

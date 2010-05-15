@@ -27,8 +27,12 @@
       <%= f.hidden_field :opponent_id %>
     <% else -%>
       <td colspan="2"><%= f.text_field :date_match, :size => 10 %></td>
-      <% series = series_for_collection_select(@season_id) -%>
-      <td colspan="2"><%= series.size == 1 ? series[0].abbr : f.collection_select('series_id', series, :id, :abbr) %></td>
+      <% series = series_for_collection_select(@season_id)
+         series_sole = series.size == 1 ? series[0] : nil -%>
+      <td colspan="2"><%= series_sole.abbr || f.collection_select('series_id', series, :id, :abbr) %></td>
+      <% if series_sole -%>
+        <%= f.hidden_field :series_id, :value => series_sole.id %>
+      <% end -%>
       <td colspan="2"><%= f.text_field :subname, :size => 8 %></td>
       <td>
         <%= f.select 'ground', grounds_for_select %>

@@ -28,7 +28,8 @@ class ApplicationController < ActionController::Base
 
   def team_abbr
     season = Season.find(session[:season_id])
-    return season.team.abbr.downcase
+    team = season.team
+    return (team.abbr || team.name).downcase
   end
 
   protected
