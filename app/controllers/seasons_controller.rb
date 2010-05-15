@@ -8,9 +8,14 @@ class SeasonsController < ApplicationController
     @page_title = "Chronicle: #{Chronicle.find(@chronicle_id).name}"
   end
 
+  DEFALUT_TEAM_TYPE = 'Team'
+  TEAM_ORDER = 'name'
+
   def new
     @season = Season.new
+    @season.team_type = params[:team_type] || DEFALUT_TEAM_TYPE
     @season.closed = false
+    @teams = (@season.team_type == 'Team' ? Team : Nation).find(:all, :order => TEAM_ORDER)
     @chronicle_id = params[:chronicle_id]
 
     prepare_page_title_for_new
