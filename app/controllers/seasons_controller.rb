@@ -12,17 +12,18 @@ class SeasonsController < ApplicationController
   TEAM_ORDER = 'name'
   INITIAL_SERIES_ABBRS = {
     'Team'   => ["CL", "Premier", "FA Cup", "L. Cup", "Friendly"],
-    'Nation' => [],
+    'Nation' => ["W. Cup Qlf.", "World Cup"         , "Friendly"],
   }
 
   def new
     @season = Season.new
-    @season.team_type = params[:team_type] || DEFALUT_TEAM_TYPE
+    team_type = params[:team_type]
+    @season.team_type = team_type || DEFALUT_TEAM_TYPE
     @season.closed = false
 
-    @teams = (@season.team_type == 'Team' ? Team : Nation).find(:all, :order => TEAM_ORDER)
+    @teams = eval(team_type).find(:all, :order => TEAM_ORDER)
     @series = Series.find(:all)
-    @initial_series_selection = INITIAL_SERIES_ABBRS[@season.team_type].map do |abbr|
+    @initial_series_selection = INITIAL_SERIES_ABBRS[team_type].map do |abbr|
       Series.find_by_abbr(abbr)
     end
 
