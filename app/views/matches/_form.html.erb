@@ -9,6 +9,7 @@
 
 <% form_for @match do |f| -%>
   <tr>
+    <%= f.hidden_field :opponent_type %>
     <% if @scores_only -%>
       <td colspan="2"><%= @match.date_match %></td>
       <td colspan="2"><%= @match.series.abbr %></td>
@@ -18,6 +19,12 @@
         <%= nbsp(2) %>
         <%= @match.opponent.abbr || @match.opponent.name %>
       </td>
+
+      <%= f.hidden_field :date_match %>
+      <%= f.hidden_field :series_id %>
+      <%= f.hidden_field :subname %>
+      <%= f.hidden_field :ground %>
+      <%= f.hidden_field :opponent_id %>
     <% else -%>
       <td colspan="2"><%= f.text_field :date_match, :size => 10 %></td>
       <% series = series_for_collection_select(@season_id) -%>
