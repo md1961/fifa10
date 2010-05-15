@@ -2,6 +2,7 @@ class Series < ActiveRecord::Base
   has_many :season_series
   has_many :season, :through => :season_series
 
+  #TODO: Delete
   def self.premier_all
     hash_order = {
       # abbr    order in list
@@ -19,8 +20,15 @@ class Series < ActiveRecord::Base
     return series
   end
 
+  #TODO: Delete
   def self.premier_all_but_friendly
     return premier_all.select { |s| s.abbr != 'Friendly' }
+  end
+
+  ABBR_FOR_PREMIER = 'Premier'
+
+  def self.premier
+    return find_by_abbr(ABBR_FOR_PREMIER)
   end
 
   def premier?
