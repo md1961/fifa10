@@ -3,11 +3,12 @@
 
 <ul id="season_list">
   <% @seasons.each do |season| -%>
-    <% label = "#{season.team.name} #{season.years}" -%>
     <li class="<%= season.closed? ? 'closed' : '' %>">
-      <%= link_to label, :controller => 'matches', :action => 'list', :season_id => season %>
+      <%= link_to season.name_and_years, :controller => 'matches', :action => 'list', :season_id => season %>
       <font size="-1">
         <%= link_to 'Players', :controller => 'players', :action => 'list', :season_id => season %>
+        <%= nbsp %>
+        <%= link_to 'Edit'   , :controller => 'seasons', :action => 'edit', :id => season, :chronicle_id => @chronicle_id %>
       </font>
     </li>
   <% end -%>

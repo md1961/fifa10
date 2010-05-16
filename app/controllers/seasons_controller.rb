@@ -20,15 +20,27 @@ class SeasonsController < ApplicationController
     @season.team_type = team_type = params[:team_type] || DEFALUT_TEAM_TYPE
     @season.closed = false
 
+    @chronicle_id = params[:chronicle_id]
+
     @teams = eval(team_type).find(:all, :order => TEAM_ORDER)
     @series = Series.find(:all)
     @initial_series_selection = INITIAL_SERIES_ABBRS[team_type].map do |abbr|
       Series.find_by_abbr(abbr)
     end
 
+    prepare_page_title_for_new
+  end
+
+  def edit
+    @season = Season.find(params[:id])
+
     @chronicle_id = params[:chronicle_id]
 
-    prepare_page_title_for_new
+    @teams = eval(@season.team_type).find(:all, :order => TEAM_ORDER)
+    @series = Series.find(:all)
+    @initial_series_selection = @season.series
+
+    prepare_page_title_for_edit
   end
 
   def create
@@ -49,4 +61,10 @@ class SeasonsController < ApplicationController
       @page_title = "Creating a New Season"
     end
     private :prepare_page_title_for_new
+
+    def prepare_page_title_for_edit
+      @page_title_size = 3
+      @page_title = "Editing '#{@season.name_and_years}'"
+    end
+    private :prepare_page_title_for_edit
 end

@@ -29,6 +29,10 @@ class Season < ActiveRecord::Base
     return year_start.to_s + (club_team? ? "-#{year_end}" : "")
   end
 
+  def name_and_years
+    return "#{team.name} #{years}"
+  end
+
   def <=>(other)
     return self.year_start.<=>(other.year_start)
   end

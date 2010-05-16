@@ -11,36 +11,5 @@
 <br />
 <br />
 
-<%= error_messages_for :season %>
-
-<% form_for :season, :url => {:action => 'create'} do |f| -%>
-  <label for="season_team_id">Team:&nbsp;</label>
-  <%= f.collection_select :team_id, @teams, :id, :name %>
-  <br />
-  <label for="season_year_start">Year Start:&nbsp;</label>
-  <%= f.text_field :year_start, :size => 5 %>
-  <br />
-  <%= f.check_box :closed %>
-  <label for="season_closed">Closed</label>
-
-  <%= f.hidden_field :team_type %>
-  <%= f.hidden_field :chronicle_id, :value => @chronicle_id %>
-
-  <br />
-  <br />
-  Series:<br />
-  <div style="font-size: small; margin-left: 10px;">
-    <% @series.each do |series| -%>
-      <% checked = @initial_series_selection.include?(series) -%>
-      <%= check_box_tag "series_ids[#{series.id}]", '1', checked %>
-      <%= series.name %><br />
-    <% end -%>
-  </div>
-
-  <p>
-    <%= submit_tag 'Create' %>
-    <%= nbsp(2) %>
-    <%= link_to 'Cancel', :action => 'list', :chronicle_id => @chronicle_id %>
-  </p>
-<% end -%>
+<%= render :partial => 'form', :locals => {:action => 'create'} %>
 
