@@ -73,7 +73,9 @@ class MatchesController < ApplicationController
     @matches = get_matches(@season_id)
     @match = Match.new
     premier = Series.premier
-    @match.series = premier if Season.find(@season_id).series.include?(premier)
+    season = Season.find(@season_id)
+    @match.series = premier if season.series.include?(premier)
+    @match.opponent_type = season.team_type
 
     @team_abbr = team_abbr
 
