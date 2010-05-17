@@ -1,7 +1,7 @@
 
 <%= error_messages_for :season %>
 
-<% form_for :season, :url => {:action => action} do |f| -%>
+<% form_for :season, :url => {:action => action, :id => @season} do |f| -%>
   <label for="season_team_id">Team:&nbsp;</label>
   <%= f.collection_select :team_id, @teams, :id, :name %>
   <br />

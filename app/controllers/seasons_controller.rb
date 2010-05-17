@@ -31,6 +31,30 @@ class SeasonsController < ApplicationController
     prepare_page_title_for_new
   end
 
+  def create
+    @season = Season.new(params[:season])
+    @season.series = series_selected(params)
+    if @season.save
+      redirect_to :action => 'list', :chronicle_id => @season.chronicle_id
+    else
+      prepare_page_title_for_new
+      @chronicle_id = params[:season][:chronicle_id]
+      render :action => 'new'
+    end
+  end
+
+    def series_selected(params)
+      series_id_selected = params['series_ids'].select { |k, v| v == '1' }.map { |a| a[0] }
+      return series_id_selected.map { |id| Series.find(id) }
+    end
+    private :series_selected
+
+    def prepare_page_title_for_new
+      @page_title_size = 3
+      @page_title = "Creating a New Season"
+    end
+    private :prepare_page_title_for_new
+
   def edit
     @season = Season.find(params[:id])
 
@@ -43,24 +67,18 @@ class SeasonsController < ApplicationController
     prepare_page_title_for_edit
   end
 
-  def create
-    @season = Season.new(params[:season])
-    series_id_selected = params['series_ids'].select { |k, v| v == '1' }.map { |a| a[0] }
-    @season.series = series_id_selected.map { |id| Series.find(id) }
+  def update
+    @season = Season.find(params[:id])
+    @season.attributes = params[:season]
+    @season.series = series_selected(params)
     if @season.save
       redirect_to :action => 'list', :chronicle_id => @season.chronicle_id
     else
-      prepare_page_title_for_new
+      prepare_page_title_for_edit
       @chronicle_id = params[:season][:chronicle_id]
-      render :action => 'new'
+      render :action => 'edit'
     end
   end
-
-    def prepare_page_title_for_new
-      @page_title_size = 3
-      @page_title = "Creating a New Season"
-    end
-    private :prepare_page_title_for_new
 
     def prepare_page_title_for_edit
       @page_title_size = 3

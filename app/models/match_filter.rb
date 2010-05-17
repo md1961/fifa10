@@ -59,8 +59,7 @@ class MatchFilter
     series_ids = Array.new
     series_abbrs.each do |series_abbr|
       if series_abbr == ALL_SERIES
-        #TODO: This is a magic word.
-        series_ids.concat(Series.premier_all_but_friendly.map(&:id))
+        series_ids.concat(Series.find(:all, :conditions => ["abbr != 'Friendly'"]).map(&:id))
       else
         series_ids << Series.find_by_abbr(series_abbr).id
       end
