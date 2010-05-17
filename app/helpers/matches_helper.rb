@@ -61,7 +61,7 @@ module MatchesHelper
   RECORD_NOT_PLAYED = "-"
 
   def record_display(match)
-    return RECORD_NOT_PLAYED unless match.played? && match.series.premier?
+    return RECORD_NOT_PLAYED unless match.played? && match.series.league?
     h_record = match.record
     wins   = h_record[Match::WIN ]
     draws  = h_record[Match::DRAW]

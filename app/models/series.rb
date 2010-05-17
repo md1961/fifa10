@@ -31,6 +31,12 @@ class Series < ActiveRecord::Base
     return find_by_abbr(ABBR_FOR_PREMIER)
   end
 
+  LEAGUE_ABBRS = ["Premier", "W. Cup Qlf.", "World Cup"]
+
+  def league?
+    return LEAGUE_ABBRS.include?(abbr)
+  end
+
   def premier?
     return abbr == 'Premier'
   end
