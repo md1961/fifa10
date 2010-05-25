@@ -1,7 +1,7 @@
 
 <% case column_name
    when 'date_match' %>
-     <% format = match.opponent_type == 'Team' ? "%m-%d" : "%Y-%m-%d" -%>
+     <% format = match.opponent_type == 'Team' ? "%m-%d" : "%y-%m-%d" -%>
      <td align="center">
        <%= link_to_if shows_link, match.date_match.strftime(format), :action => 'edit', :id => match %>
      </td>

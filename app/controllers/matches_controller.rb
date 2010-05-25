@@ -31,7 +31,7 @@ class MatchesController < ApplicationController
     end
     private :set_params
 
-    DEFAULT_IS_FONT_BOLD = false
+    DEFAULT_IS_FONT_BOLD = true
 
     def set_font_weight
       @is_font_bold = DEFAULT_IS_FONT_BOLD
@@ -199,8 +199,9 @@ class MatchesController < ApplicationController
       match_filter = param ? nil : session[:match_filter]
       unless match_filter
         season_id = session[:season_id]
+        season = Season.find(season_id)
         match_last_played = Match.last_played(season_id)
-        includes_friendly = match_last_played && match_last_played.friendly?
+        includes_friendly = season.team_type == 'Nation' || (match_last_played && match_last_played.friendly?)
         match_filter = MatchFilter.new(param, includes_friendly)
       end
       session[:match_filter] = match_filter
