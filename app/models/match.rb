@@ -34,6 +34,10 @@ class Match < ActiveRecord::Base
     return series.friendly?
   end
 
+  def world_cup_final_knockout?
+    return series.world_cup_final? && (/Group/i =~ subname).nil?
+  end
+
   WIN   = :win
   LOSE  = :lose
   DRAW  = :draw

@@ -18,6 +18,10 @@ class Series < ActiveRecord::Base
     return abbr == 'Premier'
   end
 
+  def world_cup_final?
+    return name == "World Cup"
+  end
+
   def friendly?
     return abbr == 'Friendly'
   end

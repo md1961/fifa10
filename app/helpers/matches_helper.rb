@@ -62,6 +62,7 @@ module MatchesHelper
 
   def record_display(match)
     return RECORD_NOT_PLAYED unless match.played? && match.series.league?
+    return RECORD_NOT_PLAYED if match.world_cup_final_knockout?
     h_record = match.record
     wins   = h_record[Match::WIN ]
     draws  = h_record[Match::DRAW]
