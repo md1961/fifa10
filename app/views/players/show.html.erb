@@ -7,7 +7,11 @@
   <%= link_to 'Edit', :action => 'edit' %>
   <%= nbsp(4) %>
   <span class="alertingBackground">
-    <%= link_to 'Remove from Rosters', :action => 'remove_from_rosters', :id => @player %>
+    <%= link_to 'Remove from Rosters', {:action => 'remove_from_rosters', :id => @player},
+                                        :confirm => "OK to delete \"#{@player.last_name_first_name}\"?",
+                                        :class => "alertingBackground",
+                                        :method => :delete
+                                        %>
   </span>
   <%= nbsp(4) %>
   <%= link_to 'New Player', :action => 'new' %>

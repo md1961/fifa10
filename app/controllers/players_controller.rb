@@ -22,8 +22,6 @@ class PlayersController < ApplicationController
 
     @chronicle = Season.find(season_id).chronicle
 
-    log_debug "row_filter.to_yaml = {#{row_filter.to_yaml}(len = #{row_filter.to_yaml.length})}"
-
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Rosters"
   end
@@ -59,11 +57,9 @@ class PlayersController < ApplicationController
   end
   
   def update
-    @player = Player.find(params[:id])
-    birth_year = Integer(params[:player][:birth_year])
     season_id = get_season_id(params)
-    season = Season.find(season_id)
-    params[:player][:birth_year] = season.year_start - birth_year if birth_year < 100
+    adjust_params(season_id)
+    @player = Player.find(params[:id])
     begin
       ActiveRecord::Base::transaction do
         unless @player.update_attributes(params[:player])
@@ -81,6 +77,13 @@ class PlayersController < ApplicationController
     end
   end
 
+    def adjust_params(season_id)
+      season = Season.find(season_id)
+      birth_year = Integer(params[:player][:birth_year])
+      params[:player][:birth_year] = season.year_start - birth_year if birth_year < 100
+    end
+    private :adjust_params
+
   def new
     @player = Player.new
     @player.overall = 0
@@ -91,6 +94,7 @@ class PlayersController < ApplicationController
 
   def create
     season_id = session[:season_id]
+    adjust_params(season_id)
     @player = Player.new(params[:player])
     @player.set_next_order_number(season_id)
     @player.player_attribute = PlayerAttribute.new(params[:player_attribute])
