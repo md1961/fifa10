@@ -22,6 +22,12 @@ class SeasonsController < ApplicationController
 
     @chronicle_id = params[:chronicle_id]
 
+    last_season = Chronicle.find(@chronicle_id).last_season
+    if last_season
+      @season.team_id    = last_season.team_id
+      @season.year_start = last_season.year_start + 1
+    end
+
     @teams = eval(team_type).find(:all, :order => TEAM_ORDER)
     @series = Series.find(:all)
     @initial_series_selection = INITIAL_SERIES_ABBRS[team_type].map do |abbr|
