@@ -89,6 +89,10 @@ class PlayersController < ApplicationController
     @player.overall = 0
     @player.player_attribute = PlayerAttribute.zeros
 
+    season_id = get_season_id
+    season = Season.find(season_id)
+    @player.nation = season.team if season.national_team?
+
     prepare_page_title_for_new
   end
 

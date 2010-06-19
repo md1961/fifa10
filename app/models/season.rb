@@ -21,6 +21,10 @@ class Season < ActiveRecord::Base
     return team_type == 'Team'
   end
 
+  def national_team?
+    return team_type == 'Nation'
+  end
+
   def year_end
     return year_start + 1
   end
