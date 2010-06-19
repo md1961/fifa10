@@ -335,9 +335,17 @@ class PlayersController < ApplicationController
     @players = players_of_team
     @season_id = get_season_id
 
+    @num_starters, @num_in_bench = get_num_starters_and_in_bench
+
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Roster Chart"
   end
+
+    def get_num_starters_and_in_bench
+      num_starters = Constant.get(:num_starters)
+      num_in_bench = Constant.get(:num_in_bench)
+      return num_starters, num_in_bench
+    end
 
   def edit_roster
     players = players_of_team
@@ -508,8 +516,7 @@ class PlayersController < ApplicationController
       index = term[1..-1].to_i
       return nil if index <= 0
 
-      num_starters = Constant.get(:num_starters)
-      num_in_bench = Constant.get(:num_in_bench)
+      num_starters, num_in_bench = get_num_starters_and_in_bench
       return nil if kind == 's' && index > num_starters
       return nil if kind == 'b' && index > num_in_bench
       return nil if kind == 'r' && index > players.size - num_starters - num_in_bench

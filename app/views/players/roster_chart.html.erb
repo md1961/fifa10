@@ -1,7 +1,5 @@
 
 <%
-  num_starters = Constant.get(:num_starters)
-  num_in_bench = Constant.get(:num_in_bench)
   num_players_in_first_table_reserves = 10
 -%>
 
@@ -22,18 +20,18 @@
 <table id="table_starters" class="table_base tables_roster_chart">
   <%= render :partial => 'roster_table',
              :locals => {:caption => 'Starters:',
-                         :index_start => 0, :size => num_starters,
+                         :index_start => 0, :size => @num_starters,
                          :index_offset => 0} %>
 </table>
 
 <table id="table_in_bench" class="table_base tables_roster_chart">
   <%= render :partial => 'roster_table',
              :locals => {:caption => 'Bench:',
-                         :index_start => num_starters, :size => num_in_bench,
+                         :index_start => @num_starters, :size => @num_in_bench,
                          :index_offset => 0} %>
 </table>
 
-<% index_start = num_starters + num_in_bench
+<% index_start = @num_starters + @num_in_bench
    size = num_players_in_first_table_reserves -%>
 
 <table id="table_reserves_first" class="table_base tables_roster_chart">
