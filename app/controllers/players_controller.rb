@@ -79,8 +79,8 @@ class PlayersController < ApplicationController
 
     def adjust_params(season_id)
       season = Season.find(season_id)
-      birth_year = Integer(params[:player][:birth_year])
-      params[:player][:birth_year] = season.year_start - birth_year if birth_year < 100
+      birth_year = params[:player][:birth_year].to_i
+      params[:player][:birth_year] = season.year_start - birth_year if birth_year.between?(1, 99)
     end
     private :adjust_params
 

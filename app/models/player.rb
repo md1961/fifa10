@@ -7,6 +7,9 @@ class Player < ActiveRecord::Base
   has_many :sub_positions, :through => :player_positions, :source => :position
   has_one :player_attribute
 
+  MAX_HEIGHT_IN_CM = 220
+  MAX_WEIGHT_IN_KG = 100
+
   validates_presence_of :name, :number, :position_id, :skill_move, :both_feet_level, \
                         :height, :weight, :birth_year, :nation_id, :overall
   validates_inclusion_of :is_right_dominant, :in => [true, false]
@@ -16,8 +19,8 @@ class Player < ActiveRecord::Base
   validates_numericality_of :number,          :only_integer => true, :greater_than =>    0
   validates_numericality_of :skill_move,      :only_integer => true, :greater_than =>    0, :less_than_or_equal_to => 5
   validates_numericality_of :both_feet_level, :only_integer => true, :greater_than =>    0, :less_than_or_equal_to => 5
-  validates_numericality_of :height,          :only_integer => true, :greater_than =>  150, :less_than => 220
-  validates_numericality_of :weight,          :only_integer => true, :greater_than =>   50, :less_than => 100
+  validates_numericality_of :height,          :only_integer => true, :greater_than =>  150, :less_than => MAX_HEIGHT_IN_CM
+  validates_numericality_of :weight,          :only_integer => true, :greater_than =>   50, :less_than => MAX_WEIGHT_IN_KG
   # TODO: validates with :birth_year, :overall and :market_value?
   #validates_numericality_of :birth_year,      :only_integer => true, :greater_than => 1950
   #validates_numericality_of :overall,         :only_integer => true, :greater_than =>   40, :less_than => 100
@@ -128,5 +131,21 @@ class Player < ActiveRecord::Base
     value = self.send(name) unless value
     return value
   end
+
+  protected
+
+    MINIMUM_FEET_INCH_TO_CONVERT = 500
+
+    def before_validation
+      if height > MINIMUM_FEET_INCH_TO_CONVERT
+        feet = (height / 100).to_i
+        inch = height - feet * 100
+        if inch < 12
+          self.height = UnitConverter.feet_inch2cm(feet, inch).round
+        end
+      end
+
+      self.weight = UnitConverter.lb2kg(weight).round if weight > MAX_WEIGHT_IN_KG
+    end
 end
 
