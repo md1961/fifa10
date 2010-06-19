@@ -39,6 +39,7 @@ class PlayersController < ApplicationController
   def show
     row_filter = get_row_filter
     players = row_filter.displaying_players
+    players = players_of_team if params[:browses_all_players]
     @player = Player.find(params[:id])
     @prev_player, @next_player = prev_and_next_players(@player, players)
 

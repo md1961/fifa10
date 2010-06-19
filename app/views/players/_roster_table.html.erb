@@ -9,7 +9,7 @@
     <tr class="<%= player.on_loan?(@season_id) ? 'on_loan' : '' %>">
       <td class="index_number">
         <% label = "#{kind}#{index + index_offset + 1}" -%>
-        <%= link_to label, :action => 'show', :id => player %>
+        <%= link_to label, :action => 'show', :id => player, :browses_all_players => 1 %>
       </td>
       <td class="name"><%= player.name %></td>
       <td><font size="-1"><%= player.overall %></font></td>
