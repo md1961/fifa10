@@ -1,0 +1,23 @@
+
+#table_matches {
+  border: 10px blue solid;
+}
+
+#table_matches .tableRow0 {
+  color: black;
+  background-color: white;
+}
+
+#table_matches .tableRow1 {
+  color: white;
+  background-color: blue;
+}
+
+#table_matches .tableRow0 a {
+  color: black;
+}
+
+#table_matches .tableRow1 a {
+  color: white;
+}
+
