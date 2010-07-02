@@ -64,6 +64,10 @@ class Match < ActiveRecord::Base
     return {} unless played?
     matches_so_far = Match.find_all_by_season_id_and_series_id(season_id, series_id,
                              :conditions => ["date_match <= ?", date_match], :order => 'date_match')
+    if /Stage \d+/ =~ self.subname
+      stage = $&
+      matches_so_far = matches_so_far.select { |m| /#{stage}/ =~ m.subname }
+    end
     h_record = Hash.new { |h, k| h[k] = 0 }
     h_record = matches_so_far.inject(h_record) do |h_record, match|
       h_record[match.send(:result)] += 1
