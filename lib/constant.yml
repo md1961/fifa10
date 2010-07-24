@@ -11,6 +11,9 @@ usernames_to_pass_startup_chronicle : - naoyuki
 default_table_attributes : border="1" cellpadding="5" cellspacing="0"
 column_heading_for_matches : false
 max_players_to_transpose : 10
+date_format :
+  Team   : %m/%d
+  Nation : %y/%m/%d
 
 # 重要度が低い定数（補助的な表示文字列など）
 copyright : Copyright (c) 2009-2010 Naoyuki Kumagai, All rights reserved.
