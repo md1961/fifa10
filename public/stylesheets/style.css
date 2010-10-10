@@ -291,6 +291,11 @@
   padding: 1px 4px 1px;
 }
 
+#table_depth_chart .num_players {
+  font-size: small;
+  text-align: right;
+}
+
 #table_depth_chart td .property {
   font-weight: normal;
   font-size: small;
