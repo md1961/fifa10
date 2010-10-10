@@ -25,6 +25,12 @@ class PlayerAttribute < ActiveRecord::Base
     return obj
   end
 
+  def all_zero?
+    content_column_names = PlayerAttribute.content_columns.map(&:name)
+    column_values = content_column_names.map { |name| attributes[name] }
+    return column_values.all? { |value| value == 0 }
+  end
+
   ABBRS = [
     [:acceleration   , 'AC'],
     [:positiveness   , 'PV'],

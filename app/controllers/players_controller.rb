@@ -18,6 +18,9 @@ class PlayersController < ApplicationController
     end
 
     column_filter = get_column_filter
+    no_attributes = @players.all? { |player| player.player_attribute.all_zero? }
+    column_filter.set_all_or_no_attributes(false) if no_attributes
+
     @columns = column_filter.displaying_columns
     @attribute_columns = column_filter.displaying_attribute_columns
 
