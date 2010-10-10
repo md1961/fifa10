@@ -7,7 +7,8 @@ class PlayersController < ApplicationController
     @players = row_filter.displaying_players
     @players = @players.select { |player| ! player.on_loan?(season_id) }
 
-    redirect_to :action => 'choose_to_list' if @players.empty?
+    #TODO: Think why this line was added
+    #redirect_to :action => 'choose_to_list' if @players.empty?
 
     sort_fields = session[:sort_fields]
     @sorted_field_names = []

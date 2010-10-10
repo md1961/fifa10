@@ -31,10 +31,8 @@ class MatchesController < ApplicationController
     end
     private :set_params
 
-    DEFAULT_IS_FONT_BOLD = true
-
     def set_font_weight
-      @is_font_bold = DEFAULT_IS_FONT_BOLD
+      @is_font_bold = Constant.get(:default_is_font_bold_for_matches)
       @is_font_bold = session[:is_font_bold] unless session[:is_font_bold].nil?
       unless @is_font_bold
         @css_add = Array.new unless @css_add
