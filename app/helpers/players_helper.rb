@@ -94,5 +94,6 @@ module PlayersHelper
     :nation_id         => ['Nation'    , :L],
     :overall           => ['Ov'        , :R],
     :market_value      => ['MV'        , :R],
+    :note              => ['Note'      , :L],
   }.freeze
 end

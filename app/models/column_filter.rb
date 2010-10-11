@@ -23,16 +23,19 @@ class ColumnFilter
       value = hash.nil? ? INSTANCE_VARIABLE_DEFAULT_VALUE : hash[name]
       instance_variable_set("@#{name}", value)
     end
+
+    @no_attributes = false
   end
 
-  COLUMN_NAMES_NOT_TO_DISPLAY = %w(id order_number note)
+  COLUMN_NAMES_NOT_TO_DISPLAY = %w(id order_number)
 
   def self.displaying_columns
     return Player.columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
   end
 
   def displaying_columns
-    return ColumnFilter.displaying_columns.select { |column| column_display?(column) }
+    columns = ColumnFilter.displaying_columns.select { |column| column_display?(column) }
+    return columns
   end
 
   def displaying_attribute_columns
@@ -48,8 +51,9 @@ class ColumnFilter
       instance_variable_set("@#{name}", RECOMMENDED_COLUMN_NAMES.include?(name) ? YES : NO)
     end
   end
-  def set_all_or_no_columns(all=true)
-    value = all ? YES : NO
+  #TODO: Split into two methods, all and no
+  def set_all_or_no_columns(is_all=true)
+    value = is_all ? YES : NO
     PLAYER_PROPERTY_NAMES.each do |name|
       instance_variable_set("@#{name}", value)
     end
@@ -87,11 +91,13 @@ class ColumnFilter
     end
   end
 
-  def set_all_or_no_attributes(all=true)
-    value = all ? YES : NO
+  #TODO: Split into two methods, all and no
+  def set_all_or_no_attributes(is_all=true)
+    value = is_all ? YES : NO
     PLAYER_ATTRIBUTE_NAMES.each do |name|
       instance_variable_set("@#{name}", value)
     end
+    @no_attributes = true
   end
 
   private

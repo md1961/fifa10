@@ -21,7 +21,7 @@ class PlayersController < ApplicationController
     no_attributes = @players.all? { |player| player.player_attribute.all_zero? }
     column_filter.set_all_or_no_attributes(false) if no_attributes
 
-    @columns = column_filter.displaying_columns
+    @columns           = column_filter.displaying_columns
     @attribute_columns = column_filter.displaying_attribute_columns
 
     @attribute_top_five_values = Player.player_attribute_top_values(5, season_id)
