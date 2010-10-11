@@ -1,0 +1,13 @@
+
+<tr>
+  <th>Note:</th>
+  <td>
+    <% case action
+       when :show -%>
+      <%= @player.note %>
+    <% when :edit -%>
+      <%= f.text_field :note, :size => 120 %>
+    <% end -%>
+  </td>
+</tr>
+

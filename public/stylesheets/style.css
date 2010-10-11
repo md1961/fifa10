@@ -264,6 +264,13 @@
   text-align: left;
 }
 
+.table_player_note th {
+  width: 96px;
+  font-size: small;
+  font-weight: normal;
+  text-align: left;
+}
+
 #table_player_attribute_legend {
   font-size: medium;
 }
