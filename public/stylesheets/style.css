@@ -163,6 +163,11 @@
   background-color: #666;
 }
 
+#table_matches tr:hover {
+  color: black;
+  background-color: cyan;
+}
+
 #table_matches td {
   font-weight: bold;
 }
