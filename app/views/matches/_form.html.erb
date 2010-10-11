@@ -26,27 +26,36 @@
       <%= f.hidden_field :ground %>
       <%= f.hidden_field :opponent_id %>
     <% else -%>
-      <td colspan="2"><%= f.text_field :date_match, :size => 10 %></td>
+      <td colspan="2"><%= f.text_field :date_match, :size => 10, :tabindex => 1 %></td>
       <% series = series_for_collection_select(@season_id)
          series_sole_abbr = series.size == 1 ? series[0].abbr : nil -%>
-      <td colspan="2"><%= series_sole_abbr || f.collection_select('series_id', series, :id, :abbr) %></td>
+         <td colspan="2"><%= series_sole_abbr || f.collection_select('series_id', series, :id, :abbr, {}, :tabindex => 2) %></td>
       <% if series_sole_abbr -%>
         <%= f.hidden_field :series_id, :value => series[0].id %>
       <% end -%>
-      <td colspan="2"><%= f.text_field :subname, :size => 8 %></td>
+      <td colspan="2"><%= f.text_field :subname, :size => 8, :tabindex => 3 %></td>
       <td>
-        <%= f.select 'ground', grounds_for_select %>
-        <%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name %>
+        <%= f.select 'ground', grounds_for_select, {}, :tabindex => 4 %>
+        <%= f.collection_select 'opponent_id', teams_for_collection_select, :id, :name, {}, :tabindex => 5 %>
       </td>
     <% end -%>
   </tr>
   <tr>
-    <td colspan="2"><%= f.text_field 'scores_own', :size =>  2 %> - <%= f.text_field 'scores_opp', :size => 2 %> </td>
-    <td colspan="5">own: <%= f.text_field :scorers_own, :size => 80 %></td>
+    <td colspan="2">
+      <%= f.text_field 'scores_own', :size => 2, :tabindex => 6 %>
+      -
+      <%= f.text_field 'scores_opp', :size => 2, :tabindex => 7 %>
+    </td>
+    <td colspan="5">own: <%= f.text_field :scorers_own, :size => 80, :tabindex => 8 %></td>
   </tr>
   <tr>
-    <td colspan="2">PK <%= f.text_field 'pks_own', :size =>  2 %> - <%= f.text_field 'pks_opp', :size => 2 %> </td>
-    <td colspan="5">opp: <%= f.text_field :scorers_opp, :size => 80 %></td>
+    <td colspan="2">
+      PK
+      <%= f.text_field 'pks_own', :size => 2, :tabindex => 10 %>
+      -
+      <%= f.text_field 'pks_opp', :size => 2, :tabindex => 11 %>
+    </td>
+    <td colspan="5">opp: <%= f.text_field :scorers_opp, :size => 80, :tabindex => 9 %></td>
     <td>
       <%= submit_tag 'Submit' %>
       <% unless @match.new_record? -%>
