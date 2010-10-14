@@ -1,9 +1,11 @@
 
 <% case column_name
    when 'date_match' %>
-     <% format = Constant.get(:date_format)[match.opponent_type] -%>
-     <td align="center">
-       <%= link_to_if shows_link, match.date_match.strftime(format), :action => 'edit', :id => match %>
+   <% format = Constant.get(:date_format)[match.opponent_type]
+      date = match.date_match
+      date_display = "#{date.strftime(format)} <font size='-2'>#{date.strftime("%a")}</font>" -%>
+     <td>
+       <%= link_to_if shows_link, date_display, :action => 'edit', :id => match %>
      </td>
 <% when 'series_id' -%>
      <td><%= "#{match.series.abbr} #{match.subname}" %></td>

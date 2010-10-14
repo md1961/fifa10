@@ -1,38 +1,6 @@
 
-<%= link_to '>> Chronicles', :controller => 'chronicles', :action => 'list' %>
-<%= nbsp %>
-<%= link_to ' > Seasons'   , :controller => 'seasons'   , :action => 'list', :chronicle_id => @chronicle %>
-<%= nbsp(4) %>
-<%= link_to 'Rosters', :controller => 'players', :action => 'list' %>
-<%= nbsp(2) %>
-<%= link_to 'Depth Chart', :controller => 'players', :action => 'depth_chart' %>
-<%= nbsp(2) %>
-<%= link_to 'Roster Chart', :controller => 'players', :action => 'roster_chart' %>
-<%= nbsp(2) %>
-<%= link_to 'Top Players', :controller => 'players', :action => 'top_attribute_list' %>
-<br />
-<% series_abbr = @match_filter.series_abbrs[0] -%>
-<%= link_to_filter_with_series MatchFilter::ALL_SERIES, series_abbr %>
-<% @series.each do |series| -%>
-  <%= nbsp %>
-  <%= link_to_filter_with_series series.abbr, series_abbr %>
-<% end -%>
-<%= nbsp(2) %>
-<%= link_to 'Filter', :action => 'choose_to_list' %>
-<% unless (name_filter = @match_filter.player_name).blank? -%>
-  <font size="-1"><%= "('#{name_filter}')" %></font>
-  <%= link_to 'clear', :action => 'filter_on_list', :match_filter => {:player_name => nil} %>
-<% end -%>
-<%= nbsp(2) %>
-<% label, value = @shows_link ? ["No Link", '0'] : ["Show Link", '1'] -%>
-<%= link_to label, :action => 'list', :shows_link => value %>
-<%= nbsp %>
-<% label, value = @shows_records == '1' ? ["No Record", '0'] : ["Show Record", '1'] -%>
-<%= link_to label, :action => 'list', :shows_records => value %>
-<%= nbsp %>
-<% label, value = @is_font_bold ? ["Normal Font", '0'] : ["Bold Font", '1'] -%>
-<%= link_to label, :action => 'set_is_font_bold', :is_font_bold => value %>
-<%= nbsp(4) %>
+<%= render :partial => 'links_in_list' %>
+
 <%= link_to 'New Match', :action => 'new' %>
 
 <table id="table_matches" class="table_base">
