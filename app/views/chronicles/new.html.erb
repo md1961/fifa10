@@ -6,7 +6,7 @@
   <%= f.text_field :name, :size => 60 %>
 
   <div id="chronicle_examples">
-    <%= "Example: \"#{Chronicle.find(:all).map(&:name).join('", "')}\"" %>
+    <%= "Example: \"#{@example_names}\"" %>
   </div>
 
   <p>

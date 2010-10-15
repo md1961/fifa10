@@ -22,6 +22,7 @@ class ChroniclesController < ApplicationController
 
   def new
     @chronicle = Chronicle.new
+    @example_names = Chronicle.find(:all).map(&:name).join('", "')
 
     prepare_page_title_for_new
   end
