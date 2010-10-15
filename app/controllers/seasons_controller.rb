@@ -43,8 +43,12 @@ class SeasonsController < ApplicationController
     if @season.save
       redirect_to :action => 'list', :chronicle_id => @season.chronicle_id
     else
-      prepare_page_title_for_new
+      @teams = eval(@season.team_type).find(:all, :order => TEAM_ORDER)
+      @series = Series.find(:all)
+      @initial_series_selection = @season.series
       @chronicle_id = params[:season][:chronicle_id]
+
+      prepare_page_title_for_new
       render :action => 'new'
     end
   end
