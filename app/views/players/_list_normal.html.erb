@@ -4,7 +4,7 @@
 -%>
 
 <tr>
-  <th><%= nbsp %></th>
+  <th colspan="2"><%= nbsp %></th>
 
   <% @columns.map(&:name).each do |column_name| -%>
     <th><%= column_index(column_name) %></th>
@@ -20,6 +20,7 @@
 <% @players.each do |player| -%>
   <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
     <td><%= link_to '>', player %></td>
+    <td><%= link_to 'e', :action => 'edit', :id => player, :is_from_list => 1 %></td>
 
     <% @columns.map(&:name).each do |column_name| -%>
       <% clazz = column_name == last_column_name ? 'rightmost_of_players' : ''

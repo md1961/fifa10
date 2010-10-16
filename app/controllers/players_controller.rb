@@ -57,6 +57,7 @@ class PlayersController < ApplicationController
     row_filter = get_row_filter
     players = row_filter.displaying_players
     @player = Player.find(params[:id])
+    @is_from_list = params[:is_from_list] == '1'
     @prev_player, @next_player = prev_and_next_players(@player, players)
 
     @page_title_size = 3
@@ -75,7 +76,11 @@ class PlayersController < ApplicationController
         unless @player.player_attribute.update_attributes(params[:player_attribute])
           raise ActiveRecord::Rollback, "PlayerAttribute update failed"
         end
-        flash[:notice] = "Player '#{@player.name}' has been successfully updated"
+      end
+      flash[:notice] = "Player '#{@player.name}' has been successfully updated"
+      if params[:is_from_list] == 'true'
+        redirect_to :action => 'list'
+      else
         redirect_to @player
       end
     rescue

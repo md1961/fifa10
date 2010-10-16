@@ -1,23 +1,5 @@
 
-<%= link_to '>> Chronicles', :controller => 'chronicles', :action => 'list' %>
-<%= nbsp %>
-<%= link_to ' > Seasons'   , :controller => 'seasons'   , :action => 'list', :chronicle_id => @chronicle %>
-<%= nbsp(4) %>
-<%= link_to 'Fixtures/Results', :controller => 'matches', :action => 'list' %>
-<%= nbsp(4) %>
-<%= link_to 'Depth Chart', :action => 'depth_chart' %>
-<%= nbsp(2) %>
-<%= link_to 'Roster Chart', :action => 'roster_chart' %>
-<%= nbsp(2) %>
-<%= link_to 'Top Players', :action => 'top_attribute_list' %>
-<br />
-<%= link_to 'Filter Rows/Columns', :action => 'choose_to_list' %>
-<%= nbsp(2) %>
-<%= link_to 'Sort by Columns', :action => 'choose_to_sort' %>
-<%= nbsp(2) %>
-<%= link_to 'Attribute Legend', :action => 'show_attribute_legend' %>
-<%= nbsp(4) %>
-<%= link_to 'New Player', :action => 'new' %>
+<%= render :partial => 'links_in_list' %>
 
 <%
   max_players = Constant.get(:max_players_to_transpose)
