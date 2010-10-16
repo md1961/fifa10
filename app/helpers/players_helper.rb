@@ -24,13 +24,15 @@ module PlayersHelper
       when 'position_id'
         'position'
       when 'is_right_dominant'
-        'dominant_feet'
+        'foot'
+      when 'skill_move'
+        'skill_moves'
       when 'both_feet_level'
-        'week_feet'
+        'week_foot'
       when 'birth_year'
         'age'
       when 'nation_id'
-        'nationality'
+        'nation'
       else
         column_name.to_s
       end

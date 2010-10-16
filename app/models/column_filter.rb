@@ -27,7 +27,11 @@ class ColumnFilter
     @no_attributes = false
   end
 
+  #TODO: To be removed(?)
   COLUMN_NAMES_NOT_TO_DISPLAY = %w(id order_number)
+
+  COLUMN_NAMES_TO_DISPLAY = %w(name first_name number position_id birth_year height weight
+            nation_id is_right_dominant both_feet_level skill_move overall market_value note)
 
   def self.displaying_columns
     return Player.columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }

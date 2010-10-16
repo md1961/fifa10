@@ -1,56 +1,55 @@
 
 <%
-  starting_column_name_of_2nd_edit_table = 'skill_move'
+  starting_column_name_of_2nd_edit_table = 'birth_year'
 
-  columns = ColumnFilter.displaying_columns
+  column_names = ColumnFilter::COLUMN_NAMES_TO_DISPLAY
   if action == :show && table_id == 2
-    columns = []
+    column_names = []
   elsif action == :edit
-    index_split = columns.map(&:name).index(starting_column_name_of_2nd_edit_table)
+    index_split = column_names.index(starting_column_name_of_2nd_edit_table)
     if table_id == 1
-      columns = columns[0, index_split]
+      column_names = column_names[0, index_split]
     else
-      columns = columns[index_split .. -1]
+      column_names = column_names[index_split .. -1]
     end
   end
 -%>
 
-<% columns.each do |column| -%>
-  <% name = column.name -%>
+<% column_names.each do |column_name| -%>
   <tr>
     <th>
-      <% if name == 'birth_year' -%>
+      <% if column_name == 'birth_year' -%>
         <%= action == :show ? "Age:" : "Birth Year (or Age):" %>
       <% else -%>
-        <%= column_name2display(column_name2meaningful(name)) + ":" + nbsp(2) %>
+        <%= column_name2display(column_name2meaningful(column_name)) + ":" + nbsp(2) %>
       <% end -%>
     </th>
     <td>
       <% case action
          when :show -%>
         <%= render :partial => 'property_display',
-                   :locals => {:column_name => name, :player => @player, :show_unit => true} %>
+                   :locals => {:column_name => column_name, :player => @player, :show_unit => true} %>
       <% when :edit -%>
-        <% case name
+        <% case column_name
            when 'position_id' -%>
-          <%= f.collection_select name, Position.find(:all), :id, :name %>
+          <%= f.collection_select column_name, Position.find(:all), :id, :name %>
         <% when 'is_right_dominant' -%>
           <font style="font-size: small;">
-            <%= f.radio_button name, true %>
+            <%= f.radio_button column_name, true %>
             <label for="player_is_right_dominant_true">Right</label>
-            <%= f.radio_button name, false %>
+            <%= f.radio_button column_name, false %>
             <label for="player_is_right_dominant_false">Left</label>
           </font>
         <% when 'nation_id' -%>
-          <%= f.collection_select name, Nation.find(:all,:order=>"name"), :id, :name %>
+          <%= f.collection_select column_name, Nation.find(:all,:order=>"name"), :id, :name %>
         <% else -%>
-          <%= f.text_field name, :size => 20 %>
+          <%= f.text_field column_name, :size => 20 %>
         <% end -%>
       <% end -%>
     </td>
   </tr>
 
-  <% if action == :edit && name == 'position_id' -%>
+  <% if action == :edit && column_name == 'position_id' -%>
     <tr>
       <th>Sub-Positions:</th>
       <td>
