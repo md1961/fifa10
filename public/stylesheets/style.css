@@ -164,7 +164,7 @@
 }
 
 #table_matches tr:hover {
-  color: black;
+  color: black !important;
   background-color: cyan;
 }
 
@@ -176,14 +176,26 @@
   border-right: 1px black hidden;
 }
 
+#table_matches .tableRow0:hover {
+  color: black;
+}
+
 #table_matches .tableRow0 {
   color: white;
   background-color: red;
 }
 
+#table_matches .tableRow1:hover {
+  color: black;
+}
+
 #table_matches .tableRow1 {
   color: white;
   background-color: black;
+}
+
+#table_matches a:hover {
+  color: black;
 }
 
 #table_matches a {

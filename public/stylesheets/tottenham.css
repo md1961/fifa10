@@ -17,6 +17,10 @@
   color: black;
 }
 
+#table_matches .tableRow1 a:hover {
+  color: black !important;
+}
+
 #table_matches .tableRow1 a {
   color: white;
 }
