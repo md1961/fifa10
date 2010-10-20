@@ -57,7 +57,7 @@
     </td>
     <td colspan="5">opp: <%= f.text_field :scorers_opp, :size => 80, :tabindex => 9 %></td>
     <td>
-      <%= submit_tag 'Submit' %>
+      <%= submit_tag 'Submit', :tabindex => 12 %>
       <% unless @match.new_record? -%>
         <%= nbsp(6) %>
         <%= link_to 'Delete', {:action => 'destroy', :id => @match},
