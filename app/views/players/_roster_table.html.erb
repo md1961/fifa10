@@ -11,9 +11,18 @@
         <% label = "#{kind}#{index + index_offset + 1}" -%>
         <%= link_to label, :action => 'show', :id => player, :browses_all_players => 1 %>
       </td>
-      <td class="name"><%= player.name %></td>
-      <td><font size="-1"><%= player.overall %></font></td>
-      <td><%= player.position.name %></td>
+      <td class="name">
+        <%= player.name %>
+      </td>
+      <td>
+        <font size="-1"><%= player.overall %></font>
+      </td>
+      <td align="center">
+        <font size="-1"><%= player.position.name %></font>
+      </td>
+      <td>
+        <font size="-2"><%= player.sub_positions.map(&:name).join(' ') %></font>
+      </td>
     </tr>
   <% end -%>
 <% end -%>
