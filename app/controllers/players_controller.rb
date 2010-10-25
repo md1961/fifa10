@@ -337,6 +337,8 @@ class PlayersController < ApplicationController
       @depth[position].sort! { |p1, p2| p1.overall.<=>(p2.overall) * -1 }
     end
 
+    @injury_list = session[:injury_list] || Array.new
+
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Depth Chart"
   end
@@ -406,20 +408,39 @@ class PlayersController < ApplicationController
     @page_title = "#{team_name_and_season_years} Top Attribute Chart"
   end
 
-  def pick_one_player_for_injury
-    player = do_pick_one
+  def pick_player_for_injury
     injury_list = session[:injury_list]
     injury_list = Array.new unless injury_list.kind_of?(Array)
-    injury_list << player.id
+
+    players = do_pick_players
+    injury_list.concat(players.map(&:id))
     session[:injury_list] = injury_list
 
     redirect_to :action => params[:caller]
   end
 
-    def do_pick_one
-      player = players_of_team(includes_loan=false).rand
+    MAX_NUMBER_OF_PLAYERS_TO_PICK = 5
+
+    def do_pick_players
+      players = players_of_team(includes_loan=false)
+      num = rand(MAX_NUMBER_OF_PLAYERS_TO_PICK) + 1
+      picks = Array.new
+      num.times do
+        picks << players.rand
+      end
+      return picks
     end
-    private :do_pick_one
+    private :do_pick_players
+
+  def undo_pick_from_injury
+    injury_list = session[:injury_list]
+    if injury_list && ! injury_list.empty?
+      injury_list.pop
+      session[:injury_list] = injury_list
+    end
+
+    redirect_to :action => params[:caller]
+  end
 
   def clear_injury_list
     session[:injury_list] = Array.new

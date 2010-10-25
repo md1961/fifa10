@@ -300,6 +300,10 @@
   font-weight: bold;
 }
 
+.injury_list {
+  background-color: magenta;
+}
+
 #table_depth_chart {
   font-size: medium;
   border: 1px black solid;
@@ -362,10 +366,6 @@
 
 .tables_roster_chart .name {
   font-weight: bold;
-}
-
-.tables_roster_chart .injury_list {
-  background-color: magenta;
 }
 
 .tables_roster_chart caption {

@@ -12,10 +12,12 @@
   <%= nbsp(2) %>
   <%= link_to 'Top Players', :action => 'top_attribute_list' %>
   <%= nbsp(4) %>
-  <%= link_to 'Injure Player', :action => 'pick_one_player_for_injury', :caller => 'roster_chart' %>
-  <%= nbsp(1) %>
+  <%= link_to 'Injure Player', :action => 'pick_player_for_injury', :caller => 'roster_chart' %>
   <font size="-1">
-    <%= link_to 'Clear', :action => 'clear_injury_list', :caller => 'roster_chart' %>
+    <%= nbsp %>
+    <%= link_to 'Undo' , :action => 'undo_pick_from_injury', :caller => 'roster_chart' %>
+    <%= nbsp %>
+    <%= link_to 'Clear', :action => 'clear_injury_list'    , :caller => 'roster_chart' %>
   </font>
 </p>
 

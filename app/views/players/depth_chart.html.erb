@@ -20,10 +20,12 @@
       </td>
       <td>
         <% players.each_with_index do |player, i| -%>
-          <%= player.name %>
-          <span class="property">
-            <%= "(#{player.overall})" %>
-            <%= " " if i < size - 1 %>
+          <span class="<%= @injury_list.include?(player.id) ? 'injury_list' : '' %>">
+            <%= player.name %>
+            <span class="property">
+              <%= "(#{player.overall})" %>
+              <%= " " if i < size - 1 %>
+            </span>
           </span>
         <% end -%>
       </td>
