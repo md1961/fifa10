@@ -18,11 +18,17 @@
       <td>
         <font size="-1"><%= player.overall %></font>
       </td>
-      <td align="center">
+      <td align="center" style="background-color: <%= player.position.color %>">
         <font size="-1"><%= player.position.name %></font>
       </td>
       <td>
-        <font size="-2"><%= player.sub_positions.map(&:name).join(' ') %></font>
+        <font size="-2">
+          <% player.sub_positions.each do |pos| -%>
+            <span style="background-color: <%= pos.color %>">
+              <%= pos.name %>
+            </span>
+          <% end -%>
+        </font>
       </td>
     </tr>
   <% end -%>

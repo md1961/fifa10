@@ -11,4 +11,15 @@ class Position < ActiveRecord::Base
     index2 = -1 unless index2
     return index1.<=>(index2)
   end
+
+  CATEGORY_COLOR = {
+    'Goalkeeper' => 'sandybrown',
+    'Defender'   => 'yellow',
+    'Midfielder' => 'lawngreen',
+    'Forward'    => 'skyblue',
+  }
+
+  def color
+    return CATEGORY_COLOR[category]
+  end
 end
