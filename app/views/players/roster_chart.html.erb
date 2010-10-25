@@ -14,7 +14,9 @@
   <%= nbsp(4) %>
   <%= link_to 'Pick a Player', :action => 'pick_one_player_for_injury', :caller => 'roster_chart' %>
   <%= nbsp(1) %>
-  <%= link_to 'Clear Injury', :action => 'clear_injury_list', :caller => 'roster_chart' %>
+  <font size="-1">
+    <%= link_to 'Clear', :action => 'clear_injury_list', :caller => 'roster_chart' %>
+  </font>
 </p>
 
 <div id="top_of_tables_roster_chart">

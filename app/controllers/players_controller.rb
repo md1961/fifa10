@@ -407,7 +407,7 @@ class PlayersController < ApplicationController
   end
 
   def pick_one_player_for_injury
-    player = players_of_team(includes_loan=false).rand
+    player = do_pick_one
     injury_list = session[:injury_list]
     injury_list = Array.new unless injury_list.kind_of?(Array)
     injury_list << player.id
@@ -415,6 +415,11 @@ class PlayersController < ApplicationController
 
     redirect_to :action => params[:caller]
   end
+
+    def do_pick_one
+      player = players_of_team(includes_loan=false).rand
+    end
+    private :do_pick_one
 
   def clear_injury_list
     session[:injury_list] = Array.new
