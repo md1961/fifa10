@@ -17,7 +17,9 @@
 <table id="table_depth_chart" class="table_base">
   <% Position.find(:all).each do |position| -%>
     <tr>
-      <th><%= position.name -%></th>
+      <th style="background-color: <%= position.color %>">
+        <%= position.name -%>
+      </th>
       <% players = @depth[position]
          size = players.size -%>
       <td class="num_players">
@@ -29,9 +31,9 @@
             <%= player.name %>
             <span class="property">
               <%= "(#{player.overall})" %>
-              <%= " " if i < size - 1 %>
             </span>
           </span>
+          <%= "&nbsp;" if i < size - 1 %>
         <% end -%>
       </td>
     </tr>
