@@ -429,16 +429,21 @@ class PlayersController < ApplicationController
 
   private
 
+    ACTION_WITH = 'with'
+    ACTION_TO   = 'to'
+    ACTION_LOAN = 'loan'
+    LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN]
+
     def update_roster(commands, players)
       player1, action, player2 = commands
       begin
         Player.transaction do
           case action
-          when 'with'
+          when ACTION_WITH
             exchange_player_order(player1, player2)
-          when 'to'
+          when ACTION_TO
             insert_player_order_before(player1, player2, players)
-          when 'loan'
+          when ACTION_LOAN
             loan_player(player2)
           else
             raise ActiveRecord::Rollback, "Unknown action '#{action}' in helper update_roster()"
@@ -495,7 +500,7 @@ class PlayersController < ApplicationController
       player.set_on_loan(! on_loan, season_id)
     end
 
-    LEGAL_ACTIONS = %w(with to loan)
+    NORMAL_TERMS_SIZE = 3
 
     def parse_roster_edit_command(command, players)
       if command.blank?
@@ -505,13 +510,13 @@ class PlayersController < ApplicationController
 
       title = "Command \"#{command}\" was illegal"
       terms = command.split
-      terms.unshift('s1') if terms[0] == 'loan'  # not to be used
-      unless terms.size == 3
+      terms.unshift('s1') if terms.size < NORMAL_TERMS_SIZE
+      unless terms.size == NORMAL_TERMS_SIZE
         explain_error(title, ["Command must be \"p# to/with p#\" or \"loan p#\""], [])
         return
       end
 
-      action = terms[1]
+      action = complete_action(terms[1])
       unless LEGAL_ACTIONS.include?(action)
         legal_actions = "'" + LEGAL_ACTIONS.join("', '") + "'"
         explain_error(title, ["Legal actions are #{legal_actions}"], [])
@@ -527,6 +532,11 @@ class PlayersController < ApplicationController
       # for debug 
       msg = "#{player1.name} will be #{action=='to'?'inserted before':'exchanged with'} #{player2.name}"
       explain_error(title+" Not", [msg], [])
+    end
+
+    def complete_action(action)
+      candidates = LEGAL_ACTIONS.select { |a| a.starts_with?(action) }
+      return candidates.size == 1 ? candidates[0] : action
     end
 
     def terms2players(terms, players, title)

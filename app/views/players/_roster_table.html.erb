@@ -6,13 +6,15 @@
 
 <% unless index_start >= @players.size -%>
   <% @players[index_start, size].each_with_index do |player, index| -%>
-    <tr class="<%= player.on_loan?(@season_id) ? 'on_loan' : '' %>">
+    <% clazz = player.on_loan?(@season_id)      ? 'on_loan' \
+             : @injury_list.include?(player.id) ? 'injury_list' \
+                                                : '' -%>
+    <tr class="<%= clazz %>">
       <td class="index_number">
         <% label = "#{kind}#{index + index_offset + 1}" -%>
         <%= link_to label, :action => 'show', :id => player, :browses_all_players => 1 %>
       </td>
-      <% clazz = @injury_list.include?(player.id) ? 'injury_list' : '' -%>
-      <td class="name <%= clazz %>">
+      <td class="name">
         <%= player.name %>
       </td>
       <td>
