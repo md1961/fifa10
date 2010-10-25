@@ -3,18 +3,19 @@ class Match < ActiveRecord::Base
   belongs_to :opponent, :polymorphic => true
   belongs_to :season
 
-  validates_presence_of :date_match, :series_id, :opponent_id, :ground, :season_id
-  validates_inclusion_of :ground, :in => GROUNDS
-  validates_numericality_of :scores_own, :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
-  validates_numericality_of :scores_opp, :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
-  validates_numericality_of :pks_own   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
-  validates_numericality_of :pks_opp   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
-
   GROUNDS = [
     ['Home'   , 'H'],
     ['Away'   , 'A'],
     ['Neutral', 'N'],
   ].freeze
+  GROUND_ABBRS = GROUNDS.map { |entry| entry[1] }
+
+  validates_presence_of :date_match, :series_id, :opponent_id, :ground, :season_id
+  validates_inclusion_of :ground, :in => GROUND_ABBRS
+  validates_numericality_of :scores_own, :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
+  validates_numericality_of :scores_opp, :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
+  validates_numericality_of :pks_own   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
+  validates_numericality_of :pks_opp   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
 
   def self.list(season_id, order='date_match')
     return find_all_by_season_id(season_id, :order => order)
@@ -33,7 +34,7 @@ class Match < ActiveRecord::Base
   end
 
   def self.grounds
-    return GROUNDS.map { |entry| entry[1] }
+    return GROUND_ABBRS
   end
 
   def played?
@@ -90,6 +91,7 @@ class Match < ActiveRecord::Base
   def to_s
     series_full  = series.abbr
     series_full += " #{subname}" unless subname.blank?
+    ground = Hash[*GROUNDS.map { |x, y| [y, x] }.flatten][self.ground]
     s  = "#{date_match} [#{series_full}] vs #{opponent.name} (#{ground})"
     s += " #{scores_own}-#{scores_opp}" if scores_own
     return s
