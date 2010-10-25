@@ -1,5 +1,15 @@
 module PlayersHelper
 
+  NO_MATCH = "(none)"
+
+  def next_matches_display
+    retval = "Next Match: #{@next_matches[0] || NO_MATCH}"
+    nexts_after = @next_matches[1, 2]
+    nexts_after = nexts_after ? nexts_after.join(' ; ') : NO_MATCH
+    retval += "<font size='-1'> (Followed by: #{nexts_after})"
+    return retval
+  end
+
   def column_index(column_name)
     return column_attribute(column_name, 0)
   end

@@ -21,15 +21,11 @@ class Match < ActiveRecord::Base
     return matches.find { |match| match.played? }
   end
 
-  def self.next(season_id)
+  def self.nexts(season_id)
     matches = Match.list(season_id, 'date_match')
-    return matches.find { |match| ! match.played? }
-  end
-
-  def self.next_next(season_id)
-    matches = Match.list(season_id, 'date_match')
-    index_of_next_match = matches.index(Match.next(season_id))
-    return matches[index_of_next_match + 1]
+    next_match = matches.find { |match| ! match.played? }
+    index = matches.index(next_match)
+    return matches[index .. -1]
   end
 
   def self.grounds

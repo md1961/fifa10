@@ -337,8 +337,7 @@ class PlayersController < ApplicationController
       @depth[position].sort! { |p1, p2| p1.overall.<=>(p2.overall) * -1 }
     end
 
-    @next_match = Match.     next(get_season_id)
-    @next_next  = Match.next_next(get_season_id)
+    @next_matches = Match.nexts(get_season_id)
 
     @injury_list = session[:injury_list] || Array.new
 
@@ -352,8 +351,7 @@ class PlayersController < ApplicationController
     @players = players_of_team
     @season_id = get_season_id
 
-    @next_match = Match.next(@season_id)
-    @next_next  = Match.next_next(get_season_id)
+    @next_matches = Match.nexts(@season_id)
 
     @num_starters, @num_in_bench = get_num_starters_and_in_bench
 
