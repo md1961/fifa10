@@ -9,6 +9,11 @@
   <%= link_to 'Top Players', :action => 'top_attribute_list' %>
 </p>
 
+<p>
+  <%= "Next Match: #{@next_match}" %>
+  <font size="-1"><%= " (After Next: #{@next_next})" %></font>
+</p>
+
 <table id="table_depth_chart" class="table_base">
   <% Position.find(:all).each do |position| -%>
     <tr>

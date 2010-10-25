@@ -23,6 +23,9 @@
 
 <div id="top_of_tables_roster_chart">
   <%= "Total Number of Players: #{@players.size}" %>
+  <%= nbsp(4) %>
+  <%= "Next Match: #{@next_match}" %>
+  <font size="-1"><%= " (After Next: #{@next_next})" %></font>
 </div>
 
 <table id="table_starters" class="table_base tables_roster_chart">

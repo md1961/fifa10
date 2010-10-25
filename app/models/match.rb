@@ -11,7 +11,6 @@ class Match < ActiveRecord::Base
   validates_numericality_of :scores_opp, :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validates_numericality_of :pks_own   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validates_numericality_of :pks_opp   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
-  #:date_match, :series_id, :subname, :opponent_id, :ground, :scores_own, :scores_opp, :pks_own, :pks_opp, :scorers_own, :scorers_opp, :season_id
 
   def self.list(season_id, order='date_match')
     return find_all_by_season_id(season_id, :order => order)
@@ -20,6 +19,17 @@ class Match < ActiveRecord::Base
   def self.last_played(season_id)
     matches = Match.list(season_id, 'date_match DESC')
     return matches.find { |match| match.played? }
+  end
+
+  def self.next(season_id)
+    matches = Match.list(season_id, 'date_match')
+    return matches.find { |match| ! match.played? }
+  end
+
+  def self.next_next(season_id)
+    matches = Match.list(season_id, 'date_match')
+    index_of_next_match = matches.index(Match.next(season_id))
+    return matches[index_of_next_match + 1]
   end
 
   def self.grounds
@@ -78,8 +88,10 @@ class Match < ActiveRecord::Base
   end
 
   def to_s
-    s = "#{date_match} vs #{opponent.name}"
-    s += scores_own ? " #{scores_own}-#{scores_opp}" : " (TBP)"
+    series_full  = series.abbr
+    series_full += " #{subname}" unless subname.blank?
+    s  = "#{date_match} [#{series_full}] vs #{opponent.name} (#{ground})"
+    s += " #{scores_own}-#{scores_opp}" if scores_own
     return s
   end
 
