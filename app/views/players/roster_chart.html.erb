@@ -11,6 +11,10 @@
   <%= link_to 'Depth Chart', :action => 'depth_chart' %>
   <%= nbsp(2) %>
   <%= link_to 'Top Players', :action => 'top_attribute_list' %>
+  <%= nbsp(4) %>
+  <%= link_to 'Pick a Player', :action => 'pick_one_player_for_injury', :caller => 'roster_chart' %>
+  <%= nbsp(1) %>
+  <%= link_to 'Clear Injury', :action => 'clear_injury_list', :caller => 'roster_chart' %>
 </p>
 
 <div id="top_of_tables_roster_chart">

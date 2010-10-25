@@ -42,6 +42,7 @@ class Player < ActiveRecord::Base
     :market_value      => 1430,
   }
 
+  #TODO: Quit using @@current_year and correct age()
   @@current_year = Constant.get(:default_current_year)
 
   def self.list(season_id, includes_on_loan=true)

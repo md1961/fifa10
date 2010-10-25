@@ -11,7 +11,8 @@
         <% label = "#{kind}#{index + index_offset + 1}" -%>
         <%= link_to label, :action => 'show', :id => player, :browses_all_players => 1 %>
       </td>
-      <td class="name">
+      <% clazz = @injury_list.include?(player.id) ? 'injury_list' : '' -%>
+      <td class="name <%= clazz %>">
         <%= player.name %>
       </td>
       <td>

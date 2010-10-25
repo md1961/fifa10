@@ -349,6 +349,8 @@ class PlayersController < ApplicationController
 
     @num_starters, @num_in_bench = get_num_starters_and_in_bench
 
+    @injury_list = session[:injury_list] || Array.new
+
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Roster Chart"
   end
@@ -402,6 +404,22 @@ class PlayersController < ApplicationController
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Top Attribute Chart"
+  end
+
+  def pick_one_player_for_injury
+    player = players_of_team(includes_loan=false).rand
+    injury_list = session[:injury_list]
+    injury_list = Array.new unless injury_list.kind_of?(Array)
+    injury_list << player.id
+    session[:injury_list] = injury_list
+
+    redirect_to :action => params[:caller]
+  end
+
+  def clear_injury_list
+    session[:injury_list] = Array.new
+
+    redirect_to :action => params[:caller]
   end
 
   private

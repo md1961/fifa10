@@ -364,6 +364,10 @@
   font-weight: bold;
 }
 
+.tables_roster_chart .injury_list {
+  background-color: lightgrey;
+}
+
 .tables_roster_chart caption {
   font-weight: normal;
   text-align: left;
