@@ -9,9 +9,8 @@
   <%= link_to 'Top Players', :action => 'top_attribute_list' %>
 </p>
 
-<p>
-  <%= next_matches_display %>
-</p>
+<%= next_matches_display %>
+<br />
 
 <table id="table_depth_chart" class="table_base">
   <% Position.find(:all).each do |position| -%>

@@ -43,6 +43,7 @@ module MatchesHelper
     return [direction_at_first, tbd] + opponent_teams
   end
 
+  #TODO: Moved to model Match
   GROUNDS = [
     ['Choose' , '0'],
     ['Home'   , 'H'],

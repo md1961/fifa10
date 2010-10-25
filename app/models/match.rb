@@ -3,6 +3,7 @@ class Match < ActiveRecord::Base
   belongs_to :opponent, :polymorphic => true
   belongs_to :season
 
+  #TODO: Take over MatchesHelper::GROUNDS
   GROUNDS = %w(H A N).freeze
 
   validates_presence_of :date_match, :series_id, :opponent_id, :ground, :season_id

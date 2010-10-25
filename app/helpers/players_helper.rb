@@ -4,9 +4,20 @@ module PlayersHelper
 
   def next_matches_display
     retval = "Next Match: #{@next_matches[0] || NO_MATCH}"
-    nexts_after = @next_matches[1, 2]
-    nexts_after = nexts_after ? nexts_after.join(' ; ') : NO_MATCH
-    retval += "<font size='-1'> (Followed by: #{nexts_after})"
+    retval += <<-"END"
+      <font size='-1'>
+        <table>
+          <tr>
+            <td>Followed by:</td>
+            <td>#{@next_matches[1]}</td>
+          </tr>
+          <tr>
+            <td />
+            <td>#{@next_matches[2]}</td>
+          </tr>
+        </table>
+      </font>
+    END
     return retval
   end
 
