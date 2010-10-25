@@ -43,16 +43,8 @@ module MatchesHelper
     return [direction_at_first, tbd] + opponent_teams
   end
 
-  #TODO: Moved to model Match
-  GROUNDS = [
-    ['Choose' , '0'],
-    ['Home'   , 'H'],
-    ['Away'   , 'A'],
-    ['Neutral', 'N'],
-  ]
-
   def grounds_for_select
-    return GROUNDS
+    return [['Choose' , '0']] + Match::GROUNDS
   end
 
   def one_char_result(match)
@@ -81,3 +73,4 @@ module MatchesHelper
     return link_to_unless is_current, label, :action => 'filter_with_series', :series_abbrs => param
   end
 end
+

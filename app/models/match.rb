@@ -3,15 +3,18 @@ class Match < ActiveRecord::Base
   belongs_to :opponent, :polymorphic => true
   belongs_to :season
 
-  #TODO: Take over MatchesHelper::GROUNDS
-  GROUNDS = %w(H A N).freeze
-
   validates_presence_of :date_match, :series_id, :opponent_id, :ground, :season_id
   validates_inclusion_of :ground, :in => GROUNDS
   validates_numericality_of :scores_own, :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validates_numericality_of :scores_opp, :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validates_numericality_of :pks_own   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validates_numericality_of :pks_opp   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
+
+  GROUNDS = [
+    ['Home'   , 'H'],
+    ['Away'   , 'A'],
+    ['Neutral', 'N'],
+  ].freeze
 
   def self.list(season_id, order='date_match')
     return find_all_by_season_id(season_id, :order => order)
@@ -30,7 +33,7 @@ class Match < ActiveRecord::Base
   end
 
   def self.grounds
-    return GROUNDS
+    return GROUNDS.map { |entry| entry[1] }
   end
 
   def played?
