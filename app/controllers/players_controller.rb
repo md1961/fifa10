@@ -455,11 +455,12 @@ class PlayersController < ApplicationController
   private
 
     def get_injury_list
-      return session[:injury_list] || Array.new
+      return SimpleDB.instance.get(:injury_list) || Array.new
     end
 
     def set_injury_list(injury_list)
-      session[:injury_list] = injury_list
+      raise ArgumentError.new("Argument injury_list must be an Array") unless injury_list.kind_of?(Array)
+      SimpleDB.instance.set(:injury_list, injury_list)
     end
 
     ACTION_WITH = 'with'

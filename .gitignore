@@ -1,4 +1,5 @@
 *~
 log/
-note.txt
 tmp/pids/
+note.txt
+lib/simple_db.yml
