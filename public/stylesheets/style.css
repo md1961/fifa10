@@ -336,13 +336,13 @@
 
 #table_starters {
   float: left;
-  margin-left:  20px;
-  margin-right: 30px;
+  margin-left:  10px;
+  margin-right: 20px;
 }
 
 #table_in_bench {
   float: left;
-  margin-right: 30px;
+  margin-right: 20px;
 }
 
 #table_reserves_first {
