@@ -13,7 +13,7 @@
 <br />
 
 <table id="table_depth_chart" class="table_base">
-  <% Position.find(:all).each do |position| -%>
+  <% @positions.each do |position| -%>
     <tr>
       <th style="background-color: <%= position.color %>">
         <%= position.name -%>

@@ -326,6 +326,8 @@ class PlayersController < ApplicationController
     @page_title = "Player Attribute Legend"
   end
 
+  POSITION_NAMES_IN_DEPTH_CHART = %w(GK SW CB RB RWB LB LWB CDM CM CAM RM RW LM LW RF LF CF ST)
+
   def depth_chart
     players = players_of_team(includes_on_loan=false)
     @depth = Hash.new { |hash, key| hash[key] = Array.new }
@@ -336,6 +338,8 @@ class PlayersController < ApplicationController
       end
       @depth[position].sort! { |p1, p2| p1.overall.<=>(p2.overall) * -1 }
     end
+
+    @positions = POSITION_NAMES_IN_DEPTH_CHART.map { |name| Position.find_by_name(name) }
 
     @next_matches = Match.nexts(get_season_id)
 
