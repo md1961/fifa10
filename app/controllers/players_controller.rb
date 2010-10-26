@@ -348,8 +348,9 @@ class PlayersController < ApplicationController
   def roster_chart
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
+
+    @season_id = get_season_id(params)
     @players = players_of_team
-    @season_id = get_season_id
 
     @next_matches = Match.nexts(@season_id)
 

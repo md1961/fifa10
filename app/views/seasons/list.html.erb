@@ -6,7 +6,7 @@
     <li class="<%= season.closed? ? 'closed' : '' %>">
       <%= link_to season.name_and_years, :controller => 'matches', :action => 'list', :season_id => season %>
       <font size="-1">
-        <%= link_to 'Players', :controller => 'players', :action => 'list', :season_id => season %>
+        <%= link_to 'Players', :controller => 'players', :action => 'roster_chart', :season_id => season %>
         <%= nbsp %>
         <%= link_to 'Edit'   , :controller => 'seasons', :action => 'edit', :id => season, :chronicle_id => @chronicle_id %>
       </font>
