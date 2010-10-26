@@ -339,7 +339,7 @@ class PlayersController < ApplicationController
 
     @next_matches = Match.nexts(get_season_id)
 
-    @injury_list = session[:injury_list] || Array.new
+    @injury_list = get_injury_list
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Depth Chart"
@@ -356,7 +356,7 @@ class PlayersController < ApplicationController
 
     @num_starters, @num_in_bench = get_num_starters_and_in_bench
 
-    @injury_list = session[:injury_list] || Array.new
+    @injury_list = get_injury_list
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Roster Chart"
@@ -414,12 +414,11 @@ class PlayersController < ApplicationController
   end
 
   def pick_player_for_injury
-    injury_list = session[:injury_list]
-    injury_list = Array.new unless injury_list.kind_of?(Array)
+    injury_list = get_injury_list
 
     players = do_pick_players
     injury_list.concat(players.map(&:id))
-    session[:injury_list] = injury_list
+    set_injury_list(injury_list)
 
     redirect_to :action => params[:caller]
   end
@@ -438,22 +437,30 @@ class PlayersController < ApplicationController
     private :do_pick_players
 
   def undo_pick_from_injury
-    injury_list = session[:injury_list]
-    if injury_list && ! injury_list.empty?
+    injury_list = get_injury_list
+    unless injury_list.empty?
       injury_list.pop
-      session[:injury_list] = injury_list
+      set_injury_list(injury_list)
     end
 
     redirect_to :action => params[:caller]
   end
 
   def clear_injury_list
-    session[:injury_list] = Array.new
+    set_injury_list(Array.new)
 
     redirect_to :action => params[:caller]
   end
 
   private
+
+    def get_injury_list
+      return session[:injury_list] || Array.new
+    end
+
+    def set_injury_list(injury_list)
+      session[:injury_list] = injury_list
+    end
 
     ACTION_WITH = 'with'
     ACTION_TO   = 'to'
