@@ -467,10 +467,11 @@ class PlayersController < ApplicationController
       SimpleDB.instance.set(:injury_list, injury_list)
     end
 
-    ACTION_WITH = 'with'
-    ACTION_TO   = 'to'
-    ACTION_LOAN = 'loan'
-    LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN]
+    ACTION_WITH    = 'with'
+    ACTION_TO      = 'to'
+    ACTION_LOAN    = 'loan'
+    ACTION_RECOVER = 'recover'
+    LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_RECOVER]
 
     def update_roster(commands, players)
       player1, action, player2 = commands
@@ -483,6 +484,8 @@ class PlayersController < ApplicationController
             insert_player_order_before(player1, player2, players)
           when ACTION_LOAN
             loan_player(player2)
+          when ACTION_RECOVER
+            recover_from_injury(player2)
           else
             raise ActiveRecord::Rollback, "Unknown action '#{action}' in helper update_roster()"
           end
@@ -538,12 +541,22 @@ class PlayersController < ApplicationController
       player.set_on_loan(! on_loan, season_id)
     end
 
+    def recover_from_injury(player)
+      injury_list = get_injury_list
+      unless injury_list.include?(player.id)
+        explain_error("No such player in injury list", ["'#{player.name}' is not in injury list"], [])
+      else
+        injury_list.delete(player.id)
+        set_injury_list(injury_list)
+      end
+    end
+
     NORMAL_TERMS_SIZE = 3
 
     def parse_roster_edit_command(command, players)
       if command.blank?
         explain_error("", ["No command specified"], [])
-        return
+        return nil
       end
 
       title = "Command \"#{command}\" was illegal"
@@ -551,29 +564,32 @@ class PlayersController < ApplicationController
       terms.unshift('s1') if terms.size < NORMAL_TERMS_SIZE
       unless terms.size == NORMAL_TERMS_SIZE
         explain_error(title, ["Command must be \"p# to/with p#\" or \"loan p#\""], [])
-        return
+        return nil
       end
 
       action = complete_action(terms[1])
+      return nil unless action
       unless LEGAL_ACTIONS.include?(action)
         legal_actions = "'" + LEGAL_ACTIONS.join("', '") + "'"
         explain_error(title, ["Legal actions are #{legal_actions}"], [])
-        return
+        return nil
       end
 
       players = terms2players(terms, players, title)
-      return unless players
+      return nil unless players
       player1, player2 = players
 
       return [player1, action, player2]
-
-      # for debug 
-      msg = "#{player1.name} will be #{action=='to'?'inserted before':'exchanged with'} #{player2.name}"
-      explain_error(title+" Not", [msg], [])
     end
 
     def complete_action(action)
       candidates = LEGAL_ACTIONS.select { |a| a.starts_with?(action) }
+      if candidates.size >= 2
+        title = "Action \"#{action} is ambiguous"
+        msg   = "Cannot determine whether it is '#{candidates.join('\' or \'')}'"
+        explain_error(title, [msg], [])
+        return nil
+      end
       return candidates.size == 1 ? candidates[0] : action
     end
 
