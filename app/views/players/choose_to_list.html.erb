@@ -45,7 +45,7 @@
   <% ColumnFilter::PLAYER_PROPERTY_NAMES.each do |name| -%>
     <%= check_box :column_filter, name %>
     <label for='<%= "column_filter_#{name}" %>'>
-      <%= column_name2display(column_name2meaningful(name)) %>
+      <%= column_name2display(name) %>
     </label>
     <%= nbsp %>
   <% end -%>

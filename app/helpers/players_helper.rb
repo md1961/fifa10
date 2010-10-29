@@ -47,26 +47,6 @@ module PlayersHelper
     return attributes[index]
   end
 
-  def column_name2meaningful(column_name)
-    return \
-      case column_name.to_s
-      when 'position_id'
-        'position'
-      when 'is_right_dominant'
-        'foot'
-      when 'skill_move'
-        'skill_moves'
-      when 'both_feet_level'
-        'week_foot'
-      when 'birth_year'
-        'age'
-      when 'nation_id'
-        'nation'
-      else
-        column_name.to_s
-      end
-  end
-
   def displaying_player_attribute_names
     # [nil] to instruct to output <br />
     return \
@@ -103,7 +83,7 @@ module PlayersHelper
   end
 
   def options_for_attrs_and_props(attrs_and_props)
-    return attrs_and_props.map { |x| [column_name2meaningful(x).titleize, x.to_s] }
+    return attrs_and_props.map { |x| [column_name2display(x).titleize, x.to_s] }
   end
 
   def command_samples_for_roster_chart

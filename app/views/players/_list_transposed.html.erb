@@ -16,7 +16,7 @@
   <% next if column_names_not_to_display.include?(column_name) -%>
 
   <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
-    <td><%= column_name2display(column_name2meaningful(column_name)) %></td>
+    <td><%= column_name2display(column_name) %></td>
 
     <% @players.each do |player| -%>
       <% clazz = column_name == last_column_name ? 'rightmost_of_players' : ''

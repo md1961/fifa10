@@ -21,7 +21,7 @@
       <% if column_name == 'birth_year' -%>
         <%= action == :show ? "Age:" : "Birth Year (or Age):" %>
       <% else -%>
-        <%= column_name2display(column_name2meaningful(column_name)) + ":" + nbsp(2) %>
+        <%= column_name2display(column_name) + ":" + nbsp(2) %>
       <% end -%>
     </th>
     <td>
