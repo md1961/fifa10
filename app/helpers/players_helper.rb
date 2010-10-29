@@ -2,23 +2,23 @@ module PlayersHelper
 
   NO_MATCH = "(none)"
 
-  def next_matches_display
-    retval = "Next Match: #{@next_matches[0] || NO_MATCH}"
-    retval += <<-"END"
-      <font size='-1'>
-        <table>
-          <tr>
-            <td>Followed by:</td>
-            <td>#{@next_matches[1]}</td>
-          </tr>
-          <tr>
-            <td />
-            <td>#{@next_matches[2]}</td>
-          </tr>
-        </table>
-      </font>
+  def next_matches_display(next_matches)
+    return <<-END
+      <table>
+        <tr>
+          <td><span style="font-size: large">Next Match:</span></td>
+          <td><span style="font-size: x-large">#{next_matches[0] || NO_MATCH}</span></td>
+        </tr>
+        <tr>
+          <td>Followed by:</td>
+          <td>#{next_matches[1] || NO_MATCH}</td>
+        </tr>
+        <tr>
+          <td />
+          <td>#{next_matches[2] || NO_MATCH}</td>
+        </tr>
+      </table>
     END
-    return retval
   end
 
   def column_index(column_name)
