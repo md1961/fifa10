@@ -67,7 +67,8 @@ class Player < ActiveRecord::Base
       values = players.map(&:player_attribute).map do |attribute|
         attribute.send(:attributes)[name]
       end
-      map_values[name] = values.sort.reverse[order - 1]
+      top_values = values.sort.reverse[0, order] - [0, nil]
+      map_values[name] = top_values.reverse[0]
     end
 
     return map_values
