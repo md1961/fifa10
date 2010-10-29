@@ -102,6 +102,10 @@ module PlayersHelper
     return clazz
   end
 
+  def options_for_attrs_and_props(attrs_and_props)
+    return attrs_and_props.map { |x| [column_name2meaningful(x).titleize, x.to_s] }
+  end
+
   def command_samples_for_roster_chart
     return [
       "s9 with b2 : Exchange 'Starter 9' with 'Bench 2'",

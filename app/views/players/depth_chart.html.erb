@@ -12,6 +12,13 @@
 <%= next_matches_display(@next_matches) %>
 <br />
 
+<% form_tag :action => 'depth_chart' do -%>
+  <%= select_tag :attribute, options_for_select(options_for_attrs_and_props(@attrs), @attr.to_s) %>
+  <%= submit_tag 'select' %>
+<% end -%>
+
+<span>(): <%= ":#{@attr.inspect}:" %></span>
+
 <table id="table_depth_chart" class="table_base">
   <% @positions.each do |position| -%>
     <tr>
@@ -28,7 +35,7 @@
           <span class="<%= @injury_list.include?(player.id) ? 'injury_list' : '' %>">
             <%= player.name %>
             <span class="property">
-              <%= "(#{player.overall})" %>
+              <%= "(#{player.get(@attr)})" %>
             </span>
           </span>
           <%= "&nbsp;" if i < size - 1 %>

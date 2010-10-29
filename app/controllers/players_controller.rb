@@ -327,16 +327,23 @@ class PlayersController < ApplicationController
   end
 
   POSITION_NAMES_IN_DEPTH_CHART = %w(GK SW CB RB RWB LB LWB CDM CM CAM RM RW LM LW RF LF CF ST)
+  PROPERTY_NAMES_IN_DEPTH_CHART = [:overall, :skill_move, :is_right_dominant, :both_feet_level,
+                                   :height, :age]
+  DEFAULT_ATTRIBUTE_IN_DEPTH_CHART = :overall
 
   def depth_chart
     players = players_of_team(includes_on_loan=false)
+
+    @attr = params[:attribute] || DEFAULT_ATTRIBUTE_IN_DEPTH_CHART
+    @attrs = PROPERTY_NAMES_IN_DEPTH_CHART + ColumnFilter::FIELD_ATTRIBUTE_NAMES
+
     @depth = Hash.new { |hash, key| hash[key] = Array.new }
     Position.find(:all).each do |position|
       players_at_position = players.select { |player| player.positions.include?(position) }
       players_at_position.each do |player|
         @depth[position] << player
       end
-      @depth[position].sort! { |p1, p2| p1.overall.<=>(p2.overall) * -1 }
+      @depth[position].sort! { |p1, p2| (p1.get(@attr) <=> p2.get(@attr)) * -1 }
     end
 
     @positions = POSITION_NAMES_IN_DEPTH_CHART.map { |name| Position.find_by_name(name) }

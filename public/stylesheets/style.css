@@ -314,6 +314,10 @@
   padding: 1px 4px 1px;
 }
 
+#table_depth_chart tr:hover {
+  background-color: cyan;
+}
+
 #table_depth_chart td {
   font-weight: normal;
   padding: 1px 4px 1px;
