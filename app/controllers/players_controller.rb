@@ -42,12 +42,21 @@ class PlayersController < ApplicationController
     end
     private :get_season_id
 
+  PLAYER_ATTRIBUTE_ORDER =
+    [:acceleration, :quickness, :balance, :jump, :reaction, :speed, :stamina, :physical,
+     :positiveness, :positioning, :tactics, :vision,
+     :control, :cross, :curve, :dribble, :goalmaking, :fk_accuracy, :head_accuracy,
+     :long_pass, :long_shot, :mark, :pk, :short_pass, :shot_power, :sliding, :tackle, :volley,
+     :gk_dive, :gk_handling, :gk_kick, :gk_positioning, :gk_reaction]
+
   def show
     row_filter = get_row_filter
     players = row_filter.displaying_players
     players = players_of_team if params[:browses_all_players]
     @player = Player.find(params[:id])
     @prev_player, @next_player = prev_and_next_players(@player, players)
+
+    @player_attribute_order = PLAYER_ATTRIBUTE_ORDER.map(&:to_s)
 
     @page_title_size = 3
     @page_title = "#{@player.number} #{@player.last_name_first_name}"
@@ -59,6 +68,8 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:id])
     @is_from_list = params[:is_from_list] == '1'
     @prev_player, @next_player = prev_and_next_players(@player, players)
+
+    @player_attribute_order = PLAYER_ATTRIBUTE_ORDER.map(&:to_s)
 
     @page_title_size = 3
     @page_title = "Editing #{@player.last_name_first_name} ..."
@@ -104,6 +115,8 @@ class PlayersController < ApplicationController
     season_id = get_season_id
     season = Season.find(season_id)
     @player.nation = season.team if season.national_team?
+
+    @player_attribute_order = PLAYER_ATTRIBUTE_ORDER.map(&:to_s)
 
     prepare_page_title_for_new
   end

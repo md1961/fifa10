@@ -1,18 +1,17 @@
 
 <% @player_attribute = @player.player_attribute -%>
 
-<% PlayerAttribute.content_columns[index_start, size_attributes].each do |column| -%>
-  <% name = column.name.to_s -%>
+<% @player_attribute_order[index_start, size_attributes].each do |attr_name| -%>
   <tr>
     <th>
-      <%= column_name2display(name) + ":" + nbsp(2) %>
+      <%= column_name2display(attr_name) + ":" + nbsp(2) %>
     </th>
     <td align="<%= action == :show ? 'right' : 'left' %>">
       <% case action
          when :show -%>
-        <%= @player_attribute.send(:attributes)[name] %>
+        <%= @player_attribute.send(:attributes)[attr_name] %>
       <% when :edit -%>
-        <%= text_field :player_attribute, name, {:size => 4} %>
+        <%= text_field :player_attribute, attr_name, {:size => 4} %>
       <% end -%>
     </td>
   </tr>
