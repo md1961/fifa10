@@ -1,21 +1,29 @@
 module PlayersHelper
 
-  NO_MATCH = "(none)"
+  NO_MATCH_DISPLAY = "(none)"
 
   def next_matches_display(next_matches)
+    next1, next2, next3 = next_matches
+    format = "(%s day rest)"
+    rest1 = next1 && next2 ? format % (next2.date_match - next1.date_match - 1) : ""
+    rest2 = next2 && next3 ? format % (next3.date_match - next2.date_match - 1) : ""
     return <<-END
       <table>
         <tr>
           <td><span style="font-size: large">Next Match:</span></td>
-          <td><span style="font-size: x-large">#{next_matches[0] || NO_MATCH}</span></td>
+          <td colspan="2"><span style="font-size: x-large">
+            #{next1 || NO_MATCH_DISPLAY}
+          </span></td>
         </tr>
         <tr>
           <td>Followed by:</td>
-          <td>#{next_matches[1] || NO_MATCH}</td>
+          <td>#{rest1}</td>
+          <td>#{next2 || NO_MATCH_DISPLAY}</td>
         </tr>
         <tr>
           <td />
-          <td>#{next_matches[2] || NO_MATCH}</td>
+          <td>#{rest2}</td>
+          <td>#{next3 || NO_MATCH_DISPLAY}</td>
         </tr>
       </table>
     END

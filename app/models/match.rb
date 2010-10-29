@@ -92,7 +92,7 @@ class Match < ActiveRecord::Base
     series_full  = series.abbr
     series_full += " #{subname}" unless subname.blank?
     ground = Hash[*GROUNDS.map { |x, y| [y, x] }.flatten][self.ground]
-    s  = "#{date_match} [#{series_full}] vs #{opponent.name} (#{ground})"
+    s  = "#{date_match} #{date_match.strftime("%a.")} [#{series_full}] vs #{opponent.name} (#{ground})"
     s += " #{scores_own}-#{scores_opp}" if scores_own
     return s
   end
