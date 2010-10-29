@@ -1,32 +1,40 @@
 module PlayersHelper
 
+  NUM_NEXT_MATCHES_DISPLAY = 4
   NO_MATCH_DISPLAY = "(none)"
 
   def next_matches_display(next_matches)
-    next1, next2, next3 = next_matches
-    format = "(%s day rest)"
-    rest1 = next1 && next2 ? format % (next2.date_match - next1.date_match - 1) : ""
-    rest2 = next2 && next3 ? format % (next3.date_match - next2.date_match - 1) : ""
-    return <<-END
+    nexts = next_matches
+
+    format_rest = "(%s day rest)"
+    rests = Array.new
+    1.upto(NUM_NEXT_MATCHES_DISPLAY - 1) do |i|
+      rests[i] = format_rest % (nexts[2].date_match - nexts[1].date_match - 1) if nexts[1] && nexts[2]
+    end
+
+    retval = <<-END
       <table>
         <tr>
           <td><span style="font-size: large">Next Match:</span></td>
           <td colspan="2"><span style="font-size: x-large">
-            #{next1 || NO_MATCH_DISPLAY}
+            #{nexts[0] || NO_MATCH_DISPLAY}
           </span></td>
         </tr>
+    END
+    1.upto(NUM_NEXT_MATCHES_DISPLAY - 1) do |i|
+      retval += <<-END
         <tr>
-          <td>Followed by:</td>
-          <td>#{rest1}</td>
-          <td>#{next2 || NO_MATCH_DISPLAY}</td>
+          <td>#{i == 1 ? "Followed by:" : ""}</td>
+          <td>#{rests[i]}</td>
+          <td>#{nexts[i] || NO_MATCH_DISPLAY}</td>
         </tr>
-        <tr>
-          <td />
-          <td>#{rest2}</td>
-          <td>#{next3 || NO_MATCH_DISPLAY}</td>
-        </tr>
+      END
+    end
+    retval += <<-END
       </table>
     END
+
+    return retval
   end
 
   def column_index(column_name)
