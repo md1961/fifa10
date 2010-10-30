@@ -440,7 +440,7 @@ class PlayersController < ApplicationController
   def pick_player_for_injury
     injury_list = get_injury_list
 
-    players = do_pick_players
+    players = do_pick_players(injury_list)
     injury_list.concat(players.map(&:id))
     set_injury_list(injury_list)
 
@@ -449,8 +449,10 @@ class PlayersController < ApplicationController
 
     MAX_NUMBER_OF_PLAYERS_TO_PICK = 5
 
-    def do_pick_players
+    def do_pick_players(injury_list)
       players = players_of_team(includes_loan=false)
+      players.reject! { |player| injury_list.include?(player.id) }
+
       num = rand(MAX_NUMBER_OF_PLAYERS_TO_PICK) + 1
       picks = Array.new
       num.times do
