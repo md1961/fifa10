@@ -6,10 +6,10 @@ module PlayersHelper
   def next_matches_display(next_matches)
     nexts = next_matches
 
-    format_rest = "(%s day rest)"
+    format_rest = "(%d day rest)"
     rests = Array.new
     1.upto(NUM_NEXT_MATCHES_DISPLAY - 1) do |i|
-      rests[i] = format_rest % (nexts[2].date_match - nexts[1].date_match - 1) if nexts[1] && nexts[2]
+      rests[i] = format_rest % (nexts[i + 1].date_match - nexts[i].date_match - 1) if nexts[i] && nexts[i + 1]
     end
 
     retval = <<-END
