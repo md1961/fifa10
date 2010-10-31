@@ -9,7 +9,7 @@ module PlayersHelper
     format_rest = "(%d day rest)"
     rests = Array.new
     1.upto(NUM_NEXT_MATCHES_DISPLAY - 1) do |i|
-      rests[i] = format_rest % (nexts[i + 1].date_match - nexts[i].date_match - 1) if nexts[i] && nexts[i + 1]
+      rests[i] = format_rest % (nexts[i].date_match - nexts[i - 1].date_match - 1) if nexts[i - 1] && nexts[i]
     end
 
     retval = <<-END
