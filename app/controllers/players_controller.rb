@@ -492,8 +492,9 @@ class PlayersController < ApplicationController
     ACTION_WITH    = 'with'
     ACTION_TO      = 'to'
     ACTION_LOAN    = 'loan'
+    ACTION_INJURE  = 'injure'
     ACTION_RECOVER = 'recover'
-    LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_RECOVER]
+    LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER]
 
     def update_roster(commands, players)
       player1, action, player2 = commands
@@ -506,6 +507,8 @@ class PlayersController < ApplicationController
             insert_player_order_before(player1, player2, players)
           when ACTION_LOAN
             loan_player(player2)
+          when ACTION_INJURE
+            put_into_injury(player2)
           when ACTION_RECOVER
             recover_from_injury(player2)
           else
@@ -561,6 +564,16 @@ class PlayersController < ApplicationController
       season_id = get_season_id(params)
       on_loan = player.on_loan?(season_id)
       player.set_on_loan(! on_loan, season_id)
+    end
+
+    def put_into_injury(player)
+      injury_list = get_injury_list
+      if injury_list.include?(player.id)
+        explain_error("Player already in injury list", ["'#{player.name}' is already in injury list"], [])
+      else
+        injury_list << player.id
+        set_injury_list(injury_list)
+      end
     end
 
     def recover_from_injury(player)

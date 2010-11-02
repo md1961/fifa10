@@ -99,6 +99,7 @@ module PlayersHelper
       "s9 with b2 : Exchange 'Starter 9' with 'Bench 2'",
       "r21 to r13 : Insert 'Reserve 21' before 'Reserve 13'",
       "loan r15   : Loan/Back from loan 'Reserve 15'",
+      "injure s10 : Put 'Starter 10' into injury list",
       "recover s7 : Recover 'Starter 7' from injury list",
     ].join('<br />')
   end
