@@ -9,12 +9,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100515134747) do
+ActiveRecord::Schema.define(:version => 20101102204814) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
     t.boolean "closed", :default => false
   end
+
+  create_table "formations", :force => true do |t|
+    t.string  "name",          :default => "", :null => false
+    t.string  "note"
+    t.integer "position01_id",                 :null => false
+    t.integer "position02_id",                 :null => false
+    t.integer "position03_id",                 :null => false
+    t.integer "position04_id",                 :null => false
+    t.integer "position05_id",                 :null => false
+    t.integer "position06_id",                 :null => false
+    t.integer "position07_id",                 :null => false
+    t.integer "position08_id",                 :null => false
+    t.integer "position09_id",                 :null => false
+    t.integer "position10_id",                 :null => false
+    t.integer "position11_id",                 :null => false
+  end
+
+  add_index "formations", ["name"], :name => "index_formations_on_name", :unique => true
 
   create_table "matches", :force => true do |t|
     t.date    "date_match"
