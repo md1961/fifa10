@@ -374,6 +374,7 @@ class PlayersController < ApplicationController
     session[:error_explanation] = nil
 
     @season_id = get_season_id(params)
+    @season = Season.find(@season_id)
     @players = players_of_team
 
     @next_matches = Match.nexts(@season_id)
@@ -396,6 +397,14 @@ class PlayersController < ApplicationController
     players = players_of_team
     commands = parse_roster_edit_command(params[:command], players)
     update_roster(commands, players) if commands
+
+    redirect_to :action => 'roster_chart'
+  end
+
+  def apply_formation
+    season = Season.find(get_season_id(params))
+    season.formation_id = params[:id]
+    season.save!
 
     redirect_to :action => 'roster_chart'
   end

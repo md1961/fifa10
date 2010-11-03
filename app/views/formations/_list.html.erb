@@ -6,7 +6,7 @@
     <th>Name</th>
     <th colspan="11" />
     <% if shows_link -%>
-      <th />
+      <th colspan="2" />
     <% end -%>
   </tr>
 
@@ -21,7 +21,8 @@
       <% end -%>
 
       <% if shows_link -%>
-        <td><%= link_to 'Edit', :action => 'edit', :id => formation %></td>
+        <td><%= link_to 'Edit'  , :action => 'edit', :id => formation %></td>
+        <td><%= link_to 'Apply' , :controller => 'players', :action => 'apply_formation', :id => formation %></td>
       <% end -%>
     </tr>
   <% end -%>

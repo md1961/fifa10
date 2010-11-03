@@ -26,7 +26,10 @@
 <div id="top_of_tables_roster_chart">
   <%= next_matches_display(@next_matches) %>
   <br />
-  <%= "Total of #{@players.size} players (#{@injury_list.size} player(s) in Injury List)" %>
+  <% size_inj = @injury_list.size -%>
+  <%= "Total of #{@players.size} players (#{size_inj} player#{size_inj > 1 ? 's' : ''} in Injury List)" %>
+  <br />
+  <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
 </div>
 
 <table id="table_starters" class="table_base tables_roster_chart">
