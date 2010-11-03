@@ -1,0 +1,20 @@
+
+<table class="table_base">
+  <tr>
+    <th>Name</th>
+    <th colspan="11" />
+  </tr>
+
+  <% @formations.each do |formation| -%>
+    <tr>
+      <td><%= formation.name %></td>
+      <% 1.upto(11) do |index| -%>
+        <% position = formation.position(index) -%>
+        <td style="background-color: <%= position.color %>;">
+          <%= position.name %>
+        </td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+
