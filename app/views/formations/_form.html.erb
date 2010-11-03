@@ -1,4 +1,8 @@
 
+<%= render :partial => 'list' %>
+<br />
+<br />
+
 <%= error_messages_for :formation %>
 
 <% form_for :formation, :url => {:action => action, :id => @formation} do |f| -%>
@@ -14,6 +18,7 @@
     <% name = Formation.position_column_name(index) -%>
     <label for="formation_<%= name %>"><%= "%02d" % index %></label>
     <% if index == 1 -%>
+      <%= f.hidden_field name %>
       <% position = Position.find(@formation[name]) %>
       <span style="background-color: <%= position.color %>;">
         <%= position.name %>

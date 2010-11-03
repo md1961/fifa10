@@ -1,11 +1,16 @@
 class FormationsController < ApplicationController
 
   def list
-    @formations = Formation.find(:all, :order => "name")
+    @formations = all_formations
 
-    @page_title_size = 2
+    @page_title_size = 3
     @page_title = "Formations"
   end
+
+    def all_formations
+      return Formation.find(:all, :order => "name")
+    end
+    private :all_formations
 
   DEFAULT_POSITIONS = %w(GK RB CB CB LB RM CM CM LM RF LF)
 
@@ -18,6 +23,7 @@ class FormationsController < ApplicationController
     end
 
     @formation = Formation.new(hash_args)
+    @formations = all_formations
 
     prepare_page_title_for_new
   end
@@ -40,6 +46,7 @@ class FormationsController < ApplicationController
 
   def edit
     @formation = Formation.find(params[:id])
+    @formations = all_formations
 
     prepare_page_title_for_edit
   end

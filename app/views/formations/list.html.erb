@@ -5,25 +5,5 @@
   <%= link_to 'New Formation', :action => 'new' %>
 </p>
 
-<table class="table_base">
-  <tr>
-    <th>Name</th>
-    <th colspan="11" />
-    <th />
-  </tr>
-
-  <% @formations.each do |formation| -%>
-    <tr>
-      <td><%= formation.name %></td>
-      <% 1.upto(11) do |index| -%>
-        <% position = formation.position(index) -%>
-        <td style="background-color: <%= position.color %>;">
-          <%= position.name %>
-        </td>
-      <% end -%>
-
-      <td><%= link_to 'Edit', :action => 'edit', :id => formation %></td>
-    </tr>
-  <% end -%>
-</table>
+<%= render :partial => 'list', :locals => {:shows_link => true} %>
 
