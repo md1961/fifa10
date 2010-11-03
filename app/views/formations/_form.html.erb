@@ -13,7 +13,14 @@
   <% 1.upto(11) do |index| -%>
     <% name = Formation.position_column_name(index) -%>
     <label for="formation_<%= name %>"><%= "%02d" % index %></label>
-    <%= f.collection_select name, Position.find(:all), :id, :name %>
+    <% if index == 1 -%>
+      <% position = Position.find(@formation[name]) %>
+      <span style="background-color: <%= position.color %>;">
+        <%= position.name %>
+      </span>
+    <% else -%>
+      <%= f.collection_select name, Position.find(:all), :id, :name %>
+    <% end -%>
     <br />
   <% end -%>
 
