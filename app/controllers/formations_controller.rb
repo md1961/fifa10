@@ -37,4 +37,27 @@ class FormationsController < ApplicationController
       render :action => 'new'
     end
   end
+
+  def edit
+    @formation = Formation.find(params[:id])
+
+    prepare_page_title_for_edit
+  end
+
+    def prepare_page_title_for_edit
+      @page_title_size = 3
+      @page_title = "Editing Formation #{@formation.name}"
+    end
+    private :prepare_page_title_for_edit
+
+  def update
+    @formation = Formation.find(params[:id])
+    if @formation.update_attributes(params[:formation])
+      redirect_to :action => 'list'
+    else
+      prepare_page_title_for_edit
+      render :action => 'edit'
+    end
+  end
 end
+

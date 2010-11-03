@@ -1,5 +1,7 @@
 class Formation < ActiveRecord::Base
 
+  validates_uniqueness_of :name
+
   def self.position_column_name(index)
     return "position%02d_id" % index
   end

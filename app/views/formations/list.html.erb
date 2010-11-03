@@ -9,6 +9,7 @@
   <tr>
     <th>Name</th>
     <th colspan="11" />
+    <th />
   </tr>
 
   <% @formations.each do |formation| -%>
@@ -20,6 +21,8 @@
           <%= position.name %>
         </td>
       <% end -%>
+
+      <td><%= link_to 'Edit', :action => 'edit', :id => formation %></td>
     </tr>
   <% end -%>
 </table>
