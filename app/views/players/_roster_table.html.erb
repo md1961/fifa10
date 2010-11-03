@@ -1,6 +1,8 @@
 
-<% kind = caption.at(0).downcase
-   kind = 'r' if kind == '&' -%>
+<%
+  kind = caption.at(0).downcase
+  kind = 'r' if kind == '&'
+-%>
 
 <caption><%= caption %></caption>
 
@@ -10,6 +12,12 @@
              : @injury_list.include?(player.id) ? 'injury_list' \
                                                 : '' -%>
     <tr class="<%= clazz %>">
+      <% if kind == 's' -%>
+        <% position = @formation.position(index + 1) -%>
+        <td style="background-color: <%= position.color %>; text-align: center">
+          <%= position.name %>
+        </td>
+      <% end -%>
       <td class="index_number">
         <% label = "#{kind}#{index + index_offset + 1}" -%>
         <%= link_to label, :action => 'show', :id => player, :browses_all_players => 1 %>

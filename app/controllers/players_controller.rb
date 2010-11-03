@@ -375,6 +375,8 @@ class PlayersController < ApplicationController
 
     @season_id = get_season_id(params)
     @season = Season.find(@season_id)
+    @formation = @season.formation
+
     @players = players_of_team
 
     @next_matches = Match.nexts(@season_id)
