@@ -354,10 +354,15 @@
   margin-right: 10px;
 }
 
+.lineup {
+  background: bisque;
+}
+
 .tables_roster_chart {
   font-size: medium;
   border: 1px black solid;
   margin-bottom: 10px;
+  background: white;
 }
 
 .tables_roster_chart th {

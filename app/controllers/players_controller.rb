@@ -370,6 +370,8 @@ class PlayersController < ApplicationController
   end
 
   def roster_chart
+    @is_lineup = params[:is_lineup] == '1'
+
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
 
@@ -595,6 +597,17 @@ class PlayersController < ApplicationController
         injury_list.delete(player.id)
         set_injury_list(injury_list)
       end
+    end
+
+    def copy_to_lineup(players)
+      season_id = get_season_id(params)
+
+      map_lineup = Hash.new
+      players.each do |player|
+        map_lineup[player.id] = player.order_number(season_id)
+      end
+
+      SimpleDB.instance.set(:map_lineup, map_lineup)
     end
 
     NORMAL_TERMS_SIZE = 3

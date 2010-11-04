@@ -1,4 +1,6 @@
 
+<div class="<%= @is_lineup ? 'lineup' : '' %>">
+
 <%
   num_players_in_first_table_reserves = 10
 -%>
@@ -21,6 +23,9 @@
   </font>
   <%= nbsp(4) %>
   <%= link_to 'Formation List', :controller => 'formations', :action => 'list' %>
+  <%= nbsp(4) %>
+  <% label, next_is_lineup = @is_lineup ? ["Show Roster", 0] : ["Show Lineup", 1] -%>
+  <%= link_to label, :action => 'roster_chart', :is_lineup => next_is_lineup %>
 </p>
 
 <div id="top_of_tables_roster_chart">
@@ -82,5 +87,7 @@
   Command Samples:
   <br />
   <%= command_samples_for_roster_chart %>
+</div>
+
 </div>
 

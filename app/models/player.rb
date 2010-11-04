@@ -45,12 +45,16 @@ class Player < ActiveRecord::Base
   #TODO: Quit using @@current_year and correct age()
   @@current_year = Constant.get(:default_current_year)
 
-  def self.list(season_id, includes_on_loan=true)
+  def self.list(season_id, includes_on_loan=true, for_lineup=false)
     season = Season.find(season_id)
     @@current_year = season.year_start
+
     players = season.players
     players = players.select { |player| ! player.on_loan?(season_id) } unless includes_on_loan
+
+    season_id = 0 if for_lineup
     players.sort! { |p1, p2| p1.order_number(season_id).<=>(p2.order_number(season_id)) }
+
     return players
   end
 
@@ -90,6 +94,10 @@ class Player < ActiveRecord::Base
   end
 
   def order_number(season_id)
+    if season_id == 0
+      return SimpleDB.instance.get(:map_lineup)[id]
+    end
+
     player_season = player_seasons.find_by_season_id(season_id)
     return player_season ? player_season.order_number : nil
   end
@@ -106,6 +114,12 @@ class Player < ActiveRecord::Base
   end
 
   def set_order_number(number, season_id)
+    if season_id == 0
+      map_lineup = SimpleDB.instance.get(:map_lineup)
+      map_lineup[id] = number
+      SimpleDB.instance.set(:map_lineup, map_lineup)
+    end
+
     player_season = player_seasons.find_by_season_id(season_id)
     if player_season
       player_season.order_number = number
