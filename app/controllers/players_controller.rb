@@ -379,7 +379,11 @@ class PlayersController < ApplicationController
     @season = Season.find(@season_id)
     @formation = @season.formation
 
+    SimpleDB.instance.async
+
     @players = players_of_team(includes_on_loan=true, for_lineup=@is_lineup)
+
+    SimpleDB.instance.sync
 
     @next_matches = Match.nexts(@season_id)
 
@@ -400,9 +404,13 @@ class PlayersController < ApplicationController
   def edit_roster
     is_lineup = params[:is_lineup] == '1'
 
+    SimpleDB.instance.async
+
     players = players_of_team(includes_on_loan=true, for_lineup=is_lineup)
     commands = parse_roster_edit_command(params[:command], players)
     update_roster(commands, players, is_lineup) if commands
+
+    SimpleDB.instance.sync
 
     redirect_to :action => 'roster_chart', :is_lineup => is_lineup ? 1 : 0
   end

@@ -10,6 +10,21 @@ class SimpleDB
     @db = YAML::Store.new(YML_FILENAME)
   end
 
+  def async
+    return unless @db.kind_of?(YAML::Store)
+    @db = YAML.load_file(YML_FILENAME)
+    def @db.transaction
+      yield
+    end
+  end
+
+  def sync
+    return if @db.kind_of?(YAML::Store)
+    open(YML_FILENAME, 'w') do |fd|
+      YAML.dump(@db, fd)
+    end
+  end
+
   def get(key)
     @db.transaction do
       @db[key]
