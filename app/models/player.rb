@@ -118,6 +118,7 @@ class Player < ActiveRecord::Base
       map_lineup = SimpleDB.instance.get(:map_lineup)
       map_lineup[id] = number
       SimpleDB.instance.set(:map_lineup, map_lineup)
+      return
     end
 
     player_season = player_seasons.find_by_season_id(season_id)

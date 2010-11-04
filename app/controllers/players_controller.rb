@@ -379,7 +379,7 @@ class PlayersController < ApplicationController
     @season = Season.find(@season_id)
     @formation = @season.formation
 
-    @players = players_of_team
+    @players = players_of_team(includes_on_loan=true, for_lineup=@is_lineup)
 
     @next_matches = Match.nexts(@season_id)
 
@@ -398,11 +398,13 @@ class PlayersController < ApplicationController
     end
 
   def edit_roster
-    players = players_of_team
-    commands = parse_roster_edit_command(params[:command], players)
-    update_roster(commands, players) if commands
+    is_lineup = params[:is_lineup] == '1'
 
-    redirect_to :action => 'roster_chart'
+    players = players_of_team(includes_on_loan=true, for_lineup=is_lineup)
+    commands = parse_roster_edit_command(params[:command], players)
+    update_roster(commands, players, is_lineup) if commands
+
+    redirect_to :action => 'roster_chart', :is_lineup => is_lineup ? 1 : 0
   end
 
   def apply_formation
@@ -509,15 +511,20 @@ class PlayersController < ApplicationController
     ACTION_RECOVER = 'recover'
     LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER]
 
-    def update_roster(commands, players)
+    def update_roster(commands, players, is_lineup)
       player1, action, player2 = commands
+      if action == ACTION_LOAN && is_lineup
+        explain_error("Illegal command", ["loan command not allowed in lineup"], [])
+        return
+      end
+
       begin
         Player.transaction do
           case action
           when ACTION_WITH
-            exchange_player_order(player1, player2)
+            exchange_player_order(player1, player2, is_lineup)
           when ACTION_TO
-            insert_player_order_before(player1, player2, players)
+            insert_player_order_before(player1, player2, players, is_lineup)
           when ACTION_LOAN
             loan_player(player2)
           when ACTION_INJURE
@@ -533,19 +540,19 @@ class PlayersController < ApplicationController
       end
     end
 
-    def exchange_player_order(player1, player2)
-      season_id = get_season_id(params)
+    def exchange_player_order(player1, player2, is_lineup)
+      season_id = is_lineup ? 0 : get_season_id(params)
       n1 = player1.order_number(season_id)
       n2 = player2.order_number(season_id)
       player1.set_order_number(999999, season_id)
-      player1.save!
+      player1.save! unless is_lineup
       player2.set_order_number(n1, season_id)
-      player2.save!
+      player2.save! unless is_lineup
       player1.set_order_number(n2, season_id)
-      player1.save!
+      player1.save! unless is_lineup
     end
 
-    def insert_player_order_before(player1, player2, players)
+    def insert_player_order_before(player1, player2, players, is_lineup)
       index1 = players.index(player1)
       index2 = players.index(player2)
       return if index1 == index2
@@ -556,21 +563,21 @@ class PlayersController < ApplicationController
         raise ActiveRecord::Rollback, "Cannot find Player '#{names.join("', '")}' in 'players'"
       end
 
-      season_id = get_season_id(params)
+      season_id = is_lineup ? 0 : get_season_id(params)
       player1 = players[index1]
       n_prev = player1.order_number(season_id)
       player1.set_order_number(999999, season_id)
-      player1.save!
+      player1.save! unless is_lineup
       step = sgn(index2 - index1)
       (index1 + step).step(index2, step) do |index|
         player = players[index]
         n = player.order_number(season_id)
         player.set_order_number(n_prev, season_id)
-        player.save!
+        player.save! unless is_lineup
         n_prev = n
       end
       player1.set_order_number(n_prev, season_id)
-      player1.save!
+      player1.save! unless is_lineup
     end
 
     def loan_player(player)
@@ -773,10 +780,14 @@ class PlayersController < ApplicationController
       return column_filter
     end
 
-    def players_of_team(includes_on_loan=true)
+    def players_of_team(includes_on_loan=true, for_lineup=false)
       season_id = session[:season_id]
       raise "no 'season_id' in session (#{session.inspect})" unless season_id
-      return Player.list(season_id, includes_on_loan)
+      players = Player.list(season_id, includes_on_loan, for_lineup)
+
+      copy_to_lineup(players) unless for_lineup
+
+      return players
     end
 
     def prev_and_next_players(player, players)
