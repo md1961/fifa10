@@ -372,6 +372,10 @@
   font-weight: bold;
 }
 
+.tables_roster_chart .out_of_position {
+  background-color: lightgrey;
+}
+
 .tables_roster_chart caption {
   font-weight: normal;
   text-align: left;

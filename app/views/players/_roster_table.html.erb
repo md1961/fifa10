@@ -14,7 +14,8 @@
     <tr class="<%= clazz %>">
       <% if kind == 's' -%>
         <% position = @formation.position(index + 1) -%>
-        <td style="background-color: <%= position.color %>; text-align: center">
+        <td style="background-color: <%= position.color %>;
+                   text-align: center; font-size: small; font-weight: bold;">
           <%= position.name %>
         </td>
       <% end -%>
@@ -22,7 +23,8 @@
         <% label = "#{kind}#{index + index_offset + 1}" -%>
         <%= link_to label, :action => 'show', :id => player, :browses_all_players => 1 %>
       </td>
-      <td class="name">
+      <% clazz = kind != 's' || player.positions.include?(position) ? "" : "out_of_position" -%>
+      <td class="name <%= clazz %>">
         <%= player.name %>
       </td>
       <td>
