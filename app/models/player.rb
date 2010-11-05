@@ -148,13 +148,18 @@ class Player < ActiveRecord::Base
 
     def self.pick_up_best_substitiute(position, players_from)
       players = players_from.sort_by { |player| player.overall }.reverse
-      player = players.find { |player| player.position == position }
+
+      is_the_position    = proc { |player| player.position == position }
+      has_the_position   = proc { |player| player.sub_positions.include?(position) } 
+      is_pos_in_same_cat = proc { |player| player.position.in_same_category?(position) }
+
+      player = players.find &is_the_position
       return player if player
-      player = players.find { |player| player.sub_positions.include?(position) && player.position.in_same_category?(position) }
+      player = (players.select &has_the_position).find &is_pos_in_same_cat
       return player if player
-      player = players.find { |player| player.sub_positions.include?(position) }
+      player = players.find &has_the_position
       return player if player
-      player = players.find { |player| player.position.in_same_category?(position) }
+      player = players.find &is_pos_in_same_cat
       return player
     end
     private_class_method :pick_up_best_substitiute
