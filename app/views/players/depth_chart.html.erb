@@ -1,4 +1,6 @@
 
+<div class="<%= @is_lineup ? 'lineup' : '' %>">
+
 <p>
   <%= link_to 'Fixtures/Results', :controller => 'matches', :action => 'list' %>
   <%= nbsp(4) %>
@@ -42,4 +44,6 @@
     </tr>
   <% end -%>
 </table>
+
+</div>
 
