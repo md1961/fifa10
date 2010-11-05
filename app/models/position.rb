@@ -19,6 +19,14 @@ class Position < ActiveRecord::Base
     'Forward'    => 'skyblue',
   }
 
+  def in_same_category?(other)
+    unless other.kind_of?(Position)
+      raise ArgumentError, "Argument other must be a Position (#{other.class} given)"
+    end
+
+    return self.category == other.category
+  end
+
   def color
     return CATEGORY_COLOR[category]
   end

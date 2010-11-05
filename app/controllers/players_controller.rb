@@ -345,7 +345,13 @@ class PlayersController < ApplicationController
   DEFAULT_ATTRIBUTE_IN_DEPTH_CHART = :overall
 
   def depth_chart
-    players = players_of_team(includes_on_loan=false)
+    @is_lineup = params[:is_lineup] == '1'
+
+    SimpleDB.instance.async
+
+    players = players_of_team(includes_on_loan=false, for_lineup=@is_lineup)
+
+    SimpleDB.instance.sync
 
     @attr = params[:attribute] || DEFAULT_ATTRIBUTE_IN_DEPTH_CHART
     @attrs = PROPERTY_NAMES_IN_DEPTH_CHART + ColumnFilter::FIELD_ATTRIBUTE_NAMES
@@ -371,6 +377,8 @@ class PlayersController < ApplicationController
 
   def roster_chart
     @is_lineup = params[:is_lineup] == '1'
+    @is_lineup = session[:is_lineup] unless params[:is_lineup]
+    session[:is_lineup] = @is_lineup
 
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
@@ -413,6 +421,28 @@ class PlayersController < ApplicationController
     SimpleDB.instance.sync
 
     redirect_to :action => 'roster_chart', :is_lineup => is_lineup ? 1 : 0
+  end
+
+  def revise_lineup
+    season = Season.find(get_season_id(params))
+    formation = season.formation
+    injury_list = get_injury_list
+
+    SimpleDB.instance.async
+
+    players = players_of_team(includes_on_loan=false, for_lineup=true)
+    0.upto(10) do |index|
+      player = players[index]
+      next unless injury_list.include?(player.id)
+      position = formation.position(index + 1)
+
+      player_sub = Player.player_available_with_max_overall(position, injury_list, season.id)
+      exchange_player_order(player, player_sub, is_lineup=true) if player_sub
+    end
+
+    SimpleDB.instance.sync
+
+    redirect_to :action => 'roster_chart', :is_lineup => 1
   end
 
   def apply_formation
@@ -467,7 +497,7 @@ class PlayersController < ApplicationController
     injury_list.concat(players.map(&:id))
     set_injury_list(injury_list)
 
-    redirect_to :action => params[:caller]
+    redirect_to :action => params[:caller], :is_lineup => params[:is_lineup]
   end
 
     MAX_NUMBER_OF_PLAYERS_TO_PICK = 5
@@ -492,13 +522,13 @@ class PlayersController < ApplicationController
       set_injury_list(injury_list)
     end
 
-    redirect_to :action => params[:caller]
+    redirect_to :action => params[:caller], :is_lineup => params[:is_lineup]
   end
 
   def clear_injury_list
     set_injury_list(Array.new)
 
-    redirect_to :action => params[:caller]
+    redirect_to :action => params[:caller], :is_lineup => params[:is_lineup]
   end
 
   private

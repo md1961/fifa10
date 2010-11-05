@@ -140,6 +140,25 @@ class Player < ActiveRecord::Base
     player_season.destroy
   end
 
+  def self.player_available_with_max_overall(position, injury_list, season_id)
+    players = list(season_id, includes_on_loan=false, for_lineup=true)
+    players = players[11 .. -1].reject { |player| injury_list.include?(player.id) }
+    return pick_up_best_substitiute(position, players)
+  end
+
+    def self.pick_up_best_substitiute(position, players_from)
+      players = players_from.sort_by { |player| player.overall }.reverse
+      player = players.find { |player| player.position == position }
+      return player if player
+      player = players.find { |player| player.sub_positions.include?(position) && player.position.in_same_category?(position) }
+      return player if player
+      player = players.find { |player| player.sub_positions.include?(position) }
+      return player if player
+      player = players.find { |player| player.position.in_same_category?(position) }
+      return player
+    end
+    private_class_method :pick_up_best_substitiute
+
   def get(name)
     name = name.to_s
     return 0 if name == 'none'
