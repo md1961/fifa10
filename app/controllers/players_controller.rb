@@ -428,18 +428,25 @@ class PlayersController < ApplicationController
     formation = season.formation
     injury_list = get_injury_list
 
-    SimpleDB.instance.async
+    num_starters = Constant.get(:num_starters)
+    num_in_bench = Constant.get(:num_in_bench)
 
-    players = players_of_team(includes_on_loan=false, for_lineup=true)
-    0.upto(10) do |index|
+    replace_one_player = Proc.new { |index|
+      players = players_of_team(includes_on_loan=false, for_lineup=true)
       player = players[index]
       next unless injury_list.include?(player.id)
-      position = formation.position(index + 1)
+      position = index < num_starters ? formation.position(index + 1) : player.position
 
       player_sub = Player.player_available_with_max_overall(position, injury_list, season.id)
       exchange_player_order(player, player_sub, is_lineup=true) if player_sub
-    end
+    }
 
+    SimpleDB.instance.async
+      num_starters.times { |index| replace_one_player.call(index) }
+    SimpleDB.instance.sync
+
+    SimpleDB.instance.async
+      num_starters.upto(num_starters + num_in_bench) { |index| replace_one_player.call(index) }
     SimpleDB.instance.sync
 
     redirect_to :action => 'roster_chart', :is_lineup => 1

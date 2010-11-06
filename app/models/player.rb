@@ -149,9 +149,9 @@ class Player < ActiveRecord::Base
     def self.pick_up_best_substitiute(position, players_from)
       players = players_from.sort_by { |player| player.overall }.reverse
 
-      is_the_position    = proc { |player| player.position == position }
-      has_the_position   = proc { |player| player.sub_positions.include?(position) } 
-      is_pos_in_same_cat = proc { |player| player.position.in_same_category?(position) }
+      is_the_position    = Proc.new { |player| player.position == position }
+      has_the_position   = Proc.new { |player| player.sub_positions.include?(position) } 
+      is_pos_in_same_cat = Proc.new { |player| player.position.in_same_category?(position) }
 
 =begin
       [
