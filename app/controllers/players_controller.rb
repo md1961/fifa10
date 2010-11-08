@@ -554,10 +554,11 @@ class PlayersController < ApplicationController
     ACTION_LOAN    = 'loan'
     ACTION_INJURE  = 'injure'
     ACTION_RECOVER = 'recover'
-    LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER]
+    ACTION_SHOW    = 'show'
+    LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER, ACTION_SHOW]
 
     def update_roster(commands, players, is_lineup)
-      player1, action, player2 = commands
+      action, player1, player2 = commands
       if action == ACTION_LOAN && is_lineup
         explain_error("Illegal command", ["loan command not allowed in lineup"], [])
         return
@@ -576,6 +577,8 @@ class PlayersController < ApplicationController
             put_into_injury(player2)
           when ACTION_RECOVER
             recover_from_injury(player2)
+          when ACTION_SHOW
+            #show_player_attributes()
           else
             raise ActiveRecord::Rollback, "Unknown action '#{action}' in helper update_roster()"
           end
@@ -688,9 +691,8 @@ class PlayersController < ApplicationController
 
       players = terms2players(terms, players, title)
       return nil unless players
-      player1, player2 = players
 
-      return [player1, action, player2]
+      return [action, *players]
     end
 
     def complete_action(action)

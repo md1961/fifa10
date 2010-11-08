@@ -104,7 +104,8 @@ module PlayersHelper
       "loan r15   : Loan/Back from loan 'Reserve 15'",
       "injure s10 : Put 'Starter 10' into injury list",
       "recover s7 : Recover 'Starter 7' from injury list",
-    ].join('<br />')
+      "show s1 ... : Show (and compare) player's attributes",
+    ].map { |s| s.gsub(' ', '&nbsp;') }.join('<br />')
   end
 
   COLUMN_ATTRIBUTES = {
