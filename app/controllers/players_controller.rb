@@ -666,6 +666,7 @@ class PlayersController < ApplicationController
     end
 
     NORMAL_TERMS_SIZE = 3
+    RE_ACTION = /\A[a-zA-Z]+\z/
 
     def parse_roster_edit_command(command, players)
       if command.blank?
@@ -675,13 +676,9 @@ class PlayersController < ApplicationController
 
       title = "Command \"#{command}\" was illegal"
       terms = command.split
-      terms.unshift('s1') if terms.size < NORMAL_TERMS_SIZE
-      unless terms.size == NORMAL_TERMS_SIZE
-        explain_error(title, ["Command must be \"p# to/with p#\" or \"loan p#\""], [])
-        return nil
-      end
+      terms.insert(1, terms.shift) unless RE_ACTION =~ terms.first
 
-      action = complete_action(terms[1])
+      action = complete_action(terms.first)
       return nil unless action
       unless LEGAL_ACTIONS.include?(action)
         legal_actions = "'" + LEGAL_ACTIONS.join("', '") + "'"
@@ -689,7 +686,7 @@ class PlayersController < ApplicationController
         return nil
       end
 
-      players = terms2players(terms, players, title)
+      players = terms2players(terms[1 .. -1], players, title)
       return nil unless players
 
       return [action, *players]
@@ -707,13 +704,13 @@ class PlayersController < ApplicationController
     end
 
     def terms2players(terms, players, title)
-      player1 = term2player(terms[0], players)
-      player2 = term2player(terms[2], players)
-      return [player1, player2] if player1 && player2
+      players_from_terms = terms.map { |term| term2player(term, players) }
+      return players_from_terms if players_from_terms.all? { |player| player }
 
       illegal_players = Array.new
-      illegal_players << terms[0] unless player1
-      illegal_players << terms[2] unless player2
+      players_from_terms.each_with_index do |player, index|
+        illegal_players << terms[index] unless player
+      end
       players = "'#{illegal_players.join("' and '")}'"
       mult = illegal_players.size > 1
       message = "#{players} #{mult ? 'are' : 'is'} illegal player#{mult ? 's' : ''}"
