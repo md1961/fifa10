@@ -2,6 +2,7 @@ class PlayersController < ApplicationController
 
   def list
     season_id = get_season_id(params)
+    @is_lineup = params[:is_lineup] == '1'
 
     row_filter = get_row_filter
     @players = row_filter.displaying_players
@@ -208,7 +209,7 @@ class PlayersController < ApplicationController
 
   def filter_on_list
     row_filter = get_row_filter(params)
-    session[:row_filter] = row_filter
+    set_row_filter(row_filter)
 
     column_filter = get_column_filter(params)
     session[:column_filter] = column_filter
@@ -326,7 +327,7 @@ class PlayersController < ApplicationController
     def filter_with_specified_position_categories(categories)
       row_filter = get_row_filter
       row_filter.set_all_or_no_position_categories(categories == ALL_POSITION_CATEGORIES)
-      session[:row_filter] = row_filter
+      set_row_filter(row_filter)
 
       redirect_to :action => 'list'
     end
@@ -420,7 +421,8 @@ class PlayersController < ApplicationController
 
     SimpleDB.instance.sync
 
-    redirect_to :action => 'roster_chart', :is_lineup => is_lineup ? 1 : 0
+    destination = commands.first == ACTION_SHOW ? 'list' : 'roster_chart'
+    redirect_to :action => destination, :is_lineup => is_lineup ? 1 : 0
   end
 
   def revise_lineup
@@ -675,6 +677,16 @@ class PlayersController < ApplicationController
       end
     end
 
+    def show_player_attributes(players_arg)
+      row_filter = get_row_filter
+      row_filter.set_no_players
+      players_arg.each do |player|
+        row_filter.set_player_by_name(player.name)
+      end
+
+      set_row_filter(row_filter)
+    end
+
     def copy_to_lineup(players)
       season_id = get_season_id(params)
 
@@ -818,7 +830,7 @@ class PlayersController < ApplicationController
         end
       end
 
-      session[:row_filter] = row_filter
+      set_row_filter(row_filter)
 
       return true
     end
@@ -836,6 +848,10 @@ class PlayersController < ApplicationController
       row_filter.players = players_of_team if row_filter
 
       return row_filter
+    end
+
+    def set_row_filter(row_filter)
+      session[:row_filter] = row_filter
     end
 
     def get_column_filter(params=nil)
