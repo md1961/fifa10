@@ -1,7 +1,7 @@
 module PlayersHelper
 
   NUM_NEXT_MATCHES_DISPLAY = 4
-  NO_MATCH_DISPLAY = "(none)"
+  NO_MATCH_DISPLAY = "(End of Schedule)"
 
   def next_matches_display(next_matches)
     nexts = next_matches
@@ -11,6 +11,7 @@ module PlayersHelper
     1.upto(NUM_NEXT_MATCHES_DISPLAY - 1) do |i|
       rests[i] = format_rest % (nexts[i].date_match - nexts[i - 1].date_match - 1) if nexts[i - 1] && nexts[i]
     end
+    nexts.uniq!
 
     retval = <<-END
       <table>
@@ -21,12 +22,14 @@ module PlayersHelper
           </span></td>
         </tr>
     END
-    1.upto(NUM_NEXT_MATCHES_DISPLAY - 1) do |i|
+    1.upto(nexts.size) do |i|
       retval += <<-END
         <tr>
           <td>#{i == 1 ? "Followed by:" : ""}</td>
           <td>#{rests[i]}</td>
-          <td>#{nexts[i] || NO_MATCH_DISPLAY}</td>
+          <td style="#{nexts[i] ? "" : "font-style: italic; text-decoration: overline"}">
+            #{nexts[i] || NO_MATCH_DISPLAY}
+          </td>
         </tr>
       END
     end

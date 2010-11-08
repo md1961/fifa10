@@ -3,3 +3,4 @@ log/
 tmp/pids/
 note.txt
 lib/simple_db.yml
+memo
