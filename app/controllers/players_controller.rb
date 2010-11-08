@@ -557,12 +557,22 @@ class PlayersController < ApplicationController
     ACTION_SHOW    = 'show'
     LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER, ACTION_SHOW]
 
+    MAP_NUM_PLAYERS = {
+      ACTION_WITH => 2,
+      ACTION_TO   => 2,
+    }
+
     def update_roster(commands, players, is_lineup)
-      action, player1, player2 = commands
+      action, players_arg = commands
+      unless players_arg_legal?(players_arg, action)
+        return
+      end
       if action == ACTION_LOAN && is_lineup
         explain_error("Illegal command", ["loan command not allowed in lineup"], [])
         return
       end
+
+      player1, player2 = players_arg
 
       begin
         Player.transaction do
@@ -572,13 +582,13 @@ class PlayersController < ApplicationController
           when ACTION_TO
             insert_player_order_before(player1, player2, players, is_lineup)
           when ACTION_LOAN
-            loan_player(player2)
+            loan_player(player1)
           when ACTION_INJURE
-            put_into_injury(player2)
+            put_into_injury(player1)
           when ACTION_RECOVER
-            recover_from_injury(player2)
+            recover_from_injury(player1)
           when ACTION_SHOW
-            #show_player_attributes()
+            show_player_attributes(players_arg)
           else
             raise ActiveRecord::Rollback, "Unknown action '#{action}' in helper update_roster()"
           end
@@ -586,6 +596,17 @@ class PlayersController < ApplicationController
       #rescue
         #explain_error("DB Error", ["Failed database transaction"], [])
       end
+    end
+
+    def players_arg_legal?(players_arg, action)
+      legal_num_players = MAP_NUM_PLAYERS[action]
+      return true unless legal_num_players
+      is_legal = players_arg.size == legal_num_players
+      unless is_legal
+        msg = "Number of players must be #{legal_num_players} (#{players_arg.size} given)"
+        explain_error("Illegal number of players", [msg], [])
+      end
+      return is_legal
     end
 
     def exchange_player_order(player1, player2, is_lineup)
@@ -686,10 +707,10 @@ class PlayersController < ApplicationController
         return nil
       end
 
-      players = terms2players(terms[1 .. -1], players, title)
-      return nil unless players
+      players_arg = terms2players(terms[1 .. -1], players, title)
+      return nil unless players_arg
 
-      return [action, *players]
+      return action, players_arg
     end
 
     def complete_action(action)
