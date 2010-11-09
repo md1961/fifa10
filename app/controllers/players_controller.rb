@@ -584,11 +584,11 @@ class PlayersController < ApplicationController
           when ACTION_TO
             insert_player_order_before(player1, player2, players, is_lineup)
           when ACTION_LOAN
-            loan_player(player1)
+            loan_player(players_arg)
           when ACTION_INJURE
-            put_into_injury(player1)
+            put_into_injury(players_arg)
           when ACTION_RECOVER
-            recover_from_injury(player1)
+            recover_from_injury(players_arg)
           when ACTION_SHOW
             show_player_attributes(players_arg)
           else
@@ -651,27 +651,41 @@ class PlayersController < ApplicationController
       player1.save! unless is_lineup
     end
 
-    def loan_player(player)
+    def loan_player(players)
       season_id = get_season_id(params)
-      on_loan = player.on_loan?(season_id)
-      player.set_on_loan(! on_loan, season_id)
+      players.each do |player|
+        on_loan = player.on_loan?(season_id)
+        player.set_on_loan(! on_loan, season_id)
+      end
     end
 
-    def put_into_injury(player)
+    def put_into_injury(players)
       injury_list = get_injury_list
-      if injury_list.include?(player.id)
-        explain_error("Player already in injury list", ["'#{player.name}' is already in injury list"], [])
-      else
+
+      players.each do |player|
+        if injury_list.include?(player.id)
+          explain_error("Player already in injury list", ["'#{player.name}' is already in injury list"], [])
+          return
+        end
+      end
+
+      players.each do |player|
         injury_list << player.id
         set_injury_list(injury_list)
       end
     end
 
-    def recover_from_injury(player)
+    def recover_from_injury(players)
       injury_list = get_injury_list
-      unless injury_list.include?(player.id)
-        explain_error("No such player in injury list", ["'#{player.name}' is not in injury list"], [])
-      else
+
+      players.each do |player|
+        unless injury_list.include?(player.id)
+          explain_error("No such player in injury list", ["'#{player.name}' is not in injury list"], [])
+          return
+        end
+      end
+
+      players.each do |player|
         injury_list.delete(player.id)
         set_injury_list(injury_list)
       end
