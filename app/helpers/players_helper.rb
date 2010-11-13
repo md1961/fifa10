@@ -4,7 +4,7 @@ module PlayersHelper
   NO_MATCH_DISPLAY = "(End of Schedule)"
 
   def next_matches_display(next_matches)
-    nexts = next_matches
+    nexts = next_matches[0, NUM_NEXT_MATCHES_DISPLAY]
 
     format_rest = "(%d day rest)"
     rests = Array.new
@@ -22,7 +22,7 @@ module PlayersHelper
           </span></td>
         </tr>
     END
-    1.upto(nexts.size) do |i|
+    1.upto(nexts.size - 1) do |i|
       retval += <<-END
         <tr>
           <td>#{i == 1 ? "Followed by:" : ""}</td>
