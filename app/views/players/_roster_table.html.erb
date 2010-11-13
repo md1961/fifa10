@@ -12,7 +12,7 @@
              : @injury_list.include?(player.id) ? 'injury_list' \
                                                 : '' -%>
     <tr class="<%= clazz %>">
-      <% if kind == 's' -%>
+      <% if kind == 's' && @formation -%>
         <% position = @formation.position(index + 1) -%>
         <td style="background-color: <%= position.color %>;
                    text-align: center; font-size: small; font-weight: bold;">
