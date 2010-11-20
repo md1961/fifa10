@@ -53,7 +53,7 @@ class Player < ActiveRecord::Base
     players = players.select { |player| ! player.on_loan?(season_id) } unless includes_on_loan
 
     season_id = 0 if for_lineup
-    players.sort! { |p1, p2| p1.order_number(season_id).<=>(p2.order_number(season_id)) }
+    players.sort! { |p1, p2| p1.order_number(season_id) <=> p2.order_number(season_id) }
 
     return players
   end

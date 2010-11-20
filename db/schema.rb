@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101103121249) do
+ActiveRecord::Schema.define(:version => 20101120092958) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(:version => 20101103121249) do
     t.integer "overall",                           :null => false
     t.integer "market_value"
     t.string  "note"
+    t.integer "wage"
   end
 
   create_table "positions", :force => true do |t|
