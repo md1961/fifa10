@@ -24,7 +24,13 @@
   <% if (mv = player.market_value).nil? -%>
     <%= "(n/a)" %>
   <% else -%>
-    <%= number_with_delimiter(player.market_value) + (show_unit ? ' K' + [0x00A3].pack('U') : '') %>
+    <%= number_with_delimiter(mv) + (show_unit ? ' K' + [0x00A3].pack('U') : '') %>
+  <% end -%>
+<% when 'wage' -%>
+  <% if (wage = player.wage).nil? -%>
+    <%= "(n/a)" %>
+  <% else -%>
+    <%= number_with_delimiter(wage) + (show_unit ? ' ' + [0x00A3].pack('U') : '') %>
   <% end -%>
 <% else -%>
   <%= player.get(column_name) %>

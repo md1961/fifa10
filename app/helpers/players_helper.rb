@@ -123,6 +123,7 @@ module PlayersHelper
     :nation_id         => ['Nation'    , :L],
     :overall           => ['Ov'        , :R],
     :market_value      => ['MV'        , :R],
+    :wage              => ['Wage'      , :R],
     :note              => ['Note'      , :L],
   }.freeze
 end
