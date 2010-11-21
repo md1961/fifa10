@@ -378,8 +378,6 @@ class PlayersController < ApplicationController
 
   def roster_chart
     @is_lineup = params[:is_lineup] == '1'
-    @is_lineup = session[:is_lineup] unless params[:is_lineup]
-    session[:is_lineup] = @is_lineup
 
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
@@ -882,6 +880,7 @@ class PlayersController < ApplicationController
       raise "no 'season_id' in session (#{session.inspect})" unless season_id
       players = Player.list(season_id, includes_on_loan, for_lineup)
 
+      #TODO: Need not to do this when get_row_filter() <- show_player_attributes()
       copy_to_lineup(players) unless for_lineup
 
       return players
