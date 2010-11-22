@@ -26,22 +26,6 @@ class Player < ActiveRecord::Base
   #validates_numericality_of :overall,         :only_integer => true, :greater_than =>   40, :less_than => 100
   #validates_numericality_of :market_value,    :only_integer => true
 
-  TEST_DATA_FOR_NEW = {
-    :name              => 'Kumagai',
-    :first_name        => 'Yuya',
-    :number            => 55,
-    :position_id       => 10,
-    :skill_move        => 2,
-    :is_right_dominant => true,
-    :both_feet_level   => 1,
-    :height            => 151,
-    :weight            => 51,
-    :birth_year        => 1997,
-    :nation_id         => 1,
-    :overall           => 49,
-    :market_value      => 1430,
-  }
-
   #TODO: Quit using @@current_year and correct age()
   @@current_year = Constant.get(:default_current_year)
 
