@@ -1,6 +1,8 @@
 class FormationsController < ApplicationController
 
   def list
+    @is_lineup = params[:is_lineup] == '1'
+
     @formations = all_formations
 
     @page_title_size = 3

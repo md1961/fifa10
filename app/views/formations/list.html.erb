@@ -1,6 +1,7 @@
 
 <p>
-  <%= link_to 'Back to Roster Chart', :controller => 'players', :action => 'roster_chart' %>
+  <%= link_to 'Back to Roster Chart', :controller => 'players', :action => 'roster_chart',
+                                                                :is_lineup => @is_lineup ? 1 : 0 %>
   <%= nbsp %>
   <%= link_to 'New Formation', :action => 'new' %>
 </p>
