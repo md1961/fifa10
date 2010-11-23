@@ -4,7 +4,7 @@ class PlayersController < ApplicationController
     season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
 
-    row_filter = get_row_filter
+    row_filter = get_row_filter(nil, for_lineup=@is_lineup)
     @players = row_filter.displaying_players
     @players = @players.select { |player| ! player.on_loan?(season_id) }
 
@@ -377,12 +377,13 @@ class PlayersController < ApplicationController
   end
 
   def roster_chart
+    @season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
+    set_players_to_row_filter_if_not unless @is_lineup
 
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
 
-    @season_id = get_season_id(params)
     @season = Season.find(@season_id)
     @formation = @season.formation
 
@@ -401,6 +402,11 @@ class PlayersController < ApplicationController
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Roster Chart"
   end
+
+    def set_players_to_row_filter_if_not
+      RowFilter.players = players_of_team unless RowFilter.players
+    end
+    private :set_players_to_row_filter_if_not
 
     def get_num_starters_and_in_bench
       num_starters = Constant.get(:num_starters)
@@ -466,6 +472,7 @@ class PlayersController < ApplicationController
     num_top = 5
 
     season_id = get_season_id(params)
+    set_players_to_row_filter_if_not
 
     players = players_of_team
     @top_values = Player.player_attribute_top_values(num_top, season_id)
@@ -478,7 +485,6 @@ class PlayersController < ApplicationController
       @map_top_players[attr_name].concat(top_players)
     end
 
-    get_row_filter # to set RowFilter::@@players
     @names = params[:names]
     @players_focus = Array.new
     (@names || "").split.each do |name|
@@ -692,7 +698,7 @@ class PlayersController < ApplicationController
     end
 
     def show_player_attributes(players_arg)
-      row_filter = get_row_filter
+      row_filter = get_row_filter(nil, for_lineup=true)
       row_filter.set_no_players
       players_arg.each do |player|
         row_filter.set_player_by_name(player.name)
@@ -854,12 +860,14 @@ class PlayersController < ApplicationController
       return
     end
 
-    def get_row_filter(params=nil)
+    def get_row_filter(params=nil, for_lineup=false)
+      #TODO: Rewrite with simple if ... else ...
       param = params ? params[:row_filter] : nil
       row_filter = param ? nil : session[:row_filter]
       row_filter = RowFilter.new(param) unless row_filter
 
-      row_filter.players = players_of_team if row_filter
+      includes_on_loan = true
+      row_filter.players = players_of_team(includes_on_loan, for_lineup) if row_filter
 
       return row_filter
     end
