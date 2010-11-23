@@ -425,7 +425,7 @@ class PlayersController < ApplicationController
 
     SimpleDB.instance.sync
 
-    destination = commands.first == ACTION_SHOW ? 'list' : 'roster_chart'
+    destination = commands && commands.first == ACTION_SHOW ? 'list' : 'roster_chart'
     redirect_to :action => destination, :is_lineup => is_lineup ? 1 : 0
   end
 
@@ -720,6 +720,7 @@ class PlayersController < ApplicationController
 
     NORMAL_TERMS_SIZE = 3
     RE_ACTION = /\A[a-zA-Z]+\z/
+    RE_PLAYER = /\A[sbr]?\d+\z/
 
     def parse_roster_edit_command(command, players)
       if command.blank?
@@ -729,6 +730,7 @@ class PlayersController < ApplicationController
 
       title = "Command \"#{command}\" was illegal"
       terms = command.split
+      terms.insert(0, ACTION_WITH) if terms.size == 2 && RE_PLAYER =~ terms[0] && RE_PLAYER =~ terms[1]
       terms.insert(1, terms.shift) unless RE_ACTION =~ terms.first
 
       action = complete_action(terms.first)
@@ -772,8 +774,10 @@ class PlayersController < ApplicationController
       return nil
     end
 
+    RE_NUMBER = /\A\d+\z/
+
     def term2player(term, players)
-      term = "s#{term}" if /\A\d+\z/ =~ term
+      term = "s#{term}" if RE_NUMBER =~ term
       kind = term[0, 1]
       return nil unless %w(s b r).include?(kind)
       index = term[1..-1].to_i
