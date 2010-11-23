@@ -773,6 +773,7 @@ class PlayersController < ApplicationController
     end
 
     def term2player(term, players)
+      term = "s#{term}" if /\A\d+\z/ =~ term
       kind = term[0, 1]
       return nil unless %w(s b r).include?(kind)
       index = term[1..-1].to_i
@@ -888,7 +889,6 @@ class PlayersController < ApplicationController
       raise "no 'season_id' in session (#{session.inspect})" unless season_id
       players = Player.list(season_id, includes_on_loan, for_lineup)
 
-      #TODO: Need not to do this when get_row_filter() <- show_player_attributes()
       copy_to_lineup(players) unless for_lineup
 
       return players
