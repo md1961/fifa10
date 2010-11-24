@@ -20,7 +20,7 @@
         </td>
       <% end -%>
       <td class="index_number">
-        <% label = "#{kind}#{index + index_offset + 1}" -%>
+        <% label = "#{kind == 's' ? '': kind}#{index + index_offset + 1}" -%>
         <%= link_to label, :action => 'show', :id => player, :browses_all_players => 1 %>
       </td>
       <% clazz = kind != 's' || player.positions.include?(position) ? "" : "out_of_position" -%>
