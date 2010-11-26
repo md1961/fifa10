@@ -381,6 +381,8 @@ class PlayersController < ApplicationController
     @is_lineup = params[:is_lineup] == '1'
     set_players_to_row_filter_if_not unless @is_lineup
 
+    flash[:notice] = session[:injury_report]
+    session[:injury_report] = nil
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
 
@@ -512,6 +514,8 @@ class PlayersController < ApplicationController
     injury_list.concat(players.map(&:id))
     set_injury_list(injury_list)
 
+    put_injury_report_into_session(players)
+
     redirect_to :action => params[:caller], :is_lineup => params[:is_lineup]
   end
 
@@ -529,6 +533,11 @@ class PlayersController < ApplicationController
       return picks
     end
     private :do_pick_players
+
+    def put_injury_report_into_session(players)
+      session[:injury_report] = "#{players.size} player(s) injured: #{players.map(&:name).join(', ')}"
+    end
+    private :put_injury_report_into_session
 
   def undo_pick_from_injury
     injury_list = get_injury_list
@@ -679,6 +688,8 @@ class PlayersController < ApplicationController
         injury_list << player.id
         set_injury_list(injury_list)
       end
+
+      put_injury_report_into_session(players)
     end
 
     def recover_from_injury(players)
