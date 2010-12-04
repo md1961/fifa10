@@ -17,6 +17,7 @@ usernames_to_pass_startup_chronicle : - naoyuki
 column_heading_for_matches : false
 max_players_to_transpose : 10
 default_is_font_bold_for_matches : false
+num_next_matches_to_display : 5
 
 # 重要度が低い定数（補助的な表示文字列など）
 copyright : Copyright (c) 2009-2010 Naoyuki Kumagai, All rights reserved.

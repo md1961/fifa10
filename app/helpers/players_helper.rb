@@ -1,6 +1,6 @@
 module PlayersHelper
 
-  NUM_NEXT_MATCHES_DISPLAY = 4
+  NUM_NEXT_MATCHES_DISPLAY = Constant.get(:num_next_matches_to_display)
   NO_MATCH_DISPLAY = "(End of Schedule)"
 
   def next_matches_display(next_matches)
