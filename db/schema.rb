@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101120092958) do
+ActiveRecord::Schema.define(:version => 20101210232303) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20101120092958) do
     t.integer "season_id",                       :null => false
     t.integer "order_number",                    :null => false
     t.boolean "on_loan",      :default => false, :null => false
+    t.boolean "is_hot",       :default => false, :null => false
   end
 
   add_index "player_seasons", ["player_id"], :name => "fk_player_seasons_players"
