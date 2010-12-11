@@ -523,7 +523,8 @@ class PlayersController < ApplicationController
 
     def do_pick_players(injury_list)
       players = players_of_team(includes_loan=false)
-      players.reject! { |player| injury_list.include?(player.id) }
+      season_id = get_season_id
+      players.reject! { |player| injury_list.include?(player.id) || player.hot?(season_id) }
 
       num = rand(MAX_NUMBER_OF_PLAYERS_TO_PICK) + 1
       picks = Array.new
@@ -571,8 +572,11 @@ class PlayersController < ApplicationController
     ACTION_LOAN    = 'loan'
     ACTION_INJURE  = 'injure'
     ACTION_RECOVER = 'recover'
+    ACTION_HOT     = 'hot'
     ACTION_SHOW    = 'show'
-    LEGAL_ACTIONS = [ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER, ACTION_SHOW]
+    LEGAL_ACTIONS = [
+      ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER, ACTION_HOT, ACTION_SHOW
+    ]
 
     MAP_NUM_PLAYERS = {
       ACTION_WITH => 2,
@@ -604,6 +608,8 @@ class PlayersController < ApplicationController
             put_into_injury(players_arg)
           when ACTION_RECOVER
             recover_from_injury(players_arg)
+          when ACTION_HOT
+            hot_player(players_arg)
           when ACTION_SHOW
             show_player_attributes(players_arg)
           else
@@ -676,10 +682,14 @@ class PlayersController < ApplicationController
 
     def put_into_injury(players)
       injury_list = get_injury_list
+      season_id = get_season_id
 
       players.each do |player|
         if injury_list.include?(player.id)
-          explain_error("Player already in injury list", ["'#{player.name}' is already in injury list"], [])
+          explain_error("Cannot injure", ["'#{player.name}' is already in injury list"], [])
+          return
+        elsif player.hot?(season_id)
+          explain_error("Cannot injure", ["'#{player.name}' is in hot status"], [])
           return
         end
       end
@@ -705,6 +715,14 @@ class PlayersController < ApplicationController
       players.each do |player|
         injury_list.delete(player.id)
         set_injury_list(injury_list)
+      end
+    end
+
+    def hot_player(players)
+      season_id = get_season_id(params)
+      players.each do |player|
+        is_hot = player.hot?(season_id)
+        player.set_hot(! is_hot, season_id)
       end
     end
 

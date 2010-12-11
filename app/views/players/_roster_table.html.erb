@@ -8,7 +8,8 @@
 
 <% unless index_start >= @players.size -%>
   <% @players[index_start, size].each_with_index do |player, index| -%>
-    <% clazz = player.on_loan?(@season_id)      ? 'on_loan' \
+    <% clazz = player.hot?(@season_id)          ? 'hot' \
+             : player.on_loan?(@season_id)      ? 'on_loan' \
              : @injury_list.include?(player.id) ? 'injury_list' \
                                                 : '' -%>
     <tr class="<%= clazz %>">

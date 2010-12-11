@@ -393,6 +393,10 @@
   text-align: right;
 }
 
+.tables_roster_chart .hot {
+  background-color: cyan;
+}
+
 .tables_roster_chart .on_loan {
   background-color: grey;
 }

@@ -99,12 +99,13 @@ module PlayersHelper
 
   def command_samples_for_roster_chart
     return [
-      "s9 with b2 : Exchange 'Starter 9' with 'Bench 2'",
+      "9 with b2  : Exchange 'Starter 9' with 'Bench 2'",
       "r21 to r13 : Insert 'Reserve 21' before 'Reserve 13'",
       "loan r15   : Loan/Back from loan 'Reserve 15'",
-      "injure s10 : Put 'Starter 10' into injury list",
-      "recover s7 : Recover 'Starter 7' from injury list",
-      "show s1 ... : Show (and compare) player's attributes",
+      "injure 10  : Put 'Starter 10' into injury list",
+      "recover 7  : Recover 'Starter 7' from injury list",
+      "hot 5      : Hot/Cool 'Starter 5'",
+      "show 1 ... : Show (and compare) player's attributes",
     ].map { |s| s.gsub(' ', '&nbsp;') }.join('<br />')
   end
 

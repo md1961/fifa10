@@ -119,6 +119,17 @@ class Player < ActiveRecord::Base
                                        :order_number => Player.next_order_number(season_id))
   end
 
+  def hot?(season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    return player_season ? player_season.is_hot : false
+  end
+
+  def set_hot(is_hot, season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    player_season.is_hot = is_hot
+    player_season.save!
+  end
+
   def remove_from_rosters(season_id)
     player_season = player_seasons.find_by_season_id(season_id)
     player_season.destroy
