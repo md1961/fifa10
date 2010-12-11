@@ -435,7 +435,7 @@ class PlayersController < ApplicationController
   def revise_lineup
     season = Season.find(get_season_id(params))
     formation = season.formation
-    injury_list = get_injury_list
+    to_be_replaced_list = get_injury_list + get_off_list
 
     num_starters = Constant.get(:num_starters)
     num_in_bench = Constant.get(:num_in_bench)
@@ -443,11 +443,11 @@ class PlayersController < ApplicationController
     replace_one_player = Proc.new { |index, index0_replacer|
       players = players_of_team(includes_on_loan=false, for_lineup=true)
       player = players[index]
-      next unless injury_list.include?(player.id)
+      next unless to_be_replaced_list.include?(player.id)
       position = index < num_starters ? formation.position(index + 1) : player.position
 
       replacing_players = players[index0_replacer .. -1]
-      player_sub = Player.player_available_with_max_overall(position, replacing_players, injury_list)
+      player_sub = Player.player_available_with_max_overall(position, replacing_players, to_be_replaced_list)
       exchange_player_order(player, player_sub, is_lineup=true) if player_sub
     }
 
@@ -553,6 +553,7 @@ class PlayersController < ApplicationController
 
   def clear_injury_list
     set_injury_list(Array.new)
+    set_off_list(   Array.new)
 
     redirect_to :action => params[:caller], :is_lineup => params[:is_lineup]
   end
