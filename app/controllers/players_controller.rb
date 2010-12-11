@@ -740,10 +740,12 @@ class PlayersController < ApplicationController
     end
 
     def off_player(players)
-      off_list = get_off_list
+      off_list    = get_off_list
+      injury_list = get_injury_list
 
       players.each do |player|
         player_id = player.id
+        next if injury_list.include?(player_id)
         if off_list.include?(player_id)
           off_list.delete(player_id)
         else
