@@ -104,6 +104,7 @@ module PlayersHelper
       "loan r15   : Loan/Back from loan 'Reserve 15'",
       "injure 10  : Put 'Starter 10' into injury list",
       "recover 7  : Recover 'Starter 7' from injury list",
+      "off 11     : Rest/Put back 'Starter 11'",
       "hot 5      : Hot/Cool 'Starter 5'",
       "show 1 ... : Show (and compare) player's attributes",
     ].map { |s| s.gsub(' ', '&nbsp;') }.join('<br />')

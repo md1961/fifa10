@@ -559,12 +559,20 @@ class PlayersController < ApplicationController
   private
 
     def get_injury_list
-      return SimpleDB.instance.get(:injury_list) || Array.new
+      get_list_from_simple_db(:injury_list)
     end
 
     def set_injury_list(injury_list)
-      raise ArgumentError.new("Argument injury_list must be an Array") unless injury_list.kind_of?(Array)
-      SimpleDB.instance.set(:injury_list, injury_list)
+      set_list_to_simple_db(:injury_list, injury_list)
+    end
+
+    def get_list_from_simple_db(name)
+      return SimpleDB.instance.get(name) || Array.new
+    end
+
+    def set_list_to_simple_db(name, list)
+      raise ArgumentError.new("Argument must be an Array") unless list.kind_of?(Array)
+      SimpleDB.instance.set(name, list)
     end
 
     ACTION_WITH    = 'with'
@@ -572,10 +580,11 @@ class PlayersController < ApplicationController
     ACTION_LOAN    = 'loan'
     ACTION_INJURE  = 'injure'
     ACTION_RECOVER = 'recover'
+    ACTION_OFF     = 'off'
     ACTION_HOT     = 'hot'
     ACTION_SHOW    = 'show'
     LEGAL_ACTIONS = [
-      ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER, ACTION_HOT, ACTION_SHOW
+      ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER, ACTION_OFF, ACTION_HOT, ACTION_SHOW
     ]
 
     MAP_NUM_PLAYERS = {
@@ -608,6 +617,8 @@ class PlayersController < ApplicationController
             put_into_injury(players_arg)
           when ACTION_RECOVER
             recover_from_injury(players_arg)
+          when ACTION_OFF
+            off_player(players_arg)
           when ACTION_HOT
             hot_player(players_arg)
           when ACTION_SHOW
@@ -716,6 +727,9 @@ class PlayersController < ApplicationController
         injury_list.delete(player.id)
         set_injury_list(injury_list)
       end
+    end
+
+    def off_player(players)
     end
 
     def hot_player(players)
