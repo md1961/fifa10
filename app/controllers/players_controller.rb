@@ -400,6 +400,7 @@ class PlayersController < ApplicationController
     @num_starters, @num_in_bench = get_num_starters_and_in_bench
 
     @injury_list = get_injury_list
+    @off_list    = get_off_list
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Roster Chart"
@@ -566,6 +567,14 @@ class PlayersController < ApplicationController
       set_list_to_simple_db(:injury_list, injury_list)
     end
 
+    def get_off_list
+      get_list_from_simple_db(:off_list)
+    end
+
+    def set_off_list(off_list)
+      set_list_to_simple_db(:off_list, off_list)
+    end
+
     def get_list_from_simple_db(name)
       return SimpleDB.instance.get(name) || Array.new
     end
@@ -730,6 +739,18 @@ class PlayersController < ApplicationController
     end
 
     def off_player(players)
+      off_list = get_off_list
+
+      players.each do |player|
+        player_id = player.id
+        if off_list.include?(player_id)
+          off_list.delete(player_id)
+        else
+          off_list << player_id
+        end
+      end
+
+      set_off_list(off_list)
     end
 
     def hot_player(players)

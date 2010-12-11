@@ -304,6 +304,10 @@
   background-color: magenta;
 }
 
+.off_list {
+  background-color: pink;
+}
+
 #table_depth_chart {
   font-size: medium;
   border: 1px black solid;
