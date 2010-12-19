@@ -818,7 +818,7 @@ class PlayersController < ApplicationController
       candidates = LEGAL_ACTIONS.select { |a| a.starts_with?(action) }
       if candidates.size >= 2
         title = "Action \"#{action} is ambiguous"
-        msg   = "Cannot determine whether it is '#{candidates.join('\' or \'')}'"
+        msg   = "Cannot pick from '#{candidates.join('\', \'')}'"
         explain_error(title, [msg], [])
         return nil
       end
