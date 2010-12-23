@@ -8,4 +8,12 @@ class Chronicle < ActiveRecord::Base
     }
     return seasons_sorted[0]
   end
+
+  def open
+    self.closed = false
+  end
+
+  def close
+    self.closed = true
+  end
 end

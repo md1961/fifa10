@@ -42,4 +42,22 @@ class ChroniclesController < ApplicationController
       render :action => 'new'
     end
   end
+
+  def open
+    open_or_close(:open)
+  end
+
+  def close
+    open_or_close(:close)
+  end
+
+    def open_or_close(action)
+      chronicle = Chronicle.find(params[:id])
+      chronicle.send(action)
+      is_success = chronicle.save
+      flash[:notice] = "Failed to #{action} Chronicle '#{chronicle.name}'" unless is_success
+      redirect_to :action => 'list'
+    end
+    private :open_or_close
 end
+

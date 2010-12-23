@@ -1,11 +1,11 @@
 class SeasonsController < ApplicationController
 
   def list
-    @chronicle_id = params[:chronicle_id]
-    @seasons = Season.list(@chronicle_id)
+    @chronicle = Chronicle.find(params[:chronicle_id])
+    @seasons   = Season.list(@chronicle)
     
     @page_title_size = 2
-    @page_title = "Chronicle: #{Chronicle.find(@chronicle_id).name}"
+    @page_title = "Chronicle: #{@chronicle.name}"
   end
 
   DEFALUT_TEAM_TYPE = 'Team'
