@@ -789,7 +789,8 @@ class PlayersController < ApplicationController
 
     NORMAL_TERMS_SIZE = 3
     RE_ACTION = /\A[a-zA-Z]+\z/
-    RE_PLAYER = /\A[sbr]?\d+\z/
+    PLAYER_FORMAT = "[sbr]?\\d+"
+    RE_PLAYER = /\A#{PLAYER_FORMAT}\z/
 
     def parse_roster_edit_command(command, players)
       if command.blank?
@@ -827,13 +828,19 @@ class PlayersController < ApplicationController
       return candidates.size == 1 ? candidates[0] : action
     end
 
+    RE_SERIAL_PLAYERS = /\A(#{PLAYER_FORMAT})-(#{PLAYER_FORMAT})\z/
+
     def terms2players(terms, players, title)
-      players_from_terms = terms.map { |term| term2player(term, players) }
+      terms_here = nil
+      terms_here = parse_serial_players($1, $2) if terms.size == 1 && terms[0] =~ RE_SERIAL_PLAYERS
+      terms_here = terms unless terms_here 
+
+      players_from_terms = terms_here.map { |term| term2player(term, players) }
       return players_from_terms if players_from_terms.all? { |player| player }
 
       illegal_players = Array.new
       players_from_terms.each_with_index do |player, index|
-        illegal_players << terms[index] unless player
+        illegal_players << terms_here[index] unless player
       end
       players = "'#{illegal_players.join("' and '")}'"
       mult = illegal_players.size > 1
@@ -843,13 +850,35 @@ class PlayersController < ApplicationController
       return nil
     end
 
+    def parse_serial_players(term1, term2)
+      kind1 = player_kind(term1)
+      kind2 = player_kind(term2)
+      return nil if kind1 != kind2
+
+      index1 = player_index(term1)
+      index2 = player_index(term2)
+      return nil if index1 > index2
+
+      return (index1 .. index2).to_a.map { |index| "#{kind1}#{index}" }
+    end
+
     RE_NUMBER = /\A\d+\z/
 
-    def term2player(term, players)
-      term = "s#{term}" if RE_NUMBER =~ term
+    def player_kind(term)
+      term = "s#{term}" if term =~ RE_NUMBER
       kind = term[0, 1]
       return nil unless %w(s b r).include?(kind)
-      index = term[1..-1].to_i
+      return kind
+    end
+
+    def player_index(term)
+      return term.sub(/\A[sbr]/, "").to_i
+    end
+
+    def term2player(term, players)
+      kind = player_kind(term)
+      return nil unless kind
+      index = player_index(term)
       return nil if index <= 0
 
       num_starters, num_in_bench = get_num_starters_and_in_bench
