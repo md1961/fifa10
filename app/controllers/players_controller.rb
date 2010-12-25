@@ -464,11 +464,13 @@ class PlayersController < ApplicationController
   end
 
   def apply_formation
+    @is_lineup = params[:is_lineup] == '1'
+
     season = Season.find(get_season_id(params))
     season.formation_id = params[:id]
     season.save!
 
-    redirect_to :action => 'roster_chart'
+    redirect_to :action => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0
   end
 
   def top_attribute_list

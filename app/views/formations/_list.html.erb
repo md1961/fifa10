@@ -22,7 +22,8 @@
 
       <% if shows_link -%>
         <td><%= link_to 'Edit'  , :action => 'edit', :id => formation %></td>
-        <td><%= link_to 'Apply' , :controller => 'players', :action => 'apply_formation', :id => formation %></td>
+        <td><%= link_to 'Apply' , :controller => 'players', :action => 'apply_formation',
+                                                            :id => formation, :is_lineup => @is_lineup ? 1 : 0 %></td>
       <% end -%>
     </tr>
   <% end -%>
