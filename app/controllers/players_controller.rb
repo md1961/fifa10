@@ -610,7 +610,7 @@ class PlayersController < ApplicationController
         return
       end
       if action == ACTION_LOAN && is_lineup
-        explain_error("Illegal command", ["loan command not allowed in lineup"], [])
+        explain_error("Illegal command", ["loan command not allowed in lineup mode"], [])
         return
       end
 
