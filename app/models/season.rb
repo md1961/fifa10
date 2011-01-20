@@ -34,7 +34,7 @@ class Season < ActiveRecord::Base
     return year_start.to_s + (club_team? ? "-#{year_end}" : "")
   end
 
-  def last_season
+  def prev_season
     seasons = chronicle.seasons.sort_by { |season| season.year_start }
     index = seasons.index(self)
     return index == 0 ? nil : seasons[index - 1]
