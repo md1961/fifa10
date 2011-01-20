@@ -12,7 +12,12 @@
       <font size="-1">
         <%= link_to 'Players', :controller => 'players', :action => 'roster_chart', :season_id => season %>
         <%= nbsp %>
-        <%= link_to 'Edit'   , :controller => 'seasons', :action => 'edit', :id => season, :chronicle_id => @chronicle %>
+        <%= link_to 'Edit'   , :action => 'edit', :id => season, :chronicle_id => @chronicle %>
+        <% if season.matches.empty? -%>
+          <%= nbsp %>
+          <%= link_to 'Delete', {:action => 'destroy', :id => season, :chronicle_id => @chronicle},
+                                 :confirm => "OK to delete '#{season.name_and_years}'?", :method => :post %>
+        <% end -%>
       </font>
     </li>
   <% end -%>

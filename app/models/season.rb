@@ -5,6 +5,7 @@ class Season < ActiveRecord::Base
   has_many :players, :through => :player_seasons
   has_many :season_series
   has_many :series, :through => :season_series
+  has_many :matches
   belongs_to :formation
 
   validates_presence_of     :year_start

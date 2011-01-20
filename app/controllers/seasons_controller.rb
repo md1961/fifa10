@@ -95,4 +95,13 @@ class SeasonsController < ApplicationController
       @page_title = "Editing '#{@season.name_and_years}'"
     end
     private :prepare_page_title_for_edit
+  
+  def destroy
+    season = Season.find(params[:id])
+    if season.matches.empty?
+      season.destroy
+    end
+
+    redirect_to :action => 'list', :chronicle_id => params[:chronicle_id]
+  end
 end
