@@ -8,13 +8,15 @@ ActionController::Routing::Routes.draw do |map|
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)
-  map.admin_index 'admin', :controller => 'admin', :action => 'index'
-  map.login       'login', :controller => 'admin', :action => 'login'
+  map.admin_index 'admin' , :controller => 'admin', :action => 'index'
+  map.login       'login' , :controller => 'admin', :action => 'login'
+  map.logout      'logout', :controller => 'admin', :action => 'logout'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
   map.resources :countries , :requirements => {:id => /\d+/}
   map.resources :chronicles, :requirements => {:id => /\d+/}
+  map.resources :teams     , :requirements => {:id => /\d+/}
   map.resources :seasons   , :requirements => {:id => /\d+/}
   map.resources :matches   , :requirements => {:id => /\d+/}
   map.resources :players   , :requirements => {:id => /\d+/}

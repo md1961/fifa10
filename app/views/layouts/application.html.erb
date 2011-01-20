@@ -36,7 +36,7 @@
 
     <% unless is_admin -%>
       <div id="logout">
-        <%= link_to 'Logout', :controller => 'admin', :action => 'logout' %>
+        <%= link_to 'Logout', logout_path %>
       </div>
     <% end -%>
 

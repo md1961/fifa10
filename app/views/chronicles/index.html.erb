@@ -2,7 +2,7 @@
 <ul id="chronicle_list">
   <% @chronicles.each do |chronicle| -%>
     <li class="<%= chronicle.closed? ? 'closed' : '' %>">
-      <%= link_to chronicle.name, :controller => 'seasons', :action => 'list', :chronicle_id => chronicle %>
+      <%= link_to chronicle.name, seasons_path(:chronicle_id => chronicle) %>
     </li>
   <% end -%>
 </ul>
@@ -10,6 +10,6 @@
 <div id="link_new_chronicle">
   <%= link_to 'New Chronicle', :action => 'new' %>
   <%= nbsp(4) %>
-  <%= link_to 'Teams', :controller => 'teams', :action => 'list' %>
+  <%= link_to 'Teams', teams_path %>
 </div>
 

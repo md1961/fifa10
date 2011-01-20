@@ -1,15 +1,11 @@
 class ChroniclesController < ApplicationController
 
-  def index
-    redirect_to :action => 'list'
-  end
-
   SESSION_KEYS_TO_DELETE = [
     :match_filter,
   ]
   ORDER_BY = "closed, name"
 
-  def list
+  def index
     SESSION_KEYS_TO_DELETE.each do |key|
       session[key] = nil
     end
