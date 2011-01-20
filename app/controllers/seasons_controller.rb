@@ -40,6 +40,8 @@ class SeasonsController < ApplicationController
   def create
     @season = Season.new(params[:season])
     @season.series = series_selected(params)
+    last_season = Chronicle.find(@season.chronicle_id).last_season
+    @season.player_seasons = last_season.player_seasons
     if @season.save
       redirect_to :action => 'list', :chronicle_id => @season.chronicle_id
     else
