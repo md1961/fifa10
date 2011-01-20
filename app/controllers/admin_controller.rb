@@ -7,7 +7,7 @@ class AdminController < ApplicationController
 
     if user = User.authenticated_user(params[:username], params[:password])
       session[:user_id] = user.id
-      redirect_to :action => 'index'
+      redirect_to admin_index_path
     else
       flash.now[:notice] = "Invalid username/password combination"
     end
@@ -25,19 +25,19 @@ class AdminController < ApplicationController
     end
 
     flash[:notice] = "Logged out"
-    redirect_to :action => 'login'
+    redirect_to login_path
   end
 
   def index
     user = User.find(session[:user_id])
-    redirect_to :action => 'login' unless user
+    redirect_to login_path unless user
 
     startup_chronicle = Chronicle.find_by_name(Constant.get(:startup_chronicle_name))
     usernames_to_pass = Constant.get(:usernames_to_pass_startup_chronicle)
     if startup_chronicle && ! usernames_to_pass.include?(user.name)
-      redirect_to :controller => 'seasons', :action => 'list', :chronicle_id => startup_chronicle
+      redirect_to seasons_path(:chronicle_id => startup_chronicle)
     else
-      redirect_to :controller => 'chronicles'
+      redirect_to chronicles_path
     end
   end
 end

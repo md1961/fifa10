@@ -4,17 +4,20 @@ ActionController::Routing::Routes.draw do |map|
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
-  map.root :controller => 'admin', :action => 'login'
 
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)
+  map.admin_index 'admin', :controller => 'admin', :action => 'index'
+  map.login       'login', :controller => 'admin', :action => 'login'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
-  map.resources :countries, :requirements => {:id => /\d+/}
-  map.resources :matches  , :requirements => {:id => /\d+/}
-  map.resources :players  , :requirements => {:id => /\d+/}
+  map.resources :countries , :requirements => {:id => /\d+/}
+  map.resources :chronicles, :requirements => {:id => /\d+/}
+  map.resources :seasons   , :requirements => {:id => /\d+/}
+  map.resources :matches   , :requirements => {:id => /\d+/}
+  map.resources :players   , :requirements => {:id => /\d+/}
 
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
@@ -36,12 +39,13 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   # map.root :controller => "welcome"
+  map.root :controller => 'admin', :action => 'login'
 
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  #map.connect ':controller/:action/:id'
+  #map.connect ':controller/:action/:id.:format'
 end
