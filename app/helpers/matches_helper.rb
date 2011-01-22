@@ -70,7 +70,7 @@ module MatchesHelper
     param << MatchFilter::ALL_SERIES if param == ['Friendly']
     is_current = abbr == current_abbr
     label = is_current ? "<b>#{abbr}</b>" : abbr
-    return link_to_unless is_current, label, :action => 'filter_with_series', :series_abbrs => param
+    return link_to_unless is_current, label, filter_with_series_path(:series_abbrs => param)
   end
 end
 

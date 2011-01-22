@@ -12,7 +12,14 @@ ActionController::Routing::Routes.draw do |map|
   map.login       'login' , :controller => 'admin', :action => 'login'
   map.logout      'logout', :controller => 'admin', :action => 'logout'
 
-  map.roster_chart 'roster_chart', :controller => 'players', :action => 'roster_chart'
+  map.roster_chart       'roster_chart'       , :controller => 'players', :action => 'roster_chart'
+  map.depth_chart        'depth_chart'        , :controller => 'players', :action => 'depth_chart'
+  map.top_attribute_list 'top_attribute_list' , :controller => 'players', :action => 'top_attribute_list'
+
+  map.filter_with_series 'filter_with_series' , :controller => 'matches', :action => 'filter_with_series'
+  map.choose_to_list     'choose_to_list'     , :controller => 'matches', :action => 'choose_to_list'
+  map.filter_on_list     'filter_on_list'     , :controller => 'matches', :action => 'filter_on_list'
+  map.set_is_font_bold   'set_is_font_bold'   , :controller => 'matches', :action => 'set_is_font_bold'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products

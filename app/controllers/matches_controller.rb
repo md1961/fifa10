@@ -1,6 +1,6 @@
 class MatchesController < ApplicationController
 
-  def list
+  def index
     #TODO: use @season_id and do not store it in the session
     @season_id = get_and_save_season_id(params)
 
@@ -45,7 +45,7 @@ class MatchesController < ApplicationController
   def set_is_font_bold
     is_font_bold = params[:is_font_bold] || '1'
     session[:is_font_bold] = is_font_bold == '1'
-    redirect_to :action => 'list'
+    redirect_to matches_path
   end
 
     def get_and_save_season_id(params)
@@ -85,7 +85,7 @@ class MatchesController < ApplicationController
   def create
     @match = make_match(params)
     if @match.save
-      redirect_to :action => 'list'
+      redirect_to matches_path
     else
       @season_id = session[:season_id]
       @matches = Match.list(@season_id)
@@ -141,7 +141,7 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     adjust_date_match(params)
     if @match.update_attributes(params[:match])
-      redirect_to :action => 'list'
+      redirect_to matches_path
     else
       season_id = session[:season_id]
       @matches = Match.list(season_id)
@@ -154,7 +154,7 @@ class MatchesController < ApplicationController
   def destroy
     Match.find(params[:id]).destroy
 
-    redirect_to :action => 'list'
+    redirect_to matches_path
   end
 
   def filter_with_series
@@ -165,7 +165,7 @@ class MatchesController < ApplicationController
     match_filter.series_abbrs = series_abbrs
     session[:match_filter] = match_filter
 
-    redirect_to :action => 'list'
+    redirect_to matches_path
   end
 
   def choose_to_list
@@ -182,7 +182,7 @@ class MatchesController < ApplicationController
     match_filter.player_name = player_name_input
     session[:match_filter] = match_filter
 
-    redirect_to :action => 'list'
+    redirect_to matches_path
   end
 
   private

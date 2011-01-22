@@ -1,7 +1,7 @@
 
 <%= render :partial => 'links_in_list' %>
 
-<%= link_to 'New Match', :action => 'new' %>
+<%= link_to 'New Match', new_match_path %>
 
 <table id="table_matches" class="table_base">
   <%= render :partial => 'list',
@@ -11,5 +11,5 @@
                          :shows_link => @shows_link} %> 
 </table>
 
-<%= link_to 'New Match', :action => 'new' %>
+<%= link_to 'New Match', new_match_path %>
 
