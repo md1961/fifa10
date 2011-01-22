@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   CONDITIONS = "name != '#{NAMES_NOT_TO_LIST}'"
   ORDER = "nation_id, name"
 
-  def list
+  def index
     @teams = Team.find(:all, :conditions => CONDITIONS, :order => ORDER)
     @column_names = Team.columns.map(&:name)
 
@@ -22,7 +22,7 @@ class TeamsController < ApplicationController
     @team = Team.new(params[:team])
     @team.abbr = nil if @team.abbr.blank?
     if @team.save
-      redirect_to :action => 'list'
+      redirect_to teams_path
     else
       prepare_for_new_or_edit(:new)
       render :action => 'new'
@@ -50,7 +50,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     params[:team][:abbr] = nil if params[:team][:abbr].blank?
     if @team.update_attributes(params[:team])
-      redirect_to :action => 'list'
+      redirect_to teams_path
     else
       prepare_for_new_or_edit(:edit)
       render :action => 'edit'
@@ -60,6 +60,6 @@ class TeamsController < ApplicationController
   def destroy
     Team.find(params[:id]).destroy
 
-    redirect_to :action => 'list'
+    redirect_to teams_path
   end
 end
