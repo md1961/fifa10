@@ -1,6 +1,6 @@
 class SeasonsController < ApplicationController
 
-  def list
+  def index
     @chronicle = Chronicle.find(params[:chronicle_id])
     @seasons   = Season.list(@chronicle)
     

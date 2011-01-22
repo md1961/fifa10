@@ -3,6 +3,10 @@
   <% @chronicles.each do |chronicle| -%>
     <li class="<%= chronicle.closed? ? 'closed' : '' %>">
       <%= link_to chronicle.name, seasons_path(:chronicle_id => chronicle) %>
+      <font size="-1">
+        <%= link_to 'Delete', chronicle_path(:id => chronicle, :chronicle_id => @chronicle),
+                              :method => :delete, :confirm => "OK to delete '#{chronicle.name}'?" %>
+      </font>
     </li>
   <% end -%>
 </ul>

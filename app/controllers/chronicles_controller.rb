@@ -39,6 +39,12 @@ class ChroniclesController < ApplicationController
     end
   end
 
+  def destroy
+    Chronicle.find(params[:id]).destroy
+
+    redirect_to chronicles_path
+  end
+
   def open
     open_or_close(:open)
   end

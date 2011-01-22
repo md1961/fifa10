@@ -12,10 +12,12 @@ ActionController::Routing::Routes.draw do |map|
   map.login       'login' , :controller => 'admin', :action => 'login'
   map.logout      'logout', :controller => 'admin', :action => 'logout'
 
+  map.roster_chart 'roster_chart', :controller => 'players', :action => 'roster_chart'
+
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
   map.resources :countries , :requirements => {:id => /\d+/}
-  map.resources :chronicles, :requirements => {:id => /\d+/}
+  map.resources :chronicles, :requirements => {:id => /\d+/}, :member => {:open => :get, :close => :get}
   map.resources :teams     , :requirements => {:id => /\d+/}
   map.resources :seasons   , :requirements => {:id => /\d+/}
   map.resources :matches   , :requirements => {:id => /\d+/}
