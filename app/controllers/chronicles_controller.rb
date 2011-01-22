@@ -32,7 +32,7 @@ class ChroniclesController < ApplicationController
   def create
     @chronicle = Chronicle.new(params[:chronicle])
     if @chronicle.save
-      redirect_to :action => 'list'
+      redirect_to chronicles_path
     else
       prepare_page_title_for_new
       render :action => 'new'
@@ -52,7 +52,7 @@ class ChroniclesController < ApplicationController
       chronicle.send(action)
       is_success = chronicle.save
       flash[:notice] = "Failed to #{action} Chronicle '#{chronicle.name}'" unless is_success
-      redirect_to :action => 'list'
+      redirect_to chronicles_path
     end
     private :open_or_close
 end
