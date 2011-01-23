@@ -42,7 +42,7 @@ class MatchesController < ApplicationController
     end
     private :set_font_weight
 
-  def set_is_font_bold
+  def set_font
     is_font_bold = params[:is_font_bold] || '1'
     session[:is_font_bold] = is_font_bold == '1'
     redirect_to matches_path
