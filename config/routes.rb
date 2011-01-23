@@ -16,7 +16,6 @@ ActionController::Routing::Routes.draw do |map|
   map.depth_chart        'depth_chart'        , :controller => 'players', :action => 'depth_chart'
   map.top_attribute_list 'top_attribute_list' , :controller => 'players', :action => 'top_attribute_list'
 
-  map.filter_with_series 'filter_with_series' , :controller => 'matches', :action => 'filter_with_series'
   map.choose_to_list     'choose_to_list'     , :controller => 'matches', :action => 'choose_to_list'
   map.filter_on_list     'filter_on_list'     , :controller => 'matches', :action => 'filter_on_list'
   map.set_is_font_bold   'set_is_font_bold'   , :controller => 'matches', :action => 'set_is_font_bold'
@@ -24,10 +23,12 @@ ActionController::Routing::Routes.draw do |map|
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
   map.resources :countries , :requirements => {:id => /\d+/}
-  map.resources :chronicles, :requirements => {:id => /\d+/}, :member => {:open => :get, :close => :get}
+  map.resources :chronicles, :requirements => {:id => /\d+/},
+    :member => {:open => :get, :close => :get}
   map.resources :teams     , :requirements => {:id => /\d+/}
   map.resources :seasons   , :requirements => {:id => /\d+/}
-  map.resources :matches   , :requirements => {:id => /\d+/}
+  map.resources :matches   , :requirements => {:id => /\d+/},
+    :collection => {:series_filter => :get}
   map.resources :players   , :requirements => {:id => /\d+/}
 
   # Sample resource route with options:

@@ -65,12 +65,12 @@ module MatchesHelper
     return "G#{games}-P#{points}-W#{wins}-D#{draws}-L#{loses}"
   end
 
-  def link_to_filter_with_series(abbr, current_abbr)
+  def link_to_series_filter(abbr, current_abbr)
     param = abbr == MatchFilter::ALL_SERIES ? abbr : [abbr]
     param << MatchFilter::ALL_SERIES if param == ['Friendly']
     is_current = abbr == current_abbr
     label = is_current ? "<b>#{abbr}</b>" : abbr
-    return link_to_unless is_current, label, filter_with_series_path(:series_abbrs => param)
+    return link_to_unless is_current, label, series_filter_matches_path(:series_abbrs => param)
   end
 end
 

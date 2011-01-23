@@ -157,7 +157,7 @@ class MatchesController < ApplicationController
     redirect_to matches_path
   end
 
-  def filter_with_series
+  def series_filter
     series_abbrs = params[:series_abbrs]
 
     match_filter = get_match_filter

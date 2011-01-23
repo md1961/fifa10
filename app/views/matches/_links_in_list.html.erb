@@ -12,10 +12,10 @@
 <%= link_to 'Top Players', top_attribute_list_path %>
 <br />
 <% series_abbr = @match_filter.series_abbrs[0] -%>
-<%= link_to_filter_with_series MatchFilter::ALL_SERIES, series_abbr %>
+<%= link_to_series_filter MatchFilter::ALL_SERIES, series_abbr %>
 <% @series.each do |series| -%>
   <%= nbsp %>
-  <%= link_to_filter_with_series series.abbr, series_abbr %>
+  <%= link_to_series_filter series.abbr, series_abbr %>
 <% end -%>
 <%= nbsp(2) %>
 <%= link_to 'Filter', choose_to_list_path %>
