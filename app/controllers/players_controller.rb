@@ -195,7 +195,7 @@ class PlayersController < ApplicationController
     end
   end
 
-  def choose_to_list
+  def choose_filter
     @row_filter    = get_row_filter
     @column_filter = get_column_filter
 
@@ -222,7 +222,7 @@ class PlayersController < ApplicationController
     session[:last_command_to_filter] = command
     is_good = parse_commant_to_filter(command)
 
-    redirect_to is_good ? players_path : 'choose_to_list'
+    redirect_to is_good ? players_path : choose_filter_players_path
   end
 
   RECOMMENDED_COLUMNS = 'recommended_columns'

@@ -27,7 +27,10 @@ ActionController::Routing::Routes.draw do |map|
     :collection => {
       :series_filter => :get, :player_choose => :get, :player_filter => :get, :set_font => :get
     }
-  map.resources :players   , :requirements => {:id => /\d+/}
+  map.resources :players   , :requirements => {:id => /\d+/},
+    :collection => {
+      :choose_filter => :get
+    }
 
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
