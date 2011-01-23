@@ -175,7 +175,7 @@ class MatchesController < ApplicationController
     @page_title = "Specify conditions to filter"
   end
 
-  def filter_on_list
+  def player_filter
     player_name_input = params[:match_filter][:player_name]
     player_name_input = nil if player_name_input.empty?
     match_filter = get_match_filter

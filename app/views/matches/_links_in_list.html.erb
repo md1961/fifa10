@@ -21,7 +21,7 @@
 <%= link_to 'Filter', player_choose_matches_path %>
 <% unless (name_filter = @match_filter.player_name).blank? -%>
   <font size="-1"><%= "('#{name_filter}')" %></font>
-  <%= link_to 'clear', filter_on_list_path(:match_filter => {:player_name => nil}) %>
+  <%= link_to 'clear', player_filter_matches_path(:match_filter => {:player_name => nil}) %>
 <% end -%>
 <%= nbsp(2) %>
 <% label, value = @shows_link ? ["No Link", '0'] : ["Show Link", '1'] -%>

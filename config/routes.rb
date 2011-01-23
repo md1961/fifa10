@@ -16,7 +16,6 @@ ActionController::Routing::Routes.draw do |map|
   map.depth_chart        'depth_chart'        , :controller => 'players', :action => 'depth_chart'
   map.top_attribute_list 'top_attribute_list' , :controller => 'players', :action => 'top_attribute_list'
 
-  map.filter_on_list     'filter_on_list'     , :controller => 'matches', :action => 'filter_on_list'
   map.set_is_font_bold   'set_is_font_bold'   , :controller => 'matches', :action => 'set_is_font_bold'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
@@ -27,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :teams     , :requirements => {:id => /\d+/}
   map.resources :seasons   , :requirements => {:id => /\d+/}
   map.resources :matches   , :requirements => {:id => /\d+/},
-    :collection => {:series_filter => :get, :player_choose => :get}
+    :collection => {:series_filter => :get, :player_choose => :get, :player_filter => :get}
   map.resources :players   , :requirements => {:id => /\d+/}
 
   # Sample resource route with options:
