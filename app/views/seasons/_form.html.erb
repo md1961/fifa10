@@ -1,7 +1,7 @@
 
 <%= error_messages_for :season %>
 
-<% form_for :season, :url => {:action => action, :id => @season} do |f| -%>
+<% form_for @season do |f| -%>
   <label for="season_team_id">Team:&nbsp;</label>
   <%= f.collection_select :team_id, @teams, :id, :name %>
   <br />
@@ -26,9 +26,9 @@
   </div>
 
   <p>
-    <%= submit_tag action.capitalize %>
+    <%= submit_tag @season.new_record? ? 'Create' : 'Update' %>
     <%= nbsp(2) %>
-    <%= link_to 'Cancel', :action => 'list', :chronicle_id => @chronicle_id %>
+    <%= link_to 'Cancel', seasons_path(:chronicle_id => @chronicle_id) %>
   </p>
 <% end -%>
 

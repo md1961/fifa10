@@ -4,12 +4,12 @@
        ["Use Club Team"    , 'Team'  ],
        ["Use National Team", 'Nation']
      ].each do |label, team_type| -%>
-    <%= link_to label, :action => 'new', :team_type => team_type, :chronicle_id => @chronicle_id %>
+    <%= link_to label, new_season_path(:team_type => team_type, :chronicle_id => @chronicle_id) %>
     <%= nbsp(2) %>
   <% end -%>
 </font>
 <br />
 <br />
 
-<%= render :partial => 'form', :locals => {:action => 'create'} %>
+<%= render :partial => 'form' %>
 

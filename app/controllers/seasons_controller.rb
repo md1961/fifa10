@@ -43,7 +43,7 @@ class SeasonsController < ApplicationController
     last_season = Chronicle.find(@season.chronicle_id).last_season
     @season.player_seasons = last_season.player_seasons
     if @season.save
-      redirect_to :action => 'list', :chronicle_id => @season.chronicle_id
+      redirect_to seasons_path(:chronicle_id => @season.chronicle_id)
     else
       @teams = eval(@season.team_type).find(:all, :order => TEAM_ORDER)
       @series = Series.find(:all)
@@ -84,7 +84,7 @@ class SeasonsController < ApplicationController
     @season.attributes = params[:season]
     @season.series = series_selected(params)
     if @season.save
-      redirect_to :action => 'list', :chronicle_id => @season.chronicle_id
+      redirect_to seasons_path(:chronicle_id => @season.chronicle_id)
     else
       prepare_page_title_for_edit
       @chronicle_id = params[:season][:chronicle_id]
@@ -104,6 +104,6 @@ class SeasonsController < ApplicationController
       season.destroy
     end
 
-    redirect_to :action => 'list', :chronicle_id => params[:chronicle_id]
+    redirect_to seasons_path(:chronicle_id => params[:chronicle_id])
   end
 end

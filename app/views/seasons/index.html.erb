@@ -16,8 +16,8 @@
         <%= link_to 'Edit', edit_season_path(:id => season, :chronicle_id => @chronicle) %>
         <% if season.matches.empty? -%>
           <%= nbsp %>
-          <%= link_to 'Delete', {:action => 'destroy', :id => season, :chronicle_id => @chronicle},
-                                 :confirm => "OK to delete '#{season.name_and_years}'?", :method => :post %>
+          <%= link_to 'Delete', season_path(season, :chronicle_id => @chronicle), :method => :delete,
+                                :confirm => "OK to delete '#{season.name_and_years}'?" %>
         <% end -%>
       </font>
     </li>
@@ -25,6 +25,6 @@
 </ul>
 
 <div id="link_new_season">
-  <%= link_to 'New Season', new_chronicle_path %>
+  <%= link_to 'New Season', new_season_path(:chronicle_id => @chronicle) %>
 </div>
 
