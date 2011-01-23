@@ -5,7 +5,7 @@
       <%= link_to chronicle.name, seasons_path(:chronicle_id => chronicle) %>
       <font size="-1">
         <% if chronicle.seasons.empty? -%>
-          <%= link_to 'Delete', chronicle_path(:id => chronicle, :chronicle_id => @chronicle),
+          <%= link_to 'Delete', chronicle_path(chronicle, :chronicle_id => @chronicle),
                                 :method => :delete, :confirm => "OK to delete '#{chronicle.name}'?" %>
         <% end -%>
       </font>

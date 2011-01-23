@@ -60,11 +60,9 @@
       <%= submit_tag 'Submit', :tabindex => 12 %>
       <% unless @match.new_record? -%>
         <%= nbsp(6) %>
-        <%= link_to 'Delete', {:action => 'destroy', :id => @match},
-                               :confirm => "OK to delete \"#{@match}\"?",
-                               :class => "alertingBackground",
-                               :method => :delete
-                               %>
+        <%= link_to 'Delete', match_path(@match), :method => :delete,
+                              :confirm => "OK to delete \"#{@match}\"?", :class => "alertingBackground"
+                              %>
       <% end -%>
     </td>
   </tr>

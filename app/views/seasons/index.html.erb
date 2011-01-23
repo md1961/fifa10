@@ -2,7 +2,7 @@
 <%= link_to 'Chronicles', chronicles_path %>
 <%= nbsp(2) %>
 <% action = @chronicle.closed? ? 'open' : 'close'
-   path   = eval("#{action}_chronicle_path(:id => @chronicle)")
+   path   = eval("#{action}_chronicle_path(@chronicle)")
    label  = action.capitalize + " This Chronicle" -%>
 <%= link_to label, path %>
 
@@ -13,7 +13,7 @@
       <font size="-1">
         <%= link_to 'Players', roster_chart_path(:season_id => season) %>
         <%= nbsp %>
-        <%= link_to 'Edit', edit_season_path(:id => season, :chronicle_id => @chronicle) %>
+        <%= link_to 'Edit', edit_season_path(season, :chronicle_id => @chronicle) %>
         <% if season.matches.empty? -%>
           <%= nbsp %>
           <%= link_to 'Delete', season_path(season, :chronicle_id => @chronicle), :method => :delete,
