@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
 
-  def list
+  def index
     season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
 
@@ -91,7 +91,7 @@ class PlayersController < ApplicationController
       end
       flash[:notice] = "Player '#{@player.name}' has been successfully updated"
       if params[:is_from_list] == 'true'
-        redirect_to :action => 'list'
+        redirect_to players_path
       else
         redirect_to @player
       end
@@ -143,7 +143,7 @@ class PlayersController < ApplicationController
     player = Player.find(params[:id])
     player.remove_from_rosters(season_id)
 
-    redirect_to :action => 'list'
+    redirect_to players_path
   end
 
   def prepare_page_title_for_new
@@ -174,7 +174,7 @@ class PlayersController < ApplicationController
     end
     session[:sort_fields] = sort_fields
 
-    redirect_to :action => 'list'
+    redirect_to players_path
   end
 
   def prepare_sort_fields
@@ -191,7 +191,7 @@ class PlayersController < ApplicationController
       attribute_names = sort_fields.map(&:name).select { |name| name != 'none' }
       filter_with_specified_attributes([DESIGNATED_ATTRIBUTES], attribute_names)
     else
-      redirect_to :action => 'list'
+      redirect_to players_path
     end
   end
 
@@ -214,7 +214,7 @@ class PlayersController < ApplicationController
     column_filter = get_column_filter(params)
     session[:column_filter] = column_filter
 
-    redirect_to :action => 'list'
+    redirect_to players_path
   end
 
   def take_command_to_filter
@@ -222,7 +222,7 @@ class PlayersController < ApplicationController
     session[:last_command_to_filter] = command
     is_good = parse_commant_to_filter(command)
 
-    redirect_to :action => is_good ? 'list' : 'choose_to_list'
+    redirect_to is_good ? players_path : 'choose_to_list'
   end
 
   RECOMMENDED_COLUMNS = 'recommended_columns'
@@ -248,7 +248,7 @@ class PlayersController < ApplicationController
       end
       session[:column_filter] = column_filter
 
-      redirect_to :action => 'list'
+      redirect_to players_path
     end
     private :filter_with_specified_columns
 
@@ -311,7 +311,7 @@ class PlayersController < ApplicationController
 
       session[:column_filter] = column_filter
 
-      redirect_to :action => 'list'
+      redirect_to players_path
     end
 
   ALL_POSITION_CATEGORIES = 'all_position_categories'
@@ -329,7 +329,7 @@ class PlayersController < ApplicationController
       row_filter.set_all_or_no_position_categories(categories == ALL_POSITION_CATEGORIES)
       set_row_filter(row_filter)
 
-      redirect_to :action => 'list'
+      redirect_to players_path
     end
     private :filter_with_specified_position_categories
 
@@ -428,8 +428,9 @@ class PlayersController < ApplicationController
 
     SimpleDB.instance.sync
 
-    destination = commands && commands.first == ACTION_SHOW ? 'list' : 'roster_chart'
-    redirect_to :action => destination, :is_lineup => is_lineup ? 1 : 0
+    h_params = {:is_lineup => is_lineup ? 1 : 0}
+    is_action_show = commands && commands.first
+    redirect_to is_action_show ? players_path(h_params) : roster_chart_path(h_params)
   end
 
   def revise_lineup
@@ -460,7 +461,7 @@ class PlayersController < ApplicationController
     num_starters.upto(num_lineup_all) { |index| replace_one_player.call(index, num_lineup_all) }
     SimpleDB.instance.sync
 
-    redirect_to :action => 'roster_chart', :is_lineup => 1
+    redirect_to roster_chart_path(:is_lineup => 1)
   end
 
   def apply_formation
@@ -470,7 +471,7 @@ class PlayersController < ApplicationController
     season.formation_id = params[:id]
     season.save!
 
-    redirect_to :action => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0
+    redirect_to roster_chart_path(:is_lineup => @is_lineup ? 1 : 0)
   end
 
   def top_attribute_list
