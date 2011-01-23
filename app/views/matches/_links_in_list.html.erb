@@ -18,7 +18,7 @@
   <%= link_to_series_filter series.abbr, series_abbr %>
 <% end -%>
 <%= nbsp(2) %>
-<%= link_to 'Filter', choose_to_list_path %>
+<%= link_to 'Filter', player_choose_matches_path %>
 <% unless (name_filter = @match_filter.player_name).blank? -%>
   <font size="-1"><%= "('#{name_filter}')" %></font>
   <%= link_to 'clear', filter_on_list_path(:match_filter => {:player_name => nil}) %>

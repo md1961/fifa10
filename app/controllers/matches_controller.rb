@@ -168,7 +168,7 @@ class MatchesController < ApplicationController
     redirect_to matches_path
   end
 
-  def choose_to_list
+  def player_choose
     @match_filter = get_match_filter
 
     @page_title_size = 3
