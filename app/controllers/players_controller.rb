@@ -154,7 +154,7 @@ class PlayersController < ApplicationController
 
   NUM_SORT_FIELDS = 3
 
-  def choose_to_sort
+  def choose_sort
     @sort_fields = session[:sort_fields]
     if @sort_fields.nil? || @sort_fields.size != NUM_SORT_FIELDS
       @sort_fields = Array.new

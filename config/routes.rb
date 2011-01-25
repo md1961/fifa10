@@ -29,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
     }
   map.resources :players   , :requirements => {:id => /\d+/},
     :collection => {
-      :choose_filter => :get
+      :choose_filter => :get, :choose_sort => :get
     }
 
   # Sample resource route with options:
