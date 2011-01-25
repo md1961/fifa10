@@ -1,11 +1,11 @@
 
 <p>
-  <%= link_to 'Cancel', :action => 'list' %>
+  <%= link_to 'Cancel', players_path %>
   <%= nbsp(4) %>
-  <%= link_to 'Clear All', :action => 'clear_all_sort_fields' %>
+  <%= link_to 'Clear All', clear_sort_players_path %>
 </p>
 
-<% form_tag({:action => 'prepare_sort_fields'}, {:multipart => true}) do -%>
+<% form_tag(prepare_sort_players_path, :multipart => true) do -%>
   <%= check_box_tag :shows_sort_only %>
   <label for="shows_sort_only">Display sorted column(s) only</label>
   <br />
@@ -40,7 +40,7 @@
   <p>
     <%= submit_tag 'Apply' %>
     <%= nbsp %>
-    <%= link_to 'Cancel', :action => 'list' %>
+    <%= link_to 'Cancel', players_path %>
   </p>
 <% end -%>
 

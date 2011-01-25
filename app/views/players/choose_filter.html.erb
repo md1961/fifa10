@@ -9,7 +9,7 @@
 <% end -%>
 
 <div style="float: left;">
-<% form_tag :action => 'take_command_to_filter' do -%>
+<% form_tag filter_command_players_path do -%>
   <label for="command">Positions/Names? </label>
   <%= text_field_tag :command, @last_command -%>
   <%= submit_tag 'Enter' %>
@@ -30,7 +30,7 @@
 <br />
 <div class="clear" />
 
-<% form_tag :action => 'filter_on_list' do -%>
+<% form_tag filter_players_path do -%>
   <b>Columns:</b>
   <hr />
 

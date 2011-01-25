@@ -167,7 +167,7 @@ class PlayersController < ApplicationController
     @page_title = "Choose Items to Sort by"
   end
 
-  def clear_all_sort_fields
+  def clear_sort
     sort_fields = Array.new
     NUM_SORT_FIELDS.times do |i|
       sort_fields << SortField.new
@@ -177,7 +177,7 @@ class PlayersController < ApplicationController
     redirect_to players_path
   end
 
-  def prepare_sort_fields
+  def prepare_sort
     sort_fields = Array.new
     NUM_SORT_FIELDS.times do |i|
       param = params[:sort_field][i.to_s]
@@ -207,7 +207,7 @@ class PlayersController < ApplicationController
     @page_title = "Choose Items to Display"
   end
 
-  def filter_on_list
+  def filter
     row_filter = get_row_filter(params)
     set_row_filter(row_filter)
 
@@ -217,7 +217,7 @@ class PlayersController < ApplicationController
     redirect_to players_path
   end
 
-  def take_command_to_filter
+  def filter_command
     command = params[:command]
     session[:last_command_to_filter] = command
     is_good = parse_commant_to_filter(command)
@@ -333,7 +333,7 @@ class PlayersController < ApplicationController
     end
     private :filter_with_specified_position_categories
 
-  def show_attribute_legend
+  def attribute_legend
     @abbrs_with_full = PlayerAttribute.abbrs_with_full
 
     @page_title_size = 3
