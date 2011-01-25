@@ -35,11 +35,11 @@
   <hr />
 
   <%= nbsp(6) %>
-  <%= link_to 'Recommended', :action => 'filter_with_recommended_columns' %>
+  <%= link_to 'Recommended', filter_players_with_path(:recommended_columns) %>
   <%= nbsp(2) %>
-  <%= link_to 'All' , :action => 'filter_with_all_columns' %>
+  <%= link_to 'All' , filter_players_with_path(:all_columns) %>
   <%= nbsp(2) %>
-  <%= link_to 'None', :action => 'filter_with_no_columns' %>
+  <%= link_to 'None', filter_players_with_path(:no_columns) %>
   <br />
   <%= nbsp(5) %>
   <% ColumnFilter::PLAYER_PROPERTY_NAMES.each do |name| -%>
@@ -53,23 +53,23 @@
   <hr />
 
   <%= nbsp(6) %>
-  <%= link_to 'Field', :action => 'filter_with_field_attributes' %>
+  <%= link_to 'Field', filter_players_with_path(:field_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Common', :action => 'filter_with_general_attributes' %>
+  <%= link_to 'Common', filter_players_with_path(:general_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Offensive', :action => 'filter_with_offensive_attributes' %>
+  <%= link_to 'Offensive', filter_players_with_path(:offensive_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Common+Off', :action => 'filter_with_general_and_offensive_attributes' %>
+  <%= link_to 'Common+Off', filter_players_with_path(:general_and_offensive_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Defensive', :action => 'filter_with_defensive_attributes' %>
+  <%= link_to 'Defensive', filter_players_with_path(:defensive_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Common+Def', :action => 'filter_with_general_and_defensive_attributes' %>
+  <%= link_to 'Common+Def', filter_players_with_path(:general_and_defensive_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Goalkeeping', :action => 'filter_with_goalkeeping_attributes' %>
+  <%= link_to 'Goalkeeping', filter_players_with_path(:goalkeeping_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'All' , :action => 'filter_with_all_attributes' %>
+  <%= link_to 'All' , filter_players_with_path(:all_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'None', :action => 'filter_with_no_attributes' %>
+  <%= link_to 'None', filter_players_with_path(:no_attributes) %>
   <br />
   <%= nbsp(5) %>
   <% displaying_player_attribute_names.each do |name| -%>
@@ -98,9 +98,9 @@
     </span>
   </label>
   <%= nbsp(2) %>
-  <%= link_to 'All' , :action => 'filter_with_all_position_categories' %>
+  <%= link_to 'All' , filter_players_with_path(:all_position_categories) %>
   <%= nbsp(2) %>
-  <%= link_to 'None', :action => 'filter_with_no_position_categories' %>
+  <%= link_to 'None', filter_players_with_path(:no_position_categories) %>
   <br />
   <% RowFilter::POSITION_CATEGORIES.each do |name| -%>
     <%= nbsp(5) %>

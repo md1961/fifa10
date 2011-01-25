@@ -229,14 +229,48 @@ class PlayersController < ApplicationController
   ALL_COLUMNS         = 'all_columns'
   NO_COLUMNS          = 'no_columns'
 
-  def filter_with_recommended_columns
-    filter_with_specified_columns(RECOMMENDED_COLUMNS)
-  end
-  def filter_with_all_columns
-    filter_with_specified_columns(ALL_COLUMNS)
-  end
-  def filter_with_no_columns
-    filter_with_specified_columns(NO_COLUMNS)
+  GENERAL_ATTRIBUTES = 'general_attributes'
+  OFFENSIVE_ATTRIBUTES = 'offensive_attributes'
+  DEFENSIVE_ATTRIBUTES = 'defensive_attributes'
+  GOALKEEPING_ATTRIBUTES = 'goalkeeping_attributes'
+  DESIGNATED_ATTRIBUTES  = 'designated_attributes'
+  ALL_ATTRIBUTES = 'all_attributes'
+  NO_ATTRIBUTES  = 'no_attributes'
+
+  ALL_POSITION_CATEGORIES = 'all_position_categories'
+  NO_POSITION_CATEGORIES  = 'no_position_categories'
+
+  def filter_with
+    case params[:filter].to_sym
+    when :recommended_columns
+      filter_with_specified_columns(RECOMMENDED_COLUMNS)
+    when :all_columns
+      filter_with_specified_columns(ALL_COLUMNS)
+    when :no_columns
+      filter_with_specified_columns(NO_COLUMNS)
+    when :field_attributes
+      filter_with_specified_attributes([GENERAL_ATTRIBUTES, OFFENSIVE_ATTRIBUTES, DEFENSIVE_ATTRIBUTES])
+    when :general_attributes
+      filter_with_specified_attributes([GENERAL_ATTRIBUTES])
+    when :offensive_attributes
+      filter_with_specified_attributes([OFFENSIVE_ATTRIBUTES])
+    when :defensive_attributes
+      filter_with_specified_attributes([DEFENSIVE_ATTRIBUTES])
+    when :general_and_offensive_attributes
+      filter_with_specified_attributes([GENERAL_ATTRIBUTES, OFFENSIVE_ATTRIBUTES])
+    when :general_and_defensive_attributes
+      filter_with_specified_attributes([GENERAL_ATTRIBUTES, DEFENSIVE_ATTRIBUTES])
+    when :goalkeeping_attributes
+      filter_with_specified_attributes([GOALKEEPING_ATTRIBUTES])
+    when :all_attributes
+      filter_with_specified_attributes([ALL_ATTRIBUTES])
+    when :no_attributes
+      filter_with_specified_attributes([NO_ATTRIBUTES])
+    when :all_position_categories
+      filter_with_specified_position_categories(ALL_POSITION_CATEGORIES)
+    when :no_position_categories
+      filter_with_specified_position_categories(NO_POSITION_CATEGORIES)
+    end
   end
 
     def filter_with_specified_columns(columns)
@@ -251,42 +285,6 @@ class PlayersController < ApplicationController
       redirect_to players_path
     end
     private :filter_with_specified_columns
-
-  GENERAL_ATTRIBUTES = 'general_attributes'
-  OFFENSIVE_ATTRIBUTES = 'offensive_attributes'
-  DEFENSIVE_ATTRIBUTES = 'defensive_attributes'
-  GOALKEEPING_ATTRIBUTES = 'goalkeeping_attributes'
-  DESIGNATED_ATTRIBUTES  = 'designated_attributes'
-  ALL_ATTRIBUTES = 'all_attributes'
-  NO_ATTRIBUTES  = 'no_attributes'
-
-  def filter_with_field_attributes
-    filter_with_specified_attributes([GENERAL_ATTRIBUTES, OFFENSIVE_ATTRIBUTES, DEFENSIVE_ATTRIBUTES])
-  end
-  def filter_with_general_attributes
-    filter_with_specified_attributes([GENERAL_ATTRIBUTES])
-  end
-  def filter_with_offensive_attributes
-    filter_with_specified_attributes([OFFENSIVE_ATTRIBUTES])
-  end
-  def filter_with_defensive_attributes
-    filter_with_specified_attributes([DEFENSIVE_ATTRIBUTES])
-  end
-  def filter_with_general_and_offensive_attributes
-    filter_with_specified_attributes([GENERAL_ATTRIBUTES, OFFENSIVE_ATTRIBUTES])
-  end
-  def filter_with_general_and_defensive_attributes
-    filter_with_specified_attributes([GENERAL_ATTRIBUTES, DEFENSIVE_ATTRIBUTES])
-  end
-  def filter_with_goalkeeping_attributes
-    filter_with_specified_attributes([GOALKEEPING_ATTRIBUTES])
-  end
-  def filter_with_all_attributes
-    filter_with_specified_attributes([ALL_ATTRIBUTES])
-  end
-  def filter_with_no_attributes
-    filter_with_specified_attributes([NO_ATTRIBUTES])
-  end
 
     def filter_with_specified_attributes(list_of_attributes, attribute_names=nil)
       column_filter = get_column_filter
@@ -313,16 +311,6 @@ class PlayersController < ApplicationController
 
       redirect_to players_path
     end
-
-  ALL_POSITION_CATEGORIES = 'all_position_categories'
-  NO_POSITION_CATEGORIES  = 'no_position_categories'
-
-  def filter_with_all_position_categories
-    filter_with_specified_position_categories(ALL_POSITION_CATEGORIES)
-  end
-  def filter_with_no_position_categories
-    filter_with_specified_position_categories(NO_POSITION_CATEGORIES)
-  end
 
     def filter_with_specified_position_categories(categories)
       row_filter = get_row_filter
