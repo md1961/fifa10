@@ -5,7 +5,7 @@
 
 <%= error_messages_for :formation %>
 
-<% form_for :formation, :url => {:action => action, :id => @formation} do |f| -%>
+<% form_for @formation do |f| -%>
   <label for="formation_name">Name:</label>
   <%= f.text_field :name, :size => 20 %>
   <br />
@@ -32,7 +32,7 @@
   <p>
     <%= submit_tag 'Create' %>
     <%= nbsp(2) %>
-    <%= link_to 'Cancel', :action => 'list' %>
+    <%= link_to 'Cancel', formations_path %>
   </p>
 <% end -%>
 

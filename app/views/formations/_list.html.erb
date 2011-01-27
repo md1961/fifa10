@@ -21,9 +21,8 @@
       <% end -%>
 
       <% if shows_link -%>
-        <td><%= link_to 'Edit'  , :action => 'edit', :id => formation %></td>
-        <td><%= link_to 'Apply' , :controller => 'players', :action => 'apply_formation',
-                                                            :id => formation, :is_lineup => @is_lineup ? 1 : 0 %></td>
+        <td><%= link_to 'Edit'  , edit_formation_path(formation) %></td>
+        <td><%= link_to 'Apply' , apply_formation_players_path(:id => formation, :is_lineup => @is_lineup ? 1 : 0) %></td>
       <% end -%>
     </tr>
   <% end -%>

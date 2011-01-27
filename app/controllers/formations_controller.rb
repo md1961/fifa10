@@ -1,6 +1,6 @@
 class FormationsController < ApplicationController
 
-  def list
+  def index
     @is_lineup = params[:is_lineup] == '1'
 
     @formations = all_formations

@@ -36,6 +36,7 @@ ActionController::Routing::Routes.draw do |map|
       :attribute_legend => :get,
       :pick_injury => :get, :undo_pick_injury => :get, :clear_injury => :get,
       :revise_lineup => :get, :edit_roster => :post,
+      :apply_formation => :get,
     }
   map.resources :formations, :requirements => {:id => /\d+/}
 
