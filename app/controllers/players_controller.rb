@@ -499,7 +499,7 @@ class PlayersController < ApplicationController
     @page_title = "#{team_name_and_season_years} Top Attribute Chart"
   end
 
-  def pick_player_for_injury
+  def pick_injury
     injury_list = get_injury_list
 
     players = do_pick_players(injury_list)
@@ -532,7 +532,7 @@ class PlayersController < ApplicationController
     end
     private :put_injury_report_into_session
 
-  def undo_pick_from_injury
+  def undo_pick_injury
     injury_list = get_injury_list
     unless injury_list.empty?
       injury_list.pop
@@ -542,7 +542,7 @@ class PlayersController < ApplicationController
     redirect_to :action => params[:caller], :is_lineup => params[:is_lineup]
   end
 
-  def clear_injury_list
+  def clear_injury
     set_injury_list(Array.new)
     set_off_list(   Array.new)
 

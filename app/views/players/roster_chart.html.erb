@@ -6,35 +6,31 @@
 -%>
 
 <p>
-  <%= link_to 'Fixtures/Results', :controller => 'matches', :action => 'list' %>
+  <%= link_to 'Fixtures/Results', matches_path %>
   <%= nbsp(4) %>
-  <%= link_to 'Back to Rosters', 'list' %>
+  <%= link_to 'Back to Rosters', players_path %>
   <%= nbsp(4) %>
-  <%= link_to 'Depth Chart', :action => 'depth_chart', :is_lineup => @is_lineup ? 1 : 0 %>
+  <%= link_to 'Depth Chart', depth_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
-  <%= link_to 'Top Players', :action => 'top_attribute_list' %>
+  <%= link_to 'Top Players', top_attribute_list_path %>
   <%= nbsp(4) %>
-  <%= link_to 'Injure Player', :action => 'pick_player_for_injury',
-                               :caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0 %>
+  <%= link_to 'Injure Player', pick_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
   <% unless @injury_list.empty? -%>
     <font size="-1">
       <%= nbsp %>
-      <%= link_to 'Undo' , :action => 'undo_pick_from_injury',
-                           :caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0 %>
+      <%= link_to 'Undo' , undo_pick_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
       <%= nbsp %>
-      <%= link_to 'Clear', :action => 'clear_injury_list',
-                           :caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0 %>
+      <%= link_to 'Clear', clear_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
     </font>
   <% end -%>
   <%= nbsp(4) %>
-  <%= link_to 'Formation List', :controller => 'formations', :action => 'list',
-                                                             :is_lineup => @is_lineup ? 1 : 0 %>
+  <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(4) %>
   <% label, next_is_lineup = @is_lineup ? ["Show Roster", 0] : ["Show Lineup", 1] -%>
-  <%= link_to label, :action => 'roster_chart', :is_lineup => next_is_lineup %>
+  <%= link_to label, roster_chart_path(:is_lineup => next_is_lineup) %>
   <%= nbsp(2) %>
   <% if @is_lineup -%>
-    <%= link_to 'Revise Lineup', :action => 'revise_lineup' %>
+    <%= link_to 'Revise Lineup', revise_lineup_players_path %>
   <% end -%>
 </p>
 
@@ -87,7 +83,7 @@
   <%= @error_explanation %>
 <% end -%>
 
-<% form_tag :action => 'edit_roster' do -%>
+<% form_tag edit_roster_players_path do -%>
   <label for="command">Enter a command to exchange players: </label>
   <%= text_field_tag :command %>
   <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>

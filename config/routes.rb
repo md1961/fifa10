@@ -33,8 +33,11 @@ ActionController::Routing::Routes.draw do |map|
     :collection => {
       :choose_filter => :get, :filter_command => :post, :filter => :post,
       :choose_sort => :get, :prepare_sort => :post, :clear_sort => :get,
-      :attribute_legend => :get
+      :attribute_legend => :get,
+      :pick_injury => :get, :undo_pick_injury => :get, :clear_injury => :get,
+      :revise_lineup => :get, :edit_roster => :post,
     }
+  map.resources :formations, :requirements => {:id => /\d+/}
 
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
