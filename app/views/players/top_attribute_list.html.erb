@@ -1,17 +1,17 @@
 
 <div style="float: left;">
-  <%= link_to 'Fixtures/Results', :controller => 'matches', :action => 'list' %>
+  <%= link_to 'Fixtures/Results', matches_path %>
   <%= nbsp(4) %>
-  <%= link_to 'Back to Rosters', 'list' %>
+  <%= link_to 'Back to Rosters', players_path %>
   <%= nbsp(4) %>
-  <%= link_to 'Depth Chart', :action => 'depth_chart' %>
+  <%= link_to 'Depth Chart', depth_chart_path %>
   <%= nbsp(2) %>
-  <%= link_to 'Roster Chart', :action => 'roster_chart' %>
+  <%= link_to 'Roster Chart', roster_chart_path %>
   <%= nbsp(4) %>
 </div>
 
 <div style="float: left;">
-  <% form_tag :action => 'top_attribute_list' do -%>
+  <% form_tag top_attribute_list_path do -%>
     <label for="names">Names? </label>
     <%= text_field_tag :names, @names, :size => 40 -%>
     <%= submit_tag 'Enter' %>

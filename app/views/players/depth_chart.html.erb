@@ -14,7 +14,7 @@
 <%= next_matches_display(@next_matches) %>
 <br />
 
-<% form_tag :action => 'depth_chart' do -%>
+<% form_tag depth_chart_path do -%>
   <%= select_tag :attribute, options_for_select(options_for_attrs_and_props(@attrs), @attr.to_s) %>
   <%= submit_tag 'select' %>
 <% end -%>
