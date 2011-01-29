@@ -2,9 +2,9 @@
 <%= link_to 'Chronicles', chronicles_path %>
 <%= nbsp(2) %>
 <% action = @chronicle.closed? ? 'open' : 'close'
-   path   = eval("#{action}_chronicle_path(@chronicle)")
+   path_method = :"#{action}_chronicle_path"
    label  = action.capitalize + " This Chronicle" -%>
-<%= link_to label, path %>
+<%= link_to label, send(path_method, @chronicle) %>
 
 <ul id="season_list">
   <% @seasons.each do |season| -%>
