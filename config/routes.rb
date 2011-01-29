@@ -16,7 +16,8 @@ ActionController::Routing::Routes.draw do |map|
   map.depth_chart        'depth_chart'        , :controller => 'players', :action => 'depth_chart'
   map.top_attribute_list 'top_attribute_list' , :controller => 'players', :action => 'top_attribute_list'
 
-  map.filter_players_with 'players/filter_with/:filter', :controller => 'players', :action => 'filter_with'
+  map.filter_players_with 'players/filter_with/:filter'     , :controller => 'players', :action => 'filter_with'
+  map.remove_from_rosters 'players/:id/remove_from_rosters/', :controller => 'players', :action => 'remove_from_rosters'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products

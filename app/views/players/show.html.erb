@@ -2,11 +2,11 @@
 <p>
   <%= link_to "<< #{@prev_player.name}", @prev_player %>
   <%= nbsp(4) %>
-  <%= link_to 'Back to Rosters', :action => 'list' %>
+  <%= link_to 'Back to Rosters', players_path %>
   <%= nbsp(4) %>
-  <%= link_to 'Edit', :action => 'edit' %>
+  <%= link_to 'Edit', edit_player_path(@player) %>
   <%= nbsp(4) %>
-  <%= link_to 'New Player', :action => 'new' %>
+  <%= link_to 'New Player', new_player_path %>
   <%= nbsp(4) %>
   <%= link_to "#{@next_player.name} >>", @next_player %>
 </p>
@@ -14,10 +14,9 @@
 <%= render :partial => 'base', :locals => {:action => :show, :f => nil} %>
 
 <span class="alertingBackground"><font size="-1">
-  <%= link_to 'Remove from Rosters', {:action => 'remove_from_rosters', :id => @player},
-                                      :confirm => "OK to delete \"#{@player.last_name_first_name}\"?",
-                                      :class => "alertingBackground",
-                                      :method => :delete
-                                      %>
+  <%= link_to 'Remove from Rosters', remove_from_rosters_path(@player),
+                                     :confirm => "OK to delete \"#{@player.last_name_first_name}\"?",
+                                     :class => "alertingBackground"
+                                     %>
 </font></span>
 
