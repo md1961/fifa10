@@ -132,9 +132,10 @@ class PlayersController < ApplicationController
       @player.save!
       redirect_to @player
     rescue ActiveRecord::RecordInvalid
+      @player_attribute_order = PLAYER_ATTRIBUTE_ORDER.map(&:to_s)
       flash[:error_message] = "Failed to create Player '#{@player.name}'"
       prepare_page_title_for_new
-      render :action => 'new'
+      render 'new'
     end
   end
 
