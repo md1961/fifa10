@@ -509,7 +509,8 @@ class PlayersController < ApplicationController
 
     put_injury_report_into_session(players)
 
-    redirect_to :action => params[:caller], :is_lineup => params[:is_lineup]
+    caller_path_method = :"#{params[:caller]}_path"
+    redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
   end
 
     MAX_NUMBER_OF_PLAYERS_TO_PICK = 5
@@ -540,14 +541,16 @@ class PlayersController < ApplicationController
       set_injury_list(injury_list)
     end
 
-    redirect_to :action => params[:caller], :is_lineup => params[:is_lineup]
+    caller_path_method = :"#{params[:caller]}_path"
+    redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
   end
 
   def clear_injury
     set_injury_list(Array.new)
     set_off_list(   Array.new)
 
-    redirect_to :action => params[:caller], :is_lineup => params[:is_lineup]
+    caller_path_method = :"#{params[:caller]}_path"
+    redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
   end
 
   private
