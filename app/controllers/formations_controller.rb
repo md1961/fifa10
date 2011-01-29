@@ -39,7 +39,7 @@ class FormationsController < ApplicationController
   def create
     @formation = Formation.new(params[:formation])
     if @formation.save
-      redirect_to :action => 'list'
+      redirect_to formations_path
     else
       prepare_page_title_for_new
       render 'new'
@@ -62,7 +62,7 @@ class FormationsController < ApplicationController
   def update
     @formation = Formation.find(params[:id])
     if @formation.update_attributes(params[:formation])
-      redirect_to :action => 'list'
+      redirect_to formations_path
     else
       prepare_page_title_for_edit
       render 'edit'
