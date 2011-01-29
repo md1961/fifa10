@@ -25,7 +25,7 @@ class TeamsController < ApplicationController
       redirect_to teams_path
     else
       prepare_for_new_or_edit(:new)
-      render :action => 'new'
+      render 'new'
     end
   end
 
@@ -53,7 +53,7 @@ class TeamsController < ApplicationController
       redirect_to teams_path
     else
       prepare_for_new_or_edit(:edit)
-      render :action => 'edit'
+      render 'edit'
     end
   end
   

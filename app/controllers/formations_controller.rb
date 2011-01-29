@@ -42,7 +42,7 @@ class FormationsController < ApplicationController
       redirect_to :action => 'list'
     else
       prepare_page_title_for_new
-      render :action => 'new'
+      render 'new'
     end
   end
 
@@ -65,7 +65,7 @@ class FormationsController < ApplicationController
       redirect_to :action => 'list'
     else
       prepare_page_title_for_edit
-      render :action => 'edit'
+      render 'edit'
     end
   end
 end

@@ -35,7 +35,7 @@ class ChroniclesController < ApplicationController
       redirect_to chronicles_path
     else
       prepare_page_title_for_new
-      render :action => 'new'
+      render 'new'
     end
   end
 

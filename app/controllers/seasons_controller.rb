@@ -51,7 +51,7 @@ class SeasonsController < ApplicationController
       @chronicle_id = params[:season][:chronicle_id]
 
       prepare_page_title_for_new
-      render :action => 'new'
+      render 'new'
     end
   end
 
@@ -88,7 +88,7 @@ class SeasonsController < ApplicationController
     else
       prepare_page_title_for_edit
       @chronicle_id = params[:season][:chronicle_id]
-      render :action => 'edit'
+      render 'edit'
     end
   end
 

@@ -91,7 +91,7 @@ class MatchesController < ApplicationController
       @matches = Match.list(@season_id)
 
       prepare_page_title_for_new
-      render :action => 'new'
+      render 'new'
     end
   end
 
@@ -147,7 +147,7 @@ class MatchesController < ApplicationController
       @matches = Match.list(season_id)
 
       prepare_page_title_for_edit
-      render :action => 'edit', :id => @match
+      render 'edit', :id => @match
     end
   end
   
