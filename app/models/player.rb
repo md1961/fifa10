@@ -185,7 +185,7 @@ class Player < ActiveRecord::Base
     MINIMUM_FEET_INCH_TO_CONVERT = 500
 
     def before_validation
-      if height > MINIMUM_FEET_INCH_TO_CONVERT
+      if height && height > MINIMUM_FEET_INCH_TO_CONVERT
         feet = (height / 100).to_i
         inch = height - feet * 100
         if inch < 12
@@ -193,7 +193,9 @@ class Player < ActiveRecord::Base
         end
       end
 
-      self.weight = UnitConverter.lb2kg(weight).round if weight > MAX_WEIGHT_IN_KG
+      if weight && weight > MAX_WEIGHT_IN_KG
+        self.weight = UnitConverter.lb2kg(weight).round
+      end
     end
 end
 
