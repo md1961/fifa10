@@ -936,10 +936,10 @@ class PlayersController < ApplicationController
         names << name
       end
 
-      eval("row_filter.set_no_#{kind}s")
+      row_filter.send(:"set_no_#{kind}s")
       names.each do |name|
         begin
-          eval("row_filter.set_#{kind}_by_name(name)")
+          row_filter.send(:"set_#{kind}_by_name", name)
         rescue RowFilter::CannotFindPlayerException
           explain_error(title, ["Unknown Player name '#{name}'"], [])
           return false
