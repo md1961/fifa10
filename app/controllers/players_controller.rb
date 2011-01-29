@@ -978,9 +978,11 @@ class PlayersController < ApplicationController
     def players_of_team(includes_on_loan=true, for_lineup=false)
       season_id = session[:season_id]
       raise "no 'season_id' in session (#{session.inspect})" unless season_id
-      players = Player.list(season_id, includes_on_loan, for_lineup)
+      players = Player.list(season_id, true, for_lineup)
 
       copy_to_lineup(players) unless for_lineup
+
+      players.reject { |player| player.on_loan?(season_id) } unless includes_on_loan
 
       return players
     end
