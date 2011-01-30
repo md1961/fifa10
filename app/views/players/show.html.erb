@@ -11,7 +11,7 @@
   <%= link_to "#{@next_player.name} >>", @next_player %>
 </p>
 
-<%= render :partial => 'base', :locals => {:action => :show, :f => nil} %>
+<%= render :partial => 'base', :locals => {:f => nil} %>
 
 <span class="alertingBackground"><font size="-1">
   <%= link_to 'Remove from Rosters', remove_from_rosters_path(@player),

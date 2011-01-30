@@ -8,7 +8,7 @@
 </p>
 
 <% form_for @player do |f| -%>
-  <%= render :partial => 'base', :locals => {:action => :edit, :f => f} %>
+  <%= render :partial => 'base', :locals => {:shows_form => true, :f => f} %>
   <%= hidden_field_tag :is_from_list, @is_from_list %>
 
   <%= submit_tag 'Submit' %>

@@ -3,9 +3,9 @@
   starting_column_name_of_2nd_edit_table = 'birth_year'
 
   column_names = ColumnFilter::COLUMN_NAMES_TO_DISPLAY
-  if action == :show && table_id == 2
+  if ! shows_form && table_id == 2
     column_names = []
-  elsif action == :edit
+  elsif shows_form
     index_split = column_names.index(starting_column_name_of_2nd_edit_table)
     if table_id == 1
       column_names = column_names[0, index_split]
@@ -19,17 +19,16 @@
   <tr>
     <th>
       <% if column_name == 'birth_year' -%>
-        <%= action == :show ? "Age:" : "Birth Year (or Age):" %>
+        <%= shows_form ? "Birth Year (or Age):" : "Age:" %>
       <% else -%>
         <%= column_name2display(column_name) + ":" + nbsp(2) %>
       <% end -%>
     </th>
     <td>
-      <% case action
-         when :show -%>
+      <% unless shows_form -%>
         <%= render :partial => 'property_display',
                    :locals => {:column_name => column_name, :player => @player, :show_unit => true} %>
-      <% when :edit -%>
+      <% else -%>
         <% case column_name
            when 'position_id' -%>
           <%= f.collection_select column_name, Position.find(:all), :id, :name %>
@@ -49,7 +48,7 @@
     </td>
   </tr>
 
-  <% if action == :edit && column_name == 'position_id' -%>
+  <% if shows_form && column_name == 'position_id' -%>
     <tr>
       <th>Sub-Positions:</th>
       <td>

@@ -1,31 +1,33 @@
 
+<% shows_form = false unless defined?(shows_form) -%>
+
 <table class="table_player_properties_and_attributes">
-  <%= render :partial => 'table_body_player_property', :locals => {:action => action, :table_id => 1, :f => f} %>
+  <%= render :partial => 'table_body_player_property', :locals => {:shows_form => shows_form, :table_id => 1, :f => f} %>
 </table>
 
 <table class="table_player_properties_and_attributes">
-  <%= render :partial => 'table_body_player_property', :locals => {:action => action, :table_id => 2, :f => f} %>
-</table>
-
-<table class="table_player_properties_and_attributes">
-  <%= render :partial => 'table_body_player_attribute',
-             :locals => {:action => action, :f => f, :index_start =>  0, :size_attributes => 12} %>
-</table>
-
-<table class="table_player_properties_and_attributes">
-  <%= render :partial => 'table_body_player_attribute',
-             :locals => {:action => action, :f => f, :index_start => 12, :size_attributes => 16} %>
+  <%= render :partial => 'table_body_player_property', :locals => {:shows_form => shows_form, :table_id => 2, :f => f} %>
 </table>
 
 <table class="table_player_properties_and_attributes">
   <%= render :partial => 'table_body_player_attribute',
-             :locals => {:action => action, :f => f, :index_start => 28, :size_attributes => 5} %>
+             :locals => {:shows_form => shows_form, :f => f, :index_start =>  0, :size_attributes => 12} %>
+</table>
+
+<table class="table_player_properties_and_attributes">
+  <%= render :partial => 'table_body_player_attribute',
+             :locals => {:shows_form => shows_form, :f => f, :index_start => 12, :size_attributes => 16} %>
+</table>
+
+<table class="table_player_properties_and_attributes">
+  <%= render :partial => 'table_body_player_attribute',
+             :locals => {:shows_form => shows_form, :f => f, :index_start => 28, :size_attributes => 5} %>
 </table>
 
 <div class="clear" />
 
 <table class="table_player_note">
-  <%= render :partial => 'table_body_player_note', :locals => {:action => action, :f => f} %>
+  <%= render :partial => 'table_body_player_note', :locals => {:shows_form => shows_form, :f => f} %>
 </table>
 
 <br />

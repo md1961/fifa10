@@ -6,11 +6,10 @@
     <th>
       <%= column_name2display(attr_name) + ":" + nbsp(2) %>
     </th>
-    <td align="<%= action == :show ? 'right' : 'left' %>">
-      <% case action
-         when :show -%>
+    <td align="<%= shows_form ? 'left' : 'right' %>">
+      <% unless shows_form -%>
         <%= @player_attribute.send(:attributes)[attr_name] %>
-      <% when :edit -%>
+      <% else -%>
         <%= text_field :player_attribute, attr_name, {:size => 4} %>
       <% end -%>
     </td>
