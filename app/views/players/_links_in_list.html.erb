@@ -5,11 +5,11 @@
 <%= nbsp(4) %>
 <%= link_to 'Fixtures/Results', matches_path %>
 <%= nbsp(4) %>
-<%= link_to 'Depth Chart', :action => 'depth_chart', :is_lineup => @is_lineup ? 1 : 0  %>
+<%= link_to 'Depth Chart', depth_chart_path(:is_lineup => @is_lineup ? 1 : 0)  %>
 <%= nbsp(2) %>
-<%= link_to 'Roster Chart', :action => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0 %>
+<%= link_to 'Roster Chart', roster_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
 <%= nbsp(2) %>
-<%= link_to 'Top Players', :action => 'top_attribute_list', :is_lineup => @is_lineup ? 1 : 0 %>
+<%= link_to 'Top Players', top_attribute_list_path(:is_lineup => @is_lineup ? 1 : 0) %>
 <br />
 <%= link_to 'Filter Rows/Columns', choose_filter_players_path %>
 <%= nbsp(2) %>
