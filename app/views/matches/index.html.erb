@@ -5,10 +5,10 @@
 
 <table id="table_matches" class="table_base">
   <%= render :partial => 'list',
-             :locals => {:action => :list,
-                         :id_to_edit => nil,
-                         :column_names => column_names_for_list,
-                         :shows_link => @shows_link} %> 
+             :locals => {:id_to_edit    => nil,
+                         :column_names  => column_names_for_list,
+                         :shows_link    => @shows_link,
+                         :shows_records => @shows_records == '1'} %>
 </table>
 
 <%= link_to 'New Match', new_match_path %>

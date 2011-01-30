@@ -6,7 +6,7 @@
       <th colspan="<%= colspan %>"><%= column_heading(column_name) %></th>
     <% end -%>
 
-    <% if action == :list -%>
+    <% if shows_records -%>
       <th><%= nbsp %></th>
     <% end -%>
   </tr>
@@ -22,7 +22,7 @@
                    :locals => {:column_name => column_name, :shows_link => shows_link} %>
       <% end -%>
 
-      <% if action == :list && @shows_records == '1' -%>
+      <% if shows_records -%>
         <td align="center"><%= record_display(match) %></td>
       <% end -%>
     </tr>
