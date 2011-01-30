@@ -10,6 +10,20 @@ class Player < ActiveRecord::Base
   MAX_HEIGHT_IN_CM = 220
   MAX_WEIGHT_IN_KG = 100
 
+  SAMPLE_DATA = {
+    :name => 'Yuya',
+    :number => '99',
+    :position_id => 3,
+    :skill_move => 3,
+    :is_right_dominant => true,
+    :both_feet_level => 3,
+    :height => 170,
+    :weight => 51,
+    :birth_year => 13,
+    :nation_id => 7,
+    :overall => 99,
+  }
+
   validates_presence_of :name, :number, :position_id, :skill_move, :both_feet_level, \
                         :height, :weight, :birth_year, :nation_id, :overall
   validates_inclusion_of :is_right_dominant, :in => [true, false]

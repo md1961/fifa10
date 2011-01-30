@@ -109,7 +109,9 @@ class PlayersController < ApplicationController
     private :adjust_params
 
   def new
-    @player = Player.new
+    #FIXME: Remove (Player::SAMPLE_DATA)
+    @player = Player.new \
+      (Player::SAMPLE_DATA)
     @player.overall = 0
     @player.player_attribute = PlayerAttribute.zeros
 
