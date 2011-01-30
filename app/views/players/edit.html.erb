@@ -1,8 +1,10 @@
 
+<% cancel_path = @is_from_list ? players_path : player_path(@player) -%>
+
 <%= error_messages_for :player %>
 
 <p>
-  <%= link_to 'Cancel', :action => @is_from_list ? 'list' : 'show' %>
+  <%= link_to 'Cancel', cancel_path %>
 </p>
 
 <% form_for @player do |f| -%>
@@ -11,6 +13,6 @@
 
   <%= submit_tag 'Submit' %>
   <%= nbsp(2) %>
-  <%= link_to 'Cancel', :action => @is_from_list ? 'list' : 'show' %>
+  <%= link_to 'Cancel', cancel_path %>
 <% end -%>
 
