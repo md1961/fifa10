@@ -15,7 +15,7 @@ class TeamsController < ApplicationController
   def new
     @team = Team.new
 
-    prepare_for_new_or_edit(:new)
+    prepare_for_new_or_edit
   end
 
   def create
@@ -24,17 +24,17 @@ class TeamsController < ApplicationController
     if @team.save
       redirect_to teams_path
     else
-      prepare_for_new_or_edit(:new)
+      prepare_for_new_or_edit
       render 'new'
     end
   end
 
-    def prepare_for_new_or_edit(action)
+    def prepare_for_new_or_edit
       @column_names = Team.columns.map(&:name) - %w(id)
       @nations = Nation.find(:all, :order => "name")
 
       @page_title_size = 3
-      @page_title = action == :new ? "Creating a New Team..." : "Editing #{@team.name}..."
+      @page_title = @team.new_record? ? "Creating a New Team..." : "Editing #{@team.name}..."
     end
     private :prepare_for_new_or_edit
 
@@ -43,7 +43,7 @@ class TeamsController < ApplicationController
     @column_names = Team.columns.map(&:name) - %w(id)
     @nations = Nation.find(:all, :order => "name")
 
-    prepare_for_new_or_edit(:edit)
+    prepare_for_new_or_edit
   end
 
   def update
@@ -52,7 +52,7 @@ class TeamsController < ApplicationController
     if @team.update_attributes(params[:team])
       redirect_to teams_path
     else
-      prepare_for_new_or_edit(:edit)
+      prepare_for_new_or_edit
       render 'edit'
     end
   end
