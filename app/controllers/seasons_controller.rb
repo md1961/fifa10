@@ -41,8 +41,10 @@ class SeasonsController < ApplicationController
     @season = Season.new(params[:season])
     @season.series = series_selected(params)
     last_season = Chronicle.find(@season.chronicle_id).last_season
-    #FIXME: Must dup() player_seasons one by one
-    @season.player_seasons = last_season.player_seasons
+    last_season.player_seasons.each do |player_season|
+      @season.player_seasons.build(player_season.attributes_to_succeed)
+    end
+
     if @season.save
       redirect_to seasons_path(:chronicle_id => @season.chronicle_id)
     else
