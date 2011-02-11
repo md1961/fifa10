@@ -1,0 +1,35 @@
+
+<div id="login_form">
+  <% form_tag do -%>
+    <fieldset style="width: 300px;">
+      <legend>Please Log In</legend>
+
+      <table>
+        <tr>
+          <td>
+            <label for="username">Username:</label>
+          </td>
+          <td>
+            <%= text_field_tag :username, params[:username] %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label for="password">Password:</label>
+          </td>
+          <td>
+            <%= password_field_tag :password, params[:password] %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <%= submit_tag 'Login' %>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+  <% end -%>
+</div>
+

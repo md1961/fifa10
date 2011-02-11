@@ -1,0 +1,100 @@
+
+<div class="<%= @is_lineup ? 'lineup' : '' %>">
+
+<%
+  num_players_in_first_table_reserves = 10
+-%>
+
+<p>
+  <%= link_to 'Fixtures/Results', matches_path %>
+  <%= nbsp(4) %>
+  <%= link_to 'Back to Rosters', players_path %>
+  <%= nbsp(4) %>
+  <%= link_to 'Depth Chart', depth_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Top Players', top_attribute_list_path %>
+  <%= nbsp(4) %>
+  <%= link_to 'Injure Player', pick_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
+  <% unless @injury_list.empty? -%>
+    <font size="-1">
+      <%= nbsp %>
+      <%= link_to 'Undo' , undo_pick_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
+      <%= nbsp %>
+      <%= link_to 'Clear', clear_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
+    </font>
+  <% end -%>
+  <%= nbsp(4) %>
+  <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
+  <%= nbsp(4) %>
+  <% label, next_is_lineup = @is_lineup ? ["Show Roster", 0] : ["Show Lineup", 1] -%>
+  <%= link_to label, roster_chart_path(:is_lineup => next_is_lineup) %>
+  <%= nbsp(2) %>
+  <% if @is_lineup -%>
+    <%= link_to 'Revise Lineup', revise_lineup_players_path %>
+  <% end -%>
+</p>
+
+<div id="top_of_tables_roster_chart">
+  <%= next_matches_display(@next_matches) %>
+  <br />
+  <% size_inj = @injury_list.size -%>
+  <%= "Total of #{@players.size} players (#{size_inj} player#{size_inj > 1 ? 's' : ''} in Injury List)" %>
+  <br />
+  <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
+</div>
+
+<table id="table_starters" class="table_base tables_roster_chart">
+  <%= render :partial => 'roster_table',
+             :locals => {:caption => 'Starters:',
+                         :index_start => 0, :size => @num_starters,
+                         :index_offset => 0} %>
+</table>
+
+<table id="table_in_bench" class="table_base tables_roster_chart">
+  <%= render :partial => 'roster_table',
+             :locals => {:caption => 'Bench:',
+                         :index_start => @num_starters, :size => @num_in_bench,
+                         :index_offset => 0} %>
+</table>
+
+<% index_start = @num_starters + @num_in_bench
+   size = num_players_in_first_table_reserves -%>
+
+<table id="table_reserves_first" class="table_base tables_roster_chart">
+  <%= render :partial => 'roster_table',
+             :locals => {:caption => 'Reserves:',
+                         :index_start => index_start, :size => size,
+                         :index_offset => 0} %>
+</table>
+
+<% index_start += size
+   size = @players.size -%>
+
+<table class="table_base tables_roster_chart">
+  <%= render :partial => 'roster_table',
+             :locals => {:caption => nbsp,
+                         :index_start => index_start, :size => size,
+                         :index_offset => num_players_in_first_table_reserves} %>
+</table>
+
+<div class="clear" />
+
+<% if @error_explanation -%>
+  <%= @error_explanation %>
+<% end -%>
+
+<% form_tag edit_roster_players_path do -%>
+  <label for="command">Enter a command to exchange players: </label>
+  <%= text_field_tag :command %>
+  <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
+  <%= submit_tag 'Execute' %>
+<% end -%>
+
+<div id="command_samples_for_roster_chart">
+  Command Samples:
+  <br />
+  <%= command_samples_for_roster_chart %>
+</div>
+
+</div>
+

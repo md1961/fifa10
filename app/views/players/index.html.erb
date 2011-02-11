@@ -1,0 +1,12 @@
+
+<%= render :partial => 'links_in_list' %>
+
+<%
+  max_players = Constant.get(:max_players_to_transpose)
+  table_body = @players.size <= max_players ? 'list_transposed' : 'list_normal'
+-%>
+
+<table id="table_players" class="table_base">
+  <%= render :partial => table_body %>
+</table>
+

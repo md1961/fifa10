@@ -1,0 +1,12 @@
+
+<tr>
+  <th>Note:</th>
+  <td>
+    <% unless shows_form -%>
+      <%= @player.note %>
+    <% else -%>
+      <%= f.text_field :note, :size => 120 %>
+    <% end -%>
+  </td>
+</tr>
+

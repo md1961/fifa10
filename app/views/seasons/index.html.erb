@@ -1,0 +1,30 @@
+
+<%= link_to 'Chronicles', chronicles_path %>
+<%= nbsp(2) %>
+<% action = @chronicle.closed? ? 'open' : 'close'
+   path_method = :"#{action}_chronicle_path"
+   label  = action.capitalize + " This Chronicle" -%>
+<%= link_to label, send(path_method, @chronicle) %>
+
+<ul id="season_list">
+  <% @seasons.each do |season| -%>
+    <li class="<%= season.closed? ? 'closed' : '' %>">
+      <%= link_to season.name_and_years, matches_path(:season_id => season) %>
+      <font size="-1">
+        <%= link_to 'Players', roster_chart_path(:season_id => season) %>
+        <%= nbsp %>
+        <%= link_to 'Edit', edit_season_path(season, :chronicle_id => @chronicle) %>
+        <% if season.matches.empty? -%>
+          <%= nbsp %>
+          <%= link_to 'Delete', season_path(season, :chronicle_id => @chronicle), :method => :delete,
+                                :confirm => "OK to delete '#{season.name_and_years}'?" %>
+        <% end -%>
+      </font>
+    </li>
+  <% end -%>
+</ul>
+
+<div id="link_new_season">
+  <%= link_to 'New Season', new_season_path(:chronicle_id => @chronicle) %>
+</div>
+

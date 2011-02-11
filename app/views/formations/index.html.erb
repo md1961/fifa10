@@ -1,0 +1,9 @@
+
+<p>
+  <%= link_to 'Back to Roster Chart', roster_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
+  <%= nbsp %>
+  <%= link_to 'New Formation', new_formation_path %>
+</p>
+
+<%= render :partial => 'list', :locals => {:shows_link => true} %>
+

@@ -1,0 +1,31 @@
+
+<%= link_to 'Chronicles', chronicles_path %>
+<%= nbsp(4) %>
+<%= link_to 'New Team', new_team_path %>
+
+<table id="table_teams" class="table_base">
+  <tr>
+    <% @column_names.each do |column_name| -%>
+      <% name = column_name == 'year_founded' ? 'founded' : column_name -%>
+      <th><%= column_name2display(name) %></th>
+    <% end -%>
+  </tr>
+
+  <% @teams.each do |team| -%>
+    <tr>
+      <% @column_names.each do |column_name| -%>
+        <td align="<%= column_align(column_name) %>">
+          <% value = team.get(column_name) -%>
+          <% if column_name == 'id' -%>
+            <%= link_to value, edit_team_path(team) %>
+          <% elsif column_name == 'abbr' && value.nil? -%>
+            (same)
+          <% else -%>
+            <%= value %>
+          <% end -%>
+        </td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+

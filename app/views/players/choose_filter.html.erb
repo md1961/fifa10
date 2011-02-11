@@ -1,0 +1,163 @@
+
+<%= link_to 'Cancel', players_path, {:style => "float: left"} %>
+
+<% if @error_explanation -%>
+  <br />
+  <%= @error_explanation %>
+<% else -%>
+  <div style="float: left;"><%= nbsp(4) %></div>
+<% end -%>
+
+<div style="float: left;">
+<% form_tag filter_command_players_path do -%>
+  <label for="command">Positions/Names? </label>
+  <%= text_field_tag :command, @last_command -%>
+  <%= submit_tag 'Enter' %>
+<% end -%>
+</div>
+
+<span style="font-size: small; vertical-align: bottom; margin-bottom: 0px;">
+  <%= nbsp(2) %>
+  positions/player names with space delimited.
+  <%= nbsp(2) %>
+  omit spaces.
+  <%= nbsp(2) %>
+  'abc%' for prefix search.
+  <%= nbsp(2) %>
+  '%xyz' for postfix search.
+</span>
+<br />
+<br />
+<div class="clear" />
+
+<% form_tag filter_players_path do -%>
+  <b>Columns:</b>
+  <hr />
+
+  <%= nbsp(6) %>
+  <%= link_to 'Recommended', filter_players_with_path(:recommended_columns) %>
+  <%= nbsp(2) %>
+  <%= link_to 'All' , filter_players_with_path(:all_columns) %>
+  <%= nbsp(2) %>
+  <%= link_to 'None', filter_players_with_path(:no_columns) %>
+  <br />
+  <%= nbsp(5) %>
+  <% ColumnFilter::PLAYER_PROPERTY_NAMES.each do |name| -%>
+    <%= check_box :column_filter, name %>
+    <label for='<%= "column_filter_#{name}" %>'>
+      <%= column_name2display(name) %>
+    </label>
+    <%= nbsp %>
+  <% end -%>
+
+  <hr />
+
+  <%= nbsp(6) %>
+  <%= link_to 'Field', filter_players_with_path(:field_attributes) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Common', filter_players_with_path(:general_attributes) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Offensive', filter_players_with_path(:offensive_attributes) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Common+Off', filter_players_with_path(:general_and_offensive_attributes) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Defensive', filter_players_with_path(:defensive_attributes) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Common+Def', filter_players_with_path(:general_and_defensive_attributes) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Goalkeeping', filter_players_with_path(:goalkeeping_attributes) %>
+  <%= nbsp(2) %>
+  <%= link_to 'All' , filter_players_with_path(:all_attributes) %>
+  <%= nbsp(2) %>
+  <%= link_to 'None', filter_players_with_path(:no_attributes) %>
+  <br />
+  <%= nbsp(5) %>
+  <% displaying_player_attribute_names.each do |name| -%>
+    <% if name.nil? -%>
+      <br />
+      <%= nbsp(5) %>
+      <% next -%>
+    <% end -%>
+    <%= check_box :column_filter, name %>
+    <label for='<%= "column_filter_#{name}" %>'>
+      <%= column_name2display(name) %>
+    </label>
+    <%= nbsp %>
+  <% end -%>
+
+  <br />
+  <br />
+
+  <b>Players:</b>
+  <hr />
+
+  <%= radio_button :row_filter, :option, RowFilter::USE_POSITION_CATEGORIES %>
+  <label for="<%= 'row_filter_option_' + RowFilter::USE_POSITION_CATEGORIES %>">
+    <span class="<%= @row_filter.use_position_categories? ? 'option_selected' : '' %>">
+      Use Position Categories
+    </span>
+  </label>
+  <%= nbsp(2) %>
+  <%= link_to 'All' , filter_players_with_path(:all_position_categories) %>
+  <%= nbsp(2) %>
+  <%= link_to 'None', filter_players_with_path(:no_position_categories) %>
+  <br />
+  <% RowFilter::POSITION_CATEGORIES.each do |name| -%>
+    <%= nbsp(5) %>
+    <%= check_box :row_filter, name %>
+    <label for="<%= 'row_filter_' + name.to_s %>">
+      <%= name.to_s.camelize %>
+    </label>
+  <% end -%>
+
+  <hr />
+
+  <%= radio_button :row_filter, :option, RowFilter::USE_POSITIONS %>
+  <label for="<%= 'row_filter_option_' + RowFilter::USE_POSITIONS %>">
+    <span class="<%= @row_filter.use_positions? ? 'option_selected' : '' %>">
+      Use Positions
+    </span>
+  </label>
+  <br />
+  <%= nbsp(3) %>
+  <% RowFilter::POSITIONS.each do |name| -%>
+    <%= nbsp %>
+    <%= check_box :row_filter, name %>
+    <label for="<%= 'row_filter_' + name.to_s %>">
+      <%= RowFilter.name2pos(name) %>
+    </label>
+  <% end -%>
+
+  <hr />
+
+  <%= radio_button :row_filter, :option, RowFilter::USE_PLAYER_NAMES %>
+  <label for="<%= 'row_filter_option_' + RowFilter::USE_PLAYER_NAMES %>">
+    <span class="<%= @row_filter.use_player_names? ? 'option_selected' : '' %>">
+      Use Player Names
+    </span>
+  </label>
+  <br />
+  <%= nbsp(3) %>
+  <% prev_category = nil -%>
+  <% RowFilter.player_instance_variable_names.each do |name| -%>
+    <% player = RowFilter.get_player(name)
+       category = player.position.category -%>
+    <% if prev_category && category != prev_category -%>
+      <br />
+      <%= nbsp(3) %>
+    <% end -%>
+    <% prev_category = category -%>
+    <%= nbsp %>
+    <%= check_box :row_filter, name %>
+    <label for="<%= 'row_filter_' + name.to_s %>">
+      <%= player.name %>
+    </label>
+  <% end -%>
+
+  <p>
+    <%= submit_tag 'Apply' %>
+    <%= nbsp %>
+    <%= link_to 'Cancel', players_path %>
+  </p>
+<% end -%>
+

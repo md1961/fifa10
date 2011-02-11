@@ -1,0 +1,7 @@
+00.00.01.00: Almost finished player display.
+00.00.02.00: Finished column filter for players except attributes.
+00.00.03.00: Finished row filter for player position categories.
+00.00.04.00: Finished row filter for positions and player names.
+00.00.05.00: Added editing of player properties and attributes.
+00.00.06.00: Added sort of player properties and attributes.
+00.00.07.00: Implemented to create a new player.

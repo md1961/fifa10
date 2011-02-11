@@ -1,0 +1,30 @@
+
+<% shows_link = false unless defined?(shows_link) -%>
+
+<table class="table_base">
+  <tr>
+    <th>Name</th>
+    <th colspan="11" />
+    <% if shows_link -%>
+      <th colspan="2" />
+    <% end -%>
+  </tr>
+
+  <% @formations.each do |formation| -%>
+    <tr>
+      <td><%= formation.name %></td>
+      <% 1.upto(11) do |index| -%>
+        <% position = formation.position(index) -%>
+        <td style="background-color: <%= position.color %>; text-align: center;">
+          <%= position.name %>
+        </td>
+      <% end -%>
+
+      <% if shows_link -%>
+        <td><%= link_to 'Edit'  , edit_formation_path(formation) %></td>
+        <td><%= link_to 'Apply' , apply_formation_players_path(:id => formation, :is_lineup => @is_lineup ? 1 : 0) %></td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+

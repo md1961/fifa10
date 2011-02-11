@@ -1,0 +1,433 @@
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+
+/* The followings are user-defined */
+
+.links_in_top_of_page {
+  font-size: medium;
+  font-style: italic;
+}
+
+.non_links_in_top_of_page {
+  font-size: medium;
+}
+
+#page_title {
+  float: left;
+}
+
+.stand_out_text {
+  background-color: yellow;
+  border-style: outset;
+  border-color: red;
+}
+
+.tableHeader {
+  color: white;
+  font-weight: normal ! important;
+  background-color: #666;
+}
+
+.tableRow0 {
+  background-color: #fff;
+}
+
+.tableRow1 {
+  background-color: #ccc;
+}
+
+#login_form {
+  font-size: small;
+}
+
+#logout {
+  font-size: large;
+  padding-left: 90px;
+  vertical-align: bottom;
+}
+
+#chronicle_list {
+  font-size: x-large;
+  list-style-image: url(../images/WorldCupBall2006.gif);
+}
+
+#chronicle_list .closed {
+  font-style: italic;
+  list-style: square;
+}
+
+#link_new_chronicle {
+  font-size: large;
+  margin: 20px;
+}
+
+#chronicle_examples {
+  font-size: small;
+  margin-top:   5px;
+  margin-left: 50px;
+}
+
+#season_list {
+  font-size: x-large;
+  list-style-image: url(../images/WorldCupBall2006.gif);
+}
+
+#season_list .closed {
+  font-style: italic;
+  list-style: square;
+}
+
+#link_new_season {
+  font-size: large;
+  margin: 20px;
+}
+
+/* TODO: */
+.table_base {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table_base th {
+  padding: 0px 4px 0px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table_base td {
+  padding: 0px 4px 0px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#table_teams {
+  font-size: small;
+  margin-top: 6px;
+}
+
+#table_teams th {
+  color: white;
+  background-color: #666;
+}
+
+#table_teams td {
+  font-weight: normal;
+}
+
+#table_matches {
+  border: 10px black solid;
+  font-size: medium;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+#table_matches th {
+  color: white;
+  background-color: #666;
+}
+
+#table_matches tr:hover {
+  color: black !important;
+  background-color: cyan;
+}
+
+#table_matches td {
+  font-weight: bold;
+}
+
+#table_matches .no_right_border {
+  border-right: 1px black hidden;
+}
+
+#table_matches .tableRow0:hover {
+  color: black;
+}
+
+#table_matches .tableRow0 {
+  color: white;
+  background-color: red;
+}
+
+#table_matches .tableRow1:hover {
+  color: black;
+}
+
+#table_matches .tableRow1 {
+  color: white;
+  background-color: black;
+}
+
+#table_matches a:hover {
+  color: black;
+}
+
+#table_matches a {
+  color: white;
+}
+
+#table_players {
+  font-size: small;
+  margin-top: 2px;
+}
+
+#table_players th {
+  color: white;
+  /*
+  font-weight: normal ! important;
+  */
+  background-color: #666;
+  padding: 1px 4px 1px;
+}
+
+#table_players td {
+  padding: 1px 4px 1px;
+}
+
+#table_players .sorted_field {
+  background-color: pink;
+}
+
+#table_players .superior_attribute_value {
+  font-weight: bold;
+}
+
+#table_players .rightmost_of_attributes {
+}
+
+#table_players .leftmost_of_attributes {
+  border-left: double medium black;
+}
+
+#table_players .top_of_attributes {
+  border-top: double medium black;
+}
+
+#table_top_attribute_list {
+  font-size: small;
+  margin-top: 2px;
+}
+
+#table_top_attribute_list th {
+  color: white;
+  text-align: left;
+  background-color: #666;
+  padding: 1px 4px 1px;
+}
+
+#table_top_attribute_list td {
+  padding: 1px 4px 1px;
+}
+
+#table_top_attribute_list .attr_focus {
+  color: cyan;
+  font-weight: bold;
+}
+
+#table_top_attribute_list .player_focus {
+  font-weight: bold;
+  background-color: cyan;
+}
+
+.table_player_properties_and_attributes {
+  float: left;
+  margin-right: 30px;
+}
+
+.table_player_properties_and_attributes th {
+  font-size: small;
+  font-weight: normal;
+  text-align: left;
+}
+
+.table_player_note th {
+  width: 87px;
+  font-size: small;
+  font-weight: normal;
+  text-align: left;
+}
+
+#table_player_attribute_legend {
+  font-size: medium;
+}
+
+#table_player_attribute_legend td {
+  height: 16px;
+}
+
+.top_five_values {
+  background-color: cyan;
+}
+
+.option_selected {
+  font-size: large;
+  font-weight: bold;
+}
+
+.injury_list {
+  background-color: magenta;
+}
+
+.off_list {
+  background-color: pink;
+}
+
+#table_depth_chart {
+  font-size: medium;
+  border: 1px black solid;
+}
+
+#table_depth_chart th {
+  font-weight: bold;
+  padding: 1px 4px 1px;
+}
+
+#table_depth_chart tr:hover {
+  background-color: cyan;
+}
+
+#table_depth_chart td {
+  font-weight: normal;
+  background-color: white;
+  padding: 1px 4px 1px;
+}
+
+#table_depth_chart .num_players {
+  font-size: small;
+  text-align: right;
+}
+
+#table_depth_chart td .property {
+  font-weight: normal;
+  font-size: small;
+}
+
+#top_of_tables_roster_chart {
+  padding-left: 7px;
+  margin-bottom: 10px;
+}
+
+#table_starters {
+  float: left;
+  margin-left:  10px;
+  margin-right: 20px;
+}
+
+#table_in_bench {
+  float: left;
+  margin-right: 20px;
+}
+
+#table_reserves_first {
+  float: left;
+  margin-right: 10px;
+}
+
+.lineup {
+  background-color: palegreen;
+}
+
+.tables_roster_chart {
+  font-size: medium;
+  border: 1px black solid;
+  margin-bottom: 10px;
+  background: white;
+}
+
+.tables_roster_chart th {
+  padding: 1px 4px 1px;
+}
+
+.tables_roster_chart td {
+  padding: 1px 4px 1px;
+}
+
+.tables_roster_chart .name {
+  font-weight: bold;
+}
+
+.tables_roster_chart .out_of_position {
+  background-color: lightgrey;
+}
+
+.tables_roster_chart caption {
+  font-weight: normal;
+  text-align: left;
+  padding-left: 7px;
+}
+
+.tables_roster_chart .index_number {
+  font-size: small;
+  text-align: right;
+}
+
+.tables_roster_chart .hot {
+  background-color: cyan;
+}
+
+.tables_roster_chart .on_loan {
+  background-color: grey;
+}
+
+#command_samples_for_roster_chart {
+  font-size: small;
+  margin-left: 10px;
+  margin-top:   5px;
+}
+
+/* */
+
+.clear {
+  clear: both;
+}
+
+.copyright {
+  font-size: xx-small;
+}
+
+.alertingBackground {
+  background-color: red;
+}
+
+.alerting {
+  font-size: large;
+  color: red;
+  background-color: yellow;
+}
+

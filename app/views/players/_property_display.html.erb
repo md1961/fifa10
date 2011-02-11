@@ -1,0 +1,38 @@
+
+<% show_unit = false unless defined?(show_unit) -%>
+
+<% case column_name
+   when 'name' -%>
+  <%= "<b>#{player.name}</b>" %>
+<% when 'position_id' -%>
+  <%= "<b>#{player.position.name}</b> #{player.sub_positions.map(&:name).join(' ')}" %>
+<% when 'skill_move' -%>
+  <%= '★' * player.skill_move %>
+<% when 'is_right_dominant' -%>
+  <%= player.is_right_dominant ? 'R' : 'L' %>
+<% when 'both_feet_level' -%>
+  <%= '☆' * player.both_feet_level %>
+<% when 'height' -%>
+  <%= player.height.to_s + (show_unit ? ' cm' : '') %>
+<% when 'weight' -%>
+  <%= player.weight.to_s + (show_unit ? ' kg' : '') %>
+<% when 'birth_year' -%>
+  <%= player.age %>
+<% when 'nation_id' -%>
+  <%= player.nation.name -%>
+<% when 'market_value' -%>
+  <% if (mv = player.market_value).nil? -%>
+    <%= "(n/a)" %>
+  <% else -%>
+    <%= number_with_delimiter(mv) + (show_unit ? ' K' + [0x00A3].pack('U') : '') %>
+  <% end -%>
+<% when 'wage' -%>
+  <% if (wage = player.wage).nil? -%>
+    <%= "(n/a)" %>
+  <% else -%>
+    <%= number_with_delimiter(wage) + (show_unit ? ' ' + [0x00A3].pack('U') : '') %>
+  <% end -%>
+<% else -%>
+  <%= player.get(column_name) %>
+<% end -%>
+

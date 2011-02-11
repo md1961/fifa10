@@ -1,0 +1,21 @@
+
+<% column_names = column_names_for_list -%>
+
+<p>
+  <%= link_to 'Cancel', matches_path %>
+</p>
+
+<table id="table_matches" class="table_base">
+  <%= render :partial => 'list',
+             :locals => {:id_to_edit    => nil,
+                         :column_names  => column_names,
+                         :shows_link    => false,
+                         :shows_records => false} %>
+
+  <%= render :partial => 'form', :locals => {:column_names => column_names} %>
+</table>
+
+<p>
+  <%= link_to 'Cancel', matches_path %>
+</p>
+

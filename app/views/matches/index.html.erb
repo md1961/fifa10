@@ -1,0 +1,15 @@
+
+<%= render :partial => 'links_in_list' %>
+
+<%= link_to 'New Match', new_match_path %>
+
+<table id="table_matches" class="table_base">
+  <%= render :partial => 'list',
+             :locals => {:id_to_edit    => nil,
+                         :column_names  => column_names_for_list,
+                         :shows_link    => @shows_link,
+                         :shows_records => @shows_records == '1'} %>
+</table>
+
+<%= link_to 'New Match', new_match_path %>
+

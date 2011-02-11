@@ -1,0 +1,21 @@
+
+<ul id="chronicle_list">
+  <% @chronicles.each do |chronicle| -%>
+    <li class="<%= chronicle.closed? ? 'closed' : '' %>">
+      <%= link_to chronicle.name, seasons_path(:chronicle_id => chronicle) %>
+      <font size="-1">
+        <% if chronicle.seasons.empty? -%>
+          <%= link_to 'Delete', chronicle_path(chronicle, :chronicle_id => @chronicle),
+                                :method => :delete, :confirm => "OK to delete '#{chronicle.name}'?" %>
+        <% end -%>
+      </font>
+    </li>
+  <% end -%>
+</ul>
+
+<div id="link_new_chronicle">
+  <%= link_to 'New Chronicle', new_chronicle_path %>
+  <%= nbsp(4) %>
+  <%= link_to 'Teams', teams_path %>
+</div>
+

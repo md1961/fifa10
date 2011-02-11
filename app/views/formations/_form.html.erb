@@ -1,0 +1,38 @@
+
+<%= render :partial => 'list' %>
+<br />
+<br />
+
+<%= error_messages_for :formation %>
+
+<% form_for @formation do |f| -%>
+  <label for="formation_name">Name:</label>
+  <%= f.text_field :name, :size => 20 %>
+  <br />
+
+  <label for="formation_note">Note:</label>
+  <%= f.text_field :note, :size => 40 %>
+  <br />
+
+  <% 1.upto(11) do |index| -%>
+    <% name = Formation.position_column_name(index) -%>
+    <label for="formation_<%= name %>"><%= "%02d" % index %></label>
+    <% if index == 1 -%>
+      <%= f.hidden_field name %>
+      <% position = Position.find(@formation[name]) %>
+      <span style="background-color: <%= position.color %>;">
+        <%= position.name %>
+      </span>
+    <% else -%>
+      <%= f.collection_select name, Position.find(:all), :id, :name %>
+    <% end -%>
+    <br />
+  <% end -%>
+
+  <p>
+    <%= submit_tag 'Create' %>
+    <%= nbsp(2) %>
+    <%= link_to 'Cancel', formations_path %>
+  </p>
+<% end -%>
+

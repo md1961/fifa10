@@ -1,0 +1,34 @@
+
+<% case column_name
+   when 'date_match' %>
+   <% format = Constant.get(:date_format)[match.opponent_type]
+      date = match.date_match
+      date_display = "#{date.strftime(format)} <font size='-2'>#{date.strftime("%a")}</font>" -%>
+     <td>
+       <%= link_to_if shows_link, date_display, edit_match_path(match) %>
+     </td>
+<% when 'series_id' -%>
+     <td><%= "#{match.series.abbr} #{match.subname}" %></td>
+<% when 'opponent_id' -%>
+     <td><%= match.opponent.abbr || match.opponent.name %></td>
+<% when 'scores_own' -%>
+     <% if match.scores_own.nil? -%>
+       <td colspan="2" align="center">
+         <%= link_to_if shows_link, nbsp(10), edit_match_path(match, :scores_only => 1) %>
+       </td>
+     <% else -%>
+       <td align="center" class="no_right_border">
+         <%= "#{one_char_result(match)}" %>
+       </td>
+       <td align="center">
+         <%= link_to_if shows_link, "#{match.scores_own} - #{match.scores_opp}",
+                                              edit_match_path(match, :scores_only => 1) %>
+       </td>
+     <% end -%>
+<% when 'pks_own' -%>
+     <td><%= match.pks_own.nil? ? "" : "PK #{match.pks_own}-#{match.pks_opp}" %></td>
+<% else -%>
+     <% align = column_name == 'ground' ? "center" : "left" -%>
+     <td align="<%= align %>"><%= match.read_attribute(column_name) %></td>
+<% end -%>
+

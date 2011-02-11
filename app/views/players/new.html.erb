@@ -1,0 +1,11 @@
+
+<%= error_messages_for :player %>
+
+<% form_for @player do |f| -%>
+  <%= render :partial => 'base', :locals => {:shows_form => true, :f => f} %>
+
+  <%= submit_tag 'Submit' %>
+  <%= nbsp(2) %>
+  <%= link_to 'Cancel', players_path %>
+<% end -%>
+

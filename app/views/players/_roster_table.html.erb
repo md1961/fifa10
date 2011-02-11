@@ -1,0 +1,50 @@
+
+<%
+  kind = caption.at(0).downcase
+  kind = 'r' if kind == '&'
+-%>
+
+<caption><%= caption %></caption>
+
+<% unless index_start >= @players.size -%>
+  <% @players[index_start, size].each_with_index do |player, index| -%>
+    <% clazz = player.hot?(@season_id)          ? 'hot' \
+             : player.on_loan?(@season_id)      ? 'on_loan' \
+             : @injury_list.include?(player.id) ? 'injury_list' \
+             : @off_list.include?(player.id)    ? 'off_list' \
+                                                : '' -%>
+    <tr class="<%= clazz %>">
+      <% if kind == 's' && @formation -%>
+        <% position = @formation.position(index + 1) -%>
+        <td style="background-color: <%= position.color %>;
+                   text-align: center; font-size: small; font-weight: bold;">
+          <%= position.name %>
+        </td>
+      <% end -%>
+      <td class="index_number">
+        <% label = "#{kind == 's' ? '': kind}#{index + index_offset + 1}" -%>
+        <%= link_to label, player_path(player, :browses_all_players => 1) %>
+      </td>
+      <% clazz = kind != 's' || player.positions.include?(position) ? "" : "out_of_position" -%>
+      <td class="name <%= clazz %>">
+        <%= player.name %>
+      </td>
+      <td>
+        <font size="-1"><%= player.overall %></font>
+      </td>
+      <td align="center" style="background-color: <%= player.position.color %>">
+        <font size="-1"><%= player.position.name %></font>
+      </td>
+      <td>
+        <font size="-2">
+          <% player.sub_positions.each do |pos| -%>
+            <span style="background-color: <%= pos.color %>">
+              <%= pos.name %>
+            </span>
+          <% end -%>
+        </font>
+      </td>
+    </tr>
+  <% end -%>
+<% end -%>
+

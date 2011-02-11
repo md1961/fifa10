@@ -1,0 +1,37 @@
+
+<div style="float: left;">
+  <%= link_to 'Fixtures/Results', matches_path %>
+  <%= nbsp(4) %>
+  <%= link_to 'Back to Rosters', players_path %>
+  <%= nbsp(4) %>
+  <%= link_to 'Depth Chart', depth_chart_path %>
+  <%= nbsp(2) %>
+  <%= link_to 'Roster Chart', roster_chart_path %>
+  <%= nbsp(4) %>
+</div>
+
+<div style="float: left;">
+  <% form_tag top_attribute_list_path do -%>
+    <label for="names">Names? </label>
+    <%= text_field_tag :names, @names, :size => 40 -%>
+    <%= submit_tag 'Enter' %>
+  <% end -%>
+</div>
+
+<div class="clear" />
+
+<table id="table_top_attribute_list" class="table_base">
+  <% PlayerAttribute.fulls.each do |attr_name| -%>
+    <tr>
+      <th class="<%= @attr_names_focus.include?(attr_name) ? 'attr_focus' : '' %>">
+        <%= column_name2display(attr_name) %>
+      </th>
+      <% @map_top_players[attr_name].each do |player| -%>
+        <% clazz = @players_focus.include?(player) ? "player_focus" : "" -%>
+        <td class="<%= clazz %>"><%= player.name %></td>
+        <td class="<%= clazz %>" text-align="right"><%= player.get(attr_name) %></td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+

@@ -1,0 +1,49 @@
+
+<div class="<%= @is_lineup ? 'lineup' : '' %>">
+
+<p>
+  <%= link_to 'Fixtures/Results', matches_path %>
+  <%= nbsp(4) %>
+  <%= link_to 'Back to Rosters', players_path %>
+  <%= nbsp(4) %>
+  <%= link_to 'Roster Chart', roster_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Top Players', top_attribute_list_path %>
+</p>
+
+<%= next_matches_display(@next_matches) %>
+<br />
+
+<% form_tag depth_chart_path do -%>
+  <%= select_tag :attribute, options_for_select(options_for_attrs_and_props(@attrs), @attr.to_s) %>
+  <%= submit_tag 'select' %>
+<% end -%>
+
+<table id="table_depth_chart" class="table_base">
+  <% @positions.each do |position| -%>
+    <tr>
+      <th style="background-color: <%= position.color %>">
+        <%= position.name -%>
+      </th>
+      <% players = @depth[position]
+         size = players.size -%>
+      <td class="num_players">
+        <%= size %>
+      </td>
+      <td>
+        <% players.each_with_index do |player, i| -%>
+          <span class="<%= @injury_list.include?(player.id) ? 'injury_list' : '' %>">
+            <%= player.name %>
+            <span class="property">
+              <%= "(#{player.get(@attr)})" %>
+            </span>
+          </span>
+          <%= "&nbsp;" if i < size - 1 %>
+        <% end -%>
+      </td>
+    </tr>
+  <% end -%>
+</table>
+
+</div>
+

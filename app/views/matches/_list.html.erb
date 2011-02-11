@@ -1,0 +1,31 @@
+
+<% if Constant.get(:column_heading_for_matches) -%>
+  <tr>
+    <% column_names.each do |column_name| -%>
+      <% colspan = column_name == 'scores_own' ? 2 : 1 -%>
+      <th colspan="<%= colspan %>"><%= column_heading(column_name) %></th>
+    <% end -%>
+
+    <% if shows_records -%>
+      <th><%= nbsp %></th>
+    <% end -%>
+  </tr>
+<% end -%>
+
+<% @matches.each do |match| -%>
+  <% if match.id == id_to_edit -%>
+    <%= render :partial => 'form', :locals => {:column_names => column_names} %>
+  <% else -%>
+    <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
+      <% column_names.each do |column_name| -%>
+        <%= render :partial => 'match', :object => match,
+                   :locals => {:column_name => column_name, :shows_link => shows_link} %>
+      <% end -%>
+
+      <% if shows_records -%>
+        <td align="center"><%= record_display(match) %></td>
+      <% end -%>
+    </tr>
+  <% end -%>
+<% end -%>
+

@@ -1,0 +1,28 @@
+0	Manchester United	1878	Old Trafford	4
+0	Liverpool	1892	Anfield	4
+0	Chelsea	1905	Stamford Bridge	4
+0	Arsenal	1886	Emirates Stadium	4
+0	Everton	1878	Goodison Park	4
+0	Aston Villa	1874	Villa Park	4
+0	Tottenham Hotspur	1882	White Hart Lane	4
+0	Manchester City	1887	City of Manchester Stadium	4
+0	Fulham	1879	Craven Cottage	4
+0	West Ham United	1895	Upton Park	4
+0	Wigan Athletic	1932	DW Stadium	4
+0	Stoke City	1863	Britannia Stadium	4
+0	Bolton Wanderers	1874	Reebok Stadium	4
+0	Portsmouth	1898	Fratton Park	4
+0	Blackburn Rovers	1875	Ewood Park	4
+0	Sunderland	1879	Stadium of Light	4
+0	Hull City	1904	KC Stadium	4
+0	Wolverhampton	1877	Molineux Stadium	4
+0	Birmingham City	1875	St. Andrew's Stadium	4
+0	Burnley	1882	Turf Moor	4
+0	Newcastle United	1892	St. James' Park	4
+0	Derby County	1884	Pride Park Stadium	4
+0	Leeds United	1919	Elland Road	4
+0	Norwich City	1902	Carrow Road	4
+0	West Bromwich Albion	1878	The Hawthorns	4
+0	Nottingham Forest	1865	City Ground	4
+0	Cardiff City	1899	Cardiff City Stadium	4
+0	Sheffield United	1889	Bramall Lane	4

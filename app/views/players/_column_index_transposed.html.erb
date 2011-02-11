@@ -1,0 +1,9 @@
+
+<tr>
+  <th><%= nbsp %></th>
+
+  <% @players.each do |player| -%>
+    <th><%= link_to "> ", player %><%= player.name %></th>
+  <% end -%>
+</tr>
+

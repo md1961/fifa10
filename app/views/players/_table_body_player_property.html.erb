@@ -1,0 +1,61 @@
+
+<%
+  starting_column_name_of_2nd_edit_table = 'birth_year'
+
+  column_names = ColumnFilter::COLUMN_NAMES_TO_DISPLAY
+  if ! shows_form && table_id == 2
+    column_names = []
+  elsif shows_form
+    index_split = column_names.index(starting_column_name_of_2nd_edit_table)
+    if table_id == 1
+      column_names = column_names[0, index_split]
+    else
+      column_names = column_names[index_split .. -1]
+    end
+  end
+-%>
+
+<% column_names.each do |column_name| -%>
+  <tr>
+    <th>
+      <% if column_name == 'birth_year' -%>
+        <%= shows_form ? "Birth Year (or Age):" : "Age:" %>
+      <% else -%>
+        <%= column_name2display(column_name) + ":" + nbsp(2) %>
+      <% end -%>
+    </th>
+    <td>
+      <% unless shows_form -%>
+        <%= render :partial => 'property_display',
+                   :locals => {:column_name => column_name, :player => @player, :show_unit => true} %>
+      <% else -%>
+        <% case column_name
+           when 'position_id' -%>
+          <%= f.collection_select column_name, Position.find(:all), :id, :name %>
+        <% when 'is_right_dominant' -%>
+          <font style="font-size: small;">
+            <%= f.radio_button column_name, true %>
+            <label for="player_is_right_dominant_true">Right</label>
+            <%= f.radio_button column_name, false %>
+            <label for="player_is_right_dominant_false">Left</label>
+          </font>
+        <% when 'nation_id' -%>
+          <%= f.collection_select column_name, Nation.find(:all,:order=>"name"), :id, :name %>
+        <% else -%>
+          <%= f.text_field column_name, :size => 20 %>
+        <% end -%>
+      <% end -%>
+    </td>
+  </tr>
+
+  <% if shows_form && column_name == 'position_id' -%>
+    <tr>
+      <th>Sub-Positions:</th>
+      <td>
+        <%= f.collection_select :sub_position_ids, Position.find(:all), :id, :name, {},
+                        {:multiple => true, :size => 18, :name => 'player[sub_position_ids][]'} %>
+      </td>
+    </tr>
+  <% end -%>
+<% end -%>
+
