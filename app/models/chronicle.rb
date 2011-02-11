@@ -1,7 +1,7 @@
 class Chronicle < ActiveRecord::Base
   has_many :seasons
 
-  validates_uniqueness_of :name
+  validates :name, :presence => true, :uniqueness => true
 
   def last_season
     return seasons.sort_by { |season| season.year_start }.last

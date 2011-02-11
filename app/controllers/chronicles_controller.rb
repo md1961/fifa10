@@ -18,10 +18,15 @@ class ChroniclesController < ApplicationController
 
   def new
     @chronicle = Chronicle.new
-    @example_names = Chronicle.find(:all).map(&:name).join('", "')
+    prepare_examples_for_new
 
     prepare_page_title_for_new
   end
+
+    def prepare_examples_for_new
+      @example_names = Chronicle.find(:all).map(&:name).join('", "')
+    end
+    private :prepare_examples_for_new
 
     def prepare_page_title_for_new
       @page_title_size = 3
@@ -34,6 +39,7 @@ class ChroniclesController < ApplicationController
     if @chronicle.save
       redirect_to chronicles_path
     else
+      prepare_examples_for_new
       prepare_page_title_for_new
       render 'new'
     end
