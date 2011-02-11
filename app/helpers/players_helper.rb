@@ -37,7 +37,7 @@ module PlayersHelper
       </table>
     END
 
-    return retval
+    return retval.html_safe
   end
 
   def column_index(column_name)
@@ -107,7 +107,7 @@ module PlayersHelper
       "off 11     : Rest/Put back 'Starter 11'",
       "hot 5      : Hot/Cool 'Starter 5'",
       "show 1 ... : Show (and compare) player's attributes",
-    ].map { |s| s.gsub(' ', '&nbsp;') }.join('<br />')
+    ].map { |s| s.gsub(' ', '&nbsp;') }.join('<br />').html_safe
   end
 
   COLUMN_ATTRIBUTES = {
