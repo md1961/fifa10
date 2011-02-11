@@ -32,7 +32,7 @@
     <% if @page_title -%>
       <% size = @page_title_size || 1
          tag = "h#{size}" -%>
-      <%= "<#{tag} id='page_title'>#{@page_title}</#{tag}>" %>
+      <%= "<#{tag} id='page_title'>#{@page_title}</#{tag}>".html_safe %>
     <% end -%>
 
     <% unless is_admin -%>
