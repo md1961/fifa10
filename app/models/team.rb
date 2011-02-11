@@ -3,9 +3,8 @@ class Team < ActiveRecord::Base
   has_many :players
   belongs_to :nation
 
-  validates_presence_of   :name
-  validates_uniqueness_of :name
-  validates_numericality_of :year_founded, :greater_than => 1800, :less_than => 2000, :allow_nil => true
+  validates :name, :presence => true, :uniqueness => true
+  validates :year_founded, :numericality => true, :inclusion => 1800..2000, :allow_nil => true
 
   def get(name)
     return nation.name if name == 'nation_id'
