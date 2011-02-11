@@ -5,7 +5,7 @@ development:
   database: fifa10_development
   username: fifa10
   password: c0mp7t3r
-  host: localhost
+  host: macbook
   encoding: utf8
 
 # Warning: The database defined as "test" will be erased and
