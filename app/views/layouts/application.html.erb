@@ -49,7 +49,7 @@
 
     <% unless is_admin -%>
       <p class="copyright">
-        <%= Constant.get('copyright') %>
+        <%= Constant.get(:copyright) % Date.today.year %>
       </p>
     <% end -%>
   </body>
