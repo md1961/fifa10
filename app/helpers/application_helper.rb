@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def nbsp(length=1)
-    return '&nbsp;' * length
+    return ('&nbsp;' * length).html_safe
   end
 
   MAP_COLUMN_NAME_ADJUSTED = {
