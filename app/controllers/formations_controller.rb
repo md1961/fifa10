@@ -68,5 +68,11 @@ class FormationsController < ApplicationController
       render 'edit'
     end
   end
+
+  def destroy
+    Formation.find(params[:id]).destroy
+
+    redirect_to formations_path
+  end
 end
 
