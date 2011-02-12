@@ -24,12 +24,13 @@ class Player < ActiveRecord::Base
     :overall => 99,
   }
 
-  validates_presence_of :name, :number, :position_id, :skill_move, :both_feet_level, \
+  #TODO: :uniqueness below won't work for season(s)
+  # Should create a Player for each season
+  validates :name, :presence => true #, :uniqueness => {:scope => :season}
+
+  validates_presence_of :number, :position_id, :skill_move, :both_feet_level, \
                         :height, :weight, :birth_year, :nation_id, :overall
   validates_inclusion_of :is_right_dominant, :in => [true, false]
-  # TODO: uniqueness of :name and :number?
-  #validates_uniqueness_of :name  , :scope => [:season]
-  #validates_uniqueness_of :number, :scope => [:season]
   validates_numericality_of :number,          :only_integer => true, :greater_than =>    0
   validates_numericality_of :skill_move,      :only_integer => true, :greater_than =>    0, :less_than_or_equal_to => 5
   validates_numericality_of :both_feet_level, :only_integer => true, :greater_than =>    0, :less_than_or_equal_to => 5
