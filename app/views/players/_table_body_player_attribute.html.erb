@@ -4,7 +4,8 @@
 <% @player_attribute_order[index_start, size_attributes].each do |attr_name| -%>
   <tr>
     <th>
-      <%= column_name2display(attr_name) + ":" + nbsp(2) %>
+      <%= column_name2display(attr_name) + ":" %>
+      <%= nbsp(2) %>
     </th>
     <td align="<%= shows_form ? 'left' : 'right' %>">
       <% unless shows_form -%>

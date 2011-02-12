@@ -21,7 +21,8 @@
       <% if column_name == 'birth_year' -%>
         <%= shows_form ? "Birth Year (or Age):" : "Age:" %>
       <% else -%>
-        <%= column_name2display(column_name) + ":" + nbsp(2) %>
+        <%= column_name2display(column_name) + ":" %>
+        <%= nbsp(2) %>
       <% end -%>
     </th>
     <td>
