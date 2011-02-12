@@ -4,6 +4,10 @@ module ApplicationHelper
     return ('&nbsp;' * length).html_safe
   end
 
+  def bold(str)
+    return "<b>#{sanitize(str)}</b>".html_safe
+  end
+
   MAP_COLUMN_NAME_ADJUSTED = {
     :position_id       => :position,
     :is_right_dominant => :foot,

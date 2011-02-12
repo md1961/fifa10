@@ -3,9 +3,10 @@
 
 <% case column_name
    when 'name' -%>
-  <%= "<b>#{player.name}</b>" %>
+  <%= bold(player.name) %>
 <% when 'position_id' -%>
-  <%= "<b>#{player.position.name}</b> #{player.sub_positions.map(&:name).join(' ')}" %>
+  <%= bold(player.position.name) %>
+  <%= player.sub_positions.map(&:name).join(' ') %>
 <% when 'skill_move' -%>
   <%= '★' * player.skill_move %>
 <% when 'is_right_dominant' -%>
