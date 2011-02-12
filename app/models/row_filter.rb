@@ -52,7 +52,7 @@ class RowFilter
   end
 
   def self.player_instance_variable_names
-    ids = (0 .. @@players.size - 1).map
+    ids = (0 .. @@players.size - 1).to_a
     ids.sort! { |id1, id2|
       player1 = @@players[id1]
       player2 = @@players[id2]
