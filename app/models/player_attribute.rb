@@ -20,7 +20,7 @@ class PlayerAttribute < ActiveRecord::Base
   def self.zeros
     obj = new
     content_columns.each do |column|
-      obj.write_attribute(column.name, 0)
+      obj[column.name] = 0
     end
     return obj
   end
