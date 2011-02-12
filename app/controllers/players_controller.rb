@@ -522,7 +522,7 @@ class PlayersController < ApplicationController
       num = rand(MAX_NUMBER_OF_PLAYERS_TO_PICK) + 1
       picks = Array.new
       num.times do
-        picks << players.rand
+        picks << players.sample
       end
       return picks
     end
