@@ -1,0 +1,10 @@
+#! /bin/sh
+
+WORK_DIR=/Users/naoyuki/rails/fifa10
+COMMAND_SERVER=/opt/local/bin/unicorn_rails
+LOG_FILE=$WORK_DIR/config/unicorn-config.rb
+
+pushd $WORK_DIR > /dev/null
+$COMMAND_SERVER $*
+popd > /dev/null
+
