@@ -3,7 +3,7 @@
    when 'date_match' %>
    <% format = Constant.get(:date_format)[match.opponent_type]
       date = match.date_match
-      day_of_week = "<font size='-2'>#{date.strftime("%a")}</font>"
+      day_of_week = content_tag(:font, date.strftime("%a"), :size => -2)
       date_display = "#{date.strftime(format)} #{day_of_week}".html_safe -%>
      <td>
        <%= link_to_if shows_link, date_display, edit_match_path(match) %>

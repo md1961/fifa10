@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def bold(str)
-    return "<b>#{sanitize(str)}</b>".html_safe
+    return content_tag(:b, str)
   end
 
   MAP_COLUMN_NAME_ADJUSTED = {
