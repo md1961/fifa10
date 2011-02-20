@@ -69,6 +69,18 @@ class Match < ActiveRecord::Base
     return result == DRAW
   end
 
+  def home?
+    return ground == 'H'
+  end
+
+  def away?
+    return ground == 'A'
+  end
+
+  def full_ground
+    return Hash[*GROUNDS.map { |x, y| [y, x] }.flatten][ground]
+  end
+
   POINT_FOR_WIN  = 3
   POINT_FOR_DRAW = 1
 
@@ -92,8 +104,7 @@ class Match < ActiveRecord::Base
   def to_s
     series_full  = series.abbr
     series_full += " #{subname}" unless subname.blank?
-    ground = Hash[*GROUNDS.map { |x, y| [y, x] }.flatten][self.ground]
-    s  = "#{date_match} #{date_match.strftime("%a.")} [#{series_full}] vs #{opponent.name} (#{ground})"
+    s  = "#{date_match} #{date_match.strftime("%a.")} [#{series_full}] vs #{opponent.name} (#{full_ground})"
     s += " #{scores_own}-#{scores_opp}" if scores_own
     return s
   end

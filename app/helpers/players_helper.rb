@@ -40,6 +40,29 @@ module PlayersHelper
     return retval.html_safe
   end
 
+  CONTROLLER_OPTIONS = {
+    :H => ['On' , 'Assisted'],
+    :A => ['Off', 'Semi'],
+    :N => ['On' , 'Semi'],
+  }
+
+  def controller_options(match)
+    pass_power, shot = CONTROLLER_OPTIONS[match.ground[0].upcase.intern]
+    retval = <<-END
+      <table>
+        <tr>
+          <td>Passing Power Assistance:</td>
+          <td><b>#{pass_power}</b></td>
+        </tr>
+        <tr>
+          <td>Shot Assistance:</td>
+          <td><b>#{shot}</b></td>
+        </tr>
+      </table>
+    END
+    return retval.html_safe
+  end
+
   def column_index(column_name)
     return column_attribute(column_name, 0)
   end
