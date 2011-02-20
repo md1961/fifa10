@@ -369,7 +369,7 @@ class PlayersController < ApplicationController
     @is_lineup = params[:is_lineup] == '1'
     set_players_to_row_filter_if_not unless @is_lineup
 
-    flash[:notice] = session[:injury_report]
+    flash[:report] = session[:injury_report]
     session[:injury_report] = nil
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
@@ -503,14 +503,28 @@ class PlayersController < ApplicationController
     injury_list = get_injury_list
 
     players = do_pick_players(injury_list)
-    injury_list.concat(players.map(&:id))
+    players_disabled = players.select { |player| disabled?(player) }
+    players_injured = players - players_disabled
+
+    disable_players(players_disabled)
+
+    injury_list.concat(players_injured.map(&:id))
     set_injury_list(injury_list)
 
-    put_injury_report_into_session(players)
+    put_injury_report_into_session(players_injured)
 
     caller_path_method = :"#{params[:caller]}_path"
     redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
   end
+
+    def disabled?(player)
+      false
+    end
+    private :disabled?
+
+    def disable_players(players)
+    end
+    private :disable_players
 
     MAX_NUMBER_OF_PLAYERS_TO_PICK = 5
 

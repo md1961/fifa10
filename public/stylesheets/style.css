@@ -355,6 +355,14 @@
   font-size: large;
   padding-left: 50px;
   margin-bottom: 10px;
+  float: left;
+}
+
+#report {
+  color: green;
+  font-size: large;
+  padding-left: 50px;
+  float: left;
 }
 
 #table_starters {

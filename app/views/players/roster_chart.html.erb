@@ -1,9 +1,7 @@
 
 <div class="<%= @is_lineup ? 'lineup' : '' %>">
 
-<%
-  num_players_in_first_table_reserves = 10
--%>
+<% num_players_in_first_table_reserves = 10 -%>
 
 <p>
   <%= link_to 'Fixtures/Results', matches_path %>
@@ -46,6 +44,10 @@
 <div id="controller_options">
   <%= controller_options(@next_matches.first) %>
 </div>
+<div id="report">
+  <%= flash[:report] %>
+</div>
+<div class="clear" />
 
 <table id="table_starters" class="table_base tables_roster_chart">
   <%= render :partial => 'roster_table',
