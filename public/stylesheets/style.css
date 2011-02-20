@@ -427,6 +427,10 @@
   background-color: grey;
 }
 
+.tables_roster_chart .disabled {
+  background-color: crimson;
+}
+
 #command_samples_for_roster_chart {
   font-size: small;
   margin-left: 10px;

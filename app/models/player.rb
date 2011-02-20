@@ -150,6 +150,21 @@ class Player < ActiveRecord::Base
     player_season.destroy
   end
 
+  def pct_to_be_disabled
+    return 100
+  end
+
+  def disabled?(season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    return player_season.disabled?
+  end
+
+  def disable(season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    player_season.disable
+    player_season.save!
+  end
+
   def self.player_available_with_max_overall(position, players, injury_list)
     active_players = players.reject { |player| injury_list.include?(player.id) }
     return pick_up_best_substitiute(position, active_players)

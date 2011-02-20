@@ -10,6 +10,7 @@
   <% @players[index_start, size].each_with_index do |player, index| -%>
     <% clazz = player.hot?(@season_id)          ? 'hot' \
              : player.on_loan?(@season_id)      ? 'on_loan' \
+             : player.disabled?(@season_id)     ? 'disabled' \
              : @injury_list.include?(player.id) ? 'injury_list' \
              : @off_list.include?(player.id)    ? 'off_list' \
                                                 : '' -%>

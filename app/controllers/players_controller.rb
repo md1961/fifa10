@@ -518,11 +518,16 @@ class PlayersController < ApplicationController
   end
 
     def disabled?(player)
-      false
+      #return false
+      return rand(100) < player.pct_to_be_disabled
     end
     private :disabled?
 
     def disable_players(players)
+      season_id = get_season_id
+      players.each do |player|
+        player.disable(season_id)
+      end
     end
     private :disable_players
 
