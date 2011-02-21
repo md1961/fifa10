@@ -129,6 +129,7 @@ module PlayersHelper
       "recover 7  : Recover 'Starter 7' from injury list",
       "off 11     : Rest/Put back 'Starter 11'",
       "hot 5      : Hot/Cool 'Starter 5'",
+      "disable 3  : Disable/Enable 'Starter 3'",
       "show 1 ... : Show (and compare) player's attributes",
     ].map { |s| s.gsub(' ', '&nbsp;') }.join('<br />').html_safe
   end

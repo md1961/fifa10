@@ -159,9 +159,9 @@ class Player < ActiveRecord::Base
     return player_season.disabled?
   end
 
-  def disable(season_id)
+  def disable(season_id, toggles=false)
     player_season = player_seasons.find_by_season_id(season_id)
-    player_season.disable
+    player_season.disable(toggles)
     player_season.save!
   end
 

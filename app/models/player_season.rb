@@ -12,7 +12,11 @@ class PlayerSeason < ActiveRecord::Base
     return is_disabled
   end
 
-  def disable
-    self.is_disabled = true
+  def disable(toggles=false)
+    unless toggles
+      self.is_disabled = true
+    else
+      self.is_disabled = ! is_disabled
+    end
   end
 end

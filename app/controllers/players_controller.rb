@@ -523,10 +523,10 @@ class PlayersController < ApplicationController
     end
     private :disabled?
 
-    def disable_players(players)
+    def disable_players(players, toggles=false)
       season_id = get_season_id
       players.each do |player|
-        player.disable(season_id)
+        player.disable(season_id, toggles)
       end
     end
     private :disable_players
@@ -605,9 +605,12 @@ class PlayersController < ApplicationController
     ACTION_RECOVER = 'recover'
     ACTION_OFF     = 'off'
     ACTION_HOT     = 'hot'
+    ACTION_DISABLE = 'disable'
     ACTION_SHOW    = 'show'
+
     LEGAL_ACTIONS = [
-      ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER, ACTION_OFF, ACTION_HOT, ACTION_SHOW
+      ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER,
+      ACTION_OFF, ACTION_HOT, ACTION_DISABLE, ACTION_SHOW
     ]
 
     MAP_NUM_PLAYERS = {
@@ -644,6 +647,8 @@ class PlayersController < ApplicationController
             off_player(players_arg)
           when ACTION_HOT
             hot_player(players_arg)
+          when ACTION_DISABLE
+            disable_players(players_arg, toggles=true)
           when ACTION_SHOW
             show_player_attributes(players_arg)
           else
