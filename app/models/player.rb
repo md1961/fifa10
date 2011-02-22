@@ -167,6 +167,16 @@ class Player < ActiveRecord::Base
     player_season.save!
   end
 
+    MIN_DISABLED_TERM =  3
+    MAX_DISABLED_TERM = 30
+
+    def disabled_term
+      min = MIN_DISABLED_TERM
+      max = MAX_DISABLED_TERM
+      return (min + (max - min + 1) * rand).to_i
+    end
+    private :disabled_term
+
   def self.player_available_with_max_overall(position, players, injury_list)
     active_players = players.reject { |player| injury_list.include?(player.id) }
     return pick_up_best_substitiute(position, active_players)
