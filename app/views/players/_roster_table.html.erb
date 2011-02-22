@@ -38,10 +38,14 @@
       </td>
       <td>
         <font size="-2">
-          <% player.sub_positions.each do |pos| -%>
-            <span style="background-color: <%= pos.color %>">
-              <%= pos.name %>
-            </span>
+          <% if player.disabled?(@season_id) -%>
+            <%= back_from_disabled_on(player, @season_id) %>
+          <% else -%>
+            <% player.sub_positions.each do |pos| -%>
+              <span style="background-color: <%= pos.color %>">
+                <%= pos.name %>
+              </span>
+            <% end -%>
           <% end -%>
         </font>
       </td>

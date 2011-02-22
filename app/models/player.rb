@@ -161,21 +161,30 @@ class Player < ActiveRecord::Base
     return player_season.disabled?
   end
 
+  def disabled_until(season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    return player_season.disabled_until
+  end
+
   def disable(season_id, toggles=false)
     player_season = player_seasons.find_by_season_id(season_id)
     player_season.disable(toggles)
+    if player_season.disabled?
+      today = Match.nexts(season_id).first.date_match
+      player_season.disabled_until = today + disabled_days - 1
+    end
     player_season.save!
   end
 
     MIN_DISABLED_TERM =  3
     MAX_DISABLED_TERM = 30
 
-    def disabled_term
+    def disabled_days
       min = MIN_DISABLED_TERM
       max = MAX_DISABLED_TERM
       return (min + (max - min + 1) * rand).to_i
     end
-    private :disabled_term
+    private :disabled_days
 
   def self.player_available_with_max_overall(position, players, injury_list)
     active_players = players.reject { |player| injury_list.include?(player.id) }

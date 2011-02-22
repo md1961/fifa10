@@ -40,6 +40,11 @@ module PlayersHelper
     return retval.html_safe
   end
 
+  def back_from_disabled_on(player, season_id)
+    disabled_until = player.disabled_until(@season_id)
+    return "Back on #{disabled_until && (disabled_until + 1.day).strftime("%m/%d")}"
+  end
+
   CONTROLLER_OPTIONS = {
     :H => ['On' , 'Assisted'],
     :A => ['Off', 'Semi'],
