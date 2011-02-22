@@ -150,8 +150,10 @@ class Player < ActiveRecord::Base
     player_season.destroy
   end
 
+  BASE_PCT_TO_BE_DISABLED = 10
+
   def pct_to_be_disabled
-    return 100
+    return BASE_PCT_TO_BE_DISABLED
   end
 
   def disabled?(season_id)

@@ -518,7 +518,6 @@ class PlayersController < ApplicationController
   end
 
     def disabled?(player)
-      #return false
       return rand(100) < player.pct_to_be_disabled
     end
     private :disabled?
