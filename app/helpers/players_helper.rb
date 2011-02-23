@@ -42,7 +42,8 @@ module PlayersHelper
 
   def back_from_disabled_on(player, season_id)
     disabled_until = player.disabled_until(@season_id)
-    return "Back on #{disabled_until && (disabled_until + 1.day).strftime("%m/%d")}"
+    disabled_until_display = disabled_until && (disabled_until + 1.day).strftime("%m/%d")
+    return "<font size='0'>Back on <b>#{disabled_until_display}</b></font>".html_safe
   end
 
   CONTROLLER_OPTIONS = {

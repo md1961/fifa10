@@ -428,6 +428,7 @@
 }
 
 .tables_roster_chart .disabled {
+  color: white;
   background-color: crimson;
 }
 
