@@ -12,6 +12,10 @@ class PlayerSeason < ActiveRecord::Base
     return is_disabled
   end
 
+  def recovered?(date_as_of)
+    return disabled? && disabled_until < date_as_of
+  end
+
   def disable(toggles=false)
     unless toggles
       self.is_disabled = true

@@ -186,6 +186,13 @@ class Player < ActiveRecord::Base
     end
     private :disabled_days
 
+  def recover_from_disabled(date_as_of, season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    if player_season.recovered?(date_as_of)
+      self.disable(season_id, toggles=true)
+    end
+  end
+
   def self.player_available_with_max_overall(position, players, injury_list)
     active_players = players.reject { |player| injury_list.include?(player.id) }
     return pick_up_best_substitiute(position, active_players)

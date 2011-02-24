@@ -500,6 +500,8 @@ class PlayersController < ApplicationController
   end
 
   def pick_injury
+    recover_disabled
+
     injury_list = get_injury_list
 
     players = do_pick_players(injury_list)
@@ -516,6 +518,16 @@ class PlayersController < ApplicationController
     caller_path_method = :"#{params[:caller]}_path"
     redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
   end
+
+    def recover_disabled
+      season_id = get_season_id
+      today = Match.nexts(season_id).first.date_match
+      players = players_of_team(includes_on_loan=false)
+      players.each do |player|
+        player.recover_from_disabled(today, season_id)
+      end
+    end
+    private :recover_disabled
 
     def disabled?(player)
       return rand(100) < player.pct_to_be_disabled
