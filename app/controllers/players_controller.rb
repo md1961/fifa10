@@ -365,6 +365,8 @@ class PlayersController < ApplicationController
   end
 
   def roster_chart
+    recover_disabled
+
     @season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
     set_players_to_row_filter_if_not unless @is_lineup
@@ -500,8 +502,6 @@ class PlayersController < ApplicationController
   end
 
   def pick_injury
-    recover_disabled
-
     injury_list = get_injury_list
 
     players = do_pick_players(injury_list)
