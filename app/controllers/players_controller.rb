@@ -365,11 +365,11 @@ class PlayersController < ApplicationController
   end
 
   def roster_chart
-    recover_disabled
-
     @season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
     set_players_to_row_filter_if_not unless @is_lineup
+
+    recover_disabled
 
     flash[:report] = session[:injury_report]
     session[:injury_report] = nil
