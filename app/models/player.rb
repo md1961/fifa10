@@ -150,10 +150,8 @@ class Player < ActiveRecord::Base
     player_season.destroy
   end
 
-  BASE_PCT_TO_BE_DISABLED = 10
-
-  def pct_to_be_disabled
-    return BASE_PCT_TO_BE_DISABLED
+  def to_be_disabled?
+    return rand(100) < pct_to_be_disabled
   end
 
   def disabled?(season_id)
@@ -175,6 +173,13 @@ class Player < ActiveRecord::Base
     end
     player_season.save!
   end
+
+    BASE_PCT_TO_BE_DISABLED = 5
+
+    def pct_to_be_disabled
+      return BASE_PCT_TO_BE_DISABLED
+    end
+    private :pct_to_be_disabled
 
     MIN_DISABLED_TERM =  3
     MAX_DISABLED_TERM = 30

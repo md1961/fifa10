@@ -505,7 +505,7 @@ class PlayersController < ApplicationController
     injury_list = get_injury_list
 
     players = do_pick_players(injury_list)
-    players_disabled = players.select { |player| disabled?(player) }
+    players_disabled = players.select { |player| player.to_be_disabled? }
     players_injured = players - players_disabled
 
     disable_players(players_disabled)
@@ -528,11 +528,6 @@ class PlayersController < ApplicationController
       end
     end
     private :recover_disabled
-
-    def disabled?(player)
-      return rand(100) < player.pct_to_be_disabled
-    end
-    private :disabled?
 
     def disable_players(players, toggles=false)
       season_id = get_season_id
