@@ -179,18 +179,31 @@ class Player < ActiveRecord::Base
   end
 
     BASE_PCT_TO_BE_DISABLED = 5
+    INCREMENTS_OF_PCT_TO_BE_DISABLED = [
+      [17.0,  0.0],
+      [45.0, 10.0],
+    ].freeze
 
     def pct_to_be_disabled
-      return BASE_PCT_TO_BE_DISABLED
+      age0, inc0, age1, inc1 = INCREMENTS_OF_PCT_TO_BE_DISABLED.flatten
+      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age - age0)).to_i
+      return BASE_PCT_TO_BE_DISABLED + increment
     end
     private :pct_to_be_disabled
 
     MIN_DISABLED_TERM =  3
     MAX_DISABLED_TERM = 30
+    INCREMENTS_OF_MAX_DISABLED_TERM = [
+      [17.0, -10.0],
+      [45.0,  10.0],
+    ].freeze
 
     def disabled_days
+      age0, inc0, age1, inc1 = INCREMENTS_OF_MAX_DISABLED_TERM.flatten
+      increment_max = (inc0 + (inc1 - inc0) / (age1 - age0) * (age - age0)).to_i
+
       min = MIN_DISABLED_TERM
-      max = MAX_DISABLED_TERM
+      max = MAX_DISABLED_TERM + increment_max
       return (min + (max - min + 1) * rand).to_i
     end
     private :disabled_days
