@@ -34,7 +34,13 @@ class ColumnFilter
             nation_id is_right_dominant both_feet_level skill_move overall market_value wage)
 
   def self.displaying_columns
-    return Player.columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
+    columns = Player.columns.select { |column| ! COLUMN_NAMES_NOT_TO_DISPLAY.include?(column.name) }
+    index_column_note = columns.index { |column| column.name == 'note' }
+    if index_column_note
+      column_note = columns.delete_at(index_column_note)
+      columns << column_note
+    end
+    return columns
   end
 
   def displaying_columns
