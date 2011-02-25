@@ -369,7 +369,7 @@ class PlayersController < ApplicationController
     @is_lineup = params[:is_lineup] == '1'
     set_players_to_row_filter_if_not unless @is_lineup
 
-    recover_disabled
+    recover_disabled unless @is_lineup
 
     flash[:report] = session[:injury_report]
     session[:injury_report] = nil
@@ -426,7 +426,7 @@ class PlayersController < ApplicationController
   def revise_lineup
     season = Season.find(get_season_id(params))
     formation = season.formation
-    to_be_replaced_list = get_injury_list + get_off_list
+    inactive_player_ids = get_inactive_player_ids(season.id)
 
     num_starters = Constant.get(:num_starters)
     num_in_bench = Constant.get(:num_in_bench)
@@ -434,11 +434,11 @@ class PlayersController < ApplicationController
     replace_one_player = Proc.new { |index, index0_replacer|
       players = players_of_team(includes_on_loan=false, for_lineup=true)
       player = players[index]
-      next unless to_be_replaced_list.include?(player.id)
+      next unless inactive_player_ids.include?(player.id)
       position = index < num_starters ? formation.position(index + 1) : player.position
 
       replacing_players = players[index0_replacer .. -1]
-      player_sub = Player.player_available_with_max_overall(position, replacing_players, to_be_replaced_list)
+      player_sub = Player.player_available_with_max_overall(position, replacing_players, inactive_player_ids)
       exchange_player_order(player, player_sub, is_lineup=true) if player_sub
     }
 
@@ -453,6 +453,12 @@ class PlayersController < ApplicationController
 
     redirect_to roster_chart_path(:is_lineup => 1)
   end
+
+    def get_inactive_player_ids(season_id)
+      inactive_players = players_of_team.select { |player| player.inactive?(season_id) }
+      return get_injury_list + get_off_list + inactive_players.map(&:id)
+    end
+    private :get_inactive_player_ids
 
   def apply_formation
     @is_lineup = params[:is_lineup] == '1'
@@ -522,7 +528,7 @@ class PlayersController < ApplicationController
     def recover_disabled
       season_id = get_season_id
       today = Match.nexts(season_id).first.date_match
-      players = players_of_team(includes_on_loan=false)
+      players = players_of_team(includes_on_loan=false, for_lineup=true)
       players.each do |player|
         player.recover_from_disabled(today, season_id)
       end

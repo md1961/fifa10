@@ -159,6 +159,10 @@ class Player < ActiveRecord::Base
     return player_season.disabled?
   end
 
+  def inactive?(season_id)
+    return on_loan?(season_id) || disabled?(season_id)
+  end
+
   def disabled_until(season_id)
     player_season = player_seasons.find_by_season_id(season_id)
     return player_season.disabled_until
@@ -198,8 +202,8 @@ class Player < ActiveRecord::Base
     end
   end
 
-  def self.player_available_with_max_overall(position, players, injury_list)
-    active_players = players.reject { |player| injury_list.include?(player.id) }
+  def self.player_available_with_max_overall(position, players, inactive_player_ids)
+    active_players = players.reject { |player| inactive_player_ids.include?(player.id) }
     return pick_up_best_substitiute(position, active_players)
   end
 
