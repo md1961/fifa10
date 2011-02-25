@@ -14,7 +14,7 @@
   <% @teams.each do |team| -%>
     <tr>
       <% @column_names.each do |column_name| -%>
-        <td align="<%= column_align(column_name) %>">
+        <td align="<%= column_align_team(column_name) %>">
           <% value = team.get(column_name) -%>
           <% if column_name == 'id' -%>
             <%= link_to value, edit_team_path(team) %>
