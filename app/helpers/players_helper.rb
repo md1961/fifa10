@@ -126,18 +126,21 @@ module PlayersHelper
     return attrs_and_props.map { |x| [column_name2display(x).titleize, x.to_s] }
   end
 
+  COMMAND_SAMPLES = [
+    ["9 with b2" , "Exchange 'Starter 9' with 'Bench 2'"],
+    ["r21 to r13", "Insert 'Reserve 21' before 'Reserve 13'"],
+    ["loan r15"  , "Loan/Back from loan 'Reserve 15'"],
+    ["injure 10" , "Put 'Starter 10' into injury list"],
+    ["recover 7" , "Recover 'Starter 7' from injury list"],
+    ["off"       , "Rest/Put back 'Starter 11'"],
+    ["hot 5"     , "Hot/Cool 'Starter 5'"],
+    ["disable 3" , "Disable/Enable 'Starter 3'"],
+    ["show 1 ...", "Show (and compare) player's attributes"],
+  ]
+
   def command_samples_for_roster_chart
-    return [
-      "9 with b2  : Exchange 'Starter 9' with 'Bench 2'",
-      "r21 to r13 : Insert 'Reserve 21' before 'Reserve 13'",
-      "loan r15   : Loan/Back from loan 'Reserve 15'",
-      "injure 10  : Put 'Starter 10' into injury list",
-      "recover 7  : Recover 'Starter 7' from injury list",
-      "off 11     : Rest/Put back 'Starter 11'",
-      "hot 5      : Hot/Cool 'Starter 5'",
-      "disable 3  : Disable/Enable 'Starter 3'",
-      "show 1 ... : Show (and compare) player's attributes",
-    ].map { |s| s.gsub(' ', '&nbsp;') }.join('<br />').html_safe
+    rows = COMMAND_SAMPLES.map { |c, ex| "<tr><td>#{c}</td><td>:</td><td>#{ex}</td></tr>" }.join("\n").html_safe
+    return content_tag(:table, rows)
   end
 
   COLUMN_ATTRIBUTES = {
