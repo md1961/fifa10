@@ -178,9 +178,14 @@ class Player < ActiveRecord::Base
     player_season.save!
   end
 
+    #TODO: to be moved to Constant
+
+    MIN_AGE = 17.0
+    MAX_AGE = 45.0
+
     INCREMENTS_OF_PCT_TO_BE_DISABLED = [
-      [17.0,  0.0],
-      [45.0, 10.0],
+      [MIN_AGE,  0.0],
+      [MAX_AGE, 10.0],
     ].freeze
 
     def pct_to_be_disabled
@@ -193,8 +198,8 @@ class Player < ActiveRecord::Base
     MIN_DISABLED_TERM =  3
     MAX_DISABLED_TERM = 30
     INCREMENTS_OF_MAX_DISABLED_TERM = [
-      [17.0, -10.0],
-      [45.0,  10.0],
+      [MIN_AGE, -10.0],
+      [MAX_AGE,  10.0],
     ].freeze
 
     def disabled_days
@@ -214,8 +219,37 @@ class Player < ActiveRecord::Base
     end
   end
 
-  def examine_disabled_until_change
+  PCT_DISABLED_UNTIL_CHANGE = 25
+  MIN_DISABLED_UNTIL_CHANGE = -5.0
+  MAX_DISABLED_UNTIL_CHANGE =  5.0
+  INCREMENTS_OF_DISABLED_UNTIL = [
+    [MIN_AGE, -5.0],
+    [MAX_AGE,  5.0],
+  ].freeze
+
+  def examine_disabled_until_change(season_id)
+    return unless self.disabled?(season_id)
+    return unless rand(100) < PCT_DISABLED_UNTIL_CHANGE
+
+    increment = increment_of_disable_until
+    return if increment == 0
+
+    player_season = player_seasons.find_by_season_id(season_id)
+    player_season.disabled_until += increment.days
+    player_season.save!
+
+    return increment
   end
+
+    def increment_of_disable_until
+      age0, inc0, age1, inc1 = INCREMENTS_OF_DISABLED_UNTIL.flatten
+      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age - age0)).to_i
+
+      min = MIN_DISABLED_UNTIL_CHANGE
+      max = MAX_DISABLED_UNTIL_CHANGE
+      return (min + (max - min + 1) * rand).to_i + increment
+    end
+    private :increment_of_disable_until
 
   def self.player_available_with_max_overall(position, players, inactive_player_ids)
     active_players = players.reject { |player| inactive_player_ids.include?(player.id) }

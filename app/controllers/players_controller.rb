@@ -367,12 +367,21 @@ class PlayersController < ApplicationController
   def roster_chart
     @season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
-    set_players_to_row_filter_if_not unless @is_lineup
 
-    recover_disabled unless @is_lineup
+    unless @is_lineup
+      set_players_to_row_filter_if_not
 
-    flash[:report] = session[:roster_chart_report]
+      if session[:ticket_to_examine_disabled_until_change]
+        examine_disabled_until_change
+        session[:ticket_to_examine_disabled_until_change] = nil
+      end
+      recover_disabled
+    end
+
+    report = session[:roster_chart_report]
     session[:roster_chart_report] = nil
+    flash[:report] = report && report.html_safe
+
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
 
@@ -406,6 +415,32 @@ class PlayersController < ApplicationController
       num_in_bench = Constant.get(:num_in_bench)
       return num_starters, num_in_bench
     end
+
+    def examine_disabled_until_change
+      season_id = get_season_id
+      players = players_of_team(includes_on_loan=false, for_lineup=true)
+      players.each do |player|
+        increment = player.examine_disabled_until_change(season_id)
+        next unless increment
+
+        verb = increment > 0 ? 'delayed' : 'advanced'
+        report = session[:roster_chart_report] || ""
+        report += "<br />" unless report.empty?
+        report += "#{player.name}'s return was #{verb} by #{increment.abs} day(s)"
+        session[:roster_chart_report] = report
+      end
+    end
+    private :examine_disabled_until_change
+
+    def recover_disabled
+      season_id = get_season_id
+      today = Match.nexts(season_id).first.date_match
+      players = players_of_team(includes_on_loan=false, for_lineup=true)
+      players.each do |player|
+        player.recover_from_disabled(today, season_id)
+      end
+    end
+    private :recover_disabled
 
   def edit_roster
     is_lineup = params[:is_lineup] == '1'
@@ -524,16 +559,6 @@ class PlayersController < ApplicationController
     caller_path_method = :"#{params[:caller]}_path"
     redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
   end
-
-    def recover_disabled
-      season_id = get_season_id
-      today = Match.nexts(season_id).first.date_match
-      players = players_of_team(includes_on_loan=false, for_lineup=true)
-      players.each do |player|
-        player.recover_from_disabled(today, season_id)
-      end
-    end
-    private :recover_disabled
 
     def disable_players(players, toggles=false)
       season_id = get_season_id
