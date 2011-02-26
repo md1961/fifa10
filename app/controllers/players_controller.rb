@@ -371,8 +371,8 @@ class PlayersController < ApplicationController
 
     recover_disabled unless @is_lineup
 
-    flash[:report] = session[:injury_report]
-    session[:injury_report] = nil
+    flash[:report] = session[:roster_chart_report]
+    session[:roster_chart_report] = nil
     @error_explanation = session[:error_explanation]
     session[:error_explanation] = nil
 
@@ -560,7 +560,7 @@ class PlayersController < ApplicationController
     private :do_pick_players
 
     def put_injury_report_into_session(players)
-      session[:injury_report] = "#{players.size} player(s) injured: #{players.map(&:name).join(', ')}"
+      session[:roster_chart_report] = "#{players.size} player(s) injured: #{players.map(&:name).join(', ')}"
     end
     private :put_injury_report_into_session
 
