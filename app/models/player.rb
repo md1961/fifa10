@@ -178,7 +178,6 @@ class Player < ActiveRecord::Base
     player_season.save!
   end
 
-    BASE_PCT_TO_BE_DISABLED = 5
     INCREMENTS_OF_PCT_TO_BE_DISABLED = [
       [17.0,  0.0],
       [45.0, 10.0],
@@ -187,7 +186,7 @@ class Player < ActiveRecord::Base
     def pct_to_be_disabled
       age0, inc0, age1, inc1 = INCREMENTS_OF_PCT_TO_BE_DISABLED.flatten
       increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age - age0)).to_i
-      return BASE_PCT_TO_BE_DISABLED + increment
+      return Constant.get(:base_pct_to_be_disabled) + increment
     end
     private :pct_to_be_disabled
 
@@ -213,6 +212,9 @@ class Player < ActiveRecord::Base
     if player_season.recovered?(date_as_of)
       self.disable(season_id, toggles=true)
     end
+  end
+
+  def examine_disabled_until_change
   end
 
   def self.player_available_with_max_overall(position, players, inactive_player_ids)
