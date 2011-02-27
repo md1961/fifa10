@@ -12,7 +12,7 @@ class ErrorExplanation
     title = @title.blank? ? "" : "<h2>#{@title}</h2>\n"
     texts = @texts.empty? ? "" : @texts.join('<br />') + "\n"
     lists = @lists.empty? ? "" : "<ul>\n<li>" + @lists.join("</li>\n<li>") + "</li>\n</ul>"
-    return <<-END
+    html = <<-END
       <div id="errorExplanation">
         #{title}
       <p>
@@ -21,6 +21,7 @@ class ErrorExplanation
       </p>
       </div>
     END
+    return html.html_safe
   end
 end
 
