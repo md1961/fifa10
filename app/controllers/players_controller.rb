@@ -555,7 +555,7 @@ class PlayersController < ApplicationController
     injury_list.concat(players_injured.map(&:id))
     set_injury_list(injury_list)
 
-    put_injury_report_into_session(players_injured)
+    put_injury_report_into_session(players_disabled, players_injured)
 
     caller_path_method = :"#{params[:caller]}_path"
     redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
@@ -574,7 +574,9 @@ class PlayersController < ApplicationController
     def do_pick_players(injury_list)
       players = players_of_team(includes_loan=false)
       season_id = get_season_id
-      players.reject! { |player| injury_list.include?(player.id) || player.hot?(season_id) }
+      players.reject! { |player|
+        injury_list.include?(player.id) || player.inactive?(season_id) || player.hot?(season_id)
+      }
 
       num = rand(MAX_NUMBER_OF_PLAYERS_TO_PICK) + 1
       picks = Array.new
@@ -585,8 +587,14 @@ class PlayersController < ApplicationController
     end
     private :do_pick_players
 
-    def put_injury_report_into_session(players)
-      session[:roster_chart_report] = "#{players.size} player(s) injured: #{players.map(&:name).join(', ')}"
+    def put_injury_report_into_session(players_disabled, players_injured)
+      reports = Array.new
+      [players_disabled, players_injured].each_with_index do |players, index|
+        verb = index == 0 ? 'disabled' : 'injured'
+        next if players.empty?
+        reports << "#{players.size} player(s) #{verb}: #{players.map(&:name).join(', ')}"
+      end
+      session[:roster_chart_report] = reports.empty? ? nil : reports.join("<br />")
     end
     private :put_injury_report_into_session
 
