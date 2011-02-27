@@ -1047,7 +1047,7 @@ class PlayersController < ApplicationController
 
       copy_to_lineup(players) unless for_lineup
 
-      players.reject { |player| player.on_loan?(season_id) } unless includes_on_loan
+      players.reject! { |player| player.on_loan?(season_id) } unless includes_on_loan
 
       return players
     end
