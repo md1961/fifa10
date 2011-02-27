@@ -1,5 +1,14 @@
 module PlayersHelper
 
+  def player_html_class(player, season_id, injury_list, off_list)
+    return player.hot?(season_id)          ? 'hot' \
+         : player.on_loan?(season_id)      ? 'on_loan' \
+         : player.disabled?(season_id)     ? 'disabled' \
+         : injury_list.include?(player.id) ? 'injury_list' \
+         : off_list.include?(player.id)    ? 'off_list' \
+                                           : ''
+  end
+
   NUM_NEXT_MATCHES_DISPLAY = Constant.get(:num_next_matches_to_display)
   NO_MATCH_DISPLAY = "(End of Schedule)"
 
@@ -43,7 +52,7 @@ module PlayersHelper
   def back_from_disabled_on(player, season_id)
     disabled_until = player.disabled_until(@season_id)
     disabled_until_display = disabled_until && (disabled_until + 1.day).strftime("%m/%d")
-    return "<font size='0'>Back on <b>#{disabled_until_display}</b></font>".html_safe
+    return "<font size='0'>Back on #{disabled_until_display}</font>".html_safe
   end
 
   CONTROLLER_OPTIONS = {

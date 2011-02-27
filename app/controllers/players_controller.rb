@@ -6,7 +6,6 @@ class PlayersController < ApplicationController
 
     row_filter = get_row_filter(nil, for_lineup=@is_lineup)
     @players = row_filter.displaying_players
-    @players = @players.select { |player| ! player.on_loan?(season_id) }
 
     redirect_to choose_filter_players_path if @players.empty? && ! players_of_team.empty?
 
@@ -358,7 +357,9 @@ class PlayersController < ApplicationController
 
     @next_matches = Match.nexts(get_season_id)
 
+    @season_id   = get_season_id
     @injury_list = get_injury_list
+    @off_list    = get_off_list
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Depth Chart"

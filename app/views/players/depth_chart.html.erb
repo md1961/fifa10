@@ -32,7 +32,7 @@
       </td>
       <td>
         <% players.each_with_index do |player, i| -%>
-          <span class="<%= @injury_list.include?(player.id) ? 'injury_list' : '' %>">
+          <span class="<%= player_html_class(player, @season_id, @injury_list, @off_list) %>">
             <%= player.name %>
             <span class="property">
               <%= "(#{player.get(@attr)})" %>

@@ -8,13 +8,7 @@
 
 <% unless index_start >= @players.size -%>
   <% @players[index_start, size].each_with_index do |player, index| -%>
-    <% clazz = player.hot?(@season_id)          ? 'hot' \
-             : player.on_loan?(@season_id)      ? 'on_loan' \
-             : player.disabled?(@season_id)     ? 'disabled' \
-             : @injury_list.include?(player.id) ? 'injury_list' \
-             : @off_list.include?(player.id)    ? 'off_list' \
-                                                : '' -%>
-    <tr class="<%= clazz %>">
+    <tr class="<%= player_html_class(player, @season_id, @injury_list, @off_list) %>">
       <% if kind == 's' && @formation -%>
         <% position = @formation.position(index + 1) -%>
         <td style="background-color: <%= position.color %>;

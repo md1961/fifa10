@@ -308,6 +308,15 @@
   background-color: pink;
 }
 
+.on_loan {
+  background-color: grey;
+}
+
+.disabled {
+  color: white;
+  background-color: crimson;
+}
+
 #table_depth_chart {
   font-size: medium;
   border: 1px black solid;
@@ -421,15 +430,6 @@
 
 .tables_roster_chart .hot {
   background-color: cyan;
-}
-
-.tables_roster_chart .on_loan {
-  background-color: grey;
-}
-
-.tables_roster_chart .disabled {
-  color: white;
-  background-color: crimson;
 }
 
 #command_samples_for_roster_chart {
