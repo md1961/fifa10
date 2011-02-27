@@ -28,10 +28,9 @@ class Player < ActiveRecord::Base
   # Should create a Player for each season
   validates :name, :presence => true #, :uniqueness => {:scope => :season}
 
-  validates_presence_of :number, :position_id, :skill_move, :both_feet_level, \
-                        :height, :weight, :birth_year, :nation_id, :overall
+  validates_presence_of :position_id, :skill_move, :both_feet_level, :height, :weight, :birth_year, :nation_id, :overall
   validates_inclusion_of :is_right_dominant, :in => [true, false]
-  validates_numericality_of :number,          :only_integer => true, :greater_than =>    0
+  validates_numericality_of :number,          :only_integer => true, :greater_than =>    0, :allows_nil => true
   validates_numericality_of :skill_move,      :only_integer => true, :greater_than =>    0, :less_than_or_equal_to => 5
   validates_numericality_of :both_feet_level, :only_integer => true, :greater_than =>    0, :less_than_or_equal_to => 5
   validates_numericality_of :height,          :only_integer => true, :greater_than =>  150, :less_than => MAX_HEIGHT_IN_CM
