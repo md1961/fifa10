@@ -437,9 +437,16 @@ class PlayersController < ApplicationController
       season_id = get_season_id
       today = Match.nexts(season_id).first.date_match
       players = players_of_team(includes_on_loan=false, for_lineup=true)
+      players_recoverd = Array.new
       players.each do |player|
-        player.recover_from_disabled(today, season_id)
+        is_recovered = player.recover_from_disabled(today, season_id)
+        players_recoverd << player if is_recovered
       end
+
+      #TODO: Merge into put_injury_report_into_session()
+      report = "#{players_recoverd.size} player(s) recovered: #{players_recoverd.map(&:name).join(', ')}"
+      report_in_session = session[:roster_chart_report] || ""
+      session[:roster_chart_report] = report_in_session + "<br />" + report
     end
     private :recover_disabled
 

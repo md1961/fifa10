@@ -215,7 +215,9 @@ class Player < ActiveRecord::Base
     player_season = player_seasons.find_by_season_id(season_id)
     if player_season.recovered?(date_as_of)
       self.disable(season_id, toggles=true)
+      return true
     end
+    return false
   end
 
   PCT_DISABLED_UNTIL_CHANGE = 25
