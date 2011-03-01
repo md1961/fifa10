@@ -1,0 +1,13 @@
+FIFA 11
+wireless controller Settings
+
+Auto Switching:                  Air Balls (Auto, Manual)
+Auto Swithcing Move Assistance:        Low (None, High)
+Passing Power Assistance:              Off (On)               <==
+Pass Assistance:                      Semi (Assisted, Manual) <==
+Through Pass Assistance:            Manual (Assisted)         <==
+Shot Assistance:                      Semi (Assisted, Manual) <==
+Cross Assistance:                     Semi (Assisted, Manual) <==
+Lob Pass Assistance:              Assisted (Manual)
+Save Assistance:                    Manual (Semi, Manual)     <==
+Analog Sprint:                          On (Off)
