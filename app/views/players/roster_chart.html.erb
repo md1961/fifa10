@@ -35,14 +35,16 @@
 <div id="next_matches">
   <%= next_matches_display(@next_matches) %>
 </div>
+<div id="controller_options">
+  <%= controller_options(@next_matches.first) %>
+</div>
+<div class="clear" />
+
 <div id="top_of_tables_roster_chart">
   <% size_inj = @injury_list.size -%>
   <%= "Total of #{@players.size} players (#{size_inj} player#{size_inj > 1 ? 's' : ''} in Injury List)" %>
   <br />
   <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
-</div>
-<div id="controller_options">
-  <%= controller_options(@next_matches.first) %>
 </div>
 <div id="report">
   <%= flash[:report] %>

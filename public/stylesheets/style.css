@@ -350,6 +350,7 @@
 #next_matches {
   padding-left: 7px;
   margin-bottom: 10px;
+  float: left;
 }
 
 #top_of_tables_roster_chart {
