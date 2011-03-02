@@ -55,27 +55,29 @@ module PlayersHelper
     return "Back on <font size='-1'><b>#{disabled_until_display}</b></font>".html_safe
   end
 
-  CONTROLLER_OPTIONS = {
-    :H => ['On' , 'Assisted'],
-    :A => ['Off', 'Semi'],
-    :N => ['On' , 'Semi'],
-  }
+  CONTROLLER_OPTIONS = [
+    #                               Home     Away  Neutral
+    ["Passing Power Assistance", %w(On       Off   On   )],
+    ["Shot Assistance"         , %w(Assisted Semi  Semi )],
+  ]
 
   def controller_options(match)
-    pass_power, shot = CONTROLLER_OPTIONS[match.ground[0].upcase.intern]
-    retval = <<-END
+    html_rows = Array.new
+    CONTROLLER_OPTIONS.each do |item, options|
+      h_options = Hash[*[:H, :A, :N].zip(options).flatten]
+      html_rows << <<-END
+        <tr>
+          <td>#{item}:</td>
+          <td><b>#{h_options[match.ground[0].upcase.intern]}</b></td>
+        </tr>
+      END
+    end
+    html = <<-END
       <table>
-        <tr>
-          <td>Passing Power Assistance:</td>
-          <td><b>#{pass_power}</b></td>
-        </tr>
-        <tr>
-          <td>Shot Assistance:</td>
-          <td><b>#{shot}</b></td>
-        </tr>
+        #{html_rows.join("\n")}
       </table>
     END
-    return retval.html_safe
+    return html.html_safe
   end
 
   def column_index(column_name)
