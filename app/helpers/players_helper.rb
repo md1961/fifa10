@@ -56,14 +56,21 @@ module PlayersHelper
   end
 
   CONTROLLER_OPTIONS = [
-    #                               Home     Away  Neutral
-    ["Passing Power Assistance", %w(On       Off   On   )],
-    ["Shot Assistance"         , %w(Assisted Semi  Semi )],
+    #                               Home         Away         Neutral
+    ["Difficulty Level"        , %w(Semi-Pro     Professional Semi-Pro    )],
+    ["Passing Power Assistance", %w(Off          On           Off         )],
+    ["Pass Assistance"         , %w(Semi         Assisted     Semi        )],
+    ["Through Pass Assistance" , %w(Assisted     Assisted     Manual      )],
+    ["Shot Assistance"         , %w(Semi         Assisted     Semi        )],
+    ["Cross Assistance"        , %w(Semi         Assisted     Semi        )],
+    ["Lob Pass Assistance"     , %w(Assisted     Assisted     Manual      )],
+    ["Save Assistance"         , %w(Semi         Assisted     Manual      )],
   ]
 
   def controller_options(match)
     html_rows = Array.new
     CONTROLLER_OPTIONS.each do |item, options|
+      next if options.uniq.size == 1
       h_options = Hash[*[:H, :A, :N].zip(options).flatten]
       html_rows << <<-END
         <tr>
