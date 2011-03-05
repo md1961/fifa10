@@ -190,7 +190,7 @@ class Player < ActiveRecord::Base
     def pct_to_be_disabled
       age0, inc0, age1, inc1 = INCREMENTS_OF_PCT_TO_BE_DISABLED.flatten
       increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age - age0)).to_i
-      return Constant.get(:base_pct_to_be_disabled) + increment
+      return Constant.get(:base_pct_to_be_disabled) + increment - Constant.get(:gk_pct_dec_to_be_disabled)
     end
     private :pct_to_be_disabled
 
