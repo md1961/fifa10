@@ -444,9 +444,11 @@ class PlayersController < ApplicationController
       end
 
       #TODO: Merge into put_injury_report_into_session()
-      report = "#{players_recoverd.size} player(s) recovered: #{players_recoverd.map(&:name).join(', ')}"
-      report_in_session = session[:roster_chart_report] || ""
-      session[:roster_chart_report] = report_in_session + "<br />" + report
+      if players_recoverd.size > 0
+        report = "#{players_recoverd.size} player(s) recovered: #{players_recoverd.map(&:name).join(', ')}"
+        report_in_session = session[:roster_chart_report] || ""
+        session[:roster_chart_report] = report_in_session + "<br />" + report
+      end
     end
     private :recover_disabled
 
