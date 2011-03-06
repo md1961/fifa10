@@ -57,25 +57,25 @@ module PlayersHelper
 
   CONTROLLER_OPTIONS = [
     #                               Home         Away         Neutral
-    ["Difficulty Level"        , %w(Semi-Pro     Professional Semi-Pro    )],
-    ["Passing Power Assistance", %w(Off          On           Off         )],
-    ["Pass Assistance"         , %w(Semi         Assisted     Semi        )],
-    ["Through Pass Assistance" , %w(Assisted     Assisted     Manual      )],
-    ["Shot Assistance"         , %w(Semi         Assisted     Semi        )],
-    ["Cross Assistance"        , %w(Semi         Assisted     Semi        )],
-    ["Lob Pass Assistance"     , %w(Assisted     Assisted     Manual      )],
-    ["Save Assistance"         , %w(Semi         Assisted     Manual      )],
+    ["Difficulty Level"        , %w(Semi-Pro     Semi-Pro     Semi-Pro    )],
+    ["Passing Power Assistance", %w(On           Off          Off         )],
+    ["Pass Assistance"         , %w(Assisted     Semi         Assisted    )],
+    ["Through Pass Assistance" , %w(Assisted     Assisted     Assisted    )],
+    ["Shot Assistance"         , %w(Semi         Semi         Semi        )],
+    ["Cross Assistance"        , %w(Semi         Semi         Semi        )],
+    ["Lob Pass Assistance"     , %w(Assisted     Assisted     Assisted    )],
+    ["Save Assistance"         , %w(Semi         Manual       Manual      )],
   ]
 
   def controller_options(match)
     html_rows = Array.new
     CONTROLLER_OPTIONS.each do |item, options|
-      next if options.uniq.size == 1
       h_options = Hash[*[:H, :A, :N].zip(options).flatten]
+      tr_style = options.uniq.size == 1 ? "" : "font-weight: bold;"
       html_rows << <<-END
-        <tr>
+        <tr style="#{tr_style}">
           <td>#{item}:</td>
-          <td><b>#{h_options[match.ground[0].upcase.intern]}</b></td>
+          <td>#{h_options[match.ground[0].upcase.intern]}</td>
         </tr>
       END
     end
