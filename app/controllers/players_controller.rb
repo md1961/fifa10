@@ -599,8 +599,8 @@ class PlayersController < ApplicationController
     def put_injury_report_into_session(players_disabled, players_injured)
       reports = Array.new
       [players_disabled, players_injured].each_with_index do |players, index|
-        verb = index == 0 ? 'disabled' : 'injured'
         next if players.empty?
+        verb = index == 0 ? 'disabled' : 'injured'
         reports << "#{players.size} player(s) #{verb}: #{players.map(&:name).join(', ')}"
       end
       session[:roster_chart_report] = reports.empty? ? nil : reports.join("<br />")
@@ -793,7 +793,7 @@ class PlayersController < ApplicationController
         set_injury_list(injury_list)
       end
 
-      put_injury_report_into_session(players)
+      put_injury_report_into_session([], players)
     end
 
     def recover_from_injury(players)
