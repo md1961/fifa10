@@ -1,11 +1,11 @@
 module PlayersHelper
 
   def player_html_class(player, season_id, injury_list, off_list)
-    return player.hot?(season_id)          ? 'hot' \
-         : player.on_loan?(season_id)      ? 'on_loan' \
+    return player.on_loan?(season_id)      ? 'on_loan' \
          : player.disabled?(season_id)     ? 'disabled' \
          : injury_list.include?(player.id) ? 'injury_list' \
          : off_list.include?(player.id)    ? 'off_list' \
+         : player.hot?(season_id)          ? 'hot' \
                                            : ''
   end
 
@@ -64,7 +64,7 @@ module PlayersHelper
     ["Shot Assistance"         , %w(Semi         Semi         Semi        )],
     ["Cross Assistance"        , %w(Semi         Semi         Semi        )],
     ["Lob Pass Assistance"     , %w(Assisted     Assisted     Assisted    )],
-    ["Save Assistance"         , %w(Semi         Manual       Manual      )],
+   #["Save Assistance"         , %w(Semi         Manual       Manual      )],
   ]
 
   def controller_options(match)
