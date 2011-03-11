@@ -47,10 +47,6 @@ module MatchesHelper
     return [['Choose' , '0']] + Match::GROUNDS
   end
 
-  def one_char_result(match)
-    return match.win? ? 'W' : match.lose? ? 'L' : match.draw? ? 'D' : '?'
-  end
-
   RECORD_NOT_PLAYED = "-"
 
   def record_display(match)

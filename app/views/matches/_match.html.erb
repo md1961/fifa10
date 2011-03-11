@@ -19,7 +19,7 @@
        </td>
      <% else -%>
        <td align="center" class="no_right_border">
-         <%= "#{one_char_result(match)}" %>
+         <%= "#{match.one_char_result}" %>
        </td>
        <td align="center">
          <%= link_to_if shows_link, "#{match.scores_own} - #{match.scores_opp}",

@@ -69,6 +69,12 @@ class Match < ActiveRecord::Base
     return result == DRAW
   end
 
+  ONE_CHAR_RESULT_NOT_PLAYED = '-'
+
+  def one_char_result
+    return played? ? result[0].upcase : ONE_CHAR_RESULT_NOT_PLAYED
+  end
+
   def home?
     return ground == 'H'
   end
