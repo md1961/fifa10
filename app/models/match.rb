@@ -24,7 +24,7 @@ class Match < ActiveRecord::Base
   end
 
   def self.last_played(season_id)
-    matches = Match.list(season_id, 'date_match DESC')
+    matches = by_season(season_id).order('date_match DESC')
     return matches.find { |match| match.played? }
   end
 
