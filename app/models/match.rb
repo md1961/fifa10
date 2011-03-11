@@ -29,7 +29,7 @@ class Match < ActiveRecord::Base
   end
 
   def self.nexts(season_id)
-    matches = Match.list(season_id, 'date_match')
+    matches = by_season(season_id).order('date_match')
     next_match = matches.find { |match| ! match.played? }
     return Array.new unless next_match
     index = matches.index(next_match)
