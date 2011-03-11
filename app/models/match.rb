@@ -17,8 +17,10 @@ class Match < ActiveRecord::Base
   validates_numericality_of :pks_own   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validates_numericality_of :pks_opp   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
 
+  scope :by_season, lambda { |season_id| where(:season_id => season_id) }
+
   def self.list(season_id, order='date_match')
-    return find_all_by_season_id(season_id, :order => order)
+    return by_season(season_id).order(order)
   end
 
   def self.last_played(season_id)
@@ -32,6 +34,9 @@ class Match < ActiveRecord::Base
     return Array.new unless next_match
     index = matches.index(next_match)
     return matches[index .. -1]
+  end
+
+  def self.recent_form(num_matches, season_id)
   end
 
   def self.grounds
