@@ -82,7 +82,6 @@ class MatchesController < ApplicationController
     prepare_page_title_for_new
   end
 
-  #FIXME: Bolded when save failed
   def create
     @match = make_match(params)
     if @match.save
@@ -90,6 +89,7 @@ class MatchesController < ApplicationController
     else
       @season_id = session[:season_id]
       @matches = Match.by_season(@season_id).order('date_match')
+      set_font_weight
 
       prepare_page_title_for_new
       render 'new'
