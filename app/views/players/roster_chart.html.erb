@@ -13,7 +13,7 @@
   <%= link_to 'Top Players', top_attribute_list_path %>
   <%= nbsp(4) %>
   <%= link_to 'Injure Player', pick_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
-  <% unless @injury_list.empty? -%>
+  <% unless @injury_list.empty? && @off_list.empty? -%>
     <font size="-1">
       <%= nbsp %>
       <%= link_to 'Undo' , undo_pick_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
