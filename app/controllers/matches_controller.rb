@@ -60,7 +60,7 @@ class MatchesController < ApplicationController
     private :get_and_save_season_id
 
     def get_matches(season_id)
-      matches = Match.list(season_id)
+      matches = Match.by_season(season_id).order('date_match')
       match_filter = get_match_filter
       return match_filter.displaying_matches(matches)
     end
@@ -82,13 +82,14 @@ class MatchesController < ApplicationController
     prepare_page_title_for_new
   end
 
+  #FIXME: Bolded when save failed
   def create
     @match = make_match(params)
     if @match.save
       redirect_to matches_path
     else
       @season_id = session[:season_id]
-      @matches = Match.list(@season_id)
+      @matches = Match.by_season(@season_id).order('date_match')
 
       prepare_page_title_for_new
       render 'new'
@@ -144,8 +145,8 @@ class MatchesController < ApplicationController
       session[:ticket_to_examine_disabled_until_change] = true if @match.played?
       redirect_to matches_path
     else
-      season_id = session[:season_id]
-      @matches = Match.list(season_id)
+      @season_id = session[:season_id]
+      @matches = Match.by_season(@season_id).order('date_match')
 
       prepare_page_title_for_edit
       render 'edit', :id => @match

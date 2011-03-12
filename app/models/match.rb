@@ -112,6 +112,7 @@ class Match < ActiveRecord::Base
     return h_record
   end
 
+  #FIXME: Nil-check date_match
   def to_s
     series_full  = series.abbr
     series_full += " #{subname}" unless subname.blank?
