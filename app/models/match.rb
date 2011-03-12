@@ -114,9 +114,11 @@ class Match < ActiveRecord::Base
 
   #FIXME: Nil-check date_match
   def to_s
-    series_full  = series.abbr
+    series_full  = series && series.abbr
     series_full += " #{subname}" unless subname.blank?
-    s  = "#{date_match} #{date_match.strftime("%a.")} [#{series_full}] vs #{opponent.name} (#{full_ground})"
+    day_of_week = date_match && date_match.strftime("%a.")
+    opponent_name = opponent && opponent.name
+    s  = "#{date_match} #{day_of_week} [#{series_full}] vs #{opponent_name} (#{full_ground})"
     s += " #{scores_own}-#{scores_opp}" if scores_own
     return s
   end
