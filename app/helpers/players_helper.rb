@@ -49,6 +49,14 @@ module PlayersHelper
     return retval.html_safe
   end
 
+  def recent_meetings_display(next_matches, season_id)
+    opponent_id = @next_matches.first.opponent_id
+    num_meetings = Constant.get(:num_recent_meetings_to_display)
+    matches = Match.recent_meetings(opponent_id, num_meetings, @season_id).first(num_meetings)
+    html = matches.join("<br />")
+    return ("Last Meeting:<br />" + html).html_safe
+  end
+
   def back_from_disabled_on(player, season_id)
     disabled_until = player.disabled_until(@season_id)
     disabled_until_display = disabled_until && (disabled_until + 1.day).strftime("%m/%d")

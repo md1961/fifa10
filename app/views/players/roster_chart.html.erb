@@ -36,8 +36,7 @@
   <%= next_matches_display(@next_matches) %>
 </div>
 <div id="recent_meetings">
-  Last Meeting:
-  <%= Match.recent_meetings(@next_matches.first.opponent_id, 1, @season_id).first %>
+  <%= recent_meetings_display(@next_matches, @season_id) %>
 </div>
 <div id="controller_options">
   <%= controller_options(@next_matches.first) %>

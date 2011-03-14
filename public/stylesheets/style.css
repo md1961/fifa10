@@ -353,6 +353,12 @@
   float: left;
 }
 
+#recent_meetings {
+  color: blue;
+  margin-left: 20px;
+  float: left;
+}
+
 #top_of_tables_roster_chart {
   padding-left: 7px;
   margin-bottom: 15px;
