@@ -17,7 +17,8 @@ class Match < ActiveRecord::Base
   validates_numericality_of :pks_own   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validates_numericality_of :pks_opp   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
 
-  scope :by_season, lambda { |season_id| where(:season_id => season_id) }
+  scope :by_season  , lambda { |season_id|   where(:season_id   => season_id  ) }
+  scope :by_opponent, lambda { |opponent_id| where(:opponent_id => opponent_id) }
 
   def self.list(season_id, order='date_match')
     return by_season(season_id).order(order)
@@ -36,7 +37,12 @@ class Match < ActiveRecord::Base
     return matches[index .. -1]
   end
 
+  #TODO: Implement
   def self.recent_form(num_matches, season_id)
+  end
+
+  def self.recent_meetings(opponent_id, num_matches, season_id)
+    matches = by_opponent(opponent_id).by_season(season_id).order('date_match DESC').limit(num_matches)
   end
 
   def self.grounds
