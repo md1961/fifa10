@@ -42,7 +42,9 @@ class Match < ActiveRecord::Base
   end
 
   def self.recent_meetings(opponent_id, num_matches, season_id)
-    matches = by_opponent(opponent_id).by_season(season_id).order('date_match DESC').limit(num_matches)
+    matches = by_opponent(opponent_id).by_season(season_id).order('date_match DESC')
+    matches.select! { |match| match.played? }
+    return matches.first(num_matches)
   end
 
   def self.grounds
