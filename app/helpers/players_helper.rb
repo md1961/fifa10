@@ -68,10 +68,13 @@ module PlayersHelper
   ]
 
   def controller_options(match)
+    skips_items_with_options_same = Constant.get(:skips_controller_option_items_with_options_same)
     html_rows = Array.new
     CONTROLLER_OPTIONS.each do |item, options|
       h_options = Hash[*[:H, :A, :N].zip(options).flatten]
-      tr_style = options.uniq.size == 1 ? "" : "font-weight: bold;"
+      is_options_same = options.uniq.size == 1
+      next if is_options_same && skips_items_with_options_same
+      tr_style = is_options_same ? "" : "font-weight: bold;"
       html_rows << <<-END
         <tr style="#{tr_style}">
           <td>#{item}:</td>
