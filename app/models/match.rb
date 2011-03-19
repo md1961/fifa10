@@ -37,8 +37,10 @@ class Match < ActiveRecord::Base
     return matches[index .. -1]
   end
 
-  #TODO: Implement
   def self.recent_form(num_matches, season_id)
+    matches = by_season(season_id).order('date_match DESC')
+    matches.reject! { |match| ! match.played? }
+    return matches.reverse.last(num_matches).map(&:one_char_result).join(' ')
   end
 
   def self.recent_meetings(opponent_id, num_matches, season_id)

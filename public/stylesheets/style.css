@@ -353,6 +353,11 @@
   float: left;
 }
 
+#recent_form {
+  margin-left: 20px;
+  float: left;
+}
+
 #recent_meetings {
   color: blue;
   margin-left: 20px;

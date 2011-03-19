@@ -35,6 +35,10 @@
 <div id="next_matches">
   <%= next_matches_display(@next_matches) %>
 </div>
+<div id="recent_form">
+  Recent Form:
+  <%= Match.recent_form(10, @season_id) %>
+</div>
 <div id="recent_meetings">
   <%= recent_meetings_display(@next_matches, @season_id) %>
 </div>
