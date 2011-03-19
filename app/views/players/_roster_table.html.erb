@@ -19,7 +19,7 @@
       <% end -%>
       <td class="index_number">
         <% label = "#{kind == 's' ? '': kind}#{index + index_offset + 1}" -%>
-        <%= link_to label, player_path(player, :browses_all_players => 1) %>
+        <%= link_to label, player_path(player, :browses_all_players => 1, :is_from_roster_chart => 1) %>
       </td>
       <% tr_class_important = %w(disabled injury_list).include?(tr_class)
          in_position = player.positions.include?(position)

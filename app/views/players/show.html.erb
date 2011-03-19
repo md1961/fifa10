@@ -2,7 +2,9 @@
 <p>
   <%= link_to "<< #{@prev_player.name}", @prev_player %>
   <%= nbsp(4) %>
-  <%= link_to 'Back to Rosters', players_path %>
+  <% label, back_path = @is_from_roster_chart ? ["Roster Chart", roster_chart_path] \
+                                              : ["Rosters"     , players_path     ] -%>
+  <%= link_to "Back to #{label}", back_path %>
   <%= nbsp(4) %>
   <%= link_to 'Edit', edit_player_path(@player) %>
   <%= nbsp(4) %>

@@ -53,6 +53,7 @@ class PlayersController < ApplicationController
     players = row_filter.displaying_players
     players = players_of_team if params[:browses_all_players]
     @player = Player.find(params[:id])
+    @is_from_roster_chart = params[:is_from_roster_chart] == '1'
     @prev_player, @next_player = prev_and_next_players(@player, players)
 
     @player_attribute_order = PLAYER_ATTRIBUTE_ORDER.map(&:to_s)
