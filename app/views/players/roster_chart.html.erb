@@ -46,6 +46,13 @@
 <div id="controller_options">
   <%= controller_options(@next_matches.first) %>
 </div>
+
+<% if @season.team.manutd? && @next_matches.first.home? -%>
+  <br />
+  <embed src="images/FanfareForRocky.mp3" type="application/x-mplayer2"
+         autostart="false" width="50" height="20" nojava="true">
+<% end -%>
+
 <div class="clear" />
 
 <div id="top_of_tables_roster_chart">
@@ -54,7 +61,7 @@
   <br />
   <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
 </div>
-<div id="report">
+<div id="roster_chart_report">
   <%= flash[:report] %>
 </div>
 <div class="clear" />

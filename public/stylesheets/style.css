@@ -380,9 +380,10 @@
   padding-left: 7px;
   margin-bottom: 15px;
   margin-right: 20px;
+  float: left;
 }
 
-#report {
+#roster_chart_report {
   color: green;
   font-size: large;
   padding-left: 50px;

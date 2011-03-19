@@ -11,6 +11,10 @@ class Team < ActiveRecord::Base
     return read_attribute(name)
   end
 
+  def manutd?
+    return name == "Manchester United"
+  end
+
   def to_s
     return name
   end
