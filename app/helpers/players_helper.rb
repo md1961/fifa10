@@ -63,12 +63,15 @@ module PlayersHelper
     return "Back on <font size='-1'><b>#{disabled_until_display}</b></font>".html_safe
   end
 
+  CONTROLLER_OPTIONS_FULL = %w(On Off Assisted Semi Manual)
+  CONTROLLER_OPTION_DELIMITER = ','
+
   CONTROLLER_OPTIONS = [
     #                               Home         Away         Neutral
     ["Difficulty Level"        , %w(Semi-Pro     Semi-Pro     Semi-Pro    )],
-    ["Passing Power Assistance", %w(On           Off          Off         )],
-    ["Pass Assistance"         , %w(Assisted     Semi         Assisted    )],
-    ["Through Pass Assistance" , %w(Assisted     Assisted     Assisted    )],
+    ["Passing Power Assistance", %w(On9,Off1     Off          Off         )],
+    ["Pass Assistance"         , %w(Ass9,Semi1   Semi         Ass9,Semi1  )],
+    ["Through Pass Assistance" , %w(Assisted     Ass5,Man5    Assisted    )],
     ["Shot Assistance"         , %w(Semi         Semi         Semi        )],
     ["Cross Assistance"        , %w(Semi         Semi         Semi        )],
     ["Lob Pass Assistance"     , %w(Assisted     Assisted     Assisted    )],
@@ -82,11 +85,13 @@ module PlayersHelper
       h_options = Hash[*[:H, :A, :N].zip(options).flatten]
       is_options_same = options.uniq.size == 1
       next if is_options_same && skips_items_with_options_same
+      option = h_options[match.ground[0].upcase.intern]
+      option = complete_controller_option(determine_controller_option(option))
       tr_style = is_options_same ? "" : "font-weight: bold;"
       html_rows << <<-END
         <tr style="#{tr_style}">
           <td>#{item}:</td>
-          <td>#{h_options[match.ground[0].upcase.intern]}</td>
+          <td>#{option}</td>
         </tr>
       END
     end
@@ -97,6 +102,32 @@ module PlayersHelper
     END
     return html.html_safe
   end
+
+    def determine_controller_option(option)
+      raw_options = option.split(CONTROLLER_OPTION_DELIMITER)
+      return option if raw_options.size < 2
+
+      options_with_prob = raw_options.map { |option| option =~ /([^\d]+)([\d]+)/ && [$1, $2] }
+      total_prob = options_with_prob.inject(0) { |total, elem| total + elem.last.to_i }
+      x = rand(total_prob)
+      options_with_prob[0 ... -1].each do |option, prob|
+        p = prob.to_i
+        return option if x < p
+        x -= p
+      end
+      return options_with_prob.last.first
+    end
+    private :determine_controller_option
+
+    def complete_controller_option(option)
+      candidates = CONTROLLER_OPTIONS_FULL.select { |full| full.starts_with?(option) }
+      return case candidates.size
+        when 0; "?"
+        when 1; candidates.first
+        else  ; candidates.join(" or ")
+      end
+    end
+    private :complete_controller_option
 
   def column_index(column_name)
     return column_attribute(column_name, 0)

@@ -848,17 +848,6 @@ class PlayersController < ApplicationController
       set_row_filter(row_filter)
     end
 
-    def copy_to_lineup(players)
-      season_id = get_season_id(params)
-
-      map_lineup = Hash.new
-      players.each do |player|
-        map_lineup[player.id] = player.order_number(season_id)
-      end
-
-      SimpleDB.instance.set(:map_lineup, map_lineup)
-    end
-
     NORMAL_TERMS_SIZE = 3
     RE_ACTION = /\A[a-zA-Z]+\z/
     PLAYER_FORMAT = "[sbr]?\\d+"
@@ -1068,6 +1057,17 @@ class PlayersController < ApplicationController
       players.reject! { |player| player.on_loan?(season_id) } unless includes_on_loan
 
       return players
+    end
+
+    def copy_to_lineup(players)
+      season_id = get_season_id(params)
+
+      map_lineup = Hash.new
+      players.each do |player|
+        map_lineup[player.id] = player.order_number(season_id)
+      end
+
+      SimpleDB.instance.set(:map_lineup, map_lineup)
     end
 
     def prev_and_next_players(player, players)
