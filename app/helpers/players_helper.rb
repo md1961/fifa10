@@ -13,7 +13,7 @@ module PlayersHelper
   NO_MATCH_DISPLAY = "(End of Schedule)"
 
   def next_matches_display(next_matches)
-    nexts = next_matches[0, NUM_NEXT_MATCHES_DISPLAY]
+    nexts = next_matches.first(NUM_NEXT_MATCHES_DISPLAY)
 
     format_rest = "(%d day rest)"
     rests = Array.new
@@ -22,22 +22,23 @@ module PlayersHelper
     end
     nexts.uniq!
 
+    nexts << NO_MATCH_DISPLAY
     retval = <<-END
       <table>
         <tr>
           <td><span style="font-size: large">Next Match:</span></td>
           <td colspan="2"><span style="font-size: x-large">
-            #{nexts[0] || NO_MATCH_DISPLAY}
+            #{nexts[0]}
           </span></td>
         </tr>
     END
-    1.upto(nexts.size - 1) do |i|
+    1.upto(NUM_NEXT_MATCHES_DISPLAY - 1) do |i|
       retval += <<-END
         <tr>
           <td>#{i == 1 ? "Followed by:" : ""}</td>
           <td>#{rests[i]}</td>
           <td style="#{nexts[i] ? "" : "font-style: italic; text-decoration: overline"}">
-            #{nexts[i] || NO_MATCH_DISPLAY}
+            #{nexts[i]}
           </td>
         </tr>
       END
@@ -69,14 +70,16 @@ module PlayersHelper
   CONTROLLER_OPTIONS = [
     #                               Home         Away         Neutral
     ["Difficulty Level"        , %w(Semi-Pro     Semi-Pro     Semi-Pro    )],
-    ["Passing Power Assistance", %w(On9,Off1     Off          Off         )],
-    ["Pass Assistance"         , %w(Ass9,Semi1   Semi         Ass9,Semi1  )],
+    ["Passing Power Assistance", %w(On8,Off2     Off          Off         )],
+    ["Pass Assistance"         , %w(Ass8,Semi2   Semi         Ass8,Semi2  )],
     ["Through Pass Assistance" , %w(Assisted     Ass5,Man5    Assisted    )],
     ["Shot Assistance"         , %w(Semi         Semi         Semi        )],
     ["Cross Assistance"        , %w(Semi         Semi         Semi        )],
     ["Lob Pass Assistance"     , %w(Assisted     Assisted     Assisted    )],
    #["Save Assistance"         , %w(Semi         Manual       Manual      )],
   ]
+
+  KEY_FOR_CONTROLLER_OPTIONS_SAVED = :controller_options
 
   def controller_options(match)
     skips_items_with_options_same = Constant.get(:skips_controller_option_items_with_options_same)
@@ -85,13 +88,12 @@ module PlayersHelper
       h_options = Hash[*[:H, :A, :N].zip(options).flatten]
       is_options_same = options.uniq.size == 1
       next if is_options_same && skips_items_with_options_same
-      option = h_options[match.ground[0].upcase.intern]
-      option = complete_controller_option(determine_controller_option(option))
+      option = determine_controller_option(h_options, item, match)
       tr_style = is_options_same ? "" : "font-weight: bold;"
       html_rows << <<-END
         <tr style="#{tr_style}">
           <td>#{item}:</td>
-          <td>#{option}</td>
+          <td>#{complete_controller_option(option)}</td>
         </tr>
       END
     end
@@ -103,11 +105,29 @@ module PlayersHelper
     return html.html_safe
   end
 
-    def determine_controller_option(option)
+    def determine_controller_option(h_options, item, match)
+      option = h_options[match.ground[0].upcase.intern]
       raw_options = option.split(CONTROLLER_OPTION_DELIMITER)
       return option if raw_options.size < 2
 
+      options_saved = (session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] || {})[match.id]
+      option = (options_saved || {})[item]
+      return option if option
+
       options_with_prob = raw_options.map { |option| option =~ /([^\d]+)([\d]+)/ && [$1, $2] }
+      option = pick_controller_option(options_with_prob)
+
+      h_saved = session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] || Hash.new
+      h_match = h_saved[match.id] || Hash.new
+      h_match[item] = option
+      h_saved[match.id] = h_match
+      session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] = h_saved
+
+      return option
+    end
+    private :determine_controller_option
+
+    def pick_controller_option(options_with_prob)
       total_prob = options_with_prob.inject(0) { |total, elem| total + elem.last.to_i }
       x = rand(total_prob)
       options_with_prob[0 ... -1].each do |option, prob|
@@ -117,7 +137,7 @@ module PlayersHelper
       end
       return options_with_prob.last.first
     end
-    private :determine_controller_option
+    private :pick_controller_option
 
     def complete_controller_option(option)
       candidates = CONTROLLER_OPTIONS_FULL.select { |full| full.starts_with?(option) }
