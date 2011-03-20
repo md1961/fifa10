@@ -376,6 +376,10 @@
   padding-bottom: 0px;
 }
 
+#manutd_fanfare_player {
+  margin-left: 20px;
+}
+
 #top_of_tables_roster_chart {
   padding-left: 7px;
   margin-bottom: 15px;
@@ -392,8 +396,9 @@
 
 #table_starters {
   float: left;
-  margin-left:  10px;
-  margin-right: 20px;
+  margin-left:   10px;
+  margin-right:  20px;
+  margin-bottom: 20px;
 }
 
 #table_in_bench {
