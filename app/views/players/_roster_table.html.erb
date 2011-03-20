@@ -10,14 +10,6 @@
   <% @players[index_start, size].each_with_index do |player, index| -%>
     <% tr_class = player_html_class(player, @season_id, @injury_list, @off_list) -%>
     <tr class="<%= tr_class %>">
-      <% if player.nil_player? -%>
-        <% 5.times do -%>
-          <td>&nbsp;</td>
-        <% end -%>
-        </tr>
-        <% next -%>
-      <% end -%>
-
       <% if kind == 's' && @formation -%>
         <% position = @formation.position(index + 1) -%>
         <td style="background-color: <%= position.color %>;
@@ -25,10 +17,21 @@
           <%= position.name %>
         </td>
       <% end -%>
+
       <td class="index_number">
         <% label = "#{kind == 's' ? '': kind}#{index + index_offset + 1}" -%>
-        <%= link_to label, player_path(player, :browses_all_players => 1, :is_from_roster_chart => 1) %>
+        <%= link_to_unless player.nil_player?, label,
+                             player_path(player, :browses_all_players => 1, :is_from_roster_chart => 1) %>
       </td>
+
+      <% if player.nil_player? -%>
+        <% 4.times do -%>
+          <td>&nbsp;</td>
+        <% end -%>
+        </tr>
+        <% next -%>
+      <% end -%>
+
       <% tr_class_important = %w(disabled injury_list).include?(tr_class)
          in_position = player.positions.include?(position)
          clazz = kind != 's' || tr_class_important || in_position ? "" : "out_of_position" -%>

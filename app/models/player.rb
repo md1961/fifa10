@@ -40,7 +40,7 @@ class Player < ActiveRecord::Base
   #validates_numericality_of :overall,         :only_integer => true, :greater_than =>   40, :less_than => 100
   #validates_numericality_of :market_value,    :only_integer => true
 
-  NIL_PLAYER = Player.new.freeze
+  NIL_PLAYER = begin; p = Player.new; p.id = 0; p.freeze; end
 
   #TODO: Quit using @@current_year and correct age()
   @@current_year = Constant.get(:default_current_year)
