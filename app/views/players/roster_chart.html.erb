@@ -43,11 +43,14 @@
 <div id="recent_meetings">
   <%= recent_meetings_display(@next_matches, @season_id) %>
 </div>
+
+<% next_match = @next_matches.first -%>
+
 <div id="controller_options">
-  <%= controller_options(@next_matches.first) %>
+  <%= controller_options(next_match) %>
 </div>
 
-<% if @season.team.manutd? && @next_matches.first.home? -%>
+<% if @season.team.manutd? && next_match && next_match.home? -%>
   <br />
   <embed src="images/FanfareForRocky.mp3" type="application/x-mplayer2"
          autostart="false" width="50" height="20" nojava="true">

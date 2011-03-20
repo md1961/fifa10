@@ -436,7 +436,9 @@ class PlayersController < ApplicationController
 
     def recover_disabled
       season_id = get_season_id
-      today = Match.nexts(season_id).first.date_match
+      next_match = Match.nexts(season_id).first
+      return unless next_match
+      today = next_match.date_match
       players = players_of_team(includes_on_loan=false, for_lineup=true)
       players_recoverd = Array.new
       players.each do |player|

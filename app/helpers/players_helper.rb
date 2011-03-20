@@ -51,6 +51,7 @@ module PlayersHelper
   end
 
   def recent_meetings_display(next_matches, season_id)
+    return if next_matches.empty?
     opponent_id = @next_matches.first.opponent_id
     num_meetings = Constant.get(:num_recent_meetings_to_display)
     matches = Match.recent_meetings(opponent_id, num_meetings, @season_id).first(num_meetings)
@@ -70,6 +71,7 @@ module PlayersHelper
   KEY_FOR_CONTROLLER_OPTIONS_SAVED = :controller_options
 
   def controller_options(match)
+    return unless match
     skips_items_with_options_same = Constant.get(:skips_controller_option_items_with_options_same)
     html_rows = Array.new
     Constant.get(:controller_options).each do |item, options|
