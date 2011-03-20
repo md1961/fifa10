@@ -67,24 +67,12 @@ module PlayersHelper
   CONTROLLER_OPTIONS_FULL = %w(On Off Assisted Semi Manual)
   CONTROLLER_OPTION_DELIMITER = ','
 
-  CONTROLLER_OPTIONS = [
-    #                               Home         Away         Neutral
-    ["Difficulty Level"        , %w(Semi-Pro     Semi-Pro     Semi-Pro    )],
-    ["Passing Power Assistance", %w(On8,Off2     Off          Off         )],
-    ["Pass Assistance"         , %w(Ass8,Semi2   Semi         Ass8,Semi2  )],
-    ["Through Pass Assistance" , %w(Assisted     Ass5,Man5    Assisted    )],
-    ["Shot Assistance"         , %w(Semi         Semi         Semi        )],
-    ["Cross Assistance"        , %w(Semi         Semi         Semi        )],
-    ["Lob Pass Assistance"     , %w(Assisted     Assisted     Assisted    )],
-   #["Save Assistance"         , %w(Semi         Manual       Manual      )],
-  ]
-
   KEY_FOR_CONTROLLER_OPTIONS_SAVED = :controller_options
 
   def controller_options(match)
     skips_items_with_options_same = Constant.get(:skips_controller_option_items_with_options_same)
     html_rows = Array.new
-    CONTROLLER_OPTIONS.each do |item, options|
+    Constant.get(:controller_options).each do |item, options|
       h_options = Hash[*[:H, :A, :N].zip(options).flatten]
       is_options_same = options.uniq.size == 1
       next if is_options_same && skips_items_with_options_same

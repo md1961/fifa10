@@ -8,6 +8,41 @@ default_current_year : 2010
 base_pct_to_be_disabled : 6
 gk_pct_dec_to_be_disabled : 4
 
+controller_options :
+# Quote just On and Off with quotation marks
+- - Difficulty Level
+  - - Semi-Pro  # Home
+    - Semi-Pro  # Away
+    - Semi-Pro  # Neutral
+- - Passing Power Assistance
+  - - On7,Off3
+    - 'Off'
+    - 'Off'
+- - Pass Assistance
+  - - Ass8,Semi2
+    - Semi
+    - Ass8,Semi2
+- - Through Pass Assistance
+  - - Ass9,Man1
+    - Ass5,Man5
+    - Ass9,Man1
+- - Shot Assistance
+  - - Semi
+    - Semi
+    - Semi
+- - Cross Assistance
+  - - Semi
+    - Semi
+    - Semi
+- - Lob Pass Assistance
+  - - Assisted
+    - Assisted
+    - Assisted
+- - Save Assistance
+  - - Semi
+    - Semi
+    - Semi
+
 # 重要度が中程度の定数（見栄えが悪くなる、入出力に支障が出るなど）
 default_table_attributes : border="1" cellpadding="5" cellspacing="0"
 date_format : {
