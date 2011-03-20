@@ -203,15 +203,26 @@ class Player < ActiveRecord::Base
       [MAX_AGE,  10.0],
     ].freeze
 
-    def disabled_days
+    def disabled_days(can_be_extended=true)
       age0, inc0, age1, inc1 = INCREMENTS_OF_MAX_DISABLED_TERM.flatten
       increment_max = (inc0 + (inc1 - inc0) / (age1 - age0) * (age - age0)).to_i
 
       min = MIN_DISABLED_TERM
       max = MAX_DISABLED_TERM + increment_max
-      return (min + (max - min + 1) * rand).to_i
+      days = (min + (max - min + 1) * rand).to_i
+
+      if can_be_extended && rand(100) < pct_to_be_disabled_extendedly
+        days += disabled_days(false)
+      end
+
+      return days
     end
     private :disabled_days
+
+    def pct_to_be_disabled_extendedly
+      return pct_to_be_disabled
+    end
+    private :pct_to_be_disabled_extendedly
 
   def recover_from_disabled(date_as_of, season_id)
     player_season = player_seasons.find_by_season_id(season_id)
