@@ -1,8 +1,6 @@
 
 <div class="<%= @is_lineup ? 'lineup' : '' %>">
 
-<% num_players_in_first_table_reserves = 10 -%>
-
 <p>
   <%= link_to 'Fixtures/Results', matches_path %>
   <%= nbsp(4) %>
@@ -83,25 +81,25 @@
                          :index_offset => 0} %>
 </table>
 
+<% num_players_in_each_table_reserve = 10 -%>
+
 <% index_start = @num_starters + @num_in_bench
-   size = num_players_in_first_table_reserves -%>
+   size = num_players_in_each_table_reserve
+   index_offset = 0
+   caption = "Reserves:" -%>
+<% while true -%>
+  <table class="table_reserves table_base tables_roster_chart">
+    <%= render :partial => 'roster_table',
+               :locals => {:caption => caption,
+                           :index_start => index_start, :size => size,
+                           :index_offset => index_offset } %>
+  </table>
 
-<table id="table_reserves_first" class="table_base tables_roster_chart">
-  <%= render :partial => 'roster_table',
-             :locals => {:caption => 'Reserves:',
-                         :index_start => index_start, :size => size,
-                         :index_offset => 0} %>
-</table>
-
-<% index_start += size
-   size = @players.size -%>
-
-<table class="table_base tables_roster_chart">
-  <%= render :partial => 'roster_table',
-             :locals => {:caption => nbsp,
-                         :index_start => index_start, :size => size,
-                         :index_offset => num_players_in_first_table_reserves} %>
-</table>
+  <% index_start += size
+     break if index_start >= @players.size
+     index_offset += size
+     caption = nbsp -%>
+<% end -%>
 
 <div class="clear" />
 
