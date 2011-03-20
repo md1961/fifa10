@@ -40,6 +40,8 @@ class Player < ActiveRecord::Base
   #validates_numericality_of :overall,         :only_integer => true, :greater_than =>   40, :less_than => 100
   #validates_numericality_of :market_value,    :only_integer => true
 
+  NIL_PLAYER = Player.new.freeze
+
   #TODO: Quit using @@current_year and correct age()
   @@current_year = Constant.get(:default_current_year)
 
@@ -295,6 +297,10 @@ class Player < ActiveRecord::Base
     value = self.player_attribute.send(:attributes)[name] unless value
     value = self.send(name) unless value
     return value
+  end
+
+  def nil_player?
+    self == NIL_PLAYER
   end
 
   protected

@@ -83,7 +83,9 @@
                          :index_offset => 0} %>
 </table>
 
-<% num_players_in_each_table_reserve = 10 -%>
+<% max_players = Constant.get(:max_players_in_roster)
+   @players << Player::NIL_PLAYER until @players.size >= max_players
+   num_players_in_each_table_reserve = 10 -%>
 
 <% index_start = @num_starters + @num_in_bench
    size = num_players_in_each_table_reserve

@@ -56,6 +56,8 @@ usernames_to_pass_startup_chronicle :
 column_heading_for_matches : false
 max_players_to_transpose : 10
 default_is_font_bold_for_matches : false
+
+max_players_in_roster : 42
 num_next_matches_to_display : 6
 num_recent_meetings_to_display : 5
 skips_controller_option_items_with_options_same : true

@@ -1,6 +1,8 @@
 module PlayersHelper
 
   def player_html_class(player, season_id, injury_list, off_list)
+    return '' if player.nil_player?
+
     return player.on_loan?(season_id)      ? 'on_loan' \
          : player.disabled?(season_id)     ? 'disabled' \
          : injury_list.include?(player.id) ? 'injury_list' \
