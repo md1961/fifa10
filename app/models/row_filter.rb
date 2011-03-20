@@ -116,8 +116,7 @@ class RowFilter
   def self.player_name_match(name)
     pattern = name.gsub(/\*/, '.*')
     pattern = pattern.gsub(/%/, '.*')
-    pattern = /\A#{pattern}\z/i
-    return @@players.select { |player| pattern =~ player.name.gsub(/ /, '') }
+    return @@players.select { |player| player.name =~ /\A#{pattern}\z/i }
   end
 
   def set_player_by_name(name, bool_value=true)
