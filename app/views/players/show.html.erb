@@ -6,7 +6,7 @@
                                               : ["Rosters"     , players_path     ] -%>
   <%= link_to "Back to #{label}", back_path %>
   <%= nbsp(4) %>
-  <%= link_to 'Edit', edit_player_path(@player) %>
+  <%= link_to 'Edit', edit_player_path(@player, :is_from_roster_chart => @is_from_roster_chart ? 1 : 0) %>
   <%= nbsp(4) %>
   <%= link_to 'New Player', new_player_path %>
   <%= nbsp(4) %>

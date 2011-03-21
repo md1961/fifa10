@@ -67,6 +67,7 @@ class PlayersController < ApplicationController
     players = row_filter.displaying_players
     @player = Player.find(params[:id])
     @is_from_list = params[:is_from_list] == '1'
+    @is_from_roster_chart = params[:is_from_roster_chart] == '1'
     @prev_player, @next_player = prev_and_next_players(@player, players)
 
     @player_attribute_order = PLAYER_ATTRIBUTE_ORDER.map(&:to_s)
@@ -92,7 +93,7 @@ class PlayersController < ApplicationController
       if params[:is_from_list] == 'true'
         redirect_to players_path
       else
-        redirect_to @player
+        redirect_to player_path(@player, :is_from_roster_chart => params[:is_from_roster_chart])
       end
     rescue
       flash[:error_message] = "Failed to update Player '#{@player.name}'"
