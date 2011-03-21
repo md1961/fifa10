@@ -933,20 +933,7 @@ class PlayersController < ApplicationController
     end
 
     def term2player(term, players)
-      kind = player_kind(term)
-      return nil unless kind
-      index = player_index(term)
-      return nil if index <= 0
-
-      num_starters, num_in_bench = get_num_starters_and_in_bench
-      return nil if kind == 's' && index > num_starters
-      return nil if kind == 'b' && index > num_in_bench
-      return nil if kind == 'r' && index > players.size - num_starters - num_in_bench
-      player_index = index - 1
-      player_index += num_starters unless kind == 's'
-      player_index += num_in_bench if     kind == 'r'
-
-      return players[player_index]
+      return players.find { |player| player.number == term.to_i }
     end
 
     def sort_players(players, sort_fields)
