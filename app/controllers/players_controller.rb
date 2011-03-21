@@ -803,13 +803,7 @@ class PlayersController < ApplicationController
       injury_list = get_injury_list
 
       players.each do |player|
-        unless injury_list.include?(player.id)
-          explain_error("No such player in injury list", ["'#{player.name}' is not in injury list"], [])
-          return
-        end
-      end
-
-      players.each do |player|
+        next unless injury_list.include?(player.id)
         injury_list.delete(player.id)
         set_injury_list(injury_list)
       end
