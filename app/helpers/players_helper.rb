@@ -7,7 +7,6 @@ module PlayersHelper
          : player.disabled?(season_id)     ? 'disabled' \
          : injury_list.include?(player.id) ? 'injury_list' \
          : off_list.include?(player.id)    ? 'off_list' \
-         : player.hot?(season_id)          ? 'hot' \
                                            : ''
   end
 

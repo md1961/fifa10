@@ -18,7 +18,7 @@
         </td>
       <% end -%>
 
-      <td class="index_number">
+      <td class="index_number <%= player.hot?(@season_id) ? 'hot' : '' %>">
         <% label = "#{kind == 's' ? '': kind}#{index + index_offset + 1}" -%>
         <%= link_to_unless player.nil_player?, label,
                              player_path(player, :browses_all_players => 1, :is_from_roster_chart => 1) %>
