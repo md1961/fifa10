@@ -3,11 +3,12 @@ module PlayersHelper
   def player_html_class(player, season_id, injury_list, off_list)
     return '' if player.nil_player?
 
-    return player.on_loan?(season_id)      ? 'on_loan' \
-         : player.disabled?(season_id)     ? 'disabled' \
-         : injury_list.include?(player.id) ? 'injury_list' \
-         : off_list.include?(player.id)    ? 'off_list' \
-                                           : ''
+    return player.on_loan?(season_id)       ? 'on_loan' \
+         : player.back_for_next?(season_id) ? 'back_for_next' \
+         : player.disabled?(season_id)      ? 'disabled' \
+         : injury_list.include?(player.id)  ? 'injury_list' \
+         : off_list.include?(player.id)     ? 'off_list' \
+                                            : ''
   end
 
   NUM_NEXT_MATCHES_DISPLAY = Constant.get(:num_next_matches_to_display)

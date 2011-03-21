@@ -29,12 +29,14 @@ class Match < ActiveRecord::Base
     return matches.find { |match| match.played? }
   end
 
-  def self.nexts(season_id)
+  def self.nexts(season_id, num_matches=nil)
     matches = by_season(season_id).order('date_match')
     next_match = matches.find { |match| ! match.played? }
     return Array.new unless next_match
     index = matches.index(next_match)
-    return matches[index .. -1]
+    matches = matches[index .. -1]
+    matches = matches.first(num_matches) if num_matches
+    return matches
   end
 
   def self.recent_form(num_matches, season_id)

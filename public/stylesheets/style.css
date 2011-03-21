@@ -314,7 +314,12 @@
 
 .disabled {
   color: white;
-  background-color: crimson;
+  background-color: crimson; /* #dc143c */
+}
+
+.back_for_next {
+  color: white;
+  background-color: #ff2f4f;
 }
 
 #table_depth_chart {
