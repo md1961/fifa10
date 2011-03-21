@@ -51,8 +51,11 @@
 <% if @season.team.manutd? && next_match && next_match.home? -%>
   <br />
   <div id="manutd_fanfare_player">
-  <embed src="images/FanfareForManUtd.wav" type="application/x-mplayer2"
-         autostart="false" width="50" height="20" nojava="true">
+    <embed src="images/FanfareForManUtd.wav" type="application/x-mplayer2"
+           autostart="false" width="50" height="20"
+           nojava="true" alt="ManUtd Fanfare Player">
+    <br />
+    <font size="-2">ManUtd Fanfare Player</font>
   </div>
 <% end -%>
 

@@ -365,6 +365,7 @@
 #controller_options {
   color: red;
   font-size: small;
+  margin-right: 30px;
   margin-bottom: 10px;
   padding-top: 5px;
   padding-bottom: 0px;
@@ -378,6 +379,7 @@
 
 #manutd_fanfare_player {
   margin-left: 20px;
+  margin-bottom: 0px;
 }
 
 #top_of_tables_roster_chart {
