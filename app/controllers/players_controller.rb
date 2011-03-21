@@ -959,8 +959,8 @@ class PlayersController < ApplicationController
         return 0 if name.to_s == 'none'
 
         ascending = field.ascending?
-        value1 = player1.get(name)
-        value2 = player2.get(name)
+        value1 = player1.get(name) || 0
+        value2 = player2.get(name) || 0
         cmp = sgn(value1 - value2) * (ascending ? 1 : -1)
         return cmp if cmp != 0
       end

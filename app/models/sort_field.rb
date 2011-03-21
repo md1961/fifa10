@@ -1,7 +1,7 @@
 class SortField
 
   PLAYER_PROPERTY_NAMES = [
-    :number, :skill_move, :both_feet_level, :height, :weight, :birth_year, :overall, :market_value, :wage
+    :number, :skill_move, :both_feet_level, :height, :weight, :birth_year, :overall, :market_value, :wage, :age_add_inj
   ]
 
   PLAYER_ATTRIBUTE_COLUMNS = PlayerAttribute.content_columns
@@ -20,7 +20,7 @@ class SortField
     @ascending = ascending
   end
 
-  FIELD_NAMES_AT_EOL = [:wage, :jump, :tackle]
+  FIELD_NAMES_AT_EOL = [:age_add_inj, :jump, :tackle]
 
   def self.names_for_display
     names = Array.new
