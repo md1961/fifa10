@@ -151,6 +151,12 @@ class Player < ActiveRecord::Base
     player_season.destroy
   end
 
+  def inactive?(season_id)
+    return on_loan?(season_id) || disabled?(season_id)
+  end
+
+  #TODO: Extract to module Disableable???
+
   def to_be_disabled?
     return rand(100) < pct_to_be_disabled
   end
@@ -158,10 +164,6 @@ class Player < ActiveRecord::Base
   def disabled?(season_id)
     player_season = player_seasons.find_by_season_id(season_id)
     return player_season.disabled?
-  end
-
-  def inactive?(season_id)
-    return on_loan?(season_id) || disabled?(season_id)
   end
 
   def disabled_until(season_id)
@@ -179,6 +181,10 @@ class Player < ActiveRecord::Base
     player_season.save!
   end
 
+  def age_for_disablement
+    return age + (age_add_inj || 0)
+  end
+
     #TODO: to be moved to Constant
 
     MIN_AGE = 17.0
@@ -191,7 +197,7 @@ class Player < ActiveRecord::Base
 
     def pct_to_be_disabled
       age0, inc0, age1, inc1 = INCREMENTS_OF_PCT_TO_BE_DISABLED.flatten
-      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age - age0)).to_i
+      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement - age0)).to_i
       return Constant.get(:base_pct_to_be_disabled) + increment - Constant.get(:gk_pct_dec_to_be_disabled)
     end
     private :pct_to_be_disabled
@@ -205,7 +211,7 @@ class Player < ActiveRecord::Base
 
     def disabled_days(can_be_extended=true)
       age0, inc0, age1, inc1 = INCREMENTS_OF_MAX_DISABLED_TERM.flatten
-      increment_max = (inc0 + (inc1 - inc0) / (age1 - age0) * (age - age0)).to_i
+      increment_max = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement - age0)).to_i
 
       min = MIN_DISABLED_TERM
       max = MAX_DISABLED_TERM + increment_max
@@ -257,7 +263,7 @@ class Player < ActiveRecord::Base
 
     def increment_of_disable_until
       age0, inc0, age1, inc1 = INCREMENTS_OF_DISABLED_UNTIL.flatten
-      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age - age0)).to_i
+      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement - age0)).to_i
 
       min = MIN_DISABLED_UNTIL_CHANGE
       max = MAX_DISABLED_UNTIL_CHANGE
