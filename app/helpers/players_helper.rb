@@ -231,6 +231,7 @@ module PlayersHelper
     :overall           => ['Ov'        , :R],
     :market_value      => ['MV'        , :R],
     :wage              => ['Wage'      , :R],
+    :age_add_inj       => ['AgInj'     , :R],
     :note              => ['Note'      , :L],
   }.freeze
 end
