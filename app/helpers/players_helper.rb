@@ -70,8 +70,6 @@ module PlayersHelper
   CONTROLLER_OPTIONS_FULL = %w(On Off Assisted Semi Manual)
   CONTROLLER_OPTION_DELIMITER = ','
 
-  KEY_FOR_CONTROLLER_OPTIONS_SAVED = :controller_options
-
   def controller_options(match)
     return unless match
     skips_items_with_options_same = Constant.get(:skips_controller_option_items_with_options_same)
@@ -102,22 +100,34 @@ module PlayersHelper
       raw_options = option.split(CONTROLLER_OPTION_DELIMITER)
       return option if raw_options.size < 2
 
-      options_saved = (session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] || {})[match.id]
-      option = (options_saved || {})[item]
+      option = load_controller_option(match.id, item)
       return option if option
 
       options_with_prob = raw_options.map { |option| option =~ /([^\d]+)([\d]+)/ && [$1, $2] }
       option = pick_controller_option(options_with_prob)
 
-      h_saved = session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] || Hash.new
-      h_match = h_saved[match.id] || Hash.new
-      h_match[item] = option
-      h_saved[match.id] = h_match
-      session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] = h_saved
+      save_controller_option(match.id, item, option)
 
       return option
     end
     private :determine_controller_option
+
+    KEY_FOR_CONTROLLER_OPTIONS_SAVED = :controller_options
+
+    def load_controller_option(match_id, item)
+      options_saved = (session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] || {})[match_id]
+      return (options_saved || {})[item]
+    end
+    private :load_controller_option
+
+    def save_controller_option(match_id, item, option)
+      h_saved = session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] || Hash.new
+      h_match = h_saved[match_id] || Hash.new
+      h_match[item] = option
+      h_saved[match_id] = h_match
+      session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] = h_saved
+    end
+    private :save_controller_option
 
     def pick_controller_option(options_with_prob)
       total_prob = options_with_prob.inject(0) { |total, elem| total + elem.last.to_i }
