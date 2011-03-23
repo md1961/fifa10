@@ -74,6 +74,9 @@ module PlayersHelper
     return unless match
     skips_items_with_options_same = Constant.get(:skips_controller_option_items_with_options_same)
     html_rows = Array.new
+
+    SimpleDB.instance.async
+
     Constant.get(:controller_options).each do |item, options|
       h_options = Hash[*[:H, :A, :N].zip(options).flatten]
       is_options_same = options.uniq.size == 1
@@ -87,6 +90,9 @@ module PlayersHelper
         </tr>
       END
     end
+
+    SimpleDB.instance.sync
+
     html = <<-END
       <table>
         #{html_rows.join("\n")}
@@ -115,17 +121,18 @@ module PlayersHelper
     KEY_FOR_CONTROLLER_OPTIONS_SAVED = :controller_options
 
     def load_controller_option(match_id, item)
-      options_saved = (session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] || {})[match_id]
+      options_saved = (SimpleDB.instance.get(KEY_FOR_CONTROLLER_OPTIONS_SAVED) || {})[match_id]
       return (options_saved || {})[item]
     end
     private :load_controller_option
 
     def save_controller_option(match_id, item, option)
-      h_saved = session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] || Hash.new
+      h_saved = SimpleDB.instance.get(KEY_FOR_CONTROLLER_OPTIONS_SAVED) || Hash.new
       h_match = h_saved[match_id] || Hash.new
       h_match[item] = option
+      h_saved.clear
       h_saved[match_id] = h_match
-      session[KEY_FOR_CONTROLLER_OPTIONS_SAVED] = h_saved
+      SimpleDB.instance.set(KEY_FOR_CONTROLLER_OPTIONS_SAVED, h_saved)
     end
     private :save_controller_option
 
