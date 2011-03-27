@@ -146,6 +146,17 @@ class Player < ActiveRecord::Base
     player_season.save!
   end
 
+  def not_well?(season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    return player_season ? player_season.is_not_well : false
+  end
+
+  def set_not_well(is_not_well, season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    player_season.is_not_well = is_not_well
+    player_season.save!
+  end
+
   def remove_from_rosters(season_id)
     player_season = player_seasons.find_by_season_id(season_id)
     player_season.destroy
