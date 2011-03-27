@@ -274,7 +274,7 @@ class Player < ActiveRecord::Base
     return unless self.disabled?(season_id)
     return unless rand(100) < PCT_DISABLED_UNTIL_CHANGE
 
-    increment = increment_of_disable_until
+    increment = increment_of_disable_until(season_id)
     return if increment == 0
 
     player_season = player_seasons.find_by_season_id(season_id)
@@ -284,9 +284,9 @@ class Player < ActiveRecord::Base
     return increment
   end
 
-    def increment_of_disable_until
+    def increment_of_disable_until(season_id)
       age0, inc0, age1, inc1 = INCREMENTS_OF_DISABLED_UNTIL.flatten
-      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement - age0)).to_i
+      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement(season_id) - age0)).to_i
 
       min = MIN_DISABLED_UNTIL_CHANGE
       max = MAX_DISABLED_UNTIL_CHANGE
