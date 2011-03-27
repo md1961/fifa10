@@ -460,6 +460,10 @@
   background-color: cyan;
 }
 
+.tables_roster_chart .not_well {
+  background-color: gold;
+}
+
 #command_samples_for_roster_chart {
   font-size: small;
   margin-left: 10px;

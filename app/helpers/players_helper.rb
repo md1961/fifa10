@@ -11,6 +11,14 @@ module PlayersHelper
                                             : ''
   end
 
+  def player_index_html_class(player, season_id)
+    return '' if player.nil_player?
+
+    return player.hot?(season_id)      ? 'hot' \
+         : player.not_well?(season_id) ? 'not_well' \
+                                       : ''
+  end
+
   NUM_NEXT_MATCHES_DISPLAY = Constant.get(:num_next_matches_to_display)
   NO_MATCH_DISPLAY = "(End of Schedule)"
 
