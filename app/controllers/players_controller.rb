@@ -374,9 +374,9 @@ class PlayersController < ApplicationController
     unless @is_lineup
       set_players_to_row_filter_if_not
 
-      if session[:ticket_to_examine_disabled_until_change]
-        examine_disabled_until_change
-        session[:ticket_to_examine_disabled_until_change] = nil
+      if session[:ticket_to_examine_player_status_change]
+        examine_player_status_change
+        session[:ticket_to_examine_player_status_change] = nil
       end
       recover_disabled
     end
@@ -419,7 +419,7 @@ class PlayersController < ApplicationController
       return num_starters, num_in_bench
     end
 
-    def examine_disabled_until_change
+    def examine_player_status_change
       season_id = get_season_id
       players = players_of_team(includes_on_loan=false, for_lineup=true)
       players.each do |player|
@@ -433,7 +433,7 @@ class PlayersController < ApplicationController
         session[:roster_chart_report] = report
       end
     end
-    private :examine_disabled_until_change
+    private :examine_player_status_change
 
     def recover_disabled
       season_id = get_season_id
