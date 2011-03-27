@@ -557,22 +557,46 @@ class PlayersController < ApplicationController
   end
 
   def pick_injury
-    injury_list = get_injury_list
+    players_disabled = Array.new
+    players_injured  = Array.new
 
-    players = do_pick_players(injury_list)
-    players_disabled = players.select { |player| player.to_be_disabled? }
-    players_injured = players - players_disabled
+    if Constant.get(:uses_disable_only_mode)
+      players = players_for_injury
+      player_ids = players.map(&:id).sort_by { rand }
+      player_ids.each do |id|
+        player = Player.find(id)
+        if player.to_be_disabled?
+          players_disabled << player
+          break
+        end
+      end
+    else
+      injury_list = get_injury_list
+
+      players = do_pick_players(injury_list)
+      players_disabled = players.select { |player| player.to_be_disabled? }
+      players_injured = players - players_disabled
+
+      injury_list.concat(players_injured.map(&:id))
+      set_injury_list(injury_list)
+    end
 
     disable_players(players_disabled)
-
-    injury_list.concat(players_injured.map(&:id))
-    set_injury_list(injury_list)
 
     put_injury_report_into_session(players_disabled, players_injured)
 
     caller_path_method = :"#{params[:caller]}_path"
     redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
   end
+
+    def players_for_injury(injury_list=[])
+      players = players_of_team(includes_loan=false)
+      season_id = get_season_id
+      players.reject! { |player|
+        injury_list.include?(player.id) || player.inactive?(season_id) || player.hot?(season_id)
+      }
+    end
+    private :players_for_injury
 
     def disable_players(players, toggles=false)
       season_id = get_season_id
@@ -585,11 +609,7 @@ class PlayersController < ApplicationController
     MAX_NUMBER_OF_PLAYERS_TO_PICK = 5
 
     def do_pick_players(injury_list)
-      players = players_of_team(includes_loan=false)
-      season_id = get_season_id
-      players.reject! { |player|
-        injury_list.include?(player.id) || player.inactive?(season_id) || player.hot?(season_id)
-      }
+      players = players_for_injury(injury_list)
 
       num = rand(MAX_NUMBER_OF_PLAYERS_TO_PICK) + 1
       picks = Array.new
