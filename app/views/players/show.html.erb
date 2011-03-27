@@ -1,6 +1,6 @@
 
 <p>
-  <%= link_to "<< #{@prev_player.name}", @prev_player %>
+  <%= link_to "<< #{@prev_player.name}", @prev_player if @prev_player %>
   <%= nbsp(4) %>
   <% label, back_path = @is_from_roster_chart ? ["Roster Chart", roster_chart_path] \
                                               : ["Rosters"     , players_path     ] -%>
@@ -10,7 +10,7 @@
   <%= nbsp(4) %>
   <%= link_to 'New Player', new_player_path %>
   <%= nbsp(4) %>
-  <%= link_to "#{@next_player.name} >>", @next_player %>
+  <%= link_to "#{@next_player.name} >>", @next_player if @next_player %>
 </p>
 
 <%= render :partial => 'base', :locals => {:f => nil} %>
