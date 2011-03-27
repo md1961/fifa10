@@ -50,12 +50,25 @@
 
 <% if @season.team.manutd? && next_match && next_match.home? -%>
   <br />
+  <% caption = "ManUtd Fanfare Player" -%>
   <div id="manutd_fanfare_player">
     <embed src="images/FanfareForManUtd.wav" type="application/x-mplayer2"
            autostart="false" width="120" height="20"
-           nojava="true" alt="ManUtd Fanfare Player">
+           nojava="true" alt="<%= caption %>" />
     <br />
-    <font size="-2">ManUtd Fanfare Player</font>
+    <font size="-2"><%= caption %></font>
+  </div>
+<% end -%>
+
+<% if next_match && next_match.series.champions_leaque? -%>
+  <br />
+  <% caption = "Champions League Anthem" -%>
+  <div id="champions_leaque_anthem_player">
+    <embed src="images/ChampionsLeagueAnthem.mp3" type="application/x-mplayer2"
+           autostart="false" width="120" height="20"
+           nojava="true" alt="<%= caption %>" />
+    <br />
+    <font size="-2"><%= caption %></font>
   </div>
 <% end -%>
 

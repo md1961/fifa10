@@ -3,6 +3,7 @@ class Series < ActiveRecord::Base
   has_many :season, :through => :season_series
 
   ABBR_FOR_PREMIER = 'Premier'
+  ABBR_FOR_CL      = 'CL'
 
   def self.premier
     return find_by_abbr(ABBR_FOR_PREMIER)
@@ -15,7 +16,11 @@ class Series < ActiveRecord::Base
   end
 
   def premier?
-    return abbr == 'Premier'
+    return abbr == ABBR_FOR_PREMIER
+  end
+
+  def champions_leaque?
+    return abbr == ABBR_FOR_CL
   end
 
   def world_cup_final?
