@@ -557,6 +557,7 @@ class PlayersController < ApplicationController
   end
 
   def pick_injury
+    season_id = get_season_id(params)
     players_disabled = Array.new
     players_injured  = Array.new
 
@@ -565,7 +566,7 @@ class PlayersController < ApplicationController
       player_ids = players.map(&:id).sort_by { rand }
       player_ids.each do |id|
         player = Player.find(id)
-        if player.to_be_disabled?
+        if player.to_be_disabled?(season_id)
           players_disabled << player
           break
         end
@@ -574,7 +575,7 @@ class PlayersController < ApplicationController
       injury_list = get_injury_list
 
       players = do_pick_players(injury_list)
-      players_disabled = players.select { |player| player.to_be_disabled? }
+      players_disabled = players.select { |player| player.to_be_disabled?(season_id) }
       players_injured = players - players_disabled
 
       injury_list.concat(players_injured.map(&:id))

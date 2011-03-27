@@ -170,8 +170,8 @@ class Player < ActiveRecord::Base
 
   #TODO: Extract to module Disableable???
 
-  def to_be_disabled?
-    return rand(100) < pct_to_be_disabled
+  def to_be_disabled?(season_id)
+    return rand(100) < pct_to_be_disabled(season_id)
   end
 
   def disabled?(season_id)
@@ -196,13 +196,9 @@ class Player < ActiveRecord::Base
     player_season.disable(toggles)
     if player_season.disabled?
       today = Match.nexts(season_id).first.date_match
-      player_season.disabled_until = today + disabled_days - 1
+      player_season.disabled_until = today + disabled_days(season_id) - 1
     end
     player_season.save!
-  end
-
-  def age_for_disablement
-    return age + (age_add_inj || 0)
   end
 
     #TODO: to be moved to Constant
@@ -210,17 +206,12 @@ class Player < ActiveRecord::Base
     MIN_AGE = 17.0
     MAX_AGE = 45.0
 
+    AGE_INCREMENT_WHEN_NOT_WELL = 7
+
     INCREMENTS_OF_PCT_TO_BE_DISABLED = [
       [MIN_AGE,  0.0],
       [MAX_AGE, 10.0],
     ].freeze
-
-    def pct_to_be_disabled
-      age0, inc0, age1, inc1 = INCREMENTS_OF_PCT_TO_BE_DISABLED.flatten
-      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement - age0)).to_i
-      return Constant.get(:base_pct_to_be_disabled) + increment - Constant.get(:gk_pct_dec_to_be_disabled)
-    end
-    private :pct_to_be_disabled
 
     MIN_DISABLED_TERM =  3
     MAX_DISABLED_TERM = 30
@@ -229,24 +220,44 @@ class Player < ActiveRecord::Base
       [MAX_AGE,  10.0],
     ].freeze
 
-    def disabled_days(can_be_extended=true)
+    PCT_DISABLED_UNTIL_CHANGE = 25
+    MIN_DISABLED_UNTIL_CHANGE = -5.0
+    MAX_DISABLED_UNTIL_CHANGE =  5.0
+    INCREMENTS_OF_DISABLED_UNTIL = [
+      [MIN_AGE, -5.0],
+      [MAX_AGE,  5.0],
+    ].freeze
+
+    def age_for_disablement(season_id)
+      return age + (age_add_inj || 0) + (not_well?(season_id) ? AGE_INCREMENT_WHEN_NOT_WELL : 0)
+    end
+    private :age_for_disablement
+
+    def pct_to_be_disabled(season_id)
+      age0, inc0, age1, inc1 = INCREMENTS_OF_PCT_TO_BE_DISABLED.flatten
+      increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement(season_id) - age0)).to_i
+      return Constant.get(:base_pct_to_be_disabled) + increment - Constant.get(:gk_pct_dec_to_be_disabled)
+    end
+    private :pct_to_be_disabled
+
+    def disabled_days(season_id, can_be_extended=true)
       age0, inc0, age1, inc1 = INCREMENTS_OF_MAX_DISABLED_TERM.flatten
-      increment_max = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement - age0)).to_i
+      increment_max = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement(season_id) - age0)).to_i
 
       min = MIN_DISABLED_TERM
       max = MAX_DISABLED_TERM + increment_max
       days = (min + (max - min + 1) * rand).to_i
 
-      if can_be_extended && rand(100) < pct_to_be_disabled_extendedly
-        days += disabled_days(false)
+      if can_be_extended && rand(100) < pct_to_be_disabled_extendedly(season_id)
+        days += disabled_days(season_id, false)
       end
 
       return days
     end
     private :disabled_days
 
-    def pct_to_be_disabled_extendedly
-      return pct_to_be_disabled
+    def pct_to_be_disabled_extendedly(season_id)
+      return pct_to_be_disabled(season_id)
     end
     private :pct_to_be_disabled_extendedly
 
@@ -258,14 +269,6 @@ class Player < ActiveRecord::Base
     end
     return false
   end
-
-  PCT_DISABLED_UNTIL_CHANGE = 25
-  MIN_DISABLED_UNTIL_CHANGE = -5.0
-  MAX_DISABLED_UNTIL_CHANGE =  5.0
-  INCREMENTS_OF_DISABLED_UNTIL = [
-    [MIN_AGE, -5.0],
-    [MAX_AGE,  5.0],
-  ].freeze
 
   def examine_disabled_until_change(season_id)
     return unless self.disabled?(season_id)
