@@ -616,15 +616,13 @@ class PlayersController < ApplicationController
       end
 
       season_id = get_season_id(params)
-      date_from = Match.last_played(season_id).date_match
-      date_until = date_from + days.days
-
       next_match = Match.nexts(season_id, 1).first
-      if next_match && date_until <= next_match.date_match
-        explain_error("Illegal argument", ["Days must be so that date until exceeds next match"], [])
+      unless next_match
+        explain_error("Illegal command", ["Cannot do 'until' with no next match"], [])
         return
       end
 
+      date_until = next_match.date_match + days.days
       player.set_disabled_until(date_until, season_id)
     end
     private :set_disabled_until

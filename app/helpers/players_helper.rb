@@ -233,13 +233,23 @@ module PlayersHelper
     ["hot 5"     , "Hot/Cool #5"],
     ["notwell 4" , "Not well/Put back #4"],
     ["disable 3" , "Disable/Enable #3"],
-    ["until 2 30", "Set date disabled until of #2 at 30 days from last match"],
+    ["until 2 30", "Set date disabled until of #2 at 30 days from next match"],
     ["show 1 ...", "Show (and compare) player's attributes"],
   ]
 
   def command_samples_for_roster_chart
-    rows = COMMAND_SAMPLES.map { |c, ex| "<tr><td>#{c}</td><td>:</td><td>#{ex}</td></tr>" }.join("\n").html_safe
-    return content_tag(:table, rows)
+    samples = COMMAND_SAMPLES
+    num_left = (samples.size / 2.0).ceil
+    num_right = samples.size - num_left
+    rows = Array.new
+    samples.first(num_left).zip(samples.last(num_right)) do |left, right|
+      cells = [left, right].map { |values|
+        next unless values
+        "<td>#{values.first}</td><td>:</td><td>#{values.last}</td>"
+      }.join("<td>#{'&nbsp' * 8}</td>")
+      rows << "<tr>#{cells}</tr>"
+    end
+    return content_tag(:table, rows.join("\n").html_safe)
   end
 
   COLUMN_ATTRIBUTES = {
