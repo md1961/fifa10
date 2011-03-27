@@ -564,11 +564,12 @@ class PlayersController < ApplicationController
     if Constant.get(:uses_disable_only_mode)
       players = players_for_injury
       player_ids = players.map(&:id).sort_by { rand }
+      max_disabled = Constant.get(:max_disabled_on_disable_only_mode)
       player_ids.each do |id|
         player = Player.find(id)
         if player.to_be_disabled?(season_id)
           players_disabled << player
-          break
+          break if players_disabled.size >= max_disabled
         end
       end
     else
@@ -643,9 +644,13 @@ class PlayersController < ApplicationController
     private :do_pick_players
 
     def put_injury_report_into_session(players_disabled, players_injured)
+      uses_disable_only_mode = Constant.get(:uses_disable_only_mode)
+
+      array_of_players = [players_disabled]
+      array_of_players << players_injured unless uses_disable_only_mode
       reports = Array.new
-      [players_disabled, players_injured].each_with_index do |players, index|
-        next if players.empty?
+      array_of_players.each_with_index do |players, index|
+        next if players.empty? && ! uses_disable_only_mode
         verb = index == 0 ? 'disabled' : 'injured'
         reports << "#{players.size} player(s) #{verb}: #{players.map(&:name).join(', ')}"
       end
