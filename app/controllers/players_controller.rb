@@ -684,12 +684,13 @@ class PlayersController < ApplicationController
     ACTION_RECOVER = 'recover'
     ACTION_OFF     = 'off'
     ACTION_HOT     = 'hot'
+    ACTION_NOTWELL = 'notwell'
     ACTION_DISABLE = 'disable'
     ACTION_SHOW    = 'show'
 
     LEGAL_ACTIONS = [
       ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER,
-      ACTION_OFF, ACTION_HOT, ACTION_DISABLE, ACTION_SHOW
+      ACTION_OFF, ACTION_HOT, ACTION_NOTWELL,  ACTION_DISABLE, ACTION_SHOW
     ]
 
     MAP_NUM_PLAYERS = {
@@ -726,6 +727,8 @@ class PlayersController < ApplicationController
             off_player(players_arg)
           when ACTION_HOT
             hot_player(players_arg)
+          when ACTION_NOTWELL
+            not_well_player(players_arg)
           when ACTION_DISABLE
             disable_players(players_arg, toggles=true)
           when ACTION_SHOW
@@ -852,6 +855,14 @@ class PlayersController < ApplicationController
       players.each do |player|
         is_hot = player.hot?(season_id)
         player.set_hot(! is_hot, season_id)
+      end
+    end
+
+    def not_well_player(players)
+      season_id = get_season_id(params)
+      players.each do |player|
+        is_not_well = player.not_well?(season_id)
+        player.set_not_well(! is_not_well, season_id)
       end
     end
 
