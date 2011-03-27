@@ -234,6 +234,8 @@ class Player < ActiveRecord::Base
       [MAX_AGE,  5.0],
     ].freeze
 
+    PCT_HOT_OR_NOT_WELL_EXPIRE = 5
+
     def age_for_disablement(season_id)
       return age + (age_add_inj || 0) + (not_well?(season_id) ? AGE_INCREMENT_WHEN_NOT_WELL : 0)
     end
@@ -277,11 +279,11 @@ class Player < ActiveRecord::Base
   end
 
   def examine_disabled_until_change(season_id)
-    return unless self.disabled?(season_id)
-    return unless rand(100) < PCT_DISABLED_UNTIL_CHANGE
+    return nil unless disabled?(season_id)
+    return nil unless rand(100) < PCT_DISABLED_UNTIL_CHANGE
 
     increment = increment_of_disable_until(season_id)
-    return if increment == 0
+    return nil if increment == 0
 
     player_season = player_seasons.find_by_season_id(season_id)
     player_season.disabled_until += increment.days
@@ -299,6 +301,19 @@ class Player < ActiveRecord::Base
       return (min + (max - min + 1) * rand).to_i + increment
     end
     private :increment_of_disable_until
+
+  def examine_hot_or_not_well_expire(season_id)
+    return false unless hot?(season_id) || not_well?(season_id)
+    return false unless rand(100) < PCT_HOT_OR_NOT_WELL_EXPIRE
+
+    if hot?(season_id)
+      set_hot(false, season_id)
+    else
+      set_not_well(false, season_id)
+    end
+
+    return true
+  end
 
   def self.player_available_with_max_overall(position, players, inactive_player_ids)
     active_players = players.reject { |player| inactive_player_ids.include?(player.id) }

@@ -423,13 +423,18 @@ class PlayersController < ApplicationController
       season_id = get_season_id
       players = players_of_team(includes_on_loan=false, for_lineup=true)
       players.each do |player|
-        increment = player.examine_disabled_until_change(season_id)
-        next unless increment
+        increment      = player.examine_disabled_until_change(season_id)
+        status_expired = player.examine_hot_or_not_well_expire(season_id)
+        next unless increment || status_expired
 
-        verb = increment > 0 ? 'delayed' : 'advanced'
         report = session[:roster_chart_report] || ""
         report += "<br />" unless report.empty?
-        report += "#{player.name}'s return was #{verb} by #{increment.abs} day(s)"
+        if increment
+          verb = increment > 0 ? 'delayed' : 'advanced'
+          report += "#{player.name}'s return was #{verb} by #{increment.abs} day(s)"
+        else
+          report += "#{player.name}'s hot/not_well status expired"
+        end
         session[:roster_chart_report] = report
       end
     end
