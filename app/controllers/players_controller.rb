@@ -607,6 +607,11 @@ class PlayersController < ApplicationController
     end
     private :disable_players
 
+    def set_disabled_until(player, days_disabled)
+
+    end
+    private :set_disabled_until
+
     MAX_NUMBER_OF_PLAYERS_TO_PICK = 5
 
     def do_pick_players(injury_list)
@@ -687,16 +692,18 @@ class PlayersController < ApplicationController
     ACTION_HOT     = 'hot'
     ACTION_NOTWELL = 'notwell'
     ACTION_DISABLE = 'disable'
+    ACTION_UNTIL   = 'until'
     ACTION_SHOW    = 'show'
 
     LEGAL_ACTIONS = [
-      ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER,
-      ACTION_OFF, ACTION_HOT, ACTION_NOTWELL,  ACTION_DISABLE, ACTION_SHOW
+      ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER, ACTION_OFF,
+      ACTION_HOT, ACTION_NOTWELL,  ACTION_DISABLE, ACTION_UNTIL, ACTION_SHOW
     ]
 
     MAP_NUM_PLAYERS = {
-      ACTION_WITH => 2,
-      ACTION_TO   => 2,
+      ACTION_WITH  => 2,
+      ACTION_TO    => 2,
+      ACTION_UNTIL => 2,
     }
 
     def update_roster(commands, players, is_lineup)
@@ -709,14 +716,14 @@ class PlayersController < ApplicationController
         return
       end
 
-      player1, player2 = players_arg
-
       begin
         Player.transaction do
           case action
           when ACTION_WITH
+            player1, player2 = players_arg
             exchange_player_order(player1, player2, is_lineup)
           when ACTION_TO
+            player1, player2 = players_arg
             insert_player_order_before(player1, player2, players, is_lineup)
           when ACTION_LOAN
             loan_player(players_arg)
@@ -732,6 +739,9 @@ class PlayersController < ApplicationController
             not_well_player(players_arg)
           when ACTION_DISABLE
             disable_players(players_arg, toggles=true)
+          when ACTION_UNTIL
+            player, days_disabled = players_arg
+            set_disabled_until(player, days_disabled)
           when ACTION_SHOW
             show_player_attributes(players_arg)
           else
@@ -879,7 +889,7 @@ class PlayersController < ApplicationController
 
     NORMAL_TERMS_SIZE = 3
     RE_ACTION = /\A[a-zA-Z]+\z/
-    PLAYER_FORMAT = "[sbr]?\\d+"
+    PLAYER_FORMAT = "\\d{1,2}"
     RE_PLAYER = /\A#{PLAYER_FORMAT}\z/
 
     def parse_roster_edit_command(command, players)
@@ -922,7 +932,8 @@ class PlayersController < ApplicationController
 
     def terms2players(terms, players, title)
       terms_here = nil
-      terms_here = parse_serial_players($1, $2) if terms.size == 1 && terms[0] =~ RE_SERIAL_PLAYERS
+      #FIXME: Deactivate?
+      terms_here = parse_serial_players($1, $2) if false && terms.size == 1 && terms[0] =~ RE_SERIAL_PLAYERS
       terms_here = terms unless terms_here 
 
       players_from_terms = terms_here.map { |term| term2player(term, players) }
