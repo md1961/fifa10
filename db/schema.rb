@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110321000515) do
+ActiveRecord::Schema.define(:version => 20110327021654) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20110321000515) do
     t.boolean "is_disabled",    :default => false, :null => false
     t.date    "disabled_until"
     t.string  "diagnosis"
+    t.boolean "is_not_well",    :default => false, :null => false
   end
 
   add_index "player_seasons", ["player_id"], :name => "fk_player_seasons_players"
