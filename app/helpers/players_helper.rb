@@ -224,15 +224,16 @@ module PlayersHelper
   end
 
   COMMAND_SAMPLES = [
-    ["9 with b2" , "Exchange 'Starter 9' with 'Bench 2'"],
-    ["r21 to r13", "Insert 'Reserve 21' before 'Reserve 13'"],
-    ["loan r15"  , "Loan/Back from loan 'Reserve 15'"],
-    ["injure 10" , "Put 'Starter 10' into injury list"],
-    ["recover 7" , "Recover 'Starter 7' from injury list"],
-    ["off"       , "Rest/Put back 'Starter 11'"],
-    ["hot 5"     , "Hot/Cool 'Starter 5'"],
-    ["notwell 4" , "Not well/Put back 'Starter 4'"],
-    ["disable 3" , "Disable/Enable 'Starter 3'"],
+    ["9 with 2"  , "Exchange #9 with #2"],
+    ["21 to 13"  , "Insert #21 before #13"],
+    ["loan 15 "  , "Loan/Back from loan #15"],
+    ["injure 10" , "Put #10 into injury list"],
+    ["recover 7" , "Recover #7 from injury list"],
+    ["off"       , "Rest/Put back #11"],
+    ["hot 5"     , "Hot/Cool #5"],
+    ["notwell 4" , "Not well/Put back #4"],
+    ["disable 3" , "Disable/Enable #3"],
+    ["until 2 30", "Set date disabled until of #2 at 30 days from last match"],
     ["show 1 ...", "Show (and compare) player's attributes"],
   ]
 
