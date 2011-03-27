@@ -143,6 +143,7 @@ class Player < ActiveRecord::Base
   def set_hot(is_hot, season_id)
     player_season = player_seasons.find_by_season_id(season_id)
     player_season.is_hot = is_hot
+    player_season.is_not_well = false
     player_season.save!
   end
 
@@ -154,6 +155,7 @@ class Player < ActiveRecord::Base
   def set_not_well(is_not_well, season_id)
     player_season = player_seasons.find_by_season_id(season_id)
     player_season.is_not_well = is_not_well
+    player_season.is_hot = false
     player_season.save!
   end
 
