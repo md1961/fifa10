@@ -608,7 +608,15 @@ class PlayersController < ApplicationController
     private :disable_players
 
     def set_disabled_until(player, days_disabled)
+      days = days_disabled.to_i
+      unless days > 0
+        explain_error("Illegal argument", ["Days must be a positive integer"], [])
+        return
+      end
 
+      season_id = get_season_id(params)
+      date_from = Match.last_played(season_id).date_match
+      player.set_disabled_until(date_from + days.days, season_id)
     end
     private :set_disabled_until
 
@@ -911,10 +919,13 @@ class PlayersController < ApplicationController
         return nil
       end
 
+      additional_args = Array.new
+      additional_args << terms.pop if action == ACTION_UNTIL
+
       players_arg = terms2players(terms[1 .. -1], players, title)
       return nil unless players_arg
 
-      return action, players_arg
+      return action, players_arg + additional_args
     end
 
     def complete_action(action)

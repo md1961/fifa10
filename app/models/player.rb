@@ -191,6 +191,12 @@ class Player < ActiveRecord::Base
     return player_season.disabled_until
   end
 
+  def set_disabled_until(date_until, season_id)
+    player_season = player_seasons.find_by_season_id(season_id)
+    player_season.disabled_until = date_until
+    player_season.save!
+  end
+
   def disable(season_id, toggles=false)
     player_season = player_seasons.find_by_season_id(season_id)
     player_season.disable(toggles)
