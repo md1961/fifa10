@@ -7,8 +7,8 @@ default_current_year : 2010
 
 uses_disable_only_mode : true
 max_disabled_on_disable_only_mode : 2
-base_pct_to_be_disabled : 6
-gk_pct_dec_to_be_disabled : 4
+base_pct_to_be_disabled : 5
+gk_pct_dec_to_be_disabled : 3
 
 controller_options :
 # Quote just On and Off with quotation marks

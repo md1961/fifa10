@@ -12,6 +12,12 @@ class Position < ActiveRecord::Base
     return index1.<=>(index2)
   end
 
+  NAME_GK = 'GK'
+
+  def gk?
+    return name == NAME_GK
+  end
+
   CATEGORY_COLOR = {
     'Goalkeeper' => 'sandybrown',
     'Defender'   => 'yellow',

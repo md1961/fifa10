@@ -82,6 +82,10 @@ class Player < ActiveRecord::Base
     return [position] + sub_positions
   end
 
+  def gk?
+    return position.gk?
+  end
+
   def last_name_first_name
     names = Array.new
     names << name.sub(/\A[A-Z]\. /, "")
@@ -244,7 +248,8 @@ class Player < ActiveRecord::Base
     def pct_to_be_disabled(season_id)
       age0, inc0, age1, inc1 = INCREMENTS_OF_PCT_TO_BE_DISABLED.flatten
       increment = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement(season_id) - age0)).to_i
-      return Constant.get(:base_pct_to_be_disabled) + increment - Constant.get(:gk_pct_dec_to_be_disabled)
+      increment -= Constant.get(:gk_pct_dec_to_be_disabled) if gk?
+      return Constant.get(:base_pct_to_be_disabled) + increment
     end
     private :pct_to_be_disabled
 
