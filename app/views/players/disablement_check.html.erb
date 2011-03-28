@@ -1,0 +1,40 @@
+
+<p>
+  <%= link_to 'Back', roster_chart_path %>
+</p>
+
+<table class="table_base">
+  <tr>
+    <th>No.</th>
+    <th />
+    <th>Age</th>
+    <th>inj+</th>
+    <th>nw+</th>
+    <th>AgeDis</th>
+    <th>%Dis</th>
+  </tr>
+
+  <% @players.each do |player| -%>
+    <tr>
+      <% age          = player.age
+         age_add_inj  = player.age_add_inj
+         age_not_well = player.not_well?(@season_id) ? Player::AGE_INCREMENT_WHEN_NOT_WELL : ''
+         age_for_disablement = nil
+         pct_to_be_disabled = nil
+         player.instance_eval do
+           age_for_disablement = age_for_disablement(@season_id)
+           pct_to_be_disabled = pct_to_be_disabled(@season_id)
+         end
+      -%>
+
+      <td align="right"><%= player.number %></td>
+      <td><%= player.name %></td>
+      <td align="right"><%= age %></td>
+      <td align="right"><%= age_add_inj %></td>
+      <td align="right"><%= age_not_well %></td>
+      <td align="right"><%= age_for_disablement %></td>
+      <td align="right"><%= pct_to_be_disabled %></td>
+    </tr>
+  <% end -%>
+</table>
+

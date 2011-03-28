@@ -680,6 +680,13 @@ class PlayersController < ApplicationController
     redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
   end
 
+  def disablement_check
+    @players = players_of_team(includes_on_loan=true, for_lineup=false)
+    @season_id = get_season_id(params)
+
+    @no_logout = true
+  end
+
   private
 
     def get_injury_list

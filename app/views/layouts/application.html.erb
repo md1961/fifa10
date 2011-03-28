@@ -35,7 +35,7 @@
       <%= "<#{tag} id='page_title'>#{@page_title}</#{tag}>".html_safe %>
     <% end -%>
 
-    <% unless is_admin -%>
+    <% unless is_admin || @no_logout -%>
       <div id="logout">
         <%= link_to 'Logout', logout_path %>
       </div>

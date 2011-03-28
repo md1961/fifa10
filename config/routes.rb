@@ -16,6 +16,7 @@ Fifa10::Application.routes.draw do
   match 'roster_chart'       => 'players#roster_chart'      , :as => :roster_chart
   match 'depth_chart'        => 'players#depth_chart'       , :as => :depth_chart
   match 'top_attribute_list' => 'players#top_attribute_list', :as => :top_attribute_list
+  match 'disablement_check'  => 'players#disablement_check' , :as => :disablement_check
 
   match 'players/filter_with/:filter'     => 'players#filter_with'        , :as => :filter_players_with
   match 'players/:id/remove_from_rosters/'=> 'players#remove_from_rosters', :as => :remove_from_rosters
