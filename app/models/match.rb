@@ -48,7 +48,12 @@ class Match < ActiveRecord::Base
   end
 
   def self.recent_meetings(opponent_id, num_matches, season_id)
-    matches = by_opponent(opponent_id).by_season(season_id).order('date_match DESC')
+    matches = Array.new
+    Season.find(season_id).chronicle.seasons.each do |season|
+      matches.concat(by_opponent(opponent_id).by_season(season.id))
+    end
+    matches.sort_by! { |match| match.date_match }
+    matches.reverse!
     matches.select! { |match| match.played? }
     return matches.first(num_matches)
   end
