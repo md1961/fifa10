@@ -19,6 +19,7 @@ class Match < ActiveRecord::Base
 
   scope :by_season  , lambda { |season_id|   where(:season_id   => season_id  ) }
   scope :by_opponent, lambda { |opponent_id| where(:opponent_id => opponent_id) }
+  scope :by_series  , lambda { |series_id|   where(:series_id   => series_id  ) }
 
   def self.list(season_id, order='date_match')
     return by_season(season_id).order(order)
@@ -39,8 +40,9 @@ class Match < ActiveRecord::Base
     return matches
   end
 
-  def self.recent_form(num_matches, season_id)
+  def self.recent_form(num_matches, season_id, series_id=nil)
     matches = by_season(season_id).order('date_match DESC')
+    matches = matches.by_series(series_id) if series_id
     matches.reject! { |match| ! match.played? }
     return matches.reverse.last(num_matches).map(&:one_char_result).join(' ')
   end
