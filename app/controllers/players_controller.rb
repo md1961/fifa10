@@ -614,9 +614,10 @@ class PlayersController < ApplicationController
     private :disable_players
 
     def set_disabled_until(player, days_disabled)
+      is_offset = days_disabled =~ /\A[+-]/
       days = days_disabled.to_i
-      unless days > 0
-        explain_error("Illegal argument", ["Days must be a positive integer"], [])
+      if days == 0
+        explain_error("Illegal argument", ["Days must be a non-zero integer"], [])
         return
       end
 
@@ -626,8 +627,9 @@ class PlayersController < ApplicationController
         explain_error("Illegal command", ["Cannot do 'until' with no next match"], [])
         return
       end
+      date_from = is_offset ? player.disabled_until(season_id) : next_match.date_match
 
-      date_until = next_match.date_match + days.days
+      date_until = date_from + days.days
       player.set_disabled_until(date_until, season_id)
     end
     private :set_disabled_until
