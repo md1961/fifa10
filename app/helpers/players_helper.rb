@@ -228,7 +228,7 @@ module PlayersHelper
     ["21 to 13"  , "Insert #21 before #13"],
     ["loan 15 "  , "Loan/Back from loan #15"],
     ["injure 10" , "Put #10 into injury list"],
-    ["recover 7" , "Recover #7 from injury list"],
+    ["recover 7" , "Recover #7 from injury/disabled"],
     ["off"       , "Rest/Put back #11"],
     ["hot 5"     , "Hot/Cool #5"],
     ["notwell 4" , "Not well/Put back #4"],

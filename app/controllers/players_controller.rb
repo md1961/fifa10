@@ -869,11 +869,17 @@ class PlayersController < ApplicationController
 
     def recover_from_injury(players)
       injury_list = get_injury_list
+      season_id = get_season_id
 
       players.each do |player|
-        next unless injury_list.include?(player.id)
-        injury_list.delete(player.id)
-        set_injury_list(injury_list)
+        is_injured = injury_list.include?(player.id)
+        next unless is_injured || player.disabled?(season_id)
+        if is_injured
+          injury_list.delete(player.id)
+          set_injury_list(injury_list)
+        else
+          player.disable(season_id, true)
+        end
       end
     end
 
