@@ -78,8 +78,7 @@
 <div class="clear" />
 
 <div id="top_of_tables_roster_chart">
-  <% size_inj = @injury_list.size -%>
-  <%= "Total of #{@players.size} players (#{size_inj} player#{size_inj > 1 ? 's' : ''} in Injury List)" %>
+  <%= number_of_players_display %>
   <br />
   <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
 </div>

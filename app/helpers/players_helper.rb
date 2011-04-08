@@ -19,6 +19,16 @@ module PlayersHelper
                                        : ''
   end
 
+  def number_of_players_display
+    s = "Total of #{@players.size} players "
+    num_inj, list_name = Constant.get(:uses_disable_only_mode) \
+                           ? [@players.count { |player| player.disabled?(@season_id) }, 'disabled list']
+                           : [@injury_list.size                                       , 'injury list'  ]
+    s += "(#{pluralize(num_inj, 'player')} in #{list_name})"
+
+    return s
+  end
+
   NUM_NEXT_MATCHES_DISPLAY = Constant.get(:num_next_matches_to_display)
   NO_MATCH_DISPLAY = "(End of Schedule)"
 
