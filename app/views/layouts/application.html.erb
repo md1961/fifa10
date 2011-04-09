@@ -23,7 +23,7 @@
   <% controller_name = controller.controller_name
      is_admin = controller_name == 'admin' -%>
 
-  <body>
+  <body class="<%= @is_lineup ? 'lineup' : '' %>">
     <% if defined?(@error_message) && @error_message -%>
       <% @error_message = @error_message.join("\n") if @error_message.kind_of?(Array) -%>
       <p class="alerting"><%= @error_message %></p>

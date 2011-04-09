@@ -527,6 +527,8 @@ class PlayersController < ApplicationController
   def top_attribute_list
     num_top = 5
 
+    @is_lineup = params[:is_lineup] == '1'
+
     season_id = get_season_id(params)
     set_players_to_row_filter_if_not
 

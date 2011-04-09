@@ -1,16 +1,17 @@
-
-<div class="<%= @is_lineup ? 'lineup' : '' %>">
-
 <p>
-  <%= link_to 'Fixtures/Results', matches_path %>
-  <%= nbsp(4) %>
+  <% unless @is_lineup -%>
+    <%= link_to 'Fixtures/Results', matches_path %>
+    <%= nbsp(4) %>
+  <% end -%>
   <%= link_to 'Depth Chart', depth_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
-  <%= link_to 'Rosters', players_path %>
+  <%= link_to 'Rosters', players_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
-  <%= link_to 'Top Players', top_attribute_list_path %>
-  <%= nbsp(2) %>
-  <font size="-2"><%= link_to 'CHECK', disablement_check_path %></font>
+  <%= link_to 'Top Players', top_attribute_list_path(:is_lineup => @is_lineup ? 1 : 0) %>
+  <% unless @is_lineup -%>
+    <%= nbsp(2) %>
+    <font size="-2"><%= link_to 'CHECK', disablement_check_path %></font>
+  <% end -%>
   <%= nbsp(2) %>
   <%= link_to 'Injure Player', pick_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
   <% unless @injury_list.empty? && @off_list.empty? -%>
@@ -140,7 +141,5 @@
   Command Samples:
   <br />
   <%= command_samples_for_roster_chart %>
-</div>
-
 </div>
 

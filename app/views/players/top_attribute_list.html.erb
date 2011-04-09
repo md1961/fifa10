@@ -1,12 +1,14 @@
 
 <div style="float: left;">
-  <%= link_to 'Fixtures/Results', matches_path %>
-  <%= nbsp(4) %>
-  <%= link_to 'Roster Chart', roster_chart_path %>
+  <% unless @is_lineup -%>
+    <%= link_to 'Fixtures/Results', matches_path %>
+    <%= nbsp(4) %>
+  <% end -%>
+  <%= link_to 'Roster Chart', roster_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
-  <%= link_to 'Depth Chart', depth_chart_path %>
+  <%= link_to 'Depth Chart', depth_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
-  <%= link_to 'Rosters', players_path %>
+  <%= link_to 'Rosters', players_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(4) %>
 </div>
 
