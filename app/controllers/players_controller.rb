@@ -571,12 +571,14 @@ class PlayersController < ApplicationController
     if Constant.get(:uses_disable_only_mode)
       players = players_for_injury
       player_ids = players.map(&:id).sort_by { rand }
-      max_disabled = Constant.get(:max_disabled_on_disable_only_mode)
-      player_ids.each do |id|
-        player = Player.find(id)
-        if player.to_be_disabled?(season_id)
-          players_disabled << player
-          break if players_disabled.size >= max_disabled
+      max_disabled = rand(Constant.get(:max_disabled_on_disable_only_mode) + 1)
+      if max_disabled > 0
+        player_ids.each do |id|
+          player = Player.find(id)
+          if player.to_be_disabled?(season_id)
+            players_disabled << player
+            break if players_disabled.size >= max_disabled
+          end
         end
       end
     else
