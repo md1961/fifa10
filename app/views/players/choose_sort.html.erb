@@ -5,7 +5,7 @@
   <%= link_to 'Clear All', clear_sort_players_path %>
 </p>
 
-<% form_tag(prepare_sort_players_path, :multipart => true) do -%>
+<%= form_tag(prepare_sort_players_path, :multipart => true) do -%>
   <%= check_box_tag :shows_sort_only %>
   <label for="shows_sort_only">Display sorted column(s) only</label>
   <br />

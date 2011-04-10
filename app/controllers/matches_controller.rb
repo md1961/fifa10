@@ -101,7 +101,7 @@ class MatchesController < ApplicationController
 
       match = Match.new(params[:match])
       match.season_id = session[:season_id]
-      
+
       return match
     end
     private :make_match
@@ -153,7 +153,7 @@ class MatchesController < ApplicationController
       render 'edit', :id => @match
     end
   end
-  
+
   def destroy
     Match.find(params[:id]).destroy
 

@@ -5,7 +5,7 @@
 
 <%= error_messages_for :formation %>
 
-<% form_for @formation do |f| -%>
+<%= form_for @formation do |f| -%>
   <label for="formation_name">Name:</label>
   <%= f.text_field :name, :size => 20 %>
   <br />

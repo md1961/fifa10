@@ -9,7 +9,7 @@
   <%= link_to 'Cancel', cancel_path %>
 </p>
 
-<% form_for @player do |f| -%>
+<%= form_for @player do |f| -%>
   <%= render :partial => 'base', :locals => {:shows_form => true, :f => f} %>
   <%= hidden_field_tag :is_from_list, @is_from_list %>
   <%= hidden_field_tag :is_from_roster_chart, is_from_roster_chart %>

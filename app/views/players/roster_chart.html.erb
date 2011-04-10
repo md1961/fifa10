@@ -132,7 +132,7 @@
   <%= @error_explanation %>
 <% end -%>
 
-<% form_tag edit_roster_players_path do -%>
+<%= form_tag edit_roster_players_path do -%>
   <label for="command">Enter a command to exchange players: </label>
   <%= text_field_tag :command %>
   <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
