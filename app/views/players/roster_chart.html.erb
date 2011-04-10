@@ -1,8 +1,10 @@
 <p>
   <% unless @is_lineup -%>
     <%= link_to 'Fixtures/Results', matches_path %>
-    <%= nbsp(4) %>
+  <% else -%>
+    <%= link_to 'Quit Lineup', roster_chart_path(:is_lineup => 0) %>
   <% end -%>
+  <%= nbsp(4) %>
   <%= link_to 'Depth Chart', depth_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
   <%= link_to 'Rosters', players_path(:is_lineup => @is_lineup ? 1 : 0) %>
@@ -25,10 +27,10 @@
   <%= nbsp(4) %>
   <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(4) %>
-  <% label, next_is_lineup = @is_lineup ? ["Show Roster", 0] : ["Show Lineup", 1] -%>
-  <%= link_to label, roster_chart_path(:is_lineup => next_is_lineup) %>
-  <%= nbsp(2) %>
-  <% if @is_lineup -%>
+  <% unless @is_lineup -%>
+    <%= link_to 'Show Lineup', roster_chart_path(:is_lineup => 1) %>
+    <%= nbsp(2) %>
+  <% else -%>
     <%= link_to 'Revise Lineup', revise_lineup_players_path %>
   <% end -%>
 </p>
