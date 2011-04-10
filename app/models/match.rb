@@ -74,6 +74,21 @@ class Match < ActiveRecord::Base
     return series.world_cup_final? && (/Group/i =~ subname).nil?
   end
 
+  RE_LEG2 = /(leg\s*)2/i
+
+  def leg2?
+    return (subname =~ RE_LEG2).present?
+  end
+
+  def leg1
+    return nil unless leg2?
+
+    matches = Match.by_season(season_id).by_series(series_id).by_opponent(opponent_id)
+    re_leg1 = /#{subname.sub(RE_LEG2) { $1 + '\\s*1' }}/i
+    match_leg1 = matches.select { |match| match.subname =~ re_leg1 }.last
+    return match_leg1
+  end
+
   WIN   = :win
   LOSE  = :lose
   DRAW  = :draw
@@ -111,6 +126,11 @@ class Match < ActiveRecord::Base
     return Hash[*GROUNDS.map { |x, y| [y, x] }.flatten][ground]
   end
 
+  def result_and_score
+    return "" unless scores_own
+    return "#{one_char_result} #{scores_own}-#{scores_opp}"
+  end
+
   POINT_FOR_WIN  = 3
   POINT_FOR_DRAW = 1
 
@@ -136,9 +156,7 @@ class Match < ActiveRecord::Base
     series_full += " #{subname}" unless subname.blank?
     day_of_week = date_match && date_match.strftime("%a.")
     opponent_name = opponent && opponent.name
-    s  = "#{date_match} #{day_of_week} [#{series_full}] vs #{opponent_name} (#{full_ground})"
-    s += " #{one_char_result} #{scores_own}-#{scores_opp}" if scores_own
-    return s
+    return "#{date_match} #{day_of_week} [#{series_full}] vs #{opponent_name} (#{full_ground}) #{result_and_score}"
   end
 
   private
