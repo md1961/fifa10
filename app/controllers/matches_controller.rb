@@ -140,9 +140,10 @@ class MatchesController < ApplicationController
 
   def update
     @match = Match.find(params[:id])
+    is_previously_played = @match.played?
     adjust_date_match(params)
     if @match.update_attributes(params[:match])
-      session[:ticket_to_examine_player_status_change] = true if @match.played?
+      session[:ticket_to_examine_player_status_change] = true if @match.played? && ! is_previously_played
       redirect_to matches_path
     else
       @season_id = session[:season_id]
