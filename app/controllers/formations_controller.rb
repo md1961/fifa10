@@ -1,6 +1,7 @@
 class FormationsController < ApplicationController
 
   def index
+    @no_logout = true
     @is_lineup = params[:is_lineup] == '1'
 
     @formations = all_formations
@@ -17,6 +18,8 @@ class FormationsController < ApplicationController
   DEFAULT_POSITIONS = %w(GK RB CB CB LB RM CM CM LM RF LF)
 
   def new
+    @no_logout = true
+
     hash_args = Hash.new
     (1 .. 11).to_a.zip(DEFAULT_POSITIONS) do |index, position_name|
       position_id = Position.find_by_name(position_name).id
@@ -47,6 +50,8 @@ class FormationsController < ApplicationController
   end
 
   def edit
+    @no_logout = true
+
     @formation = Formation.find(params[:id])
     @formations = all_formations
 
