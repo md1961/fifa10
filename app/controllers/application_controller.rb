@@ -45,6 +45,10 @@ class ApplicationController < ActionController::Base
     SimpleDB.instance.set(:map_lineup, map_lineup)
   end
 
+  def set_players_to_row_filter_if_not
+    RowFilter.players = players_of_team unless RowFilter.players
+  end
+
   def team_name_and_season_years
     season = Season.find(session[:season_id])
     team = season.team
