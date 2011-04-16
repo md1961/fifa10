@@ -325,7 +325,6 @@ class PlayersController < ApplicationController
   DEFAULT_ATTRIBUTE_IN_DEPTH_CHART = :overall
 
   def depth_chart
-    @no_logout = true
     @is_lineup = params[:is_lineup] == '1'
 
     SimpleDB.instance.async
@@ -359,7 +358,6 @@ class PlayersController < ApplicationController
   end
 
   def roster_chart
-    @no_logout = true
     @season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
 
@@ -517,7 +515,6 @@ class PlayersController < ApplicationController
   end
 
   def top_attribute_list
-    @no_logout = true
     num_top = 5
 
     @is_lineup = params[:is_lineup] == '1'
@@ -682,8 +679,6 @@ class PlayersController < ApplicationController
   def disablement_check
     @players = players_of_team(includes_on_loan=true, for_lineup=false)
     @season_id = get_season_id(params)
-
-    @no_logout = true
   end
 
   private
