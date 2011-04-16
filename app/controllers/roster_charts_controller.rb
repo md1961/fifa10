@@ -1,0 +1,2 @@
+class RosterChartsController < ApplicationController
+end
