@@ -12,6 +12,7 @@ class ChroniclesController < ApplicationController
 
     @chronicles = Chronicle.find(:all, :order => ORDER_BY)
 
+    @shows_link_to_logout = true
     @page_title_size = 2
     @page_title = "Choose a Chronicle (Series of Seasons)"
   end

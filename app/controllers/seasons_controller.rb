@@ -4,6 +4,7 @@ class SeasonsController < ApplicationController
     @chronicle = Chronicle.find(params[:chronicle_id])
     @seasons   = Season.list(@chronicle)
     
+    @shows_link_to_logout = true
     @page_title_size = 2
     @page_title = "Chronicle: #{@chronicle.name}"
   end

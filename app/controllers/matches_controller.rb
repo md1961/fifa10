@@ -14,6 +14,7 @@ class MatchesController < ApplicationController
     set_params(params)
     set_font_weight
 
+    @shows_link_to_logout = true
     #TODO: introduce @page_sub_title
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Fixtures and Results" \
