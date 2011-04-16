@@ -62,6 +62,11 @@ Fifa10::Application.routes.draw do
       post :prepare_sort
       get :clear_sort
       get :attribute_legend
+    end
+  end
+
+  resources :roster_charts, :only => [:index] do
+    collection do
       get :pick_injury
       get :undo_pick_injury
       get :clear_injury

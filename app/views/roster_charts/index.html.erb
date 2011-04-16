@@ -15,7 +15,7 @@
     <font size="-2"><%= link_to 'CHECK', disablement_check_path %></font>
   <% end -%>
   <%= nbsp(2) %>
-  <%= link_to 'Injure Player', pick_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
+  <%= link_to 'Injure Player', pick_injury_roster_charts_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
   <% unless @injury_list.empty? && @off_list.empty? -%>
     <font size="-1">
       <%= nbsp %>
@@ -139,7 +139,7 @@
   <%= @error_explanation %>
 <% end -%>
 
-<%= form_tag edit_roster_players_path do -%>
+<%= form_tag edit_roster_roster_charts_path do -%>
   <label for="command">Enter a command to exchange players: </label>
   <%= text_field_tag :command %>
   <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
