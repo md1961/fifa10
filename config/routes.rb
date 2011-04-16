@@ -13,7 +13,7 @@ Fifa10::Application.routes.draw do
   match 'login' => 'admin#login' , :as => :login
   match 'logout'=> 'admin#logout', :as => :logout
 
-  match 'roster_chart'       => 'players#roster_chart'      , :as => :roster_chart
+  match 'roster_chart'       => 'roster_charts#index'       , :as => :roster_chart
   match 'depth_chart'        => 'players#depth_chart'       , :as => :depth_chart
   match 'top_attribute_list' => 'players#top_attribute_list', :as => :top_attribute_list
   match 'disablement_check'  => 'players#disablement_check' , :as => :disablement_check
