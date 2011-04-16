@@ -22,6 +22,29 @@ class ApplicationController < ActionController::Base
     return season_id
   end
 
+  def players_of_team(includes_on_loan=true, for_lineup=false)
+    season_id = session[:season_id]
+    raise "no 'season_id' in session (#{session.inspect})" unless season_id
+    players = Player.list(season_id, true, for_lineup)
+
+    copy_to_lineup(players) unless for_lineup
+
+    players.reject! { |player| player.on_loan?(season_id) } unless includes_on_loan
+
+    return players
+  end
+
+  def copy_to_lineup(players)
+    season_id = get_season_id(params)
+
+    map_lineup = Hash.new
+    players.each do |player|
+      map_lineup[player.id] = player.order_number(season_id)
+    end
+
+    SimpleDB.instance.set(:map_lineup, map_lineup)
+  end
+
   def team_name_and_season_years
     season = Season.find(session[:season_id])
     team = season.team

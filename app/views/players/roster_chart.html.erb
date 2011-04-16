@@ -2,7 +2,7 @@
   <% unless @is_lineup -%>
     <%= link_to 'Fixtures/Results', matches_path %>
   <% else -%>
-    <%= link_to 'Quit Lineup', roster_chart_path(:is_lineup => 0) %>
+    <%= link_to 'Exit Lineup', roster_chart_path(:is_lineup => 0) %>
   <% end -%>
   <%= nbsp(4) %>
   <%= link_to 'Depth Chart', depth_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
