@@ -39,6 +39,9 @@
   <%= next_matches_display(@next_matches) %>
 </div>
 <% series = @next_matches.first.series -%>
+
+<div id="match_info">
+
 <div class="recent_form">
   Recent Form: <%= Match.recent_form(10, @season_id) %>
 </div>
@@ -77,6 +80,8 @@
     <font size="-2"><%= caption %></font>
   </div>
 <% end -%>
+
+</div>
 
 <div class="clear" />
 

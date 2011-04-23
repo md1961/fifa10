@@ -401,6 +401,10 @@
   float: left;
 }
 
+#match_info {
+  float: left;
+}
+
 #table_starters {
   float: left;
   margin-left:   10px;
