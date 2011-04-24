@@ -187,7 +187,7 @@ class Player < ActiveRecord::Base
     return false unless disabled?(season_id)
     date_until = disabled_until(season_id)
     next_next_match = Match.nexts(season_id, 2)[-1]
-    return date_until < next_next_match.date_match
+    return next_next_match && date_until < next_next_match.date_match
   end
 
   def disabled_until(season_id)
