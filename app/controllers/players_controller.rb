@@ -398,22 +398,6 @@ class PlayersController < ApplicationController
 
   private
 
-    def get_row_filter(params=nil, for_lineup=false)
-      #TODO: Rewrite with simple if ... else ...
-      param = params ? params[:row_filter] : nil
-      row_filter = param ? nil : session[:row_filter]
-      row_filter = RowFilter.new(param) unless row_filter
-
-      includes_on_loan = true
-      row_filter.players = players_of_team(includes_on_loan, for_lineup) if row_filter
-
-      return row_filter
-    end
-
-    def set_row_filter(row_filter)
-      session[:row_filter] = row_filter
-    end
-
     def get_column_filter(params=nil)
       param = params ? params[:column_filter] : nil
       column_filter = param ? nil : session[:column_filter]
