@@ -611,25 +611,6 @@ class RosterChartsController < ApplicationController
       return players.find { |player| player.number == term.to_i }
     end
 
-    def sort_players(players, sort_fields)
-      players.sort! { |player1, player2| compare_players(player1, player2, sort_fields) }
-    end
-
-    def compare_players(player1, player2, sort_fields)
-      sort_fields.each do |field|
-        name = field.name
-        return 0 if name.to_s == 'none'
-
-        ascending = field.ascending?
-        value1 = player1.get(name) || 0
-        value2 = player2.get(name) || 0
-        cmp = sgn(value1 - value2) * (ascending ? 1 : -1)
-        return cmp if cmp != 0
-      end
-
-      return 0
-    end
-
     def parse_commant_to_filter(command)
       command = command.strip
       if command.blank?
