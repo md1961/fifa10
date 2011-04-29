@@ -280,24 +280,12 @@ class RosterChartsController < ApplicationController
       return num_starters, num_in_bench
     end
 
-    def get_injury_list
-      get_list_from_simple_db(:injury_list)
-    end
-
     def set_injury_list(injury_list)
       set_list_to_simple_db(:injury_list, injury_list)
     end
 
-    def get_off_list
-      get_list_from_simple_db(:off_list)
-    end
-
     def set_off_list(off_list)
       set_list_to_simple_db(:off_list, off_list)
-    end
-
-    def get_list_from_simple_db(name)
-      return SimpleDB.instance.get(name) || Array.new
     end
 
     def set_list_to_simple_db(name, list)

@@ -49,6 +49,19 @@ class ApplicationController < ActionController::Base
     RowFilter.players = players_of_team unless RowFilter.players
   end
 
+  def get_injury_list
+    get_list_from_simple_db(:injury_list)
+  end
+
+  def get_off_list
+    get_list_from_simple_db(:off_list)
+  end
+
+    def get_list_from_simple_db(name)
+      return SimpleDB.instance.get(name) || Array.new
+    end
+    private :get_list_from_simple_db
+
   def team_name_and_season_years
     season = Season.find(session[:season_id])
     team = season.team
