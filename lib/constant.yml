@@ -6,7 +6,7 @@ num_in_bench_in_world_cup : 12
 default_current_year : 2010
 
 uses_disable_only_mode : true
-max_disabled_on_disable_only_mode : 2
+max_disabled_on_disable_only_mode : 3
 base_pct_to_be_disabled : 5
 gk_pct_dec_to_be_disabled : 3
 

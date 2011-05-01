@@ -147,6 +147,7 @@ class RosterChartsController < ApplicationController
       players.reject! { |player|
         injury_list.include?(player.id) || player.inactive?(season_id) || player.hot?(season_id)
       }
+      return players
     end
     private :players_for_injury
 
