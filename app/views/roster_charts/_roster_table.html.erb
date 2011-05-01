@@ -38,7 +38,7 @@
         <%= player.name %>
       </td>
       <td>
-        <font size="-1"><%= player.overall %></font>
+        <font size="-1"><%= player.get(@attr) %></font>
       </td>
       <td align="center" style="background-color: <%= player.position.color %>">
         <font size="-1"><%= player.position.name %></font>

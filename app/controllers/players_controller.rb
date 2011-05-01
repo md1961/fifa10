@@ -320,8 +320,7 @@ class PlayersController < ApplicationController
   end
 
   POSITION_NAMES_IN_DEPTH_CHART = %w(GK SW CB RB RWB LB LWB CDM CM CAM RM RW LM LW RF LF CF ST)
-  PROPERTY_NAMES_IN_DEPTH_CHART = [:overall, :skill_move, :is_right_dominant, :both_feet_level,
-                                   :height, :age]
+  PROPERTY_NAMES_IN_DEPTH_CHART = [:overall, :skill_move, :is_right_dominant, :both_feet_level, :height, :age]
   DEFAULT_ATTRIBUTE_IN_DEPTH_CHART = :overall
 
   def depth_chart
@@ -334,7 +333,7 @@ class PlayersController < ApplicationController
     SimpleDB.instance.sync
 
     @attr = params[:attribute] || DEFAULT_ATTRIBUTE_IN_DEPTH_CHART
-    @attrs = PROPERTY_NAMES_IN_DEPTH_CHART + ColumnFilter::FIELD_ATTRIBUTE_NAMES
+    @attrs = (PROPERTY_NAMES_IN_DEPTH_CHART + ColumnFilter::FIELD_ATTRIBUTE_NAMES).sort
 
     @depth = Hash.new { |hash, key| hash[key] = Array.new }
     Position.find(:all).each do |position|

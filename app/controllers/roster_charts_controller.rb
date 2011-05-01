@@ -1,5 +1,8 @@
 class RosterChartsController < ApplicationController
 
+  PROPERTY_NAME_CANDIDATES = [:overall, :skill_move, :is_right_dominant, :both_feet_level, :height, :age]
+  DEFAULT_ATTRIBUTE_TO_SHOW = :overall
+
   def index
     @season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
@@ -36,6 +39,9 @@ class RosterChartsController < ApplicationController
 
     @injury_list = get_injury_list
     @off_list    = get_off_list
+
+    @attr = params[:attribute] || DEFAULT_ATTRIBUTE_TO_SHOW
+    @attrs = (PROPERTY_NAME_CANDIDATES + ColumnFilter::FIELD_ATTRIBUTE_NAMES).sort
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Roster Chart"
