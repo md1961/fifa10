@@ -100,6 +100,7 @@
 <p>
   <%= form_tag roster_chart_path do -%>
     <%= select_tag :attribute, options_for_select(options_for_attrs_and_props(@attrs), @attr.to_s) %>
+    <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
     <%= submit_tag 'select' %>
   <% end -%>
 </p>
