@@ -2,11 +2,16 @@ class Series < ActiveRecord::Base
   has_many :season_series
   has_many :season, :through => :season_series
 
-  ABBR_FOR_PREMIER = 'Premier'
-  ABBR_FOR_CL      = 'CL'
+  ABBR_FOR_PREMIER  = 'Premier'
+  ABBR_FOR_CL       = 'CL'
+  ABBR_FOR_FRIENDLY = 'Friendly'
 
   def self.premier
     return find_by_abbr(ABBR_FOR_PREMIER)
+  end
+
+  def self.friendly
+    return find_by_abbr(ABBR_FOR_FRIENDLY)
   end
 
   LEAGUE_ABBRS = ["Premier", "W. Cup Qlf.", "World Cup"]
@@ -28,6 +33,6 @@ class Series < ActiveRecord::Base
   end
 
   def friendly?
-    return abbr == 'Friendly'
+    return abbr == ABBR_FOR_FRIENDLY
   end
 end

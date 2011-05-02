@@ -7,7 +7,10 @@ class MatchesController < ApplicationController
     @matches = get_matches(@season_id)
     @series = Season.find(@season_id).series
     @chronicle = Season.find(@season_id).chronicle
+
     @match_filter = get_match_filter
+    next_match = Match.nexts(@season_id, 1).first
+    @match_filter.set_series(Series.friendly) if next_match && next_match.friendly?
 
     @team_abbr = team_abbr
 
