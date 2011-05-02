@@ -45,6 +45,7 @@ Fifa10::Application.routes.draw do
       get :close
     end
   end
+
   resources :matches   , :requirements => {:id => /\d+/} do
     collection do
       get :series_filter
@@ -53,6 +54,7 @@ Fifa10::Application.routes.draw do
       get :set_font
     end
   end
+
   resources :players   , :requirements => {:id => /\d+/} do
     collection do
       get :choose_filter
