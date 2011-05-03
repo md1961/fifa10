@@ -341,13 +341,14 @@ class RosterChartsController < ApplicationController
         when ACTION_WITH
           player1, player2 = players_arg
           exchange_player_order(player1, player2, is_lineup)
-          str_undo_command = "#{ACTION_WITH} #{player1.number} #{player2.number}" unless is_undoing
+          str_undo_command = "#{ACTION_WITH} #{player1.number} #{player2.number}"
         when ACTION_TO
           player1, player2 = players_arg
           number_to_when_undoing = insert_player_order_before(player1, player2, players, is_lineup)
-          str_undo_command = "#{ACTION_TO} #{player1.number} #{number_to_when_undoing}" if ! is_undoing && number_to_when_undoing
+          str_undo_command = "#{ACTION_TO} #{player1.number} #{number_to_when_undoing}" if number_to_when_undoing
         when ACTION_LOAN
           loan_player(players_arg)
+          str_undo_command = "#{ACTION_LOAN} #{players_arg.map(&:number).join(' ')}"
         when ACTION_INJURE
           put_into_injury(players_arg)
         when ACTION_RECOVER
