@@ -552,8 +552,7 @@ class RosterChartsController < ApplicationController
       action = complete_action(terms.first)
       return nil unless action
       unless LEGAL_ACTIONS.include?(action)
-        legal_actions = "'" + LEGAL_ACTIONS.join("', '") + "'"
-        explain_error(title, ["Legal actions are #{legal_actions}"], [])
+        explain_error(title, ["Unknown command '#{command}'"], [])
         return nil
       end
 
