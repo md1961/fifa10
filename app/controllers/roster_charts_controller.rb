@@ -344,7 +344,8 @@ class RosterChartsController < ApplicationController
           str_undo_command = "#{ACTION_WITH} #{player1.number} #{player2.number}" unless is_undoing
         when ACTION_TO
           player1, player2 = players_arg
-          insert_player_order_before(player1, player2, players, is_lineup)
+          number_to_when_undoing = insert_player_order_before(player1, player2, players, is_lineup)
+          str_undo_command = "#{ACTION_TO} #{player1.number} #{number_to_when_undoing}" if ! is_undoing && number_to_when_undoing
         when ACTION_LOAN
           loan_player(players_arg)
         when ACTION_INJURE
@@ -432,7 +433,9 @@ class RosterChartsController < ApplicationController
       n_prev = player1.order_number(season_id)
       player1.set_order_number(999999, season_id)
       player1.save! unless is_lineup
+
       step = sgn(index2 - index1)
+      player_number_to_when_undoing = players[index1 + step].number
       (index1 + step).step(index2, step) do |index|
         player = players[index]
         n = player.order_number(season_id)
@@ -442,6 +445,8 @@ class RosterChartsController < ApplicationController
       end
       player1.set_order_number(n_prev, season_id)
       player1.save! unless is_lineup
+
+      return player_number_to_when_undoing
     end
 
     def loan_player(players)
