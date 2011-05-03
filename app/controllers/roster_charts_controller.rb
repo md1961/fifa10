@@ -95,12 +95,6 @@ class RosterChartsController < ApplicationController
     redirect_to roster_chart_path(:is_lineup => 1)
   end
 
-    def get_inactive_player_ids(season_id)
-      inactive_players = players_of_team.select { |player| player.inactive?(season_id) }
-      return get_injury_list + get_off_list + inactive_players.map(&:id)
-    end
-    private :get_inactive_player_ids
-
   def apply_formation
     @is_lineup = params[:is_lineup] == '1'
 
@@ -148,6 +142,43 @@ class RosterChartsController < ApplicationController
     redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
   end
 
+  def undo_pick_injury
+    injury_list = get_injury_list
+    unless injury_list.empty?
+      injury_list.pop
+      set_injury_list(injury_list)
+    end
+
+    caller_path_method = :"#{params[:caller]}_path"
+    redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
+  end
+
+  def clear_injury
+    set_injury_list(Array.new)
+    set_off_list(   Array.new)
+
+    caller_path_method = :"#{params[:caller]}_path"
+    redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
+  end
+
+  def numbers
+    @players = players_of_team(includes_on_loan=true, for_lineup=false)
+
+    @page_title = "Playing Numbers"
+  end
+
+  def disablement_check
+    @players = players_of_team(includes_on_loan=true, for_lineup=false)
+    @season_id = get_season_id(params)
+  end
+
+  private
+
+    def get_inactive_player_ids(season_id)
+      inactive_players = players_of_team.select { |player| player.inactive?(season_id) }
+      return get_injury_list + get_off_list + inactive_players.map(&:id)
+    end
+
     def players_for_injury(injury_list=[])
       players = players_of_team(includes_loan=false)
       season_id = get_season_id
@@ -156,7 +187,6 @@ class RosterChartsController < ApplicationController
       }
       return players
     end
-    private :players_for_injury
 
     def disable_players(players, toggles=false)
       season_id = get_season_id
@@ -164,7 +194,6 @@ class RosterChartsController < ApplicationController
         player.disable(season_id, toggles)
       end
     end
-    private :disable_players
 
     def set_disabled_until(player, days_disabled)
       is_offset = days_disabled =~ /\A[+-]/
@@ -185,7 +214,6 @@ class RosterChartsController < ApplicationController
       date_until = date_from + days.days
       player.set_disabled_until(date_until, season_id)
     end
-    private :set_disabled_until
 
     MAX_NUMBER_OF_PLAYERS_TO_PICK = 5
 
@@ -199,7 +227,6 @@ class RosterChartsController < ApplicationController
       end
       return picks
     end
-    private :do_pick_players
 
     def put_injury_report_into_session(players_disabled, players_injured)
       uses_disable_only_mode = Constant.get(:uses_disable_only_mode)
@@ -214,33 +241,6 @@ class RosterChartsController < ApplicationController
       end
       session[:roster_chart_report] = reports.empty? ? nil : reports.join("<br />")
     end
-    private :put_injury_report_into_session
-
-  def undo_pick_injury
-    injury_list = get_injury_list
-    unless injury_list.empty?
-      injury_list.pop
-      set_injury_list(injury_list)
-    end
-
-    caller_path_method = :"#{params[:caller]}_path"
-    redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
-  end
-
-  def clear_injury
-    set_injury_list(Array.new)
-    set_off_list(   Array.new)
-
-    caller_path_method = :"#{params[:caller]}_path"
-    redirect_to send(caller_path_method, :is_lineup => params[:is_lineup])
-  end
-
-  def disablement_check
-    @players = players_of_team(includes_on_loan=true, for_lineup=false)
-    @season_id = get_season_id(params)
-  end
-
-  private
 
     def examine_player_status_change
       season_id = get_season_id

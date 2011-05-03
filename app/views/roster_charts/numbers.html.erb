@@ -1,0 +1,20 @@
+<p>
+  <%= link_to "Roster Chart", roster_chart_path %>
+</p>
+
+<table id="table_numbers" class="table_base">
+  <% (1 .. 20).each do |num| -%>
+    <tr>
+      <% num.step(99, 20) do |num| -%>
+        <% players = @players.select { |player| player.number == num } -%>
+        <td class="number <%= 'unused' if players.empty? %>">
+          <%= num %>
+        </td>
+        <td class="player <%= 'conflicted' if players.size >= 2 %>">
+          <%= players.map(&:name).join(', ') %>
+        </td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+

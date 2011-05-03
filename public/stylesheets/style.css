@@ -475,6 +475,24 @@ body { background-color: white; }
   margin-top:   5px;
 }
 
+#table_numbers .number {
+  font-weight: bold;
+  text-align: center;
+}
+
+#table_numbers .player {
+  width: 120px;
+}
+
+#table_numbers .unused {
+  background-color: cyan;
+}
+
+#table_numbers .conflicted {
+  color: white;
+  background-color: crimson;
+}
+
 /* */
 
 .clear {

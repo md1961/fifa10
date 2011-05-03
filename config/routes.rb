@@ -75,6 +75,7 @@ Fifa10::Application.routes.draw do
       get :revise_lineup
       get :edit_roster
       get :apply_formation
+      get :numbers
     end
   end
 

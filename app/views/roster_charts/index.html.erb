@@ -10,6 +10,8 @@
   <%= link_to 'Rosters', players_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
   <%= link_to 'Top Players', top_attribute_list_path(:is_lineup => @is_lineup ? 1 : 0) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Numbers', numbers_roster_charts_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <% unless @is_lineup -%>
     <%= nbsp(2) %>
     <font size="-2"><%= link_to 'CHECK', disablement_check_path %></font>
