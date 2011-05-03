@@ -54,7 +54,8 @@ class RosterChartsController < ApplicationController
 
     players = players_of_team(includes_on_loan=true, for_lineup=is_lineup)
     commands = parse_roster_edit_command(params[:command], players)
-    update_roster(commands, players, is_lineup) if commands
+    is_redirected = commands && update_roster(commands, players, is_lineup, params[:is_undoing] == '1')
+    return if is_redirected
 
     SimpleDB.instance.sync
 
@@ -311,10 +312,11 @@ class RosterChartsController < ApplicationController
     ACTION_DISABLE = 'disable'
     ACTION_UNTIL   = 'until'
     ACTION_SHOW    = 'show'
+    ACTION_UNDO    = 'z'
 
     LEGAL_ACTIONS = [
       ACTION_WITH, ACTION_TO, ACTION_LOAN, ACTION_INJURE, ACTION_RECOVER, ACTION_OFF,
-      ACTION_HOT, ACTION_NOTWELL,  ACTION_DISABLE, ACTION_UNTIL, ACTION_SHOW
+      ACTION_HOT, ACTION_NOTWELL,  ACTION_DISABLE, ACTION_UNTIL, ACTION_SHOW, ACTION_UNDO,
     ]
 
     MAP_NUM_PLAYERS = {
@@ -323,7 +325,7 @@ class RosterChartsController < ApplicationController
       ACTION_UNTIL => 2,
     }
 
-    def update_roster(commands, players, is_lineup)
+    def update_roster(commands, players, is_lineup, is_undoing)
       action, players_arg = commands
       unless players_arg_legal?(players_arg, action)
         return
@@ -333,41 +335,62 @@ class RosterChartsController < ApplicationController
         return
       end
 
-      begin
-        Player.transaction do
-          case action
-          when ACTION_WITH
-            player1, player2 = players_arg
-            exchange_player_order(player1, player2, is_lineup)
-          when ACTION_TO
-            player1, player2 = players_arg
-            insert_player_order_before(player1, player2, players, is_lineup)
-          when ACTION_LOAN
-            loan_player(players_arg)
-          when ACTION_INJURE
-            put_into_injury(players_arg)
-          when ACTION_RECOVER
-            recover_from_injury(players_arg)
-          when ACTION_OFF
-            off_player(players_arg)
-          when ACTION_HOT
-            hot_player(players_arg)
-          when ACTION_NOTWELL
-            not_well_player(players_arg)
-          when ACTION_DISABLE
-            disable_players(players_arg, toggles=true)
-          when ACTION_UNTIL
-            player, days_disabled = players_arg
-            set_disabled_until(player, days_disabled)
-          when ACTION_SHOW
-            show_player_attributes(players_arg)
-          else
-            raise ActiveRecord::Rollback, "Unknown action '#{action}' in helper update_roster()"
-          end
+      str_undo_command = nil
+      Player.transaction do
+        case action
+        when ACTION_WITH
+          player1, player2 = players_arg
+          exchange_player_order(player1, player2, is_lineup)
+          str_undo_command = "#{ACTION_WITH} #{player1.number} #{player2.number}" unless is_undoing
+        when ACTION_TO
+          player1, player2 = players_arg
+          insert_player_order_before(player1, player2, players, is_lineup)
+        when ACTION_LOAN
+          loan_player(players_arg)
+        when ACTION_INJURE
+          put_into_injury(players_arg)
+        when ACTION_RECOVER
+          recover_from_injury(players_arg)
+        when ACTION_OFF
+          off_player(players_arg)
+        when ACTION_HOT
+          hot_player(players_arg)
+        when ACTION_NOTWELL
+          not_well_player(players_arg)
+        when ACTION_DISABLE
+          disable_players(players_arg, toggles=true)
+        when ACTION_UNTIL
+          player, days_disabled = players_arg
+          set_disabled_until(player, days_disabled)
+        when ACTION_SHOW
+          show_player_attributes(players_arg)
+        when ACTION_UNDO
+          is_redirected = undo_command(is_lineup)
+          return is_redirected if is_redirected
+        else
+          raise ActiveRecord::Rollback, "Unknown action '#{action}' in helper update_roster()"
         end
-      #rescue
-        #explain_error("DB Error", ["Failed database transaction"], [])
       end
+
+      save_undo_command(str_undo_command) if str_undo_command
+
+      return false
+    end
+
+    def save_undo_command(str_command)
+      session[:undo_command_in_roster_chart] = str_command
+    end
+
+    def undo_command(is_lineup)
+      command = session[:undo_command_in_roster_chart]
+      unless command
+        explain_error("Nothing to do", ["No previous command to undo"], [])
+        return redirected = false
+      end
+
+      session[:undo_command_in_roster_chart] = nil
+      redirect_to edit_roster_roster_charts_path(:command => command, :is_undoing => 1, :is_lineup => is_lineup ? 1 : 0)
+      return redirected = true
     end
 
     def players_arg_legal?(players_arg, action)

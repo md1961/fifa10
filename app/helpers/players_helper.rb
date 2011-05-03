@@ -245,6 +245,7 @@ module PlayersHelper
     ["disable 3" , "Disable/Enable #3"],
     ["until 2 30", "Set date disabled until of #2 at 30 days from next match"],
     ["show 1 ...", "Show (and compare) player's attributes"],
+    ["z"         , "Undo last command"],
   ]
 
   def command_samples_for_roster_chart

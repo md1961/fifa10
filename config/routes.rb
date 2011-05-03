@@ -73,7 +73,7 @@ Fifa10::Application.routes.draw do
       get :undo_pick_injury
       get :clear_injury
       get :revise_lineup
-      post :edit_roster
+      get :edit_roster
       get :apply_formation
     end
   end
