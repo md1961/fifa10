@@ -21,9 +21,9 @@
   <% unless @injury_list.empty? && @off_list.empty? -%>
     <font size="-1">
       <%= nbsp %>
-      <%= link_to 'Undo' , undo_pick_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
+      <%= link_to 'Undo' , undo_pick_injury_roster_charts_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
       <%= nbsp %>
-      <%= link_to 'Clear', clear_injury_players_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
+      <%= link_to 'Clear', clear_injury_roster_charts_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
     </font>
   <% end -%>
   <%= nbsp(4) %>
