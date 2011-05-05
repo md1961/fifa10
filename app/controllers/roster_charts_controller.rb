@@ -188,10 +188,10 @@ class RosterChartsController < ApplicationController
       return players
     end
 
-    def disable_players(players, toggles=false)
+    def disable_players(players, toggles=false, no_date_until_change=false)
       season_id = get_season_id
       players.each do |player|
-        player.disable(season_id, toggles)
+        player.disable(season_id, toggles, no_date_until_change)
       end
     end
 
@@ -353,6 +353,7 @@ class RosterChartsController < ApplicationController
           put_into_injury(players_arg)
         when ACTION_RECOVER
           recover_from_injury(players_arg)
+          str_undo_command = "#{ACTION_DISABLE} #{players_arg.map(&:number).join(' ')}"
         when ACTION_OFF
           off_player(players_arg)
         when ACTION_HOT
@@ -360,7 +361,7 @@ class RosterChartsController < ApplicationController
         when ACTION_NOTWELL
           not_well_player(players_arg)
         when ACTION_DISABLE
-          disable_players(players_arg, toggles=true)
+          disable_players(players_arg, toggles=true, no_date_until_change=is_undoing)
           str_undo_command = "#{ACTION_DISABLE} #{players_arg.map(&:number).join(' ')}"
         when ACTION_UNTIL
           player, days_disabled = players_arg

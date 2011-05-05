@@ -201,10 +201,10 @@ class Player < ActiveRecord::Base
     player_season.save!
   end
 
-  def disable(season_id, toggles=false)
+  def disable(season_id, toggles=false, no_date_until_change=false)
     player_season = player_seasons.find_by_season_id(season_id)
     player_season.disable(toggles)
-    if player_season.disabled?
+    if player_season.disabled? && ! no_date_until_change
       today = Match.nexts(season_id).first.date_match
       player_season.disabled_until = today + disabled_days(season_id) - 1
     end
