@@ -360,6 +360,7 @@ class RosterChartsController < ApplicationController
           str_undo_command = "#{ACTION_OFF} #{str_player_numbers}"
         when ACTION_HOT
           hot_player(players_arg)
+          str_undo_command = "#{ACTION_HOT} #{str_player_numbers}"
         when ACTION_NOTWELL
           not_well_player(players_arg)
         when ACTION_DISABLE
