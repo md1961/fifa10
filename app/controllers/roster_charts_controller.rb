@@ -374,13 +374,13 @@ class RosterChartsController < ApplicationController
         end
       end
 
-      save_undo_command(str_undo_command) if str_undo_command
+      save_undo_command(str_undo_command)
 
       return false
     end
 
-    def save_undo_command(str_command)
-      session[:undo_command_in_roster_chart] = str_command
+    def save_undo_command(str_undo_command)
+      session[:undo_command_in_roster_chart] = str_undo_command
     end
 
     def undo_command(is_lineup)
@@ -551,7 +551,7 @@ class RosterChartsController < ApplicationController
       end
 
       title = "Command \"#{command}\" was illegal"
-      terms = command.split
+      terms = command2terms(command)
       terms.insert(0, ACTION_WITH) if terms.size == 2 && RE_PLAYER =~ terms[0] && RE_PLAYER =~ terms[1]
       terms.insert(1, terms.shift) unless RE_ACTION =~ terms.first
 
@@ -569,6 +569,13 @@ class RosterChartsController < ApplicationController
       return nil unless players_arg
 
       return action, players_arg + additional_args
+    end
+
+    def command2terms(command)
+      terms = command.split
+      terms = terms.map { |term| term.split(/([ a-zA-Z]+)/) }
+      terms.flatten!
+      return terms.reject { |term| term.blank? }
     end
 
     def complete_action(action)
