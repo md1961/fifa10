@@ -336,6 +336,7 @@ class RosterChartsController < ApplicationController
       end
 
       str_undo_command = nil
+      str_player_numbers = players_arg.map(&:number).join(' ')
       Player.transaction do
         case action
         when ACTION_WITH
@@ -348,21 +349,22 @@ class RosterChartsController < ApplicationController
           str_undo_command = "#{ACTION_TO} #{player1.number} #{number_to_when_undoing}" if number_to_when_undoing
         when ACTION_LOAN
           loan_player(players_arg)
-          str_undo_command = "#{ACTION_LOAN} #{players_arg.map(&:number).join(' ')}"
+          str_undo_command = "#{ACTION_LOAN} #{str_player_numbers}"
         when ACTION_INJURE
           put_into_injury(players_arg)
         when ACTION_RECOVER
           recover_from_injury(players_arg)
-          str_undo_command = "#{ACTION_DISABLE} #{players_arg.map(&:number).join(' ')}"
+          str_undo_command = "#{ACTION_DISABLE} #{str_player_numbers}"
         when ACTION_OFF
           off_player(players_arg)
+          str_undo_command = "#{ACTION_OFF} #{str_player_numbers}"
         when ACTION_HOT
           hot_player(players_arg)
         when ACTION_NOTWELL
           not_well_player(players_arg)
         when ACTION_DISABLE
           disable_players(players_arg, toggles=true, no_date_until_change=is_undoing)
-          str_undo_command = "#{ACTION_DISABLE} #{players_arg.map(&:number).join(' ')}"
+          str_undo_command = "#{ACTION_DISABLE} #{str_player_numbers}"
         when ACTION_UNTIL
           player, days_disabled = players_arg
           set_disabled_until(player, days_disabled)
