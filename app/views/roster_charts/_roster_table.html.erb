@@ -31,7 +31,7 @@
         <% next -%>
       <% end -%>
 
-      <% tr_class_important = %w(disabled injury_list).include?(tr_class)
+      <% tr_class_important = %w(disabled back_for_next injury_list).include?(tr_class)
          in_position = player.positions.include?(position)
          clazz = kind != 's' || tr_class_important || in_position ? "" : "out_of_position" -%>
       <td class="name <%= clazz %>">
