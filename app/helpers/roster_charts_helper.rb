@@ -124,18 +124,19 @@ module RosterChartsHelper
   end
 
   COMMAND_SAMPLES = [
-    ["9 with 2"  , "Exchange #9 with #2"],
-    ["21 to 13"  , "Insert #21 before #13"],
-    ["loan 15 "  , "Loan/Back from loan #15"],
-    ["injure 10" , "Put #10 into injury list"],
-    ["recover 7" , "Recover #7 from injury/disabled"],
-    ["off"       , "Rest/Put back #11"],
-    ["hot 5"     , "Hot/Cool #5"],
-    ["notwell 4" , "Not well/Put back #4"],
-    ["disable 3" , "Disable/Enable #3"],
-    ["until 2 30", "Set date disabled until of #2 at 30 days from next match"],
-    ["show 1 ...", "Show (and compare) player's attributes"],
-    ["z"         , "Undo last command"],
+    ["9 with 2"      , "Exchange #9 with #2"],
+    ["21 to 13"      , "Insert #21 before #13"],
+    ["loan 15 "      , "Loan/Back from loan #15"],
+    ["injure 10"     , "Put #10 into injury list"],
+    ["recover 7"     , "Recover #7 from injury/disabled"],
+    ["off"           , "Rest/Put back #11"],
+    ["hot 5"         , "Hot/Cool #5"],
+    ["notwell 4"     , "Not well/Put back #4"],
+    ["disable 3"     , "Disable/Enable #3"],
+    ["until 2 30"    , "Set date disabled until of #2 at 30 days from next match"],
+    ["until 2 [+/-]7", "Delay/Advance date disabled until of #2 by 7 days"],
+    ["show 1 ..."    , "Show (and compare) player's attributes"],
+    ["z"             , "Undo last command"],
   ]
 
   def command_samples

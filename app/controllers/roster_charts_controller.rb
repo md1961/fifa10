@@ -209,8 +209,10 @@ class RosterChartsController < ApplicationController
         explain_error("Illegal command", ["Cannot do 'until' with no next match"], [])
         return
       end
-      date_from = is_offset ? player.disabled_until(season_id) : next_match.date_match
+      disabled_until = player.disabled_until(season_id)
+      date_from = is_offset ? disabled_until : next_match.date_match
 
+      session[:former_days_disabled] = is_offset ? -(days_disabled.to_i) : disabled_until - date_from
       date_until = date_from + days.days
       player.set_disabled_until(date_until, season_id)
     end
@@ -336,7 +338,7 @@ class RosterChartsController < ApplicationController
       end
 
       str_undo_command = nil
-      str_player_numbers = players_arg.map(&:number).join(' ')
+      str_player_numbers = players_arg.select { |arg| arg.is_a?(Player) }.map(&:number).join(' ')
       Player.transaction do
         case action
         when ACTION_WITH
@@ -370,6 +372,8 @@ class RosterChartsController < ApplicationController
         when ACTION_UNTIL
           player, days_disabled = players_arg
           set_disabled_until(player, days_disabled)
+          former_days_disabled = session[:former_days_disabled]
+          str_undo_command = "#{ACTION_UNTIL} #{player.number} #{former_days_disabled}" if former_days_disabled
         when ACTION_SHOW
           show_player_attributes(players_arg)
         when ACTION_UNDO
