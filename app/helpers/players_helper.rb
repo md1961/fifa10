@@ -52,58 +52,5 @@ module PlayersHelper
     clazz += ' superior_attribute_value' if superior_value > 0 and value >= superior_value
     return clazz
   end
-
-  def options_for_attrs_and_props(attrs_and_props)
-    return attrs_and_props.map { |x| [column_name2display(x).titleize, x.to_s] }
-  end
-
-  COMMAND_SAMPLES = [
-    ["9 with 2"  , "Exchange #9 with #2"],
-    ["21 to 13"  , "Insert #21 before #13"],
-    ["loan 15 "  , "Loan/Back from loan #15"],
-    ["injure 10" , "Put #10 into injury list"],
-    ["recover 7" , "Recover #7 from injury/disabled"],
-    ["off"       , "Rest/Put back #11"],
-    ["hot 5"     , "Hot/Cool #5"],
-    ["notwell 4" , "Not well/Put back #4"],
-    ["disable 3" , "Disable/Enable #3"],
-    ["until 2 30", "Set date disabled until of #2 at 30 days from next match"],
-    ["show 1 ...", "Show (and compare) player's attributes"],
-    ["z"         , "Undo last command"],
-  ]
-
-  def command_samples_for_roster_chart
-    samples = COMMAND_SAMPLES
-    num_left = (samples.size / 2.0).ceil
-    num_right = samples.size - num_left
-    rows = Array.new
-    samples.first(num_left).zip(samples.last(num_right)) do |left, right|
-      cells = [left, right].map { |values|
-        next unless values
-        "<td>#{values.first}</td><td>:</td><td>#{values.last}</td>"
-      }.join("<td>#{'&nbsp' * 8}</td>")
-      rows << "<tr>#{cells}</tr>"
-    end
-    return content_tag(:table, rows.join("\n").html_safe)
-  end
-
-  COLUMN_ATTRIBUTES = {
-    :id                => ['id'        , :R],
-    :name              => ['Name'      , :L],
-    :first_name        => ['First Name', :L],
-    :number            => ['No'        , :C],
-    :position_id       => ['Positions' , :L],
-    :skill_move        => ['Skill'     , :L],
-    :is_right_dominant => ['Ft'        , :C],
-    :both_feet_level   => ['Weak Ft'   , :L],
-    :height            => ['H'         , :R],
-    :weight            => ['W'         , :R],
-    :birth_year        => ['Ag'        , :R],
-    :nation_id         => ['Nation'    , :L],
-    :overall           => ['Ov'        , :R],
-    :market_value      => ['MV'        , :R],
-    :wage              => ['Wage'      , :R],
-    :age_add_inj       => ['AgInj'     , :R],
-    :note              => ['Note'      , :L],
-  }.freeze
 end
+
