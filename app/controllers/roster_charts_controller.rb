@@ -361,6 +361,7 @@ class RosterChartsController < ApplicationController
           not_well_player(players_arg)
         when ACTION_DISABLE
           disable_players(players_arg, toggles=true)
+          str_undo_command = "#{ACTION_DISABLE} #{players_arg.map(&:number).join(' ')}"
         when ACTION_UNTIL
           player, days_disabled = players_arg
           set_disabled_until(player, days_disabled)
