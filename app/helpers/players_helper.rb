@@ -18,6 +18,26 @@ module PlayersHelper
     return attributes[index]
   end
 
+  COLUMN_ATTRIBUTES = {
+    :id                => ['id'        , :R],
+    :name              => ['Name'      , :L],
+    :first_name        => ['First Name', :L],
+    :number            => ['No'        , :C],
+    :position_id       => ['Positions' , :L],
+    :skill_move        => ['Skill'     , :L],
+    :is_right_dominant => ['Ft'        , :C],
+    :both_feet_level   => ['Weak Ft'   , :L],
+    :height            => ['H'         , :R],
+    :weight            => ['W'         , :R],
+    :birth_year        => ['Ag'        , :R],
+    :nation_id         => ['Nation'    , :L],
+    :overall           => ['Ov'        , :R],
+    :market_value      => ['MV'        , :R],
+    :wage              => ['Wage'      , :R],
+    :age_add_inj       => ['AgInj'     , :R],
+    :note              => ['Note'      , :L],
+  }.freeze
+
   def displaying_player_attribute_names
     # [nil] to instruct to output <br />
     return \

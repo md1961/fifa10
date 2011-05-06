@@ -154,26 +154,6 @@ module RosterChartsHelper
     return content_tag(:table, rows.join("\n").html_safe)
   end
 
-  COLUMN_ATTRIBUTES = {
-    :id                => ['id'        , :R],
-    :name              => ['Name'      , :L],
-    :first_name        => ['First Name', :L],
-    :number            => ['No'        , :C],
-    :position_id       => ['Positions' , :L],
-    :skill_move        => ['Skill'     , :L],
-    :is_right_dominant => ['Ft'        , :C],
-    :both_feet_level   => ['Weak Ft'   , :L],
-    :height            => ['H'         , :R],
-    :weight            => ['W'         , :R],
-    :birth_year        => ['Ag'        , :R],
-    :nation_id         => ['Nation'    , :L],
-    :overall           => ['Ov'        , :R],
-    :market_value      => ['MV'        , :R],
-    :wage              => ['Wage'      , :R],
-    :age_add_inj       => ['AgInj'     , :R],
-    :note              => ['Note'      , :L],
-  }.freeze
-
   private
 
     def determine_controller_option(h_options, item, match)
