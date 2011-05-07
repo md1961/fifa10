@@ -1,0 +1,29 @@
+
+<%
+  dates = (date.beginning_of_month .. date.end_of_month).to_a
+
+  date_cursor = dates.first
+  until date_cursor.wday == @leftmost_weekday
+    dates.unshift(date_cursor)
+    date_cursor = date_cursor.yesterday
+  end
+-%>
+
+<%= date.to_formatted_s(:month_year) %>
+
+<table class="table_base">
+  <tr>
+    <% dates.first(7).each do |date_for_wday| -%>
+      <th><%= date_for_wday.strftime("%a") %></th>
+    <% end -%>
+  </tr>
+
+  <% dates.each_slice(7) do |week| -%>
+    <tr>
+      <% week.each do |date| -%>
+        <td><%= date %></td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+

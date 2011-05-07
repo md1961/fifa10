@@ -76,6 +76,8 @@ class MatchesController < ApplicationController
 
     next_match = Match.nexts(@season_id, 1)
     @date = next_match && next_match.date_match
+
+    @leftmost_weekday  = 0
   end
 
   def new
