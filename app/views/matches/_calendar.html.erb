@@ -18,7 +18,9 @@
   end
 -%>
 
+<%= link_to '<<', calendar_matches_path(:date => date.prev_month) %>
 <%= date.to_formatted_s(:month_year) %>
+<%= link_to '>>', calendar_matches_path(:date => date.next_month) %>
 
 <table class="table_base table_calendar">
   <tr>
