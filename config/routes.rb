@@ -48,6 +48,7 @@ Fifa10::Application.routes.draw do
 
   resources :matches   , :requirements => {:id => /\d+/} do
     collection do
+      get :calendar
       get :series_filter
       get :player_choose
       get :player_filter

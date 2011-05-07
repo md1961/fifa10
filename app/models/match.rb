@@ -37,7 +37,7 @@ class Match < ActiveRecord::Base
     index = matches.index(next_match)
     matches = matches[index .. -1]
     matches = matches.first(num_matches) if num_matches
-    return matches
+    return num_matches == 1 ? matches.first : matches
   end
 
   def self.recent_form(num_matches, season_id, series_id=nil)

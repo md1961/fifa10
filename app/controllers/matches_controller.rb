@@ -9,7 +9,7 @@ class MatchesController < ApplicationController
     @chronicle = Season.find(@season_id).chronicle
 
     @match_filter = get_match_filter
-    next_match = Match.nexts(@season_id, 1).first
+    next_match = Match.nexts(@season_id, 1)
     @match_filter.set_series(Series.friendly) if next_match && next_match.friendly?
 
     @team_abbr = team_abbr
@@ -69,6 +69,14 @@ class MatchesController < ApplicationController
       return match_filter.displaying_matches(matches)
     end
     private :get_matches
+
+  def calendar
+    @season_id = get_and_save_season_id(params)
+    @matches = get_matches(@season_id)
+
+    next_match = Match.nexts(@season_id, 1)
+    @date = next_match && next_match.date_match
+  end
 
   def new
     @season_id = session[:season_id]

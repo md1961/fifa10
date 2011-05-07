@@ -204,7 +204,7 @@ class RosterChartsController < ApplicationController
       end
 
       season_id = get_season_id(params)
-      next_match = Match.nexts(season_id, 1).first
+      next_match = Match.nexts(season_id, 1)
       unless next_match
         explain_error("Illegal command", ["Cannot do 'until' with no next match"], [])
         return
