@@ -7,6 +7,8 @@
     <%= link_to 'Exit Lineup' , roster_chart_path(:is_lineup => 0) %>
   <% end -%>
   <%= nbsp(4) %>
+  <%= link_to 'Calendar', calendar_matches_path(:is_lineup => @is_lineup ? 1 : 0) %>
+  <%= nbsp(2) %>
   <%= link_to 'Depth Chart', depth_chart_path(:attribute => @attr, :is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
   <%= link_to 'Rosters', players_path(:is_lineup => @is_lineup ? 1 : 0) %>

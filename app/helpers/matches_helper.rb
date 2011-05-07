@@ -68,5 +68,27 @@ module MatchesHelper
     label = is_current ? bold(abbr) : abbr
     return link_to_unless is_current, label, series_filter_matches_path(:series_abbrs => param)
   end
+
+  def match_in_calendar(date)
+    date_display = date.day.to_s
+    date_display = "#{date.month}/" + date_display if date.day == 1
+
+    htmls = Array.new
+    htmls << date_display
+
+    match = @matches.find { |match| match.date_match == date }
+    unless match
+      htmls.concat(['&nbsp;'] * 4)
+    else
+      result = match.result_and_score
+      result = '&nbsp' if result.strip.blank?
+      htmls << [match.series.abbr, match.subname].join(' ')
+      htmls << "<b>#{match.opponent.abbr_name}</b>"
+      htmls << match.full_ground
+      htmls << result
+    end
+
+    return htmls.join('<br />').html_safe
+  end
 end
 

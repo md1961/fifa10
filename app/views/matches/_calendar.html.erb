@@ -1,17 +1,19 @@
 
 <%
-  dates = (date.beginning_of_month .. date.end_of_month).to_a
+  date_start = date.           beginning_of_month
+  date_end   = date.next_month.      end_of_month
+  dates = (date_start .. date_end).to_a
 
   date_cursor = dates.first
   until date_cursor.wday == @leftmost_weekday
-    dates.unshift(date_cursor)
     date_cursor = date_cursor.yesterday
+    dates.unshift(date_cursor)
   end
 -%>
 
 <%= date.to_formatted_s(:month_year) %>
 
-<table class="table_base">
+<table class="table_base table_calendar">
   <tr>
     <% dates.first(7).each do |date_for_wday| -%>
       <th><%= date_for_wday.strftime("%a") %></th>
@@ -21,7 +23,9 @@
   <% dates.each_slice(7) do |week| -%>
     <tr>
       <% week.each do |date| -%>
-        <td><%= date %></td>
+        <td class="match">
+          <%= match_in_calendar(date) %>
+        </td>
       <% end -%>
     </tr>
   <% end -%>

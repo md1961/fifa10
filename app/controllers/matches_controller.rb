@@ -71,6 +71,8 @@ class MatchesController < ApplicationController
     private :get_matches
 
   def calendar
+    @is_lineup = params[:is_lineup] == '1'
+
     @season_id = get_and_save_season_id(params)
     @matches = get_matches(@season_id)
 

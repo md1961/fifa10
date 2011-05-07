@@ -15,6 +15,10 @@ class Team < ActiveRecord::Base
     return name == "Manchester United"
   end
 
+  def abbr_name
+    return abbr || name
+  end
+
   def to_s
     return name
   end

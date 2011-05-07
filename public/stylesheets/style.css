@@ -203,6 +203,23 @@ body { background-color: white; }
   color: white;
 }
 
+.table_calendar {
+  background-color: white;
+}
+
+.table_calendar th {
+  width: 80px;
+  font-size: small;
+}
+
+.table_calendar .day {
+  font-size: x-small;
+}
+
+.table_calendar .match {
+  font-size: x-small;
+}
+
 #table_players {
   font-size: small;
   margin-top: 2px;

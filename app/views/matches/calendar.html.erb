@@ -1,3 +1,7 @@
 
+<p>
+  <%= link_to 'Roster Chart', roster_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
+</p>
+
 <%= render :partial => 'calendar', :locals => {:date => @date} %>
 
