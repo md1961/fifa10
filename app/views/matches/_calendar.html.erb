@@ -9,6 +9,13 @@
     date_cursor = date_cursor.yesterday
     dates.unshift(date_cursor)
   end
+
+  rightmost_weekday = @leftmost_weekday == 0 ? 6 : @leftmost_weekday - 1
+  date_cursor = dates.last
+  until date_cursor.wday == rightmost_weekday
+    date_cursor = date_cursor.tomorrow
+    dates << date_cursor
+  end
 -%>
 
 <%= date.to_formatted_s(:month_year) %>

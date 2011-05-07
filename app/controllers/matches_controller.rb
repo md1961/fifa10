@@ -80,6 +80,9 @@ class MatchesController < ApplicationController
     @date = next_match && next_match.date_match
 
     @leftmost_weekday  = 0
+
+    @page_title_size = 3
+    @page_title = "#{team_name_and_season_years} Match Calendar"
   end
 
   def new
