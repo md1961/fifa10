@@ -79,6 +79,7 @@ module MatchesHelper
     match = @matches.find { |match| match.date_match == date }
     unless match
       htmls.concat(['&nbsp;'] * 4)
+      clazz = ''
     else
       result = match.result_and_score
       result = '&nbsp' if result.strip.blank?
@@ -86,9 +87,10 @@ module MatchesHelper
       htmls << "<b>#{match.opponent.abbr_name}</b>"
       htmls << match.full_ground
       htmls << result
+      clazz = match.played? ? 'played' : 'not_played'
     end
 
-    return htmls.join('<br />').html_safe
+    return content_tag(:td, htmls.join('<br />').html_safe, :class => "match #{clazz}")
   end
 end
 

@@ -25,16 +25,16 @@
 <table class="table_base table_calendar">
   <tr>
     <% dates.first(7).each do |date_for_wday| -%>
-      <th><%= date_for_wday.strftime("%a") %></th>
+      <th class="<%= [0, 6].include?(date_for_wday.wday) ? 'weekend' : 'weekday' %>">
+        <%= date_for_wday.strftime("%a") %>
+      </th>
     <% end -%>
   </tr>
 
   <% dates.each_slice(7) do |week| -%>
     <tr>
       <% week.each do |date| -%>
-        <td class="match">
-          <%= match_in_calendar(date) %>
-        </td>
+        <%= match_in_calendar(date) %>
       <% end -%>
     </tr>
   <% end -%>

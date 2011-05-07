@@ -212,12 +212,30 @@ body { background-color: white; }
   font-size: small;
 }
 
+.table_calendar .weekend {
+  color: white;
+  background-color: red;
+}
+
+.table_calendar .weekday {
+  color: white;
+  background-color: blue;
+}
+
 .table_calendar .day {
   font-size: x-small;
 }
 
 .table_calendar .match {
   font-size: x-small;
+}
+
+.table_calendar .played {
+  background-color: lightblue;
+}
+
+.table_calendar .not_played {
+  background-color: pink;
 }
 
 #table_players {
