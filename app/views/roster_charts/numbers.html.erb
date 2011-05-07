@@ -1,5 +1,5 @@
 <p>
-  <%= link_to "Roster Chart", roster_chart_path %>
+  <%= link_to "Roster Chart", roster_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
 </p>
 
 <table id="table_numbers" class="table_base">
@@ -11,7 +11,13 @@
           <%= num %>
         </td>
         <td class="player <%= 'conflicted' if players.size >= 2 %>">
-          <%= players.map(&:name).join(', ') %>
+          <%= players.map { |player| 
+                if player.overall < @min_overall_to_emphasize
+                  player.name
+                else
+                  content_tag(:span, player.name, :class => 'emphasized')
+                end
+              }.join(', ').html_safe %>
         </td>
       <% end -%>
     </tr>

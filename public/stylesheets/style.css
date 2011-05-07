@@ -510,8 +510,12 @@ body { background-color: white; }
   margin-top:   5px;
 }
 
+#table_numbers {
+  background-color: white;
+}
+
 #table_numbers .number {
-  font-weight: bold;
+  font-style: italic;
   text-align: center;
 }
 
@@ -526,6 +530,10 @@ body { background-color: white; }
 #table_numbers .conflicted {
   color: white;
   background-color: crimson;
+}
+
+#table_numbers .emphasized {
+  font-weight: bold;
 }
 
 /* */
