@@ -89,9 +89,18 @@ module MatchesHelper
     return dates
   end
 
-  def match_td_in_calendar(date)
+  def html_class_for_day_of_week(date)
+    case date.wday
+    when 0, 6
+      'weekend'
+    else
+      'weekday'
+    end
+  end
+
+  def match_td_in_calendar(date, shows_month=false)
     date_display = date.day.to_s
-    date_display = "#{date.month}/" + date_display if date.day == 1
+    date_display = "#{date.month}/" + date_display if shows_month
 
     htmls = Array.new
     htmls << date_display

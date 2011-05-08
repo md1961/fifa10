@@ -2,7 +2,7 @@
 <table class="table_base table_calendar">
   <tr>
     <% dates.first(7).each do |date_for_wday| -%>
-      <th class="<%= [0, 6].include?(date_for_wday.wday) ? 'weekend' : 'weekday' %>">
+      <th class="<%= html_class_for_day_of_week(date_for_wday) %>">
         <%= date_for_wday.strftime("%a") %>
       </th>
     <% end -%>
@@ -11,7 +11,8 @@
   <% dates.each_slice(7) do |week| -%>
     <tr>
       <% week.each do |date| -%>
-        <%= match_td_in_calendar(date) %>
+        <% shows_month = date.day == 1 || date == dates.first -%>
+        <%= match_td_in_calendar(date, shows_month) %>
       <% end -%>
     </tr>
   <% end -%>
