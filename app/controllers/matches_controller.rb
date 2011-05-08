@@ -76,9 +76,9 @@ class MatchesController < ApplicationController
     @season_id = get_and_save_season_id(params)
     @matches = get_matches(@season_id)
 
-    date_from_params = params[:date] && Date.parse(params[:date])
+    date_from_params = params[:date_start] && Date.parse(params[:date_start])
     next_match = Match.nexts(@season_id, 1)
-    @date = date_from_params || next_match && next_match.date_match
+    @date_start = date_from_params || next_match && next_match.date_match.beginning_of_month
 
     @leftmost_weekday  = 0
 

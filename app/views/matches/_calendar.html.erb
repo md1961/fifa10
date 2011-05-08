@@ -1,7 +1,6 @@
 
 <%
-  date_start = date.           beginning_of_month
-  date_end   = date.next_month.      end_of_month
+  date_end = date_start.next_month.end_of_month
   dates = (date_start .. date_end).to_a
 
   date_cursor = dates.first
@@ -18,9 +17,9 @@
   end
 -%>
 
-<%= link_to '<<', calendar_matches_path(:date => date.prev_month) %>
-<%= date.to_formatted_s(:month_year) %>
-<%= link_to '>>', calendar_matches_path(:date => date.next_month) %>
+<%= link_to '<<', calendar_matches_path(:date_start => date_start.prev_month) %>
+<%= date_start.to_formatted_s(:month_year) %>
+<%= link_to '>>', calendar_matches_path(:date_start => date_start.next_month) %>
 
 <table class="table_base table_calendar">
   <tr>
