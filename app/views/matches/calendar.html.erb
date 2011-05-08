@@ -9,6 +9,17 @@
 <%= nbsp %>
 <%= link_to '>>', calendar_matches_path(:date_start => @date_start.next_month) %>
 
-<% dates = make_dates_for_calendar(@date_start, 2) -%>
-<%= render :partial => 'calendar', :locals => {:dates => dates} %>
+<table>
+  <tr>
+    <td style="vertical-align: top;">
+      <% dates = make_dates_for_calendar(@date_start, 2) -%>
+      <%= render :partial => 'calendar', :locals => {:dates => dates} %>
+    </td>
+
+    <td style="vertical-align: top; padding-left: 30px;">
+      <% dates = make_dates_for_calendar(dates.last + 1, 2) -%>
+      <%= render :partial => 'calendar', :locals => {:dates => dates} %>
+    </td>
+  </tr>
+</table>
 
