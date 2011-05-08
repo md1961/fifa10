@@ -69,8 +69,8 @@ module MatchesHelper
     return link_to_unless is_current, label, series_filter_matches_path(:series_abbrs => param)
   end
 
-  def make_dates_for_calendar(date_start)
-    date_end = date_start.next_month.end_of_month
+  def make_dates_for_calendar(date_start, num_months)
+    date_end = date_start.months_since(num_months - 1).end_of_month
     dates = (date_start .. date_end).to_a
 
     date_cursor = dates.first
