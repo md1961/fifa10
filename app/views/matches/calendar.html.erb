@@ -3,5 +3,12 @@
   <%= link_to 'Roster Chart', roster_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
 </p>
 
-<%= render :partial => 'calendar', :locals => {:date_start => @date_start} %>
+<%= link_to '<<', calendar_matches_path(:date_start => @date_start.prev_month) %>
+<%= nbsp %>
+<%= @date_start.to_formatted_s(:month_year) %>
+<%= nbsp %>
+<%= link_to '>>', calendar_matches_path(:date_start => @date_start.next_month) %>
+
+<% dates = make_dates_for_calendar(@date_start, 2) -%>
+<%= render :partial => 'calendar', :locals => {:dates => dates} %>
 

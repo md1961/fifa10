@@ -1,12 +1,4 @@
 
-<% dates = make_dates_for_calendar(@date_start, 2) -%>
-
-<%= link_to '<<', calendar_matches_path(:date_start => date_start.prev_month) %>
-<%= nbsp %>
-<%= date_start.to_formatted_s(:month_year) %>
-<%= nbsp %>
-<%= link_to '>>', calendar_matches_path(:date_start => date_start.next_month) %>
-
 <table class="table_base table_calendar">
   <tr>
     <% dates.first(7).each do |date_for_wday| -%>
