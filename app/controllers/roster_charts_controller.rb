@@ -164,10 +164,11 @@ class RosterChartsController < ApplicationController
   def numbers
     @is_lineup = params[:is_lineup] == '1'
 
-    @players = players_of_team(includes_on_loan=true, for_lineup=false)
+    @players = players_of_team(includes_on_loan=true, for_lineup=@is_lineup)
     @min_overall_to_emphasize = 80
 
-    @page_title = "Playing Numbers"
+    @page_title_size = 3
+    @page_title = "#{team_name_and_season_years} Playing Numbers"
   end
 
   def disablement_check

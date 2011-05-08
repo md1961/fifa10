@@ -12,11 +12,10 @@
         </td>
         <td class="player <%= 'conflicted' if players.size >= 2 %>">
           <%= players.map { |player| 
-                if player.overall < @min_overall_to_emphasize
-                  player.name
-                else
-                  content_tag(:span, player.name, :class => 'emphasized')
-                end
+                player.overall < @min_overall_to_emphasize \
+                  ? player.name
+                  : content_tag(:span, player.name, :class => "emphasized") \
+                + content_tag(:font, " (#{player.overall})", :size => "-1")
               }.join(', ').html_safe %>
         </td>
       <% end -%>
