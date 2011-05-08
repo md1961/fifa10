@@ -1,21 +1,5 @@
 
-<%
-  date_end = date_start.next_month.end_of_month
-  dates = (date_start .. date_end).to_a
-
-  date_cursor = dates.first
-  until date_cursor.wday == @leftmost_weekday
-    date_cursor = date_cursor.yesterday
-    dates.unshift(date_cursor)
-  end
-
-  rightmost_weekday = @leftmost_weekday == 0 ? 6 : @leftmost_weekday - 1
-  date_cursor = dates.last
-  until date_cursor.wday == rightmost_weekday
-    date_cursor = date_cursor.tomorrow
-    dates << date_cursor
-  end
--%>
+<% dates = make_dates_for_calendar(@date_start) -%>
 
 <%= link_to '<<', calendar_matches_path(:date_start => date_start.prev_month) %>
 <%= date_start.to_formatted_s(:month_year) %>
@@ -33,7 +17,7 @@
   <% dates.each_slice(7) do |week| -%>
     <tr>
       <% week.each do |date| -%>
-        <%= match_in_calendar(date) %>
+        <%= match_td_in_calendar(date) %>
       <% end -%>
     </tr>
   <% end -%>

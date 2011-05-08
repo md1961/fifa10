@@ -69,7 +69,27 @@ module MatchesHelper
     return link_to_unless is_current, label, series_filter_matches_path(:series_abbrs => param)
   end
 
-  def match_in_calendar(date)
+  def make_dates_for_calendar(date_start)
+    date_end = date_start.next_month.end_of_month
+    dates = (date_start .. date_end).to_a
+
+    date_cursor = dates.first
+    until date_cursor.wday == @leftmost_weekday
+      date_cursor = date_cursor.yesterday
+      dates.unshift(date_cursor)
+    end
+
+    rightmost_weekday = @leftmost_weekday == 0 ? 6 : @leftmost_weekday - 1
+    date_cursor = dates.last
+    until date_cursor.wday == rightmost_weekday
+      date_cursor = date_cursor.tomorrow
+      dates << date_cursor
+    end
+
+    return dates
+  end
+
+  def match_td_in_calendar(date)
     date_display = date.day.to_s
     date_display = "#{date.month}/" + date_display if date.day == 1
 
