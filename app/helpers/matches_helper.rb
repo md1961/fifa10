@@ -116,7 +116,7 @@ module MatchesHelper
       htmls << "<b>#{match.opponent.abbr_name}</b>"
       htmls << match.full_ground
       htmls << result
-      clazz = match.played? ? 'played' : 'not_played'
+      clazz = match.win? ? 'win' : match.lose? ? 'lose' : match.draw? ? 'draw' : ''
     end
 
     return content_tag(:td, htmls.join('<br />').html_safe, :class => "match #{clazz}")

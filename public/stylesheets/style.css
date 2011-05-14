@@ -230,12 +230,16 @@ body { background-color: white; }
   font-size: x-small;
 }
 
-.table_calendar .played {
+.table_calendar .win {
   background-color: lightblue;
 }
 
-.table_calendar .not_played {
+.table_calendar .lose {
   background-color: pink;
+}
+
+.table_calendar .draw {
+  background-color: gold;
 }
 
 #table_players {
