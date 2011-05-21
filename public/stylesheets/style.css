@@ -422,8 +422,14 @@ body { background-color: white; }
   padding-bottom: 0px;
 }
 
+#fanfare_players {
+  padding-top: 10px;
+}
+
 #manutd_fanfare_player {
+  /*
   margin-bottom: 0px;
+  */
 }
 
 #top_of_tables_roster_chart {

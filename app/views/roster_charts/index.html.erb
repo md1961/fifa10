@@ -49,42 +49,41 @@
    series = next_match && next_match.series -%>
 
 <div id="match_info">
-
-<div class="recent_form">
-  Recent Form: <%= Match.recent_form(10, @season_id) %>
-</div>
-<br />
-<% if series -%>
   <div class="recent_form">
-    (<%= series.name %>: <%= Match.recent_form(10, @season_id, series.id) %>)
+    Recent Form: <%= Match.recent_form(10, @season_id) %>
   </div>
   <br />
-<% end -%>
-<div id="recent_meetings">
-  <%= recent_meetings_display(@next_matches, @season_id) %>
-</div>
 
-<div id="controller_options">
-  <%= controller_options(next_match) %>
-</div>
+  <% if series -%>
+    <div class="recent_form">
+      (<%= series.name %>: <%= Match.recent_form(10, @season_id, series.id) %>)
+    </div>
+    <br />
+  <% end -%>
 
-<% if @season.team.manutd? && next_match && next_match.home? -%>
-  <br />
-  <% caption = "ManUtd Fanfare Player" -%>
-  <div id="manutd_fanfare_player">
-    <embed src="images/FanfareForManUtd.wav" autostart="false" width="120" height="20" />
-    <font size="-2"><%= caption %></font>
+  <div id="recent_meetings">
+    <%= recent_meetings_display(@next_matches, @season_id) %>
   </div>
-<% end -%>
 
-<% if next_match && next_match.series.champions_leaque? -%>
-  <% caption = "Champions League Anthem" -%>
-  <div id="champions_leaque_anthem_player">
-    <embed src="images/ChampionsLeagueAnthemShort.wav" autostart="false" width="120" height="20" />
-    <font size="-2"><%= caption %></font>
+  <div id="controller_options">
+    <%= controller_options(next_match) %>
   </div>
-<% end -%>
 
+  <div id="fanfare_players">
+    <% if @season.team.manutd? && next_match && next_match.home? -%>
+      <%= render :partial => 'sound_player', :locals => {:caption => "ManUtd Fanfare",
+                                                         :id      => "manutd_fanfare_player",
+                                                         :source  => "FanfareForManUtd.wav",
+                                                        } %>
+    <% end -%>
+
+    <% if next_match && next_match.series.champions_leaque? -%>
+      <%= render :partial => 'sound_player', :locals => {:caption => "CL Anthem",
+                                                         :id      => "champions_leaque_anthem_player",
+                                                         :source  => "ChampionsLeagueAnthemShort.wav",
+                                                        } %>
+    <% end -%>
+  </div>
 </div>
 
 <div class="clear" />
