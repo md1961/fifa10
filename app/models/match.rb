@@ -33,10 +33,14 @@ class Match < ActiveRecord::Base
   def self.nexts(season_id, num_matches=nil)
     matches = by_season(season_id).order('date_match')
     next_match = matches.find { |match| ! match.played? }
-    return Array.new unless next_match
-    index = matches.index(next_match)
-    matches = matches[index .. -1]
-    matches = matches.first(num_matches) if num_matches
+    unless next_match
+      matches = Array.new
+    else
+      index = matches.index(next_match)
+      matches = matches[index .. -1]
+      matches = matches.first(num_matches) if num_matches
+    end
+
     return num_matches == 1 ? matches.first : matches
   end
 
