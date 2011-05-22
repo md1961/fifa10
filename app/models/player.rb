@@ -224,7 +224,7 @@ class Player < ActiveRecord::Base
     ].freeze
 
     MIN_DISABLED_TERM =  3
-    MAX_DISABLED_TERM = 30
+    MAX_DISABLED_TERM = 20
     INCREMENTS_OF_MAX_DISABLED_TERM = [
       [MIN_AGE, -10.0],
       [MAX_AGE,  10.0],
@@ -253,6 +253,13 @@ class Player < ActiveRecord::Base
     end
     private :pct_to_be_disabled
 
+    FACTOR_FOR_PCT_TO_BE_DISABLED_EXTENDEDLY = 0.5
+
+    def pct_to_be_disabled_extendedly(season_id)
+      return pct_to_be_disabled(season_id) * FACTOR_FOR_PCT_TO_BE_DISABLED_EXTENDEDLY
+    end
+    private :pct_to_be_disabled_extendedly
+
     def disabled_days(season_id, can_be_extended=true)
       age0, inc0, age1, inc1 = INCREMENTS_OF_MAX_DISABLED_TERM.flatten
       increment_max = (inc0 + (inc1 - inc0) / (age1 - age0) * (age_for_disablement(season_id) - age0)).to_i
@@ -268,11 +275,6 @@ class Player < ActiveRecord::Base
       return days
     end
     private :disabled_days
-
-    def pct_to_be_disabled_extendedly(season_id)
-      return pct_to_be_disabled(season_id)
-    end
-    private :pct_to_be_disabled_extendedly
 
   def recover_from_disabled(date_as_of, season_id)
     player_season = player_seasons.find_by_season_id(season_id)
