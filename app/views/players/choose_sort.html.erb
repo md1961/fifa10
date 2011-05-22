@@ -13,6 +13,9 @@
 
   <% @sort_fields.each_with_index do |sort_field, i| -%>
     <%= "Order No.#{i + 1}:" %>
+    <% html_id = "ascending_#{i}" -%>
+    <%= check_box :sort_field, :ascending, {:id => html_id, :index => i}, '0', '1' %>
+    <label for="<%= html_id %>">Descending</label>
     <br />
 
     <% @sort_field = sort_field -%>
@@ -30,9 +33,6 @@
     <% end -%>
 
     <br />
-    <% html_id = "ascending_#{i}" -%>
-    <%= check_box :sort_field, :ascending, {:id => html_id, :index => i}, '0', '1' %>
-    <label for="<%= html_id %>">Descending</label>
 
     <hr />
   <% end -%>
