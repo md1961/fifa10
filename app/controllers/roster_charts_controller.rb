@@ -59,7 +59,7 @@ class RosterChartsController < ApplicationController
 
     SimpleDB.instance.sync
 
-    h_params = {:is_lineup => is_lineup ? 1 : 0}
+    h_params = {:is_lineup => is_lineup ? 1 : 0, :attribute => params[:attr]}
     is_action_show = commands && commands.first == ACTION_SHOW
     redirect_to is_action_show ? players_path(h_params) : roster_chart_path(h_params)
   end

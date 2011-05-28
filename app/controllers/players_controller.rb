@@ -3,6 +3,7 @@ class PlayersController < ApplicationController
   def index
     season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
+    @attr = params[:attribute]
 
     row_filter = get_row_filter(nil, for_lineup=@is_lineup)
     @players = row_filter.displaying_players
