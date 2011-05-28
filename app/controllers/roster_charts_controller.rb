@@ -579,7 +579,8 @@ class RosterChartsController < ApplicationController
       additional_args = Array.new
       additional_args << terms.pop if action == ACTION_UNTIL
 
-      players_arg = terms2players(terms[1 .. -1], players, title)
+      args = terms[1 .. -1] || []
+      players_arg = terms2players(args, players, title)
       return nil unless players_arg
 
       return action, players_arg + additional_args
