@@ -3,11 +3,11 @@
   <%= link_to 'Roster Chart', roster_chart_path(:is_lineup => @is_lineup ? 1 : 0) %>
 </p>
 
-<%= link_to '<<', calendar_matches_path(:date_start => @date_start.prev_month) %>
+<%= link_to '<<', calendar_matches_path(:date_start => @date_start.prev_month, :is_lineup => @is_lineup ? 1 : 0) %>
 <%= nbsp %>
 <%= @date_start.to_formatted_s(:month_year) %>
 <%= nbsp %>
-<%= link_to '>>', calendar_matches_path(:date_start => @date_start.next_month) %>
+<%= link_to '>>', calendar_matches_path(:date_start => @date_start.next_month, :is_lineup => @is_lineup ? 1 : 0) %>
 
 <table>
   <tr>
