@@ -90,10 +90,13 @@ class MatchesController < ApplicationController
     @season_id = session[:season_id]
     @matches = get_matches(@season_id)
     @match = Match.new
+    @match.date_match = params[:date]
     premier = Series.premier
     season = Season.find(@season_id)
     @match.series = premier if season.series.include?(premier)
     @match.opponent_type = season.team_type
+
+    @back_to = params[:back_to] && eval(params[:back_to])
 
     @team_abbr = team_abbr
 
@@ -150,6 +153,8 @@ class MatchesController < ApplicationController
     @matches = get_matches(@season_id)
     @match = Match.find(params[:id])
     @scores_only = params[:scores_only] == '1'
+
+    @back_to = params[:back_to] && eval(params[:back_to])
 
     @team_abbr = team_abbr
 

@@ -26,7 +26,7 @@
       <%= f.hidden_field :ground %>
       <%= f.hidden_field :opponent_id %>
     <% else -%>
-      <td colspan="2"><%= f.text_field :date_match, :size => 10, :tabindex => 1 %></td>
+      <td colspan="2"><%= f.text_field :date_match, :size => 14, :tabindex => 1 %></td>
       <% series = series_for_collection_select(@season_id)
          series_sole_abbr = series.size == 1 ? series[0].abbr : nil -%>
          <td colspan="2"><%= series_sole_abbr || f.collection_select('series_id', series, :id, :abbr, {}, :tabindex => 2) %></td>
@@ -46,7 +46,7 @@
       -
       <%= f.text_field 'scores_opp', :size => 2, :tabindex => 7 %>
     </td>
-    <td colspan="5">own: <%= f.text_field :scorers_own, :size => 80, :tabindex => 8 %></td>
+    <td colspan="5">own: <%= f.text_field :scorers_own, :size => 100, :tabindex => 8 %></td>
   </tr>
   <tr>
     <td colspan="2">
@@ -55,7 +55,7 @@
       -
       <%= f.text_field 'pks_opp', :size => 2, :tabindex => 11 %>
     </td>
-    <td colspan="5">opp: <%= f.text_field :scorers_opp, :size => 80, :tabindex => 9 %></td>
+    <td colspan="5">opp: <%= f.text_field :scorers_opp, :size => 100, :tabindex => 9 %></td>
     <td>
       <%= submit_tag 'Submit', :tabindex => 12 %>
       <% unless @match.new_record? -%>

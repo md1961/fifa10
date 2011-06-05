@@ -102,10 +102,13 @@ module MatchesHelper
     date_display = date.day.to_s
     date_display = "#{date.month}/" + date_display if shows_month
 
-    htmls = Array.new
-    htmls << date_display
-
     match = @matches.find { |match| match.date_match == date }
+
+    htmls = Array.new
+
+    h_params = {:id => match, :date => date, :back_to => 'calendar_matches_path'}
+    htmls << link_to(date_display, match ? edit_match_path(h_params) : new_match_path(h_params))
+
     unless match
       htmls.concat(['&nbsp;'] * 4)
       clazz = ''
