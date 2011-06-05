@@ -107,8 +107,9 @@ class MatchesController < ApplicationController
 
   def create
     @match = make_match(params)
+    @back_to = params[:back_to].blank? ? nil : params[:back_to]
     if @match.save
-      redirect_to matches_path
+      redirect_to @back_to || matches_path
     else
       @season_id = session[:season_id]
       @matches = Match.by_season(@season_id).order('date_match')
@@ -167,9 +168,10 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     is_previously_played = @match.played?
     adjust_date_match(params)
+    @back_to = params[:back_to].blank? ? nil : params[:back_to]
     if @match.update_attributes(params[:match])
       session[:ticket_to_examine_player_status_change] = true if @match.played? && ! is_previously_played
-      redirect_to matches_path
+      redirect_to @back_to || matches_path
     else
       @season_id = session[:season_id]
       @matches = Match.by_season(@season_id).order('date_match')
@@ -181,8 +183,9 @@ class MatchesController < ApplicationController
 
   def destroy
     Match.find(params[:id]).destroy
+    back_to = params[:back_to].blank? ? nil : params[:back_to]
 
-    redirect_to matches_path
+    redirect_to back_to || matches_path
   end
 
   def series_filter
