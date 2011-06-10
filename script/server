@@ -1,6 +1,6 @@
 #! /bin/sh
 
-WORK_DIR=/Users/naoyuki/rails/fifa10
+WORK_DIR=$(dirname $(dirname $0))
 COMMAND_SERVER=/opt/local/bin/unicorn_rails
 LOG_FILE=$WORK_DIR/config/unicorn-config.rb
 
