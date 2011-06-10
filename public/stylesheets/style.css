@@ -1,4 +1,10 @@
-body { background-color: white; }
+body {
+  background-color: white;
+}
+
+body.development {
+  background-color: pink;
+}
 
 .fieldWithErrors {
   padding: 2px;
