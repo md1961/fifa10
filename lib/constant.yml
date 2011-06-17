@@ -52,8 +52,8 @@ date_format : {
   Nation: "%y/%m/%d"
 }
 startup_chronicle_name : Manchester United (in Real)
-usernames_to_pass_startup_chronicle :
-  - naoyuki
+usernames_to_use_startup_chronicle :
+  - kumagai
 
 column_heading_for_matches : false
 max_players_to_transpose : 10

@@ -33,8 +33,8 @@ class AdminController < ApplicationController
     redirect_to login_path unless user
 
     startup_chronicle = Chronicle.find_by_name(Constant.get(:startup_chronicle_name))
-    usernames_to_pass = Constant.get(:usernames_to_pass_startup_chronicle)
-    if startup_chronicle && ! usernames_to_pass.include?(user.name)
+    usernames_to_use = Constant.get(:usernames_to_use_startup_chronicle)
+    if startup_chronicle && usernames_to_use.include?(user.name)
       redirect_to seasons_path(:chronicle_id => startup_chronicle)
     else
       redirect_to chronicles_path
