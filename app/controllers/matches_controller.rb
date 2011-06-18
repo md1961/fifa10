@@ -63,8 +63,10 @@ class MatchesController < ApplicationController
     end
     private :get_and_save_season_id
 
-    def get_matches(season_id)
+    def get_matches(season_id, uses_match_filter=true)
       matches = Match.by_season(season_id).order('date_match')
+      return matches unless uses_match_filter
+
       match_filter = get_match_filter
       return match_filter.displaying_matches(matches)
     end
@@ -74,7 +76,7 @@ class MatchesController < ApplicationController
     @is_lineup = params[:is_lineup] == '1'
 
     @season_id = get_and_save_season_id(params)
-    @matches = get_matches(@season_id)
+    @matches = get_matches(@season_id, uses_match_filter=false)
 
     date_from_params = params[:date_start] && Date.parse(params[:date_start])
     next_match = Match.nexts(@season_id, 1)
