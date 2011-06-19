@@ -151,6 +151,7 @@ class MatchesController < ApplicationController
     end
     private :prepare_page_title_for_new
 
+  #TODO: Modify to receive params[:series_abbr] and call set_series_to_match_filter() if any
   def edit
     @season_id = session[:season_id]
     @matches = get_matches(@season_id)
@@ -191,15 +192,18 @@ class MatchesController < ApplicationController
   end
 
   def series_filter
-    series_abbrs = params[:series_abbrs]
-
-    match_filter = get_match_filter
-    match_filter.reset_all_series
-    match_filter.series_abbrs = series_abbrs
-    session[:match_filter] = match_filter
+    set_series_to_match_filter(params[:series_abbrs])
 
     redirect_to matches_path
   end
+
+    def set_series_to_match_filter(series_abbrs)
+      match_filter = get_match_filter
+      match_filter.reset_all_series
+      match_filter.series_abbrs = series_abbrs
+      session[:match_filter] = match_filter
+    end
+    private :set_series_to_match_filter
 
   def player_choose
     @match_filter = get_match_filter
