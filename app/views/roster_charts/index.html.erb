@@ -92,6 +92,8 @@
   <%= number_of_players_display %>
   <br />
   <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
+  <%= nbsp(2) %>
+  <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
 </div>
 <div id="roster_chart_report">
   <%= flash[:report] %>
