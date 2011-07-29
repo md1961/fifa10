@@ -30,7 +30,10 @@
 <% label, value = @shows_records == '1' ? ["No Record", '0'] : ["Show Record", '1'] -%>
 <%= link_to label, matches_path(:shows_records => value) %>
 <%= nbsp %>
-<% label, value = @is_font_bold ? ["Normal Font", '0'] : ["Bold Font", '1'] -%>
-<%= link_to label, set_font_matches_path(:is_font_bold => value) %>
+<% label, value = @is_font_bold ? ["No Bold Font", '0'] : ["Bold Font", '1'] -%>
+<%= link_to label, set_font_matches_path(:is_font_bold => value, :is_font_small => @is_font_small ? 1 : 0) %>
+<%= nbsp %>
+<% label, value = @is_font_small ? ["No Small Font", '0'] : ["Small Font", '1'] -%>
+<%= link_to label, set_font_matches_path(:is_font_small => value, :is_font_bold => @is_font_bold ? 1 : 0) %>
 <%= nbsp(4) %>
 

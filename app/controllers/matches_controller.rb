@@ -15,7 +15,7 @@ class MatchesController < ApplicationController
     @team_abbr = team_abbr
 
     set_params(params)
-    set_font_weight
+    set_font_appearance
 
     @shows_link_to_logout = true
     #TODO: introduce @page_sub_title
@@ -35,7 +35,7 @@ class MatchesController < ApplicationController
     end
     private :set_params
 
-    def set_font_weight
+    def set_font_appearance
       @is_font_bold = Constant.get(:default_is_font_bold_for_matches)
       @is_font_bold = session[:is_font_bold] unless session[:is_font_bold].nil?
       unless @is_font_bold
@@ -43,12 +43,24 @@ class MatchesController < ApplicationController
         @css_add << 'table_match_font_normal'
       end
       session[:is_font_bold] = @is_font_bold
+
+      @is_font_small = Constant.get(:default_is_font_small_for_matches)
+      @is_font_small = session[:is_font_small] unless session[:is_font_small].nil?
+      if @is_font_small
+        @css_add = Array.new unless @css_add
+        @css_add << 'table_match_font_small'
+      end
+      session[:is_font_small] = @is_font_small
     end
-    private :set_font_weight
+    private :set_font_appearance
 
   def set_font
     is_font_bold = params[:is_font_bold] || '1'
     session[:is_font_bold] = is_font_bold == '1'
+
+    is_font_small = params[:is_font_small] || '1'
+    session[:is_font_small] = is_font_small == '1'
+
     redirect_to matches_path
   end
 
@@ -102,7 +114,7 @@ class MatchesController < ApplicationController
 
     @team_abbr = team_abbr
 
-    set_font_weight
+    set_font_appearance
 
     prepare_page_title_for_new
   end
@@ -115,7 +127,7 @@ class MatchesController < ApplicationController
     else
       @season_id = session[:season_id]
       @matches = Match.by_season(@season_id).order('date_match')
-      set_font_weight
+      set_font_appearance
 
       prepare_page_title_for_new
       render 'new'
@@ -162,7 +174,7 @@ class MatchesController < ApplicationController
 
     @team_abbr = team_abbr
 
-    set_font_weight
+    set_font_appearance
 
     prepare_page_title_for_edit
   end
