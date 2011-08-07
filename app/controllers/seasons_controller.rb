@@ -42,8 +42,10 @@ class SeasonsController < ApplicationController
     @season = Season.new(params[:season])
     @season.series = series_selected(params)
     last_season = Chronicle.find(@season.chronicle_id).last_season
-    last_season.player_seasons.each do |player_season|
-      @season.player_seasons.build(player_season.attributes_to_succeed)
+    if last_season
+      last_season.player_seasons.each do |player_season|
+        @season.player_seasons.build(player_season.attributes_to_succeed)
+      end
     end
 
     if @season.save
