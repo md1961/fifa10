@@ -49,13 +49,10 @@ module PlayersHelper
 
   def prepare_superior_attribute_values
     values = Hash.new { |h, k| h[k] = 0 }
-    if @players.size == 2
-      attrs1 = @players[0].player_attribute
-      attrs2 = @players[1].player_attribute
+    if @players.size >= 2
+      attrs = @players.map { |player| player.player_attribute }
       @attribute_columns.map(&:name).each do |attr_name|
-        value1 = attrs1.read_attribute(attr_name)
-        value2 = attrs2.read_attribute(attr_name)
-        values[attr_name] = value1 > value2 ? value1 : value2
+        values[attr_name] = attrs.map { |attr| attr.read_attribute(attr_name) }.max
       end
     end
 
