@@ -84,6 +84,8 @@ class MatchesController < ApplicationController
     end
     private :get_matches
 
+  DEFAULT_MONTH_START_FOR_CALENDAR = 7
+
   def calendar
     @is_lineup = params[:is_lineup] == '1'
 
@@ -91,9 +93,10 @@ class MatchesController < ApplicationController
     @matches = get_matches(@season_id, uses_match_filter=false)
 
     date_from_params = params[:date_start] && Date.parse(params[:date_start])
-    next_match = Match.nexts(@season_id, 1) && next_match.date_match.beginning_of_month
-    #FIXME: magic number (month)
-    @date_start = date_from_params || next_match || Date.new(Season.find(@season_id).year_start, 7, 1)
+    next_match = Match.nexts(@season_id, 1)
+    date_from_next_match = next_match && next_match.date_match.beginning_of_month
+    @date_start = date_from_params || date_from_next_match \
+                                   || Date.new(Season.find(@season_id).year_start, DEFAULT_MONTH_START_FOR_CALENDAR, 1)
 
     @leftmost_weekday  = 0
 
