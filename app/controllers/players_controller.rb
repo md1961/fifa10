@@ -363,9 +363,9 @@ class PlayersController < ApplicationController
     @is_lineup = params[:is_lineup] == '1'
 
     season_id = get_season_id(params)
-    set_players_to_row_filter_if_not
+    set_players_to_row_filter_if_not unless @is_lineup
 
-    players = players_of_team
+    players = players_of_team(includes_on_loan=false, for_lineup=@is_lineup)
     @top_values = Player.player_attribute_top_values(num_top, season_id)
     @map_top_players = Hash.new { |h, k| h[k] = Array.new }
     PlayerAttribute.fulls.each do |attr_name|
