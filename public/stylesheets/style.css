@@ -285,6 +285,10 @@ body.development {
   border-top: double medium black;
 }
 
+#table_players .bottom_of_starters {
+  border-bottom: double medium black;
+}
+
 #table_top_attribute_list {
   font-size: small;
   background-color: white;

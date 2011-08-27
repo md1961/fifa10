@@ -15,16 +15,21 @@
   <% end -%>
 </tr>
 
-<% @superior_attribute_values = prepare_superior_attribute_values -%>
+<% @superior_attribute_values = prepare_superior_attribute_values
+   num_starters = Constant.get(:num_starters)
+   num_in_bench = Constant.get(:num_in_bench)
+   indexes_at_bottom = [num_starters - 1, num_starters + num_in_bench - 1] -%>
 
-<% @players.each do |player| -%>
+<% @players.each_with_index do |player, index| -%>
   <tr class="<%= cycle('tableRow0', 'tableRow1') %>">
-    <td><%= link_to '>', player %></td>
-    <td><%= link_to 'e', edit_player_path(player, :is_from_list => 1) %></td>
+    <% clazz0 = indexes_at_bottom.include?(index) ? ' bottom_of_starters ' : '' -%>
+    <td class="<%= clazz0 %>"><%= link_to '>', player %></td>
+    <td class="<%= clazz0 %>"><%= link_to 'e', edit_player_path(player, :is_from_list => 1) %></td>
 
     <% @columns.map(&:name).each do |column_name| -%>
-      <% clazz = column_name == last_column_name ? 'rightmost_of_players' : ''
-         clazz += @sorted_field_names.include?(column_name) ? ' sorted_field' : '' -%>
+      <% clazz  = clazz0
+         clazz += ' rightmost_of_players' if column_name == last_column_name
+         clazz += ' sorted_field'         if @sorted_field_names.include?(column_name) -%>
       <td align="<%= column_align(column_name) %>" class="<%= clazz %>">
         <%= render :partial => 'property_display', :locals => {:column_name => column_name, :player => player} %>
       </td>
@@ -34,7 +39,7 @@
        attrs = player.player_attribute -%>
     <% @attribute_columns.map(&:name).each do |attr_name| -%>
       <% value = attrs.read_attribute(attr_name)
-         clazz = html_class_for_attribute_display(attr_name, value, is_leftmost)
+         clazz = clazz0 + html_class_for_attribute_display(attr_name, value, is_leftmost)
          is_leftmost = false -%>
       <td align="right" class="<%= clazz %>"><%= value %></td>
     <% end -%>
