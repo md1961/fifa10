@@ -450,6 +450,12 @@ body.development {
   float: left;
 }
 
+#quick_tactics_help {
+  color: red;
+  font-weight: bold;
+  float: left;
+}
+
 #roster_chart_report {
   color: green;
   font-size: large;
