@@ -21,6 +21,11 @@ class PlayersController < ApplicationController
     no_attributes = @players.all? { |player| player.player_attribute.all_zero? }
     column_filter.set_all_or_no_attributes(false) if no_attributes
 
+    if @is_lineup
+      column_filter.set_recommended_columns
+      column_filter.set_recommended_attributes
+    end
+
     @columns           = column_filter.displaying_columns
     @attribute_columns = column_filter.displaying_attribute_columns
 
