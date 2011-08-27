@@ -53,7 +53,8 @@ class ColumnFilter
   end
 
   RECOMMENDED_COLUMN_NAMES = [
-    :position_id, :skill_move, :is_right_dominant, :both_feet_level, :height, :birth_year, :overall
+    :first_name, :number, :position_id, :skill_move, :is_right_dominant, :both_feet_level,
+    :height, :weight, :birth_year, :overall
   ]
 
   def set_recommended_columns
