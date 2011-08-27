@@ -90,25 +90,36 @@
 
 <div class="clear" />
 
-<div id="top_of_tables_roster_chart">
-  <%= number_of_players_display %>
-  <br />
-  <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
-  <%= nbsp(2) %>
-  <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
-</div>
-<div id="roster_chart_report">
-  <%= flash[:report] %>
-</div>
-<div class="clear" />
+<div style="float: left">
+  <div id="top_of_tables_roster_chart">
+    <%= number_of_players_display %>
+    <br />
+    <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
+    <%= nbsp(2) %>
+    <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
+  </div>
+  <div id="roster_chart_report">
+    <%= flash[:report] %>
+  </div>
 
-<p>
-  <%= form_tag roster_chart_path do -%>
-    <%= select_tag :attribute, options_for_select(options_for_attrs_and_props(@attrs), @attr.to_s) %>
-    <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
-    <%= submit_tag 'select' %>
-  <% end -%>
-</p>
+  <p>
+    <%= form_tag roster_chart_path do -%>
+      <%= select_tag :attribute, options_for_select(options_for_attrs_and_props(@attrs), @attr.to_s) %>
+      <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
+      <%= submit_tag 'select' %>
+    <% end -%>
+  </p>
+</div>
+
+<div style="float: left">
+  <table>
+    <tr><td />                <td>↑ Default</td><td />              </tr>
+    <tr><td>← High Press.</td><td />            <td>→ Possesion</td></tr>
+    <tr><td />                <td>↓ Counter</td><td />              </tr>
+  </table>
+</div>
+
+<div class="clear" />
 
 <table id="table_starters" class="table_base tables_roster_chart">
   <%= render :partial => 'roster_table',
