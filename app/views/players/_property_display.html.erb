@@ -5,8 +5,12 @@
    when 'name' -%>
   <%= bold(player.name) %>
 <% when 'position_id' -%>
-  <%= bold(player.position.name) %>
-  <%= player.sub_positions.map(&:name).join(' ') %>
+  <% main_position = player.position -%>
+  <% ([main_position] + player.sub_positions).each do |position| -%>
+    <span style="background-color: <%= position.color %>">
+      <%= position == main_position ? bold(position) : position %>
+    </span>
+  <% end -%>
 <% when 'skill_move' -%>
   <%= '★' * player.skill_move %>
 <% when 'is_right_dominant' -%>

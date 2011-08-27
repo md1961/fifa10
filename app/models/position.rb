@@ -36,4 +36,8 @@ class Position < ActiveRecord::Base
   def color
     return CATEGORY_COLOR[category]
   end
+
+  def to_s
+    return name
+  end
 end
