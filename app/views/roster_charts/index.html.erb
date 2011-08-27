@@ -2,6 +2,8 @@
   <% unless @is_lineup -%>
     <%= link_to 'Fixtures/Results', matches_path %>
   <% else -%>
+    <%= link_to 'Rosters', players_path(:is_lineup => @is_lineup ? 1 : 0) %>
+    <%= nbsp(3) %>
     <%= link_to 'Enter Result', edit_match_path(@next_matches.first, :season_id => @season_id, :scores_only => 1, :is_lineup => 0) %>
     <%= nbsp(2) %>
     <%= link_to 'Exit Lineup' , roster_chart_path(:is_lineup => 0) %>
