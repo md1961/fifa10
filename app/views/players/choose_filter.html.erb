@@ -53,23 +53,25 @@
   <hr />
 
   <%= nbsp(6) %>
-  <%= link_to 'Field', filter_players_with_path(:field_attributes) %>
+  <%= link_to 'Recommended', filter_players_with_path(:recommended_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Common', filter_players_with_path(:general_attributes) %>
+  <%= link_to 'Field'      , filter_players_with_path(:field_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Offensive', filter_players_with_path(:offensive_attributes) %>
+  <%= link_to 'Common'     , filter_players_with_path(:general_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Common+Off', filter_players_with_path(:general_and_offensive_attributes) %>
+  <%= link_to 'Offensive'  , filter_players_with_path(:offensive_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Defensive', filter_players_with_path(:defensive_attributes) %>
+  <%= link_to 'Common+Off' , filter_players_with_path(:general_and_offensive_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'Common+Def', filter_players_with_path(:general_and_defensive_attributes) %>
+  <%= link_to 'Defensive'  , filter_players_with_path(:defensive_attributes) %>
+  <%= nbsp(2) %>
+  <%= link_to 'Common+Def' , filter_players_with_path(:general_and_defensive_attributes) %>
   <%= nbsp(2) %>
   <%= link_to 'Goalkeeping', filter_players_with_path(:goalkeeping_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'All' , filter_players_with_path(:all_attributes) %>
+  <%= link_to 'All'        , filter_players_with_path(:all_attributes) %>
   <%= nbsp(2) %>
-  <%= link_to 'None', filter_players_with_path(:no_attributes) %>
+  <%= link_to 'None'       , filter_players_with_path(:no_attributes) %>
   <br />
   <%= nbsp(5) %>
   <% displaying_player_attribute_names.each do |name| -%>

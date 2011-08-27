@@ -84,6 +84,8 @@ class ColumnFilter
 
   FIELD_ATTRIBUTE_NAMES = GENERAL_ATTRIBUTE_NAMES + OFFENSIVE_ATTRIBUTE_NAMES + DEFENSIVE_ATTRIBUTE_NAMES
 
+  RECOMMENDED_ATTRIBUTE_NAMES = FIELD_ATTRIBUTE_NAMES + [:gk_dive, :gk_handling, :gk_positioning, :gk_reaction]
+
   def set_general_attributes
     set_specified_attributes(GENERAL_ATTRIBUTE_NAMES)
   end
@@ -95,6 +97,9 @@ class ColumnFilter
   end
   def set_goalkeeping_attributes
     set_specified_attributes(GENERAL_GOALKEEPING_ATTRIBUTE_NAMES + GOALKEEPING_ATTRIBUTE_NAMES)
+  end
+  def set_recommended_attributes
+    set_specified_attributes(RECOMMENDED_ATTRIBUTE_NAMES)
   end
 
   def set_specified_attributes(attribute_names)

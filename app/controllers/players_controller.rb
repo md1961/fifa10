@@ -221,13 +221,14 @@ class PlayersController < ApplicationController
   ALL_COLUMNS         = 'all_columns'
   NO_COLUMNS          = 'no_columns'
 
-  GENERAL_ATTRIBUTES = 'general_attributes'
-  OFFENSIVE_ATTRIBUTES = 'offensive_attributes'
-  DEFENSIVE_ATTRIBUTES = 'defensive_attributes'
+  GENERAL_ATTRIBUTES     = 'general_attributes'
+  OFFENSIVE_ATTRIBUTES   = 'offensive_attributes'
+  DEFENSIVE_ATTRIBUTES   = 'defensive_attributes'
   GOALKEEPING_ATTRIBUTES = 'goalkeeping_attributes'
+  RECOMMENDED_ATTRIBUTES = 'recommended_attributes'
   DESIGNATED_ATTRIBUTES  = 'designated_attributes'
-  ALL_ATTRIBUTES = 'all_attributes'
-  NO_ATTRIBUTES  = 'no_attributes'
+  ALL_ATTRIBUTES         = 'all_attributes'
+  NO_ATTRIBUTES          = 'no_attributes'
 
   ALL_POSITION_CATEGORIES = 'all_position_categories'
   NO_POSITION_CATEGORIES  = 'no_position_categories'
@@ -254,6 +255,8 @@ class PlayersController < ApplicationController
       filter_with_specified_attributes([GENERAL_ATTRIBUTES, DEFENSIVE_ATTRIBUTES])
     when :goalkeeping_attributes
       filter_with_specified_attributes([GOALKEEPING_ATTRIBUTES])
+    when :recommended_attributes
+      filter_with_specified_attributes([RECOMMENDED_ATTRIBUTES])
     when :all_attributes
       filter_with_specified_attributes([ALL_ATTRIBUTES])
     when :no_attributes
@@ -292,6 +295,8 @@ class PlayersController < ApplicationController
           column_filter.set_defensive_attributes
         when GOALKEEPING_ATTRIBUTES
           column_filter.set_goalkeeping_attributes
+        when RECOMMENDED_ATTRIBUTES
+          column_filter.set_recommended_attributes
         when DESIGNATED_ATTRIBUTES
           column_filter.set_specified_attributes(attribute_names)
         else
