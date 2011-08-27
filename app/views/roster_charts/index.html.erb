@@ -71,7 +71,7 @@
 
   <div id="fanfare_players">
     <% if next_match && next_match.home? -%>
-      <% source, caption = @season.team.manutd? ? ["FanfareForManUtd.wav"      , "ManUtd Fanfare"        ] \
+      <% source, caption = @season.team.manutd? ? ["FanfareForManUtd.mp3"      , "ManUtd Fanfare"        ] \
                                                 : ["FanfareForTheCommonMan.mp3", "Fanfare For Common Man"] -%>
       <%= render :partial => 'sound_player', :locals => {:caption => caption,
                                                          :id      => "fanfare_player",
@@ -82,7 +82,7 @@
     <% if next_match && next_match.series.champions_leaque? -%>
       <%= render :partial => 'sound_player', :locals => {:caption => "CL Anthem",
                                                          :id      => "champions_leaque_anthem_player",
-                                                         :source  => "ChampionsLeagueAnthemShort.wav",
+                                                         :source  => "ChampionsLeagueAnthemShort.mp3",
                                                         } %>
     <% end -%>
   </div>
