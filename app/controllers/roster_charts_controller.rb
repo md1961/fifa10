@@ -7,7 +7,9 @@ class RosterChartsController < ApplicationController
     @season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
 
-    unless @is_lineup
+    if @is_lineup
+      session[:been_lineup] = true
+    else
       set_players_to_row_filter_if_not
 
       if session[:ticket_to_examine_player_status_change]
@@ -15,6 +17,13 @@ class RosterChartsController < ApplicationController
         session[:ticket_to_examine_player_status_change] = nil
       end
       recover_disabled
+
+      if session[:been_lineup]
+        set_formation(session[:formation_id])
+        session[:been_lineup] = false
+      else
+        session[:formation_id] = Season.find(@season_id).formation_id
+      end
     end
 
     report = session[:roster_chart_report]
@@ -98,12 +107,17 @@ class RosterChartsController < ApplicationController
   def apply_formation
     @is_lineup = params[:is_lineup] == '1'
 
-    season = Season.find(get_season_id(params))
-    season.formation_id = params[:id]
-    season.save!
+    set_formation(params[:id])
 
     redirect_to roster_chart_path(:is_lineup => @is_lineup ? 1 : 0)
   end
+
+    def set_formation(formation_id)
+      season = Season.find(get_season_id(params))
+      season.formation_id = formation_id
+      season.save!
+    end
+    private :set_formation
 
   def pick_injury
     season_id = get_season_id(params)
