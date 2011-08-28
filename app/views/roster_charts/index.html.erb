@@ -100,10 +100,6 @@
     <%= nbsp(2) %>
     <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
   </div>
-  <div id="roster_chart_report">
-    <%= flash[:report] %>
-  </div>
-
   <p>
     <%= form_tag roster_chart_path do -%>
       <%= select_tag :attribute, options_for_select(options_for_attrs_and_props(@attrs), @attr.to_s) %>
@@ -111,6 +107,10 @@
       <%= submit_tag 'select' %>
     <% end -%>
   </p>
+</div>
+
+<div id="roster_chart_report">
+  <%= flash[:report] %>
 </div>
 
 <% if @is_lineup -%>
