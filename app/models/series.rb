@@ -14,7 +14,7 @@ class Series < ActiveRecord::Base
     return find_by_abbr(ABBR_FOR_FRIENDLY)
   end
 
-  LEAGUE_ABBRS = ["Premier", "W. Cup Qlf.", "World Cup"]
+  LEAGUE_ABBRS = ["Premier", "Championship", "W. Cup Qlf.", "World Cup"]
 
   def league?
     return LEAGUE_ABBRS.include?(abbr)
