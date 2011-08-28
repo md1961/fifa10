@@ -131,7 +131,10 @@ class RosterChartsController < ApplicationController
       if max_disabled > 0
         player_ids.each do |id|
           player = Player.find(id)
-          if player.to_be_disabled?(season_id)
+          if player.hot?(season_id)
+            max_disabled -= 1
+            break if max_disabled <= 0
+          elsif player.to_be_disabled?(season_id)
             players_disabled << player
             break if players_disabled.size >= max_disabled
           end
@@ -201,7 +204,7 @@ class RosterChartsController < ApplicationController
       players = players_of_team(includes_loan=false)
       season_id = get_season_id
       players.reject! { |player|
-        injury_list.include?(player.id) || player.inactive?(season_id) || player.hot?(season_id)
+        injury_list.include?(player.id) || player.inactive?(season_id)
       }
       return players
     end
