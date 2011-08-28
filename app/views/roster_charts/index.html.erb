@@ -24,6 +24,9 @@
   <% end -%>
   <%= nbsp(2) %>
   <%= link_to 'Injure Player', pick_injury_roster_charts_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0) %>
+  <%= nbsp(1) %>
+  <%= link_to 'Injure One'   , pick_injury_roster_charts_path(:caller => 'roster_chart', :is_lineup => @is_lineup ? 1 : 0,
+                                                              :force_one => 1) %>
   <% unless @injury_list.empty? && @off_list.empty? -%>
     <font size="-1">
       <%= nbsp %>

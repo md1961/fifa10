@@ -127,16 +127,22 @@ class RosterChartsController < ApplicationController
     if Constant.get(:uses_disable_only_mode)
       players = players_for_injury
       player_ids = players.map(&:id).sort_by { rand }
-      max_disabled = rand(Constant.get(:max_disabled_on_disable_only_mode) + 1)
-      if max_disabled > 0
-        player_ids.each do |id|
-          player = Player.find(id)
-          if player.hot?(season_id)
-            max_disabled -= 1
-            break if max_disabled <= 0
-          elsif player.to_be_disabled?(season_id)
-            players_disabled << player
-            break if players_disabled.size >= max_disabled
+
+      if params[:force_one] == '1'
+        players = player_ids.map { |id| Player.find(id) }.reject { |player| player.hot?(season_id) }
+        players_disabled << players.sample
+      else
+        max_disabled = rand(Constant.get(:max_disabled_on_disable_only_mode) + 1)
+        if max_disabled > 0
+          player_ids.each do |id|
+            player = Player.find(id)
+            if player.hot?(season_id)
+              max_disabled -= 1
+              break if max_disabled <= 0
+            elsif player.to_be_disabled?(season_id)
+              players_disabled << player
+              break if players_disabled.size >= max_disabled
+            end
           end
         end
       end
