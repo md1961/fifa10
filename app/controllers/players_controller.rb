@@ -6,6 +6,7 @@ class PlayersController < ApplicationController
     @attr = params[:attribute]
 
     row_filter = get_row_filter(nil, for_lineup=@is_lineup)
+    row_filter.set_all_players if @is_lineup && params[:all_players] == '1'
     @players = row_filter.displaying_players
 
     redirect_to choose_filter_players_path if @players.empty? && ! players_of_team.empty?

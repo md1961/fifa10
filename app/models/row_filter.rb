@@ -105,6 +105,15 @@ class RowFilter
     instance_variable_set("@#{RowFilter.pos2name(position_name)}", bool_value ? YES : NO)
   end
 
+  #FIXME: Create and use set_all_or_no_players
+  def set_all_players
+    PLAYER_IDS.each do |id|
+      instance_variable_set("@#{id}", YES)
+    end
+
+    @option = USE_PLAYER_NAMES
+  end
+
   def set_no_players
     PLAYER_IDS.each do |id|
       instance_variable_set("@#{id}", NO)
