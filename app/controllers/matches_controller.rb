@@ -111,7 +111,7 @@ class MatchesController < ApplicationController
     @match.date_match = params[:date]
     premier = Series.premier
     season = Season.find(@season_id)
-    @match.series = premier if season.series.include?(premier)
+    @match.series = season.series.detect { |series| series.league? }
     @match.opponent_type = season.team_type
 
     @back_to = params[:back_to] && eval(params[:back_to])
