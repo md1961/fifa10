@@ -25,9 +25,9 @@ class Match < ActiveRecord::Base
     return by_season(season_id).order(order)
   end
 
-  def self.last_played(season_id)
+  def self.last_played(season_id, is_league=false)
     matches = by_season(season_id).order('date_match DESC')
-    return matches.find { |match| match.played? }
+    return matches.find { |match| match.played? && (! is_league || match.league?) }
   end
 
   def self.nexts(season_id, num_matches=nil)
@@ -68,6 +68,10 @@ class Match < ActiveRecord::Base
 
   def played?
     return scores_own.kind_of?(Fixnum) && scores_opp.kind_of?(Fixnum)
+  end
+
+  def league?
+    return series.league?
   end
 
   def friendly?

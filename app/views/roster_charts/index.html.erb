@@ -54,6 +54,10 @@
    series = next_match && next_match.series -%>
 
 <div id="match_info">
+  <div class="league record">
+    League Record: <%= record_display(@league_match_last_played) %>
+  </div>
+
   <div class="recent_form">
     Recent Form: <%= Match.recent_form(10, @season_id) %>
   </div>
