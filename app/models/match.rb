@@ -48,6 +48,7 @@ class Match < ActiveRecord::Base
     matches = by_season(season_id).order('date_match DESC')
     matches = matches.by_series(series_id) if series_id
     matches.reject! { |match| ! match.played? }
+
     return matches.reverse.last(num_matches).map(&:one_char_result).join(' ')
   end
 
@@ -59,6 +60,7 @@ class Match < ActiveRecord::Base
     matches.sort_by! { |match| match.date_match }
     matches.reverse!
     matches.select! { |match| match.played? }
+
     return matches.first(num_matches)
   end
 
@@ -94,6 +96,7 @@ class Match < ActiveRecord::Base
     matches = Match.by_season(season_id).by_series(series_id).by_opponent(opponent_id)
     re_leg1 = /#{subname.sub(RE_LEG2) { $1 + '\\s*1' }}/i
     match_leg1 = matches.select { |match| match.subname =~ re_leg1 }.last
+
     return match_leg1
   end
 
@@ -149,6 +152,7 @@ class Match < ActiveRecord::Base
 
   def record
     return {} unless played?
+
     matches_so_far = Match.find_all_by_season_id_and_series_id(season_id, series_id,
                              :conditions => ["date_match <= ?", date_match], :order => 'date_match')
     if /Stage \d+/ =~ self.subname
@@ -161,6 +165,7 @@ class Match < ActiveRecord::Base
       h_record
     end
     h_record[POINT] = h_record[WIN] * POINT_FOR_WIN + h_record[DRAW] * POINT_FOR_DRAW
+
     return h_record
   end
 
@@ -180,6 +185,27 @@ class Match < ActiveRecord::Base
 
   private
 
+    RE_PARENTHESIS_NOT_CLOSED = /\([^)]*$/
+    RE_PARENTHESIS_NOT_OPENED = /^[^(]*\)/
+    RE_SCORER = /^\s*([A-Z][A-Za-z. ]+)\s+\d/
+
+    def scorers_own_should_be_in_rosters
+      scorers_with_time = Array.new
+      _scorers = scorers_own.split(',')
+      _scorers.each_with_index do |scorer, index|
+        scorer_prev = _scorers[index - 1]
+        if scorer_prev && scorer_prev =~ RE_PARENTHESIS_NOT_CLOSED && scorer =~ RE_PARENTHESIS_NOT_OPENED
+          scorers_with_time[scorers_with_time.size - 1] += ',' + scorer
+        else
+          scorers_with_time << scorer
+        end
+      end
+
+      scorers = scorers_with_time.map { |scorer| scorer =~ RE_SCORER && $1 }
+      player_names = Player.list(season, includes_on_loan=false).map(&:name)
+      return scorers.all? { |scorer| player_names.include?(scorer) }
+    end
+
     def result
       return NOT_PLAYED unless played?
       diff = scores_own - scores_opp
@@ -189,6 +215,7 @@ class Match < ActiveRecord::Base
       elsif diff < 0
         return LOSE
       end
+
       return pks_own ? UNKNOWN_RESULT : DRAW
     end
 end
