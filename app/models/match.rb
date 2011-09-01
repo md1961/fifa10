@@ -16,6 +16,7 @@ class Match < ActiveRecord::Base
   validates_numericality_of :scores_opp, :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validates_numericality_of :pks_own   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validates_numericality_of :pks_opp   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
+  validate :scorers_own_should_be_in_rosters
 
   scope :by_season  , lambda { |season_id|   where(:season_id   => season_id  ) }
   scope :by_opponent, lambda { |opponent_id| where(:opponent_id => opponent_id) }
@@ -169,6 +170,31 @@ class Match < ActiveRecord::Base
     return h_record
   end
 
+  RE_PARENTHESIS_NOT_CLOSED = /\([^)]*$/
+  RE_PARENTHESIS_NOT_OPENED = /^[^(]*\)/
+  RE_SCORER = /^\s*([A-Z][A-Za-z. ]+)\s+(\d.*)\s*$/
+
+  # Return a Hash with keys of player names and values of scoring times
+  def interpret_scorers_own
+    scorers_with_time = Array.new
+    _scorers = scorers_own.split(',')
+    _scorers.each_with_index do |scorer, index|
+      scorer_prev = _scorers[index - 1]
+      if scorer_prev && scorer_prev =~ RE_PARENTHESIS_NOT_CLOSED && scorer =~ RE_PARENTHESIS_NOT_OPENED
+        scorers_with_time[scorers_with_time.size - 1] += ',' + scorer
+      else
+        scorers_with_time << scorer
+      end
+    end
+
+    hash_scorers = Hash.new
+    scorers_with_time.each do |scorer|
+      hash_scorers[$1] = $2 if scorer =~ RE_SCORER
+    end
+
+    return hash_scorers
+  end
+
   def to_s
     series_full  = series && series.abbr
     series_full += " #{subname}" unless subname.blank?
@@ -185,27 +211,6 @@ class Match < ActiveRecord::Base
 
   private
 
-    RE_PARENTHESIS_NOT_CLOSED = /\([^)]*$/
-    RE_PARENTHESIS_NOT_OPENED = /^[^(]*\)/
-    RE_SCORER = /^\s*([A-Z][A-Za-z. ]+)\s+\d/
-
-    def scorers_own_should_be_in_rosters
-      scorers_with_time = Array.new
-      _scorers = scorers_own.split(',')
-      _scorers.each_with_index do |scorer, index|
-        scorer_prev = _scorers[index - 1]
-        if scorer_prev && scorer_prev =~ RE_PARENTHESIS_NOT_CLOSED && scorer =~ RE_PARENTHESIS_NOT_OPENED
-          scorers_with_time[scorers_with_time.size - 1] += ',' + scorer
-        else
-          scorers_with_time << scorer
-        end
-      end
-
-      scorers = scorers_with_time.map { |scorer| scorer =~ RE_SCORER && $1 }
-      player_names = Player.list(season, includes_on_loan=false).map(&:name)
-      return scorers.all? { |scorer| player_names.include?(scorer) }
-    end
-
     def result
       return NOT_PLAYED unless played?
       diff = scores_own - scores_opp
@@ -217,5 +222,11 @@ class Match < ActiveRecord::Base
       end
 
       return pks_own ? UNKNOWN_RESULT : DRAW
+    end
+
+    def scorers_own_should_be_in_rosters
+      player_names = Player.list(season, includes_on_loan=false).map(&:name)
+      scorers_not_in_rosters = interpret_scorers_own.keys.reject { |scorer| player_names.include?(scorer) }
+      errors.add(:scores_own, "#{scorers_not_in_rosters.join(', ')} not in rosters") unless scorers_not_in_rosters.empty?
     end
 end
