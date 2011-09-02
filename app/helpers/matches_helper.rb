@@ -106,7 +106,7 @@ module MatchesHelper
 
     htmls = Array.new
 
-    h_params = {:id => match, :date => date, :back_to => 'calendar_matches_path'}
+    h_params = {:id => match, :date => date, :back_to => "calendar_matches_path(:date_start=>'#{@date_start}')"}
     htmls << link_to(date_display, match ? edit_match_path(h_params) : new_match_path(h_params))
 
     unless match
