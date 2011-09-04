@@ -44,22 +44,16 @@ module RosterChartsHelper
 
     nexts << NO_MATCH_DISPLAY
     retval = <<-END
-      <table>
-        <tr>
-          <td><span style="font-size: large">Next Match:</span></td>
-          <td colspan="2"><span style="font-size: x-large">
-            #{nexts[0]}
-          </span></td>
-        </tr>
+      <span style="font-size: large">Next Match:</span>
+      <span style="font-size: x-large">#{nexts[0]}</span>
+      <table id="table_next_matches">
     END
     1.upto(NUM_NEXT_MATCHES_DISPLAY - 1) do |i|
       retval += <<-END
         <tr>
           <td>#{i == 1 ? "Followed by:" : ""}</td>
           <td>#{rests[i]}</td>
-          <td style="#{nexts[i] ? "" : "font-style: italic; text-decoration: overline"}">
-            #{nexts[i]}
-          </td>
+          #{match_display_after_next(nexts[i])}
         </tr>
       END
     end
@@ -69,6 +63,18 @@ module RosterChartsHelper
 
     return retval.html_safe
   end
+
+    def match_display_after_next(match)
+      return '<td style="font-style: italic; text-decoration: overline">' unless match
+
+      return "
+        <td>#{match.date_match} #{match.date_match.strftime("%a.")}</td>
+        <td>[#{match.series.abbr}]</td>
+        <td>#{match.opponent}</td>
+        <td>(#{match.full_ground})</td>
+        "
+    end
+    private :match_display_after_next
 
   def recent_meetings_display(next_matches, season_id)
     return if next_matches.empty?

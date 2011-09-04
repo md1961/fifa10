@@ -536,6 +536,10 @@ body.development {
   margin-top:   5px;
 }
 
+#table_next_matches td {
+  padding-left: 7px;
+}
+
 #table_numbers {
   background-color: white;
 }
