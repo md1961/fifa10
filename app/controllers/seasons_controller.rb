@@ -42,11 +42,7 @@ class SeasonsController < ApplicationController
     @season = Season.new(params[:season])
     @season.series = series_selected(params)
     last_season = Chronicle.find(@season.chronicle_id).last_season
-    if last_season
-      last_season.player_seasons.each do |player_season|
-        @season.player_seasons.build(player_season.attributes_to_succeed)
-      end
-    end
+    @season.succeed_players(last_season) if last_season
 
     if @season.save
       redirect_to seasons_path(:chronicle_id => @season.chronicle_id)

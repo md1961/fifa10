@@ -45,6 +45,12 @@ class Season < ActiveRecord::Base
     return "#{team.name} #{years}"
   end
 
+  def succeed_players(season_from)
+    season_from.player_seasons.each do |player_season|
+      player_seasons.build(player_season.attributes_to_succeed)
+    end
+  end
+
   def <=>(other)
     return self.year_start <=> other.year_start
   end
