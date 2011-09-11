@@ -45,9 +45,25 @@ class Season < ActiveRecord::Base
     return "#{team.name} #{years}"
   end
 
-  def succeed_players(season_from)
+  def succeed_players(season_from, creates_clones=false)
+    if creates_clones && ! player_seasons.empty?
+      raise "Nothing can be done because self.player_seasons has data"
+    end
+
     season_from.player_seasons.each do |player_season|
-      player_seasons.build(player_season.attributes_to_succeed)
+      unless creates_clones
+        player_seasons.build(player_season.attributes_to_succeed)
+      else
+        player_season_clone = player_season.clone
+        raise "player_season_clone is persisted.  Check the code" if player_season_clone.persisted?
+        player_clone = player_season.player.clone
+        raise "player_clone is persisted.  Check the code" if player_clone.persisted?
+
+        player_season_clone.player = player_clone
+        player_season_clone.season = self
+        player_clone.save!
+        player_seasons << player_season_clone
+      end
     end
   end
 
