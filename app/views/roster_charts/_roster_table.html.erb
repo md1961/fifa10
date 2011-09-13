@@ -40,7 +40,7 @@
       <td>
         <font size="-1"><%= player.get(@attr) %></font>
       </td>
-     <% unless @attr2 == RosterChartsController::NO_ATTRIBUTE_TO_SHOW.to_s -%>
+     <% unless @attr2.to_s == RosterChartsController::NO_ATTRIBUTE_TO_SHOW.to_s -%>
         <td>
           <font size="-2"><%= player.get(@attr2) %></font>
         </td>
