@@ -59,6 +59,7 @@ class Season < ActiveRecord::Base
         player_clone = player_season.player.clone
         raise "player_clone is persisted.  Check the code" if player_clone.persisted?
 
+        player_clone.player_attribute = PlayerAttribute.zeros
         player_season_clone.player = player_clone
         player_season_clone.season = self
         player_clone.save!
