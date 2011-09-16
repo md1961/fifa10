@@ -1,3 +1,5 @@
+<% h_params = {:is_lineup => @is_lineup ? 1 : 0, :attr => @attr, :attr2 => @attr2} -%>
+
 <p>
   <% unless @is_lineup -%>
     <%= link_to 'Fixtures/Results', matches_path %>
@@ -11,7 +13,7 @@
   <%= nbsp(4) %>
   <%= link_to 'Calendar', calendar_matches_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
-  <%= link_to 'Depth Chart', depth_chart_path(:attr => @attr, :attr2 => @attr2, :is_lineup => @is_lineup ? 1 : 0) %>
+  <%= link_to 'Depth Chart', depth_chart_path(h_params) %>
   <%= nbsp(2) %>
   <%= link_to 'Rosters', players_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
