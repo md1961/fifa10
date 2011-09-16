@@ -51,8 +51,8 @@ class RosterChartsController < ApplicationController
     @injury_list = get_injury_list
     @off_list    = get_off_list
 
-    @attr  = params[:attribute ] || DEFAULT_ATTRIBUTE_TO_SHOW
-    @attr2 = params[:attribute2] || NO_ATTRIBUTE_TO_SHOW
+    @attr  = params[:attr ] || DEFAULT_ATTRIBUTE_TO_SHOW
+    @attr2 = params[:attr2] || NO_ATTRIBUTE_TO_SHOW
     @attrs  = (PROPERTY_NAME_CANDIDATES + ColumnFilter::FIELD_ATTRIBUTE_NAMES).sort
     @attrs2 = [NO_ATTRIBUTE_TO_SHOW] + @attrs
 
@@ -72,7 +72,7 @@ class RosterChartsController < ApplicationController
 
     SimpleDB.instance.sync
 
-    h_params = {:is_lineup => is_lineup ? 1 : 0, :attribute => params[:attribute], :attribute2 => params[:attribute2]}
+    h_params = {:is_lineup => is_lineup ? 1 : 0, :attr => params[:attr], :attr2 => params[:attr2]}
     is_action_show = commands && commands.first == ACTION_SHOW
     redirect_to is_action_show ? players_path(h_params) : roster_chart_path(h_params)
   end
@@ -433,7 +433,7 @@ class RosterChartsController < ApplicationController
 
       session[:undo_command_in_roster_chart] = nil
       redirect_to edit_roster_roster_charts_path(:command => command, :is_undoing => 1, :is_lineup => is_lineup ? 1 : 0,
-                                                 :attribute => params[:attribute], :attribute2 => params[:attribute2])
+                                                 :attr => params[:attr], :attr2 => params[:attr2])
       return redirected = true
     end
 

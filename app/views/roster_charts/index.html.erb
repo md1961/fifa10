@@ -11,7 +11,7 @@
   <%= nbsp(4) %>
   <%= link_to 'Calendar', calendar_matches_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
-  <%= link_to 'Depth Chart', depth_chart_path(:attribute => @attr, :attribute2 => @attr2, :is_lineup => @is_lineup ? 1 : 0) %>
+  <%= link_to 'Depth Chart', depth_chart_path(:attr => @attr, :attr2 => @attr2, :is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
   <%= link_to 'Rosters', players_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(2) %>
@@ -109,8 +109,8 @@
   </div>
   <p>
     <%= form_tag roster_chart_path do -%>
-      <%= select_tag :attribute , options_for_select(options_for_attrs_and_props(@attrs ), @attr .to_s) %>
-      <%= select_tag :attribute2, options_for_select(options_for_attrs_and_props(@attrs2), @attr2.to_s) %>
+      <%= select_tag :attr , options_for_select(options_for_attrs_and_props(@attrs ), @attr .to_s) %>
+      <%= select_tag :attr2, options_for_select(options_for_attrs_and_props(@attrs2), @attr2.to_s) %>
       <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
       <%= submit_tag 'select' %>
     <% end -%>
@@ -175,8 +175,8 @@
   <label for="command">Enter a command to exchange players: </label>
   <%= text_field_tag :command %>
   <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
-  <%= hidden_field_tag :attribute , @attr  %>
-  <%= hidden_field_tag :attribute2, @attr2 %>
+  <%= hidden_field_tag :attr , @attr  %>
+  <%= hidden_field_tag :attr2, @attr2 %>
   <%= submit_tag 'Execute' %>
 <% end -%>
 

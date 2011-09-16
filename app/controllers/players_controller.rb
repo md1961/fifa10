@@ -3,7 +3,7 @@ class PlayersController < ApplicationController
   def index
     season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
-    @attr = params[:attribute]
+    @attr = params[:attr]
 
     row_filter = get_row_filter(nil, for_lineup=@is_lineup)
     row_filter.set_all_players if @is_lineup && params[:all_players] == '1'
@@ -344,7 +344,7 @@ class PlayersController < ApplicationController
 
     SimpleDB.instance.sync
 
-    @attr = params[:attribute] || DEFAULT_ATTRIBUTE_IN_DEPTH_CHART
+    @attr = params[:attr] || DEFAULT_ATTRIBUTE_IN_DEPTH_CHART
     @attrs = (PROPERTY_NAMES_IN_DEPTH_CHART + ColumnFilter::FIELD_ATTRIBUTE_NAMES).sort
 
     @depth = Hash.new { |hash, key| hash[key] = Array.new }
