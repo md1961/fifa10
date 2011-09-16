@@ -72,7 +72,7 @@ class RosterChartsController < ApplicationController
 
     SimpleDB.instance.sync
 
-    h_params = {:is_lineup => is_lineup ? 1 : 0, :attribute => params[:attr]}
+    h_params = {:is_lineup => is_lineup ? 1 : 0, :attribute => params[:attribute], :attribute2 => params[:attribute2]}
     is_action_show = commands && commands.first == ACTION_SHOW
     redirect_to is_action_show ? players_path(h_params) : roster_chart_path(h_params)
   end
@@ -432,7 +432,8 @@ class RosterChartsController < ApplicationController
       end
 
       session[:undo_command_in_roster_chart] = nil
-      redirect_to edit_roster_roster_charts_path(:command => command, :is_undoing => 1, :is_lineup => is_lineup ? 1 : 0)
+      redirect_to edit_roster_roster_charts_path(:command => command, :is_undoing => 1, :is_lineup => is_lineup ? 1 : 0,
+                                                 :attribute => params[:attribute], :attribute2 => params[:attribute2])
       return redirected = true
     end
 
