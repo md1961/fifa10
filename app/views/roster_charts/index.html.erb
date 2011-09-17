@@ -41,7 +41,7 @@
   <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(4) %>
   <% unless @is_lineup -%>
-    <%= link_to 'Show Lineup', roster_chart_path(:is_lineup => 1) %>
+    <%= link_to 'Show Lineup', roster_chart_path(h_params) %>
     <%= nbsp(2) %>
   <% else -%>
     <%= link_to 'Revise Lineup', revise_lineup_roster_charts_path %>

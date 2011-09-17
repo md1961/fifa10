@@ -52,7 +52,7 @@ class RosterChartsController < ApplicationController
     @off_list    = get_off_list
 
     @attr  = params[:attr ] || DEFAULT_ATTRIBUTE_TO_SHOW
-    @attr2 = params[:attr2] || NO_ATTRIBUTE_TO_SHOW
+    @attr2 = params[:attr2] || Constant.get(:default_att2_in_roster_chart) || NO_ATTRIBUTE_TO_SHOW
     @attrs  = (PROPERTY_NAME_CANDIDATES + ColumnFilter::FIELD_ATTRIBUTE_NAMES).sort
     @attrs2 = [NO_ATTRIBUTE_TO_SHOW] + @attrs
 
