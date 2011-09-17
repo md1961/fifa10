@@ -66,6 +66,7 @@ module RosterChartsHelper
 
     def match_display_after_next(match)
       return '<td style="font-style: italic; text-decoration: overline">' unless match
+      return "<td colspan='4'>#{match}</td>" unless match.is_a?(Match)
 
       return "
         <td>#{match.date_match} #{match.date_match.strftime("%a.")}</td>
