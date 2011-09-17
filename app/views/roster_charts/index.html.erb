@@ -8,7 +8,7 @@
     <%= nbsp(3) %>
     <%= link_to 'Enter Result', edit_match_path(@next_matches.first, :season_id => @season_id, :scores_only => 1, :is_lineup => 0) %>
     <%= nbsp(2) %>
-    <%= link_to 'Exit Lineup' , roster_chart_path(:is_lineup => 0) %>
+    <%= link_to 'Exit Lineup' , roster_chart_path(h_params.merge(:is_lineup => 0)) %>
   <% end -%>
   <%= nbsp(4) %>
   <%= link_to 'Calendar', calendar_matches_path(:is_lineup => @is_lineup ? 1 : 0) %>
@@ -41,7 +41,7 @@
   <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
   <%= nbsp(4) %>
   <% unless @is_lineup -%>
-    <%= link_to 'Show Lineup', roster_chart_path(h_params) %>
+    <%= link_to 'Show Lineup', roster_chart_path(h_params.merge(:is_lineup => 1)) %>
     <%= nbsp(2) %>
   <% else -%>
     <%= link_to 'Revise Lineup', revise_lineup_roster_charts_path %>
