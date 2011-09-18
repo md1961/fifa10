@@ -352,10 +352,10 @@ class RosterChartsController < ApplicationController
       ACTION_HOT, ACTION_NOTWELL, ACTION_DISABLE, ACTION_UNTIL, ACTION_SHOW, ACTION_UNDO,
     ]
 
-    MAP_NUM_PLAYERS = {
-      ACTION_WITH  => 2,
-      ACTION_TO    => 2,
-      ACTION_UNTIL => 2,
+    MAP_F_NUM_PLAYERS = {
+      ACTION_WITH  => lambda { |num| 2 <= num && num <= 3 },
+      ACTION_TO    => lambda { |num| num == 2 },
+      ACTION_UNTIL => lambda { |num| num == 2 },
     }
 
     def update_roster(commands, players, is_lineup, is_undoing)
@@ -373,9 +373,11 @@ class RosterChartsController < ApplicationController
       Player.transaction do
         case action
         when ACTION_WITH
-          player1, player2 = players_arg
+          player1, player2, player3 = players_arg
           exchange_player_order(player1, player2, is_lineup)
-          str_undo_command = "#{ACTION_WITH} #{player1.number} #{player2.number}"
+          exchange_player_order(player2, player3, is_lineup) if player3
+          str_undo_command = "#{ACTION_WITH} #{player2.number} #{player1.number}"
+          str_undo_command += " #{player3.number}" if player3
         when ACTION_TO
           player1, player2 = players_arg
           number_to_when_undoing = insert_player_order_before(player1, player2, players, is_lineup)
@@ -438,9 +440,9 @@ class RosterChartsController < ApplicationController
     end
 
     def players_arg_legal?(players_arg, action)
-      legal_num_players = MAP_NUM_PLAYERS[action]
-      return true unless legal_num_players
-      is_legal = players_arg.size == legal_num_players
+      f_legal_num_players = MAP_F_NUM_PLAYERS[action]
+      return true unless f_legal_num_players
+      is_legal = f_legal_num_players.call(players_arg.size)
       unless is_legal
         msg = "Number of players must be #{legal_num_players} (#{players_arg.size} given)"
         explain_error("Illegal number of players", [msg], [])
@@ -594,7 +596,8 @@ class RosterChartsController < ApplicationController
 
       title = "Command \"#{command}\" was illegal"
       terms = command2terms(command)
-      terms.insert(0, ACTION_WITH) if terms.size == 2 && RE_PLAYER =~ terms[0] && RE_PLAYER =~ terms[1]
+      terms.insert(0, ACTION_WITH) if MAP_F_NUM_PLAYERS[ACTION_WITH].call(terms.size) \
+                                      && terms.all? { |term| term =~ RE_PLAYER }
       terms.insert(1, terms.shift) unless RE_ACTION =~ terms.first
 
       action = complete_action(terms.first)
