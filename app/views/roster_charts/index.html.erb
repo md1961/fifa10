@@ -81,9 +81,10 @@
   </div>
 
   <div id="fanfare_players">
-    <% if next_match && next_match.home? -%>
-      <% source, caption = @season.team.manutd? ? ["FanfareForManUtd.mp3"      , "ManUtd Fanfare"        ] \
-                                                : ["FanfareForTheCommonMan.mp3", "Fanfare For Common Man"] -%>
+    <% if next_match && (next_match.home? || (next_match.away? && next_match.opponent.manutd?)) -%>
+      <% shows_manutd_player = @season.team.manutd? || next_match.opponent.manutd?
+         source, caption = shows_manutd_player ? ["FanfareForManUtd.mp3"      , "ManUtd Fanfare"        ] \
+                                               : ["FanfareForTheCommonMan.mp3", "Fanfare For Common Man"] -%>
       <%= render :partial => 'sound_player', :locals => {:caption => caption,
                                                          :id      => "fanfare_player",
                                                          :source  => source,
