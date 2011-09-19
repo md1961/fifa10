@@ -78,10 +78,13 @@ module RosterChartsHelper
     private :match_display_after_next
 
   def recent_meetings_display(next_matches, season_id)
-    return if next_matches.empty?
+    return nil if next_matches.empty?
+
     opponent_id = @next_matches.first.opponent_id
     num_meetings = Constant.get(:num_recent_meetings_to_display)
     matches = Match.recent_meetings(opponent_id, num_meetings, @season_id).first(num_meetings)
+    return nil if matches.empty?
+
     last_scoring = "<font size=-2>F: #{matches.first.scorers_own}, A: #{matches.first.scorers_opp}</font>"
     matches.insert(1, last_scoring)
     html = matches.join("<br />")
