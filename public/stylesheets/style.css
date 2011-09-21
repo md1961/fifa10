@@ -519,7 +519,7 @@ body.development {
 
 .tables_roster_chart .index_number {
   font-size: small;
-  text-align: right;
+  text-align: center;
 }
 
 .tables_roster_chart .hot {

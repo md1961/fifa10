@@ -2,6 +2,8 @@
 <%
   kind = caption.at(0).downcase
   kind = 'r' if kind == '&'
+
+  shows_attr2 = @attr2.to_s != RosterChartsController::NO_ATTRIBUTE_TO_SHOW.to_s
 -%>
 
 <caption><%= caption %></caption>
@@ -24,7 +26,7 @@
       </td>
 
       <% if player.nil_player? -%>
-        <% 4.times do -%>
+        <% (shows_attr2 ? 5 : 4).times do -%>
           <td>&nbsp;</td>
         <% end -%>
         </tr>
@@ -40,7 +42,7 @@
       <td>
         <font size="-1"><%= player.get(@attr) %></font>
       </td>
-     <% unless @attr2.to_s == RosterChartsController::NO_ATTRIBUTE_TO_SHOW.to_s -%>
+     <% if shows_attr2 -%>
         <td>
           <font size="-2"><%= player.get(@attr2) %></font>
         </td>
