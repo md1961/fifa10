@@ -77,7 +77,7 @@ module RosterChartsHelper
     end
     private :match_display_after_next
 
-  RECENT_MEETINGS_CAPTION = "Last Meeting:"
+  RECENT_MEETINGS_CAPTION = "Recent Meetings:"
 
   def recent_meetings_display(next_matches, season_id)
     return nil if next_matches.empty?
@@ -87,11 +87,15 @@ module RosterChartsHelper
     matches = Match.recent_meetings(opponent_id, num_meetings, @season_id).first(num_meetings)
     return nil if matches.empty?
 
-    last_scoring = matches.first.scorers_display
-    matches.insert(1, last_scoring)
-    matches.insert(0, RECENT_MEETINGS_CAPTION)
+    matches_and_scorers = Array.new
+    matches_and_scorers << RECENT_MEETINGS_CAPTION
+    matches.each do |match|
+      matches_and_scorers << match
+      scorers = match.scorers_display 
+      matches_and_scorers << scorers if scorers.present?
+    end
 
-    table_rows = matches.map { |match|
+    table_rows = matches_and_scorers.map { |match|
       clazz = match.is_a?(Match) || match == RECENT_MEETINGS_CAPTION ? '' : 'scoring'
       "<tr class='#{clazz}'><td>#{match}</td></tr>"
     }.join("\n")
