@@ -85,8 +85,9 @@ module RosterChartsHelper
     matches = Match.recent_meetings(opponent_id, num_meetings, @season_id).first(num_meetings)
     return nil if matches.empty?
 
-    last_scoring = "<font size=-2>F: #{matches.first.scorers_own}, A: #{matches.first.scorers_opp}</font>"
+    last_scoring = "<font size=-2>#{matches.first.scorers_display}</font>"
     matches.insert(1, last_scoring)
+
     html = matches.join("<br />")
     return ("Last Meeting:<br />" + html).html_safe
   end

@@ -195,6 +195,18 @@ class Match < ActiveRecord::Base
     return hash_scorers
   end
 
+  def scorers_display
+    strs = Array.new
+    [
+      ["F: ", scorers_own], 
+      ["A: ", scorers_opp], 
+    ].each { |index, scorers|
+      strs << index + scorers if scorers.present? 
+    }
+    
+    return strs.join(', ')
+  end
+
   def to_s
     series_full  = series && series.abbr
     series_full += " #{subname}" unless subname.blank?
