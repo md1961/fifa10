@@ -4,9 +4,9 @@
 <ul id="season_list">
   <% @seasons.each do |season| -%>
     <li class="<%= season.closed? ? 'closed' : '' %>">
-      <%= link_to season.name_and_years, matches_path(:season_id => season) %>
+      <%= link_to season.name_and_years, roster_chart_path(:season_id => season) %>
       <font size="-1">
-        <%= link_to 'Players', roster_chart_path(:season_id => season) %>
+        <%= link_to 'Results & Fixtures', matches_path(:season_id => season) %>
         <%= nbsp %>
         <%= link_to 'Edit', edit_season_path(season, :chronicle_id => @chronicle) %>
         <% if season.matches.empty? -%>
