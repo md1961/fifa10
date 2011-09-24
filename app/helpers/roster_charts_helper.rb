@@ -77,6 +77,8 @@ module RosterChartsHelper
     end
     private :match_display_after_next
 
+  RECENT_MEETINGS_CAPTION = "Last Meeting:"
+
   def recent_meetings_display(next_matches, season_id)
     return nil if next_matches.empty?
 
@@ -85,11 +87,15 @@ module RosterChartsHelper
     matches = Match.recent_meetings(opponent_id, num_meetings, @season_id).first(num_meetings)
     return nil if matches.empty?
 
-    last_scoring = "<font size=-2>#{matches.first.scorers_display}</font>"
+    last_scoring = matches.first.scorers_display
     matches.insert(1, last_scoring)
+    matches.insert(0, RECENT_MEETINGS_CAPTION)
 
-    html = matches.join("<br />")
-    return ("Last Meeting:<br />" + html).html_safe
+    table_rows = matches.map { |match|
+      clazz = match.is_a?(Match) || match == RECENT_MEETINGS_CAPTION ? '' : 'scoring'
+      "<tr class='#{clazz}'><td>#{match}</td></tr>"
+    }.join("\n")
+    return "<table id='recent_meetings'>\n#{table_rows}\n</table>".html_safe
   end
 
   def back_from_disabled_on(player, season_id)

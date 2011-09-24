@@ -463,6 +463,11 @@ body.development {
   float: left;
 }
 
+#recent_meetings .scoring {
+  font-size: x-small;
+  line-height: 8px;
+}
+
 #match_info {
   float: left;
 }
