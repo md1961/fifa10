@@ -3,11 +3,12 @@
 <br />
 <br />
 
-<% @sources.each_with_index do |source, index| -%>
-  <%= link_to image_tag(source, :size => '320x240'),
-              images_formations_path(:index => index, :is_lineup => @is_lineup ? 1 : 0) %>
-<% end -%>
-<br />
+<div id="formation_images">
+  <% @sources.each_with_index do |source, index| -%>
+    <%= link_to image_tag(source, :size => '320x240', :class => index == @index ? 'current' : ''),
+                images_formations_path(:index => index, :is_lineup => @is_lineup ? 1 : 0) %>
+  <% end -%>
+</div>
 
 <%= image_tag(@sources[@index], :size => '960x720') %>
 

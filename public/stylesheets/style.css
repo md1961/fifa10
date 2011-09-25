@@ -571,6 +571,10 @@ body.development {
   font-weight: bold;
 }
 
+#formation_images .current {
+  border: solid 7px cyan;
+}
+
 /* */
 
 .clear {
