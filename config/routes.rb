@@ -26,7 +26,6 @@ Fifa10::Application.routes.draw do
   resources :countries , :requirements => {:id => /\d+/}
   resources :teams     , :requirements => {:id => /\d+/}
   resources :seasons   , :requirements => {:id => /\d+/}
-  resources :formations, :requirements => {:id => /\d+/}
 
   # Sample resource route with options:
   #   resources :products do
@@ -46,7 +45,7 @@ Fifa10::Application.routes.draw do
     end
   end
 
-  resources :matches   , :requirements => {:id => /\d+/} do
+  resources :matches, :requirements => {:id => /\d+/} do
     collection do
       get :calendar
       get :series_filter
@@ -56,7 +55,7 @@ Fifa10::Application.routes.draw do
     end
   end
 
-  resources :players   , :requirements => {:id => /\d+/} do
+  resources :players, :requirements => {:id => /\d+/} do
     collection do
       get :choose_filter
       post :filter_command
@@ -77,6 +76,12 @@ Fifa10::Application.routes.draw do
       get :edit_roster
       get :apply_formation
       get :numbers
+    end
+  end
+
+  resources :formations, :requirements => {:id => /\d+/} do
+    collection do
+      get :images
     end
   end
 

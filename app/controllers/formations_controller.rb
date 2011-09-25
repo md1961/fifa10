@@ -74,5 +74,19 @@ class FormationsController < ApplicationController
 
     redirect_to formations_path
   end
+
+  DIR_FORMATIONS = 'formations'
+  DIR_IMAGES = File.join(Rails.root, 'public', 'images', DIR_FORMATIONS)
+
+  def images
+    @is_lineup = params[:is_lineup] == '1'
+
+    @sources = Dir.entries(DIR_IMAGES).reject { |path| File.directory?(path) } \
+                                      .map    { |path| File.join(DIR_FORMATIONS, path) }
+
+    @index = params[:index] ? params[:index].to_i : 0
+
+    @page_title = "Formation Images"
+  end
 end
 

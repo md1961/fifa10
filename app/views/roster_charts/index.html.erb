@@ -109,6 +109,8 @@
     <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
     <%= nbsp(2) %>
     <%= link_to 'Formation List', formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
+    <%= nbsp(2) %>
+    <%= link_to 'Formation Images', images_formations_path(:is_lineup => @is_lineup ? 1 : 0) %>
   </div>
   <p>
     <%= form_tag roster_chart_path do -%>
