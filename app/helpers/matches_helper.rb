@@ -126,7 +126,12 @@ module MatchesHelper
       while htmls.size < NUM_LINES_OF_EACH_DAY_IN_CALENDAR + 1
         htmls << '&nbsp;'
       end
-      clazz = match.win? ? 'win' : match.lose? ? 'lose' : match.draw? ? 'draw' : ''
+      is_next_match = @next_match && match == @next_match
+      clazz = is_next_match ? 'next' \
+              : match.win?  ? 'win'  \
+              : match.lose? ? 'lose' \
+              : match.draw? ? 'draw' \
+                            : ''
     end
 
     return content_tag(:td, htmls.join('<br />').html_safe, :class => "match #{clazz}")

@@ -236,6 +236,11 @@ body.development {
   font-size: x-small;
 }
 
+.table_calendar .next {
+  color: white;
+  background-color: grey;
+}
+
 .table_calendar .win {
   background-color: lightblue;
 }
