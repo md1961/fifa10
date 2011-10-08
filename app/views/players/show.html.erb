@@ -2,7 +2,7 @@
 <p>
   <%= link_to "<< #{@prev_player.name}", @prev_player if @prev_player %>
   <%= nbsp(4) %>
-  <% label, back_path = @is_from_roster_chart ? ["Roster Chart", roster_chart_path] \
+  <% label, back_path = @is_from_roster_chart ? ["Roster Chart", roster_chart_path(:is_lineup => @is_lineup ? 1 : 0)] \
                                               : ["Rosters"     , players_path     ] -%>
   <%= link_to "Back to #{label}", back_path %>
   <%= nbsp(4) %>

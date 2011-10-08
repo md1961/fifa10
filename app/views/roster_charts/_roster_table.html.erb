@@ -22,7 +22,9 @@
 
       <td class="index_number <%= player_index_html_class(player, @season_id) %>">
         <%= link_to_unless player.nil_player?, player.number,
-                             player_path(player, :browses_all_players => 1, :is_from_roster_chart => 1) %>
+                              player_path(player, :is_lineup => @is_lineup ? 1 : 0,
+                                                  :browses_all_players => 1,
+                                                  :is_from_roster_chart => 1) %>
       </td>
 
       <% if player.nil_player? -%>

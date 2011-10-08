@@ -94,8 +94,9 @@ class MatchesController < ApplicationController
     date_from_params = params[:date_start] && Date.parse(params[:date_start])
     next_match = Match.nexts(@season_id, 1)
     date_from_next_match = next_match && next_match.date_match.beginning_of_month
+    season = Season.find(@season_id)
     @date_start = date_from_params || date_from_next_match \
-                                   || Date.new(Season.find(@season_id).year_start, DEFAULT_MONTH_START_FOR_CALENDAR, 1)
+                                   || Date.new(season.year_start, DEFAULT_MONTH_START_FOR_CALENDAR, 1)
 
     @leftmost_weekday  = 0
 

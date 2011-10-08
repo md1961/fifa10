@@ -46,6 +46,8 @@ class PlayersController < ApplicationController
      :gk_dive, :gk_handling, :gk_kick, :gk_positioning, :gk_reaction]
 
   def show
+    @is_lineup = params[:is_lineup] == '1'
+
     row_filter = get_row_filter
     players = row_filter.displaying_players
     players = players_of_team if params[:browses_all_players]
