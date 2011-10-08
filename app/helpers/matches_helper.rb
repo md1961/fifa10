@@ -98,6 +98,8 @@ module MatchesHelper
     end
   end
 
+  NUM_LINES_OF_EACH_DAY_IN_CALENDAR = 5
+
   def match_td_in_calendar(date, shows_month=false)
     date_display = date.day.to_s
     date_display = "#{date.month}/" + date_display if shows_month
@@ -110,7 +112,7 @@ module MatchesHelper
     htmls << link_to(date_display, match ? edit_match_path(h_params) : new_match_path(h_params))
 
     unless match
-      htmls.concat(['&nbsp;'] * 4)
+      htmls.concat(['&nbsp;'] * NUM_LINES_OF_EACH_DAY_IN_CALENDAR)
       clazz = ''
     else
       result = match.result_and_score
@@ -119,6 +121,9 @@ module MatchesHelper
       htmls << "<b>#{match.opponent.abbr_name}</b>"
       htmls << match.full_ground
       htmls << result
+      while htmls.size < NUM_LINES_OF_EACH_DAY_IN_CALENDAR + 1
+        htmls << '&nbsp;'
+      end
       clazz = match.win? ? 'win' : match.lose? ? 'lose' : match.draw? ? 'draw' : ''
     end
 
