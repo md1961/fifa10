@@ -400,7 +400,7 @@ class RosterChartsController < ApplicationController
           not_well_player(players_arg)
           str_undo_command = "#{ACTION_NOTWELL} #{str_player_numbers}"
         when ACTION_DISABLE
-          disable_players(players_arg, toggles=true, no_date_until_change=is_undoing)
+          disable_players(players_arg, toggles=false, no_date_until_change=is_undoing)
           str_undo_command = "#{ACTION_DISABLE} #{str_player_numbers}"
         when ACTION_UNTIL
           player, days_disabled = players_arg
@@ -534,7 +534,7 @@ class RosterChartsController < ApplicationController
         if is_injured
           injury_list.delete(player.id)
           set_injury_list(injury_list)
-        else
+        elsif player.disabled?(season_id)
           player.disable(season_id, true)
         end
       end
