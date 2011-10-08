@@ -99,6 +99,7 @@ module MatchesHelper
   end
 
   NUM_LINES_OF_EACH_DAY_IN_CALENDAR = 5
+  MARKER_OF_TRANSFER_WINDOW = "<=>"
 
   def match_td_in_calendar(date, shows_month=false)
     date_display = date.day.to_s
@@ -110,6 +111,7 @@ module MatchesHelper
 
     h_params = {:id => match, :date => date, :back_to => "calendar_matches_path(:date_start=>'#{@date_start}')"}
     htmls << link_to(date_display, match ? edit_match_path(h_params) : new_match_path(h_params))
+    htmls[-1] += ' ' + MARKER_OF_TRANSFER_WINDOW if Match.in_transfer_window?(date)
 
     unless match
       htmls.concat(['&nbsp;'] * NUM_LINES_OF_EACH_DAY_IN_CALENDAR)

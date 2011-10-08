@@ -69,6 +69,10 @@ class Match < ActiveRecord::Base
     return GROUND_ABBRS
   end
 
+  def self.in_transfer_window?(date)
+    return Constant.get(:months_of_transfer_windows).include?(date.month)
+  end
+
   def played?
     return scores_own.kind_of?(Fixnum) && scores_opp.kind_of?(Fixnum)
   end

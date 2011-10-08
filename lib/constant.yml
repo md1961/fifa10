@@ -4,6 +4,10 @@ num_starters : 11
 num_in_bench : 7
 num_in_bench_in_world_cup : 12
 default_current_year : 2010
+months_of_transfer_windows :
+  - 7
+  - 8
+  - 1
 
 uses_disable_only_mode : true
 max_disabled_on_disable_only_mode : 2
