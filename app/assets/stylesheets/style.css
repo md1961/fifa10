@@ -580,6 +580,10 @@ body.development {
   border: solid 7px cyan;
 }
 
+#jquery_test {
+  margin-top: 20px;
+}
+
 /* */
 
 .clear {

@@ -47,14 +47,14 @@
     <%= yield %>
 
     <%# ログイン画面であれば jQuery が動作するか確認する %>
-    <% unless false -%>
+    <% unless session[:user_id] -%>
       <div id="jquery_test">
         Powered by <%= image_tag("rails.png") %>
         and <%= image_tag("jquery_logo_215x53.gif", :style => 'background-color: black') %>
       </div>
       <script type="text/javascript">
         $('#jquery_test').append($().jquery); // jQuery のバージョン
-        $('#jquery_test').fadeOut(5000);
+        $('#jquery_test').fadeOut(3000);
       </script>
     <% end -%>
 
