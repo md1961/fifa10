@@ -66,7 +66,10 @@ module MatchesHelper
     param << MatchFilter::ALL_SERIES if param == ['Friendly']
     is_current = abbr == current_abbr
     label = is_current ? bold(abbr) : abbr
-    return link_to_unless is_current, label, series_filter_matches_path(:series_abbrs => param)
+    path  = series_filter_matches_path(:series_abbrs => param)
+    short_cut = label.first.upcase
+    short_cut = nil if abbr == 'Friendly'
+    return link_to_unless is_current, label, path, :short_cut => short_cut
   end
 
   def make_dates_for_calendar(date_start, num_months)

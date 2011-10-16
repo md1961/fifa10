@@ -1,5 +1,5 @@
 $(document).ready(
-    function(){
+    function() {
         $(window).keydown(
             function(e) {
                 var $marker = $('#top_of_tables_roster_chart');
