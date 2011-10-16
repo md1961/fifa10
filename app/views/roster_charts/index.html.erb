@@ -115,8 +115,10 @@
   </div>
   <p>
     <%= form_tag roster_chart_path do -%>
-      <%= select_tag :attr , options_for_select(options_for_attrs_and_props(@attrs ), @attr .to_s) %>
-      <%= select_tag :attr2, options_for_select(options_for_attrs_and_props(@attrs2), @attr2.to_s) %>
+      <% options_attr  = options_for_select(options_for_attrs_and_props(@attrs ), @attr .to_s)
+         options_attr2 = options_for_select(options_for_attrs_and_props(@attrs2), @attr2.to_s) -%>
+      <%= select_tag :attr , options_attr , :id => 'select_attr'  %>
+      <%= select_tag :attr2, options_attr2, :id => 'select_attr2' %>
       <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
       <%= submit_tag 'select' %>
     <% end -%>

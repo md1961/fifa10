@@ -3,7 +3,10 @@ $(document).ready(
         $(window).keydown(
             function(e) {
                 var keyCode = e.which;
-                if ((48 <= keyCode && keyCode <= 48 + 9) || (65 <= keyCode && keyCode <= 65 + 25)) {
+                if (keyCode == 65) {  // 'a'
+                    $('#select_attr2').focus();
+                    return false;
+                } else if ((48 <= keyCode && keyCode <= 48 + 9) || (65 <= keyCode && keyCode <= 65 + 25)) {
                     $('#edit_command').focus();
                 }
             }
