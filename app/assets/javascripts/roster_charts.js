@@ -2,7 +2,7 @@ $(document).ready(
     function(){
         $(window).keydown(
             function(e) {
-                if ($('#edit_command').length == 0) {
+                if ($('#top_of_tables_roster_chart').length == 0) {
                     return;
                 }
 
