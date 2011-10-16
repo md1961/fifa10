@@ -2,6 +2,7 @@
 db/*.sqlite3
 log/
 tmp/**/*
+public/assets
 *~
 note.txt
 lib/simple_db.yml
