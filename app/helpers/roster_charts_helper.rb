@@ -162,6 +162,14 @@ module RosterChartsHelper
     ["z"             , "Undo last command"],
   ]
 
+  def short_cut_for_select_attr2
+    return 'A'
+  end
+
+  def short_cuts_for_edit_command
+    return (('0'..'9').to_a + COMMAND_SAMPLES.map(&:first).map(&:first)).sort.uniq.join('').upcase
+  end
+
   def command_samples
     samples = COMMAND_SAMPLES
     num_left = (samples.size / 2.0).ceil

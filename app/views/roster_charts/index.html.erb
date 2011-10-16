@@ -104,7 +104,10 @@
 <div class="clear" />
 
 <div style="float: left">
-  <div id="top_of_tables_roster_chart">
+  <div id="top_of_tables_roster_chart"
+       short_cut_for_select_attr2="<%= short_cut_for_select_attr2 %>"
+       short_cuts_for_edit_command="<%= short_cuts_for_edit_command %>"
+       >
     <%= number_of_players_display %>
     <br />
     <%= "Formation: #{(formation = @season.formation) ? formation.name : "(none)"}" %>
