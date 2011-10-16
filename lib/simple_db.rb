@@ -4,7 +4,7 @@ require 'singleton'
 class SimpleDB
   include Singleton
 
-  YML_FILENAME = "#{RAILS_ROOT}/lib/simple_db.yml"
+  YML_FILENAME = "#{Rails.root}/lib/simple_db.yml"
 
   def initialize
     @db = YAML::Store.new(YML_FILENAME)

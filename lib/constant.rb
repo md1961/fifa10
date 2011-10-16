@@ -1,6 +1,6 @@
 
 class Constant
-  YML_FILENAME = "#{RAILS_ROOT}/lib/constant.yml"
+  YML_FILENAME = "#{Rails.root}/lib/constant.yml"
 
   def self.get(key)
     y = yaml
