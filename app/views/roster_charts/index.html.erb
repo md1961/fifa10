@@ -179,7 +179,7 @@
 
 <%= form_tag edit_roster_roster_charts_path, :method => :get do -%>
   <label for="command">Enter a command to exchange players: </label>
-  <%= text_field_tag :command %>
+  <%= text_field_tag :command, nil, :id => 'edit_command' %>
   <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
   <%= hidden_field_tag :attr , @attr  %>
   <%= hidden_field_tag :attr2, @attr2 %>
