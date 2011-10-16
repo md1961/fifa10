@@ -2,6 +2,10 @@ $(document).ready(
     function(){
         $(window).keydown(
             function(e) {
+                if ($('#edit_command').length == 0) {
+                    return;
+                }
+
                 var keyCode = e.which;
                 if (keyCode == 65) {  // 'a'
                     $('#select_attr2').focus();
