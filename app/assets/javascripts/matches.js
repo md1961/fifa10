@@ -8,6 +8,7 @@ $(document).ready(
                 }
 
                 var key = String.fromCharCode(e.which);
+                if (e.keyCode == 191) { key = '/'; }
                 if ((key < 'A' || 'Z' < key) && key != '/') {
                     return;
                 }
