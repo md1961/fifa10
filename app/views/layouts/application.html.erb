@@ -2,14 +2,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
+  <% controller_name = controller.controller_name -%>
+
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <title><%= @page_title %></title>
 
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tags %>
-
+    <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag @team_abbr if @team_abbr %>
     <% if @css_add
          @css_add.each do |css| -%>
@@ -17,10 +16,12 @@
       <% end
          @css_add.clear -%>
     <% end -%>
-  </head>
 
-  <% controller_name = controller.controller_name
-     is_admin = controller_name == 'admin' -%>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag controller_name %>
+
+    <%= csrf_meta_tags %>
+  </head>
 
   <body class="<%= Rails.env %> <%= @is_lineup ? 'lineup' : '' %>">
     <% if defined?(@error_message) && @error_message -%>
@@ -58,11 +59,9 @@
       </script>
     <% end -%>
 
-    <% unless is_admin -%>
-      <p class="copyright">
-        <%= Constant.get(:copyright) % Date.today.year %>
-      </p>
-    <% end -%>
+    <p class="copyright">
+      <%= Constant.get(:copyright) % Date.today.year %>
+    </p>
   </body>
 
 </html>
