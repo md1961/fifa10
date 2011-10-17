@@ -68,9 +68,11 @@ module RosterChartsHelper
       return '<td style="font-style: italic; text-decoration: overline">' unless match
       return "<td colspan='4'>#{match}</td>" unless match.is_a?(Match)
 
+      match_number = ""
+      match_number = " ##{match.match_number}" if match.league?
       return "
         <td>#{match.date_match} #{match.date_match.strftime("%a.")}</td>
-        <td>[#{match.series.abbr}]</td>
+        <td>[#{match.series.abbr}#{match_number}]</td>
         <td>#{match.opponent}</td>
         <td>(#{match.full_ground})</td>
         "

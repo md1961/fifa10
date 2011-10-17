@@ -18,9 +18,10 @@ class Match < ActiveRecord::Base
   validates_numericality_of :pks_opp   , :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true
   validate :scorers_own_should_be_in_rosters
 
-  scope :by_season  , lambda { |season_id|   where(:season_id   => season_id  ) }
-  scope :by_opponent, lambda { |opponent_id| where(:opponent_id => opponent_id) }
-  scope :by_series  , lambda { |series_id|   where(:series_id   => series_id  ) }
+  scope :by_season  , lambda { |season_id|   where(:season_id   => season_id   ) }
+  scope :by_opponent, lambda { |opponent_id| where(:opponent_id => opponent_id ) }
+  scope :by_series  , lambda { |series_id|   where(:series_id   => series_id   ) }
+  scope :before     , lambda { |date_match|  where("date_match < ?", date_match) }
 
   def self.list(season_id, order='date_match')
     return by_season(season_id).order(order)
@@ -108,6 +109,10 @@ class Match < ActiveRecord::Base
   def aggregate_score
     return "" unless leg2?
     return "#{leg1.scores_own + scores_own}-#{leg1.scores_opp + scores_opp}"
+  end
+
+  def match_number
+    return Match.by_season(season_id).by_series(series_id).before(date_match).count + 1
   end
 
   WIN   = :win
@@ -214,6 +219,7 @@ class Match < ActiveRecord::Base
   def to_s
     series_full  = series && series.abbr
     series_full += " #{subname}" unless subname.blank?
+    series_full += " ##{match_number}" if league?
     day_of_week = date_match && date_match.strftime("%a.")
     opponent_name = opponent && opponent.name
     s  = "#{date_match} #{day_of_week} [#{series_full}] #{opponent_name} (#{full_ground}) #{result_and_score}"
