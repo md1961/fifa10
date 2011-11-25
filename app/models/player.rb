@@ -24,6 +24,8 @@ class Player < ActiveRecord::Base
     :overall => 99,
   }
 
+  before_validation :convert_height_and_weight_to_metric
+
   #TODO: :uniqueness below won't work for season(s)
   # Should create a Player for each season
   validates :name, :presence => true #, :uniqueness => {:scope => :season}
@@ -375,7 +377,7 @@ class Player < ActiveRecord::Base
 
     MINIMUM_FEET_INCH_TO_CONVERT = 500
 
-    def before_validation
+    def convert_height_and_weight_to_metric
       if height && height > MINIMUM_FEET_INCH_TO_CONVERT
         feet = (height / 100).to_i
         inch = height - feet * 100
