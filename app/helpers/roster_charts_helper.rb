@@ -233,6 +233,8 @@ module RosterChartsHelper
     end
 
     def complete_controller_option(option)
+      return option if option =~ /\A\d+\z/
+
       candidates = CONTROLLER_OPTIONS_FULL.select { |full| full.starts_with?(option) }
       return case candidates.size
         when 0; "?"

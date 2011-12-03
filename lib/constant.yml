@@ -16,22 +16,33 @@ gk_pct_dec_to_be_disabled : 3
 
 controller_options :
 # Quote just On and Off with quotation marks
+- - CPU Pass Error
+  - - '60'  # Home
+    - '55'  # Away
+    - '58'  # Neutral
+- - CPU Marking
+  - - '40'  # Home
+    - '45'  # Away
+    - '42'  # Neutral
+# CPU Sprint Speed = 45
+# CPU Acceleration = 45
+# CPU Pass Speed   = 45
 - - Difficulty Level
-  - - Semi-Pro  # Home
-    - Semi-Pro  # Away
-    - Semi-Pro  # Neutral
+  - - Professional  # Home
+    - Professional  # Away
+    - Professional  # Neutral
 - - Passing Power Assistance
   - - 'On'        #On7,Off3
-    - On8,Off2    #On1,Off9
+    - 'On'        #On8,Off2    #On1,Off9
     - 'On'        #On3,Off7
 - - Pass Assistance
   - - Ass         #Ass8,Semi2
-    - Ass8,Semi2  #Ass1,Semi9
-    - Ass9,Semi1  #Ass5,Semi5
+    - Ass         #Ass8,Semi2  #Ass1,Semi9
+    - Ass         #Ass9,Semi1  #Ass5,Semi5
 - - Through Pass Assistance
   - - Ass         #Ass9,Man1
-    - Ass8,Semi2  #Ass3,Man7
-    - Ass9,Semi1  #Ass5,Man5   #Ass8,Man2
+    - Ass         #Ass8,Semi2  #Ass3,Man7
+    - Ass         #Ass9,Semi1  #Ass5,Man5   #Ass8,Man2
 - - Shot Assistance
   - - Semi
     - Semi
