@@ -22,16 +22,16 @@ controller_options :
     - Semi-Pro  # Neutral
 - - Passing Power Assistance
   - - 'On'        #On7,Off3
-    - On1,Off9
-    - On3,Off7
+    - On8,Off2    #On1,Off9
+    - 'On'        #On3,Off7
 - - Pass Assistance
   - - Ass         #Ass8,Semi2
-    - Ass1,Semi9
-    - Ass5,Semi5
+    - Ass8,Semi2  #Ass1,Semi9
+    - Ass9,Semi1  #Ass5,Semi5
 - - Through Pass Assistance
   - - Ass         #Ass9,Man1
-    - Ass3,Man7
-    - Ass5,Man5   #Ass8,Man2
+    - Ass8,Semi2  #Ass3,Man7
+    - Ass9,Semi1  #Ass5,Man5   #Ass8,Man2
 - - Shot Assistance
   - - Semi
     - Semi
