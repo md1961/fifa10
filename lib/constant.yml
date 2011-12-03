@@ -17,13 +17,17 @@ gk_pct_dec_to_be_disabled : 3
 controller_options :
 # Quote just On and Off with quotation marks
 - - CPU Pass Error
-  - - '60'  # Home
+  - - '65'  # Home
     - '55'  # Away
-    - '58'  # Neutral
-- - CPU Marking
+    - '60'  # Neutral
+- - CPU Pass Speed
   - - '40'  # Home
     - '45'  # Away
     - '42'  # Neutral
+- - CPU Marking
+  - - '35'  # Home
+    - '45'  # Away
+    - '40'  # Neutral
 # CPU Sprint Speed = 45
 # CPU Acceleration = 45
 # CPU Pass Speed   = 45
