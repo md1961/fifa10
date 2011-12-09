@@ -14,9 +14,12 @@ max_disabled_on_disable_only_mode : 2
 base_pct_to_be_disabled : 5
 gk_pct_dec_to_be_disabled : 3
 
+controller_option_customization_adjustment : 3
 controller_options :
-# Quote just On and Off with quotation marks
-- - User Pass Error
+# Quote just On and Off with quotation marks.
+# '-' at the end of the option name makes the value
+# of :controller_option_customization_adjustment negative.
+- - User Pass Error-
   - - '45'  # Home
     - '50'  # Away
     - '50'  # Neutral
@@ -32,11 +35,11 @@ controller_options :
   - - '60'  # Home
     - '55'  # Away
     - '60'  # Neutral
-- - CPU Pass Speed
+- - CPU Pass Speed-
   - - '40'  # Home
     - '45'  # Away
     - '40'  # Neutral
-- - CPU Marking
+- - CPU Marking-
   - - '40'  # Home
     - '45'  # Away
     - '40'  # Neutral
