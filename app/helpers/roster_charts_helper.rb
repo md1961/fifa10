@@ -124,12 +124,16 @@ module RosterChartsHelper
       h_options = Hash[*[:H, :A, :N].zip(options).flatten]
       is_options_same = options.uniq.size == 1
       next if is_options_same && skips_items_with_options_same
+
       adjusts_positive = true
       if item =~ /-$/
         adjusts_positive = false
         item = item[0 ... item.size - 1]
       end
-      option = determine_controller_option(h_options, item, match, adjusts_positive)
+      adjustment = Constant.get(:controller_option_customization_adjustment)
+      adjustment = (adjustment || 0) * (adjusts_positive ? 1 : -1)
+
+      option = determine_controller_option(h_options, item, match, adjustment)
       tr_style = is_options_same ? "" : "font-weight: bold;"
       html_rows << <<-END
         <tr style="#{tr_style}">
@@ -194,12 +198,10 @@ module RosterChartsHelper
 
   private
 
-    def determine_controller_option(h_options, item, match, adjusts_positive)
+    def determine_controller_option(h_options, item, match, adjustment)
       option = h_options[match.ground[0].upcase.intern]
       raw_options = option.split(CONTROLLER_OPTION_DELIMITER)
       if raw_options.size < 2
-        adjustment = Constant.get(:controller_option_customization_adjustment)
-        adjustment = (adjustment || 0) * (adjusts_positive ? 1 : -1)
         option = (option.to_i + adjustment).to_s
       else
         option = load_controller_option(match.id, item)
