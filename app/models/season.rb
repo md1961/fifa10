@@ -8,11 +8,17 @@ class Season < ActiveRecord::Base
   has_many :matches
   belongs_to :formation
 
+  after_initialize :init
+
   validates_presence_of     :year_start
   validates_numericality_of :year_start, :only_integer => true, :greater_than_or_equal_to => 1990
   validates_uniqueness_of   :year_start, :scope => [:chronicle_id, :team_id]
 
   MONTH_START = 7
+
+  def init
+    self.controller_customization_adjust ||= Constant.get(:default_controller_option_customization_adjustment)
+  end
 
   def self.list(chronicle_id)
     seasons = find_all_by_chronicle_id(chronicle_id)
