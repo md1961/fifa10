@@ -48,8 +48,18 @@ class ColumnFilter
     return columns
   end
 
+  ATTRIBUTE_DISPLAYING_ORDER = %w(long_shot head_accuracy goalmaking shot_power
+                                  cross curve fk_accuracy pk
+                                  positiveness quickness balance jump physical tactics vision volley
+                                  positioning reaction acceleration speed stamina
+                                  mark sliding tackle
+                                  gk_dive gk_handling gk_kick gk_positioning gk_reaction)
+
   def displaying_attribute_columns
-    return PLAYER_ATTRIBUTE_COLUMNS.select { |column| instance_variable_get("@#{column.name}") == YES }
+    columns = PLAYER_ATTRIBUTE_COLUMNS.select { |column| instance_variable_get("@#{column.name}") == YES }
+    columns_ordered, columns = columns.partition { |column| ATTRIBUTE_DISPLAYING_ORDER.include?(column.name) }
+    columns_ordered.sort_by! { |column| ATTRIBUTE_DISPLAYING_ORDER.index(column.name) }
+    return columns + columns_ordered
   end
 
   RECOMMENDED_COLUMN_NAMES = [
