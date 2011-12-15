@@ -25,7 +25,6 @@ Fifa10::Application.routes.draw do
   #   resources :products
   resources :countries , :requirements => {:id => /\d+/}
   resources :teams     , :requirements => {:id => /\d+/}
-  resources :seasons   , :requirements => {:id => /\d+/}
 
   # Sample resource route with options:
   #   resources :products do
@@ -42,6 +41,12 @@ Fifa10::Application.routes.draw do
     member do
       get :open
       get :close
+    end
+  end
+
+  resources :seasons   , :requirements => {:id => /\d+/} do
+    member do
+      post :adjust_controller_customization
     end
   end
 

@@ -108,4 +108,12 @@ class SeasonsController < ApplicationController
 
     redirect_to seasons_path(:chronicle_id => params[:chronicle_id])
   end
+
+  def adjust_controller_customization
+    season = Season.find(params[:id])
+    season.controller_customization_adjust += params[:increment].to_i
+    season.save!
+
+    redirect_to roster_chart_path
+  end
 end

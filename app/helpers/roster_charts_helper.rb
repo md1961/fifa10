@@ -123,6 +123,12 @@ module RosterChartsHelper
       <tr>
         <td>Adjustment:</td>
         <td>#{sprintf("%+d", adjustment_base)}</td>
+        <td style="padding-left: 10px">
+          #{button_to "+", adjust_controller_customization_season_path(@season, :increment =>  1)}
+        </td>
+        <td>
+          #{button_to "-", adjust_controller_customization_season_path(@season, :increment => -1)}
+        </td>
       </tr>
     END
 
@@ -144,7 +150,7 @@ module RosterChartsHelper
       html_rows << <<-END
         <tr style="#{tr_style}">
           <td>#{item}:</td>
-          <td>#{complete_controller_option(option)}</td>
+          <td colspan="3">#{complete_controller_option(option)}</td>
         </tr>
       END
     end
@@ -156,6 +162,7 @@ module RosterChartsHelper
         #{html_rows.join("\n")}
       </table>
     END
+
     return html.html_safe
   end
 
