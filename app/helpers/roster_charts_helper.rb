@@ -118,6 +118,14 @@ module RosterChartsHelper
     skips_items_with_options_same = Constant.get(:skips_controller_option_items_with_options_same)
     html_rows = Array.new
 
+    adjustment_base = Constant.get(:controller_option_customization_adjustment) || 0
+    html_rows << <<-END
+      <tr>
+        <td>Adjustment:</td>
+        <td>#{sprintf("%+d", adjustment_base)}</td>
+      </tr>
+    END
+
     SimpleDB.instance.async
 
     Constant.get(:controller_options).each do |item, options|
@@ -125,13 +133,11 @@ module RosterChartsHelper
       is_options_same = options.uniq.size == 1
       next if is_options_same && skips_items_with_options_same
 
-      adjusts_positive = true
+      adjustment = adjustment_base
       if item =~ /-$/
-        adjusts_positive = false
+        adjustment *= -1
         item = item[0 ... item.size - 1]
       end
-      adjustment = Constant.get(:controller_option_customization_adjustment)
-      adjustment = (adjustment || 0) * (adjusts_positive ? 1 : -1)
 
       option = determine_controller_option(h_options, item, match, adjustment)
       tr_style = is_options_same ? "" : "font-weight: bold;"
