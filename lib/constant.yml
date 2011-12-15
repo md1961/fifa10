@@ -15,7 +15,6 @@ base_pct_to_be_disabled : 5
 gk_pct_dec_to_be_disabled : 3
 
 default_controller_option_customization_adjustment : 4
-controller_option_customization_adjustment : 4
 controller_options :
 # Quote just On and Off with quotation marks.
 # '-' at the end of the option name makes the value

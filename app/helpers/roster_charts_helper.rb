@@ -118,7 +118,7 @@ module RosterChartsHelper
     skips_items_with_options_same = Constant.get(:skips_controller_option_items_with_options_same)
     html_rows = Array.new
 
-    adjustment_base = Constant.get(:controller_option_customization_adjustment) || 0
+    adjustment_base = @season.controller_customization_adjust
     html_rows << <<-END
       <tr>
         <td>Adjustment:</td>
