@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110503210508) do
+ActiveRecord::Schema.define(:version => 20111215114755) do
 
   create_table "chronicles", :force => true do |t|
     t.string  "name",   :default => "",    :null => false
@@ -18,19 +19,19 @@ ActiveRecord::Schema.define(:version => 20110503210508) do
   end
 
   create_table "formations", :force => true do |t|
-    t.string  "name",          :default => "", :null => false
+    t.string  "name",          :null => false
     t.string  "note"
-    t.integer "position01_id",                 :null => false
-    t.integer "position02_id",                 :null => false
-    t.integer "position03_id",                 :null => false
-    t.integer "position04_id",                 :null => false
-    t.integer "position05_id",                 :null => false
-    t.integer "position06_id",                 :null => false
-    t.integer "position07_id",                 :null => false
-    t.integer "position08_id",                 :null => false
-    t.integer "position09_id",                 :null => false
-    t.integer "position10_id",                 :null => false
-    t.integer "position11_id",                 :null => false
+    t.integer "position01_id", :null => false
+    t.integer "position02_id", :null => false
+    t.integer "position03_id", :null => false
+    t.integer "position04_id", :null => false
+    t.integer "position05_id", :null => false
+    t.integer "position06_id", :null => false
+    t.integer "position07_id", :null => false
+    t.integer "position08_id", :null => false
+    t.integer "position09_id", :null => false
+    t.integer "position10_id", :null => false
+    t.integer "position11_id", :null => false
   end
 
   add_index "formations", ["name"], :name => "index_formations_on_name", :unique => true
@@ -52,8 +53,8 @@ ActiveRecord::Schema.define(:version => 20110503210508) do
   end
 
   create_table "nations", :force => true do |t|
-    t.string  "name",      :default => "", :null => false
-    t.integer "region_id",                 :null => false
+    t.string  "name",      :null => false
+    t.integer "region_id", :null => false
     t.string  "code"
     t.string  "abbr"
   end
@@ -116,18 +117,18 @@ ActiveRecord::Schema.define(:version => 20110503210508) do
   add_index "player_seasons", ["season_id", "order_number"], :name => "index_player_seasons_on_season_id_and_order_number", :unique => true
 
   create_table "players", :force => true do |t|
-    t.string  "name",              :default => "", :null => false
+    t.string  "name",              :null => false
     t.string  "first_name"
-    t.integer "number",                            :null => false
-    t.integer "position_id",                       :null => false
-    t.integer "skill_move",                        :null => false
-    t.boolean "is_right_dominant",                 :null => false
-    t.integer "both_feet_level",                   :null => false
-    t.integer "height",                            :null => false
-    t.integer "weight",                            :null => false
-    t.integer "birth_year",                        :null => false
-    t.integer "nation_id",                         :null => false
-    t.integer "overall",                           :null => false
+    t.integer "number",            :null => false
+    t.integer "position_id",       :null => false
+    t.integer "skill_move",        :null => false
+    t.boolean "is_right_dominant", :null => false
+    t.integer "both_feet_level",   :null => false
+    t.integer "height",            :null => false
+    t.integer "weight",            :null => false
+    t.integer "birth_year",        :null => false
+    t.integer "nation_id",         :null => false
+    t.integer "overall",           :null => false
     t.integer "market_value"
     t.string  "note"
     t.integer "wage"
@@ -135,12 +136,12 @@ ActiveRecord::Schema.define(:version => 20110503210508) do
   end
 
   create_table "positions", :force => true do |t|
-    t.string "name",     :default => "", :null => false
-    t.string "category", :default => "", :null => false
+    t.string "name",     :null => false
+    t.string "category", :null => false
   end
 
   create_table "regions", :force => true do |t|
-    t.string "name", :default => "", :null => false
+    t.string "name", :null => false
   end
 
   create_table "season_series", :force => true do |t|
@@ -154,26 +155,27 @@ ActiveRecord::Schema.define(:version => 20110503210508) do
   create_table "season_with_name", :id => false, :force => true do |t|
     t.integer "id",             :default => 0,  :null => false
     t.string  "chronicle_name", :default => "", :null => false
-    t.string  "team_name",      :default => "", :null => false
+    t.string  "team_name",                      :null => false
     t.integer "year_start",                     :null => false
   end
 
   create_table "seasons", :force => true do |t|
     t.integer "chronicle_id"
     t.integer "team_id"
-    t.boolean "closed",       :default => false
-    t.integer "year_start",                       :null => false
-    t.string  "team_type",    :default => "Team", :null => false
+    t.boolean "closed",                          :default => false
+    t.integer "year_start",                                          :null => false
+    t.string  "team_type",                       :default => "Team", :null => false
     t.integer "formation_id"
+    t.integer "controller_customization_adjust"
   end
 
   create_table "series", :force => true do |t|
-    t.string "name", :default => "", :null => false
+    t.string "name", :null => false
     t.string "abbr"
   end
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :default => "", :null => false
+    t.string   "session_id", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -183,18 +185,18 @@ ActiveRecord::Schema.define(:version => 20110503210508) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "teams", :force => true do |t|
-    t.string  "name",         :default => "", :null => false
+    t.string  "name",         :null => false
     t.string  "abbr"
     t.string  "nickname"
     t.string  "ground"
     t.integer "year_founded"
-    t.integer "nation_id",                    :null => false
+    t.integer "nation_id",    :null => false
   end
 
   add_index "teams", ["nation_id"], :name => "fk_teams_nations"
 
   create_table "users", :force => true do |t|
-    t.string   "name",            :default => "",    :null => false
+    t.string   "name",                               :null => false
     t.string   "hashed_password"
     t.string   "salt"
     t.boolean  "is_writer",       :default => false, :null => false
