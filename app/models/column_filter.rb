@@ -48,10 +48,10 @@ class ColumnFilter
     return columns
   end
 
-  ATTRIBUTE_DISPLAYING_ORDER = %w(long_shot head_accuracy goalmaking shot_power
+  ATTRIBUTE_DISPLAYING_ORDER = %w(long_shot head_accuracy goalmaking shot_power volley
                                   cross curve fk_accuracy pk
-                                  positiveness quickness balance jump physical tactics vision volley
-                                  positioning reaction acceleration speed stamina
+                                  positiveness positioning tactics vision
+                                  balance physical jump reaction quickness acceleration speed stamina
                                   mark sliding tackle
                                   gk_dive gk_handling gk_kick gk_positioning gk_reaction)
 
