@@ -45,7 +45,6 @@ controller_options :
     - '40'  # Neutral
 # CPU Sprint Speed = 45
 # CPU Acceleration = 45
-# CPU Pass Speed   = 45
 - - Difficulty Level
   - - Professional  # Home
     - Professional  # Away
