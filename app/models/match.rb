@@ -223,10 +223,6 @@ class Match < ActiveRecord::Base
     day_of_week = date_match && date_match.strftime("%a.")
     opponent_name = opponent && opponent.name
     s  = "#{date_match} #{day_of_week} [#{series_full}] #{opponent_name} (#{full_ground}) #{result_and_score}"
-    if leg2? && leg1.played?
-      s += played? ? " (Agg: #{aggregate_score})" \
-                   : " (Leg1: #{leg1.result_and_score})"
-    end
 
     return s
   end
