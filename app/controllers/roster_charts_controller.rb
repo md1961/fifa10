@@ -45,6 +45,7 @@ class RosterChartsController < ApplicationController
 
     @league_match_last_played = Match.last_played(@season_id, true)
     @next_matches = Match.nexts(@season_id)
+    @last_match = Match.last_played(@season_id)
 
     @num_starters, @num_in_bench = get_num_starters_and_in_bench
 

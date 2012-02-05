@@ -32,7 +32,7 @@ module RosterChartsHelper
   NUM_NEXT_MATCHES_DISPLAY = Constant.get(:num_next_matches_to_display)
   NO_MATCH_DISPLAY = "(End of Schedule)"
 
-  def next_matches_display(next_matches)
+  def next_matches_display(next_matches, last_match)
     nexts = next_matches.first(NUM_NEXT_MATCHES_DISPLAY)
 
     format_rest = "(%d day rest)"
@@ -43,8 +43,11 @@ module RosterChartsHelper
     nexts.uniq!
 
     nexts << NO_MATCH_DISPLAY
+    rest = last_match && format_rest % (nexts[0].date_match - last_match.date_match - 1)
     retval = <<-END
       <span style="font-size: large">Next Match:</span>
+      &nbsp;&nbsp;#{rest}
+      <br />
       <span style="font-size: x-large">#{nexts[0]}</span>
       <table id="table_next_matches">
     END
