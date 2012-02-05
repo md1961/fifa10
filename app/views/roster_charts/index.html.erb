@@ -128,6 +128,23 @@
   </p>
 </div>
 
+<div class="clear" />
+
+<div id="roster_chart_memo">
+  <% if @edits_memo -%>
+    <%= form_tag edit_roster_roster_charts_path, :method => :get do -%>
+      <%= text_field_tag :memo, roster_chart_memo, :id => 'edit_command' %>
+      <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
+      <%= hidden_field_tag :attr , @attr  %>
+      <%= hidden_field_tag :attr2, @attr2 %>
+      <%= submit_tag 'Save' %>
+    <% end -%>
+  <% else -%>
+    <% path = roster_chart_path(:edits_memo => 1, :is_lineup => @is_lineup ? 1 : 0) -%>
+    <%= (roster_chart_memo + "&nbsp;&nbsp;" + link_to('Edit', path)).html_safe %>
+  <% end -%>
+</div>
+
 <div id="roster_chart_report">
   <%= flash[:report] %>
 </div>

@@ -107,6 +107,10 @@ module RosterChartsHelper
     return "<table id='recent_meetings'>\n#{table_rows}\n</table>".html_safe
   end
 
+  def roster_chart_memo
+    "Sample memo"
+  end
+
   def back_from_disabled_on(player, season_id)
     disabled_until = player.disabled_until(@season_id)
     disabled_until_display = disabled_until && (disabled_until + 1.day).strftime("%m/%d")

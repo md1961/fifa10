@@ -461,6 +461,13 @@ body.development {
   float: left;
 }
 
+#roster_chart_memo {
+  color: black;
+  font-size: large;
+  padding-left: 20px;
+  float: left;
+}
+
 #roster_chart_report {
   color: green;
   font-size: large;
@@ -479,6 +486,7 @@ body.development {
 
 #table_starters {
   float: left;
+  margin-top:     5px;
   margin-left:   10px;
   margin-right:  20px;
   margin-bottom: 20px;
@@ -486,12 +494,14 @@ body.development {
 
 #table_in_bench {
   float: left;
-  margin-right: 20px;
+  margin-top:     5px;
+  margin-right:  20px;
 }
 
 .table_reserves {
   float: left;
-  margin-right: 10px;
+  margin-top:     5px;
+  margin-right:  10px;
 }
 
 .lineup {

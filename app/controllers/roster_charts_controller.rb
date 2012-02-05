@@ -7,6 +7,7 @@ class RosterChartsController < ApplicationController
   def index
     @season_id = get_season_id(params)
     @is_lineup = params[:is_lineup] == '1'
+    @edits_memo = params[:edits_memo] == '1'
 
     if @is_lineup
       session[:been_lineup] = true
