@@ -15,7 +15,7 @@
   <%= link_to 'Top Players', top_attribute_list_path(:is_lineup => @is_lineup ? 1 : 0) %>
 </p>
 
-<%= next_matches_display(@next_matches) %>
+<%= next_matches_display(@next_matches, @last_match) %>
 <br />
 
 <p>

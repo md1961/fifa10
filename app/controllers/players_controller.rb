@@ -360,11 +360,12 @@ class PlayersController < ApplicationController
 
     @positions = POSITION_NAMES_IN_DEPTH_CHART.map { |name| Position.find_by_name(name) }
 
-    @next_matches = Match.nexts(get_season_id)
-
     @season_id   = get_season_id
     @injury_list = get_injury_list
     @off_list    = get_off_list
+
+    @next_matches = Match.nexts(@season_id)
+    @last_match = Match.last_played(@season_id)
 
     @page_title_size = 3
     @page_title = "#{team_name_and_season_years} Depth Chart"
