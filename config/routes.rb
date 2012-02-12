@@ -81,6 +81,7 @@ Fifa10::Application.routes.draw do
       get :edit_roster
       get :apply_formation
       get :numbers
+      get :save_memo
     end
   end
 

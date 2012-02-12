@@ -108,7 +108,8 @@ module RosterChartsHelper
   end
 
   def roster_chart_memo
-    "Sample memo"
+    h_memo = SimpleDB.instance.get(:roster_chart_memo)
+    return h_memo && h_memo[@season_id]
   end
 
   def back_from_disabled_on(player, season_id)
@@ -194,7 +195,7 @@ module RosterChartsHelper
   ]
 
   def short_cut_for_select_attr2
-    return 'A'
+    return '' # To enter memo, instead of 'A'
   end
 
   def short_cuts_for_edit_command

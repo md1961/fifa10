@@ -205,6 +205,17 @@ class RosterChartsController < ApplicationController
     @season_id = get_season_id(params)
   end
 
+  def save_memo
+    season_id = get_season_id(params)
+
+    simple_db = SimpleDB.instance
+    h_memo = simple_db.get(:roster_chart_memo) || Hash.new
+    h_memo[season_id] = params[:memo]
+    simple_db.set(:roster_chart_memo, h_memo)
+
+    redirect_to roster_chart_path(params.select { |key| %w(is_lineup attr attr2).include?(key) })
+  end
+
   private
 
     def get_inactive_player_ids(season_id)
