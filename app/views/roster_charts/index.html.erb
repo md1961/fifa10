@@ -134,14 +134,14 @@
   <% memo = roster_chart_memo -%>
   <% if @edits_memo -%>
     <%= form_tag save_memo_roster_charts_path, :method => :get do -%>
-      <%= text_field_tag :memo, memo, :id => 'edit_command' %>
+      <%= text_field_tag :memo, memo, :id => 'edit_command', :size => 120 %>
       <%= hidden_field_tag :is_lineup, @is_lineup ? 1 : 0 %>
       <%= hidden_field_tag :attr , @attr  %>
       <%= hidden_field_tag :attr2, @attr2 %>
       <%= submit_tag 'Save' %>
     <% end -%>
   <% else -%>
-    <% memo = "<font size='-1'>(No memo)</font>" unless memo
+    <% memo = memo.present? ? "「#{memo}」" : "<font size='-1'>(No memo)</font>"
        path = roster_chart_path(:edits_memo => 1, :is_lineup => @is_lineup ? 1 : 0) -%>
     <%= (memo + "&nbsp;&nbsp;<font size='-2'>" + link_to('Edit', path) + "</font>").html_safe %>
   <% end -%>
