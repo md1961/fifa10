@@ -114,6 +114,6 @@ class SeasonsController < ApplicationController
     season.controller_customization_adjust += params[:increment].to_i
     season.save!
 
-    redirect_to roster_chart_path
+    redirect_to roster_chart_path(:is_lineup => params[:is_lineup])
   end
 end

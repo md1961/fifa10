@@ -127,15 +127,18 @@ module RosterChartsHelper
     html_rows = Array.new
 
     adjustment_base = @season.controller_customization_adjust
+    is_lineup = @is_lineup ? 1 : 0
     html_rows << <<-END
       <tr>
         <td>Adjustment:</td>
         <td>#{sprintf("%+d", adjustment_base)}</td>
         <td style="padding-left: 10px">
-          #{button_to "+", adjust_controller_customization_season_path(@season, :increment =>  1)}
+          #{button_to "+", adjust_controller_customization_season_path(
+                               @season, :increment =>  1, :is_lineup => is_lineup)}
         </td>
         <td>
-          #{button_to "-", adjust_controller_customization_season_path(@season, :increment => -1)}
+          #{button_to "-", adjust_controller_customization_season_path(
+                               @season, :increment => -1, :is_lineup => is_lineup)}
         </td>
       </tr>
     END
