@@ -31,10 +31,10 @@ controller_options :
   - - '55'  # Home
     - '50'  # Away
     - '50'  # Neutral
-- - CPU Spr. Speed & Acc.
-  - - '40'  # Home
-    - '42'  # Away
-    - '41'  # Neutral
+- - CPU Spr. Speed & Acc.-
+  - - '50'  # Home
+    - '52'  # Away
+    - '51'  # Neutral
 - - CPU Pass Error
   - - '60'  # Home
     - '55'  # Away
@@ -105,4 +105,3 @@ skips_controller_option_items_with_options_same : true
 
 # 重要度が低い定数（補助的な表示文字列など）
 copyright : Copyright (c) 2009-%d Naoyuki Kumagai, All rights reserved.
-
