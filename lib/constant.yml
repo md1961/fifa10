@@ -33,8 +33,8 @@ controller_options :
     - '50'  # Neutral
 - - CPU Spr. Speed & Acc.-
   - - '50'  # Home
-    - '52'  # Away
-    - '51'  # Neutral
+    - '51'  # Away
+    - '50'  # Neutral
 - - CPU Pass Error
   - - '60'  # Home
     - '55'  # Away
