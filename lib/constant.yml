@@ -99,7 +99,7 @@ default_is_font_small_for_matches : false
 default_att2_in_roster_chart : :age
 
 max_players_in_roster : 42
-num_next_matches_to_display : 8
+num_next_matches_to_display : 10
 num_recent_meetings_to_display : 5
 skips_controller_option_items_with_options_same : true
 
