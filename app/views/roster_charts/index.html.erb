@@ -143,7 +143,8 @@
   <% else -%>
     <% memo = memo.present? ? "「#{memo}」" : "<font size='-1'>(No memo)</font>"
        path = roster_chart_path(:edits_memo => 1, :is_lineup => @is_lineup ? 1 : 0) -%>
-    <%= (memo + "&nbsp;&nbsp;<font size='-2'>" + link_to('Edit', path) + "</font>").html_safe %>
+    <span><%= raw memo %></span>
+    <%= ("&nbsp;&nbsp;<font size='-2'>" + link_to('Edit', path) + "</font>").html_safe %>
   <% end -%>
 </div>
 

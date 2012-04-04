@@ -462,10 +462,14 @@ body.development {
 }
 
 #roster_chart_memo {
-  color: navy;
-  font-size: large;
   padding-left: 20px;
   float: left;
+}
+
+#roster_chart_memo span {
+  color: lime;
+  background-color: black;
+  font-size: large;
 }
 
 #roster_chart_report {
