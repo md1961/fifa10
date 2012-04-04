@@ -467,8 +467,8 @@ body.development {
 }
 
 #roster_chart_memo span {
-  color: lime;
-  background-color: black;
+  color: crimson;
+  background-color: yellow;
   font-size: large;
 }
 
