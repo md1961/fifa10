@@ -29,7 +29,10 @@
 <% when 'pks_own' -%>
      <td><%= match.pks_own.nil? ? "" : "PK #{match.pks_own}-#{match.pks_opp}" %></td>
 <% else -%>
-     <% align = column_name == 'ground' ? "center" : "left" -%>
-     <td align="<%= align %>"><%= match.read_attribute(column_name) %></td>
+     <% align = column_name == 'ground' ? "center" : "left"
+        value = match.read_attribute(column_name)
+        values = value.split(/<br *\/>/).map { |s| html_escape(s) }
+        value = values.join('<br />').html_safe -%>
+     <td align="<%= align %>"><%= value %></td>
 <% end -%>
 
