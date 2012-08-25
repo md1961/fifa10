@@ -43,7 +43,10 @@ module RosterChartsHelper
     nexts.uniq!
 
     nexts << NO_MATCH_DISPLAY
-    rest = last_match && format_rest % (nexts[0].date_match - last_match.date_match - 1)
+    rest = nil
+    if nexts[0].is_a?(Match)
+      rest = last_match && format_rest % (nexts[0].date_match - last_match.date_match - 1)
+    end
     retval = <<-END
       <span style="font-size: large">Next Match:</span>
       &nbsp;&nbsp;#{rest}
