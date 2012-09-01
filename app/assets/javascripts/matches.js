@@ -1,5 +1,7 @@
 $(document).ready(
     function() {
+        $('.focus_on_open').focus();
+
         $(window).keydown(
             function(e) {
                 var $marker = $('#table_matches_link');

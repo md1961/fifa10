@@ -27,7 +27,7 @@
       <%= f.hidden_field :ground %>
       <%= f.hidden_field :opponent_id %>
     <% else -%>
-      <td colspan="2"><%= f.text_field :date_match, :size => 14, :tabindex => 1 %></td>
+      <td colspan="2"><%= f.text_field :date_match, :size => 14, :tabindex => 1, :class => "focus_on_open" %></td>
       <% series = series_for_collection_select(@season_id)
          series_sole_abbr = series.size == 1 ? series[0].abbr : nil -%>
          <td colspan="2"><%= series_sole_abbr || f.collection_select('series_id', series, :id, :abbr, {}, :tabindex => 2) %></td>
@@ -43,7 +43,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      <%= f.text_field 'scores_own', :size => 2, :tabindex => 6 %>
+      <%= f.text_field 'scores_own', :size => 2, :tabindex => 6, :class => @scores_only && "focus_on_open" %>
       -
       <%= f.text_field 'scores_opp', :size => 2, :tabindex => 7 %>
     </td>
