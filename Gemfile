@@ -5,7 +5,10 @@ gem 'rails', '3.1.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+#gem 'mysql2'
+# Accroding to https://github.com/brianmario/mysql2/issues/216
+gem "mysql2", "~> 0.3.7", :git => "git://github.com/brianmario/mysql2.git", :ref => "d3a96b8"
+
 #gem 'sqlite3'
 
 # Gems used only for assets and not required
