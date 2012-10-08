@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20111215114755) do
 
   create_table "chronicles", :force => true do |t|
-    t.string  "name",   :default => "",    :null => false
+    t.string  "name",                      :null => false
     t.boolean "closed", :default => false
   end
 
@@ -51,6 +51,10 @@ ActiveRecord::Schema.define(:version => 20111215114755) do
     t.integer "season_id",                         :null => false
     t.string  "opponent_type", :default => "Team", :null => false
   end
+
+  add_index "matches", ["opponent_id"], :name => "fk_matches_teams"
+  add_index "matches", ["season_id"], :name => "fk_matches_seasons"
+  add_index "matches", ["series_id"], :name => "fk_matches_series"
 
   create_table "nations", :force => true do |t|
     t.string  "name",      :null => false
@@ -152,13 +156,6 @@ ActiveRecord::Schema.define(:version => 20111215114755) do
   add_index "season_series", ["season_id"], :name => "fk_season_series_seasons"
   add_index "season_series", ["series_id"], :name => "fk_season_series_series"
 
-  create_table "season_with_name", :id => false, :force => true do |t|
-    t.integer "id",             :default => 0,  :null => false
-    t.string  "chronicle_name", :default => "", :null => false
-    t.string  "team_name",                      :null => false
-    t.integer "year_start",                     :null => false
-  end
-
   create_table "seasons", :force => true do |t|
     t.integer "chronicle_id"
     t.integer "team_id"
@@ -186,11 +183,11 @@ ActiveRecord::Schema.define(:version => 20111215114755) do
 
   create_table "teams", :force => true do |t|
     t.string  "name",         :null => false
+    t.integer "year_founded"
+    t.string  "ground"
+    t.integer "nation_id",    :null => false
     t.string  "abbr"
     t.string  "nickname"
-    t.string  "ground"
-    t.integer "year_founded"
-    t.integer "nation_id",    :null => false
   end
 
   add_index "teams", ["nation_id"], :name => "fk_teams_nations"
