@@ -55,7 +55,7 @@ class Player < ActiveRecord::Base
     players = players.select { |player| ! player.on_loan?(season_id) } unless includes_on_loan
 
     season_id = 0 if for_lineup
-    players = players.sort_by { |player| player.order_number(season_id) }
+    players = players.sort_by { |player| player.order_number(season_id) || 0 }
 
     return players
   end
