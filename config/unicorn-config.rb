@@ -6,7 +6,14 @@
 # See also http://unicorn.bogomips.org/examples/unicorn.conf.rb for
 # a more verbose configuration using more features.
 
-listen 3550 # by default Unicorn listens on port 8080
+
+# Please prepare file 'config/unicorn_port' which has only port No. in it
+
+PORT_NUMBER_FILE = "config/unicorn_port"
+
+working_directory(File.dirname(__FILE__) + "/..")
+
+listen `cat #{PORT_NUMBER_FILE}`.chomp # by default Unicorn listens on port 8080
 worker_processes 2 # this should be >= nr_cpus
 pid "tmp/pids/unicorn.pid"
 stderr_path "log/unicorn.log"
