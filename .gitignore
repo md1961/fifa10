@@ -3,6 +3,7 @@ db/*.sqlite3
 log/
 tmp/**/*
 public/assets
+config/unicorn_*
 *~
 note.txt
 lib/simple_db.yml
