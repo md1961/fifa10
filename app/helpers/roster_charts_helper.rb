@@ -31,6 +31,7 @@ module RosterChartsHelper
 
   NUM_NEXT_MATCHES_DISPLAY = Constant.get(:num_next_matches_to_display)
   NO_MATCH_DISPLAY = "(End of Schedule)"
+  DAYS_REST_NOT_SHORT = 4
 
   def next_matches_display(next_matches, last_match)
     nexts = next_matches.first(NUM_NEXT_MATCHES_DISPLAY)
@@ -38,7 +39,11 @@ module RosterChartsHelper
     format_rest = "(%d day rest)"
     rests = Array.new
     1.upto(NUM_NEXT_MATCHES_DISPLAY - 1) do |i|
-      rests[i] = format_rest % (nexts[i].date_match - nexts[i - 1].date_match - 1) if nexts[i - 1] && nexts[i]
+      if nexts[i - 1] && nexts[i]
+        days_rest = nexts[i].date_match - nexts[i - 1].date_match - 1
+        rests[i] = format_rest % days_rest
+        rests[i] = "<span class='short_rest'>#{rests[i]}</span>" if days_rest < DAYS_REST_NOT_SHORT
+      end
     end
     nexts.uniq!
 

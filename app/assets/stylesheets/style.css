@@ -598,6 +598,11 @@ body.development {
   margin-top: 20px;
 }
 
+span.short_rest {
+  color: red;
+  background-color: yellow;
+}
+
 /* */
 
 .clear {
