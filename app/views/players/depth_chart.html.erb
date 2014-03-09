@@ -38,7 +38,9 @@
       </td>
       <td>
         <% players.each_with_index do |player, i| -%>
-          <span class="<%= player_html_class(player, @season_id, @injury_list, @off_list) %>">
+          <% clazz = player_html_class(player, @season_id, @injury_list, @off_list)
+             clazz += ' emphasized' if player.overall >= 80 -%>
+          <span class="<%= clazz %>">
             <%= player.name %>
             <span class="property">
               <%= "(#{player.get(@attr)})" %>

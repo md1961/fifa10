@@ -590,6 +590,10 @@ body.development {
   font-weight: bold;
 }
 
+#table_depth_chart .emphasized {
+  font-weight: bold;
+}
+
 #formation_images .current {
   border: solid 7px cyan;
 }
