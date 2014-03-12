@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def get_season_id(params={})
     season_id = (params['season_id'] || session[:season_id]).to_i
     if season_id.nil? || season_id <= 0
-      raise "No 'season_id' in params nor session (#{session.inspect})"
+      raise "No 'season_id' in params(#{params.inspect}) nor session (#{session.inspect})"
     end
     session[:season_id] = season_id
     return season_id
