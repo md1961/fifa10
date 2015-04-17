@@ -2,7 +2,7 @@ class MatchesController < ApplicationController
 
   def index
     #TODO: use @season_id and do not store it in the session
-    @season_id = get_and_save_season_id(params)
+    @season_id = get_season_id(params)
 
     @matches = get_matches(@season_id)
     @series = Season.find(@season_id).series
