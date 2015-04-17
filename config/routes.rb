@@ -61,6 +61,10 @@ Fifa10::Application.routes.draw do
   end
 
   resources :players, :requirements => {:id => /\d+/} do
+    member do
+      get :adjust_attribute
+    end
+
     collection do
       get :choose_filter
       post :filter_command

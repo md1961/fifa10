@@ -38,6 +38,10 @@
     <%= number_with_delimiter(wage) + (show_unit ? ' ' + [0x00A3].pack('U') : '') %>
   <% end -%>
 <% else -%>
+  <%= link_to '-', adjust_attribute_player_path(player, attr_name: :overall, adjustment: -1) \
+      if column_name == 'overall' %>
   <%= player.get(column_name) %>
+  <%= link_to '+', adjust_attribute_player_path(player, attr_name: :overall, adjustment: 1) \
+      if column_name == 'overall' %>
 <% end -%>
 

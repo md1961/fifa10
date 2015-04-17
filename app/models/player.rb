@@ -108,6 +108,16 @@ class Player < ActiveRecord::Base
     return player_season ? player_season.order_number : nil
   end
 
+  def adjust_attribute(attr_name, adjustment)
+    if attr_name.to_s == 'overall'
+      self.overall += adjustment
+      save!
+    else
+      self.player_attribute[attr_name] += adjustment
+      self.player_attribute.save!
+    end
+  end
+
   def on_loan?(season_id)
     player_season = player_seasons.find_by_season_id(season_id)
     return player_season ? player_season.on_loan : false

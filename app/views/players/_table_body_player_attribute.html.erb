@@ -9,7 +9,9 @@
     </th>
     <td align="<%= shows_form ? 'left' : 'right' %>">
       <% unless shows_form -%>
+        <%= link_to '-', adjust_attribute_player_path(@player, attr_name: attr_name, adjustment: -1) %>
         <%= @player_attribute.send(:attributes)[attr_name] %>
+        <%= link_to '+', adjust_attribute_player_path(@player, attr_name: attr_name, adjustment: 1) %>
       <% else -%>
         <%= text_field :player_attribute, attr_name, {:size => 4} %>
       <% end -%>

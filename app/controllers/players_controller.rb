@@ -138,6 +138,13 @@ class PlayersController < ApplicationController
     end
   end
 
+  def adjust_attribute
+    player = Player.find(params[:id])
+    player.adjust_attribute(params[:attr_name], params[:adjustment].to_i)
+
+    redirect_to player_path(player)
+  end
+
   def remove_from_rosters
     season_id = session[:season_id]
     player = Player.find(params[:id])
