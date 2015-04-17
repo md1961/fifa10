@@ -46,6 +46,8 @@
   <% else -%>
     <%= link_to 'Revise Lineup', revise_lineup_roster_charts_path %>
   <% end -%>
+  <%= nbsp(3) %>
+  <%= link_to 'Enter Result', edit_match_path(@next_matches.first, :season_id => @season_id, :scores_only => 1, :is_lineup => 0) %>
 </p>
 
 <div id="next_matches">
