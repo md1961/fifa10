@@ -19,68 +19,46 @@ controller_options :
 # Quote just On and Off with quotation marks.
 # '-' at the end of the option name makes the value
 # of :controller_option_customization_adjustment negative.
-- - User Pass Error-
+- - User | Sprint Speed
+  - - '55'  # Home
+    - '53'  # Away
+    - '53'  # Neutral
+- - User | Acceleration
+  - - '55'  # Home
+    - '53'  # Away
+    - '53'  # Neutral
+- - User | Pass Error
   - - '45'  # Home
-    - '50'  # Away
-    - '50'  # Neutral
-- - User Pass Speed
+    - '47'  # Away
+    - '47'  # Neutral
+- - User | Pass Speed
   - - '55'  # Home
-    - '50'  # Away
-    - '50'  # Neutral
-- - User Marking
+    - '53'  # Away
+    - '53'  # Neutral
+- - User | First Touch Control Error
+  - - '45'  # Home
+    - '47'  # Away
+    - '47'  # Neutral
+- - CPU | Sprint Speed
+  - - '45'  # Home
+    - '47'  # Away
+    - '45'  # Neutral
+- - CPU | Acceleration
+  - - '45'  # Home
+    - '47'  # Away
+    - '45'  # Neutral
+- - CPU | Pass Error
   - - '55'  # Home
-    - '50'  # Away
-    - '50'  # Neutral
-- - CPU Spr. Speed & Acc.-
-  - - '50'  # Home
-    - '51'  # Away
-    - '50'  # Neutral
-- - CPU Pass Error
-  - - '60'  # Home
-    - '55'  # Away
-    - '60'  # Neutral
-- - CPU Pass Speed-
-  - - '40'  # Home
-    - '45'  # Away
-    - '40'  # Neutral
-- - CPU Marking-
-  - - '40'  # Home
-    - '45'  # Away
-    - '40'  # Neutral
-# CPU Sprint Speed = 45
-# CPU Acceleration = 45
-- - Difficulty Level
-  - - Professional  # Home
-    - Professional  # Away
-    - Professional  # Neutral
-- - Passing Power Assistance
-  - - 'On'        #On7,Off3
-    - 'On'        #On8,Off2    #On1,Off9
-    - 'On'        #On3,Off7
-- - Pass Assistance
-  - - Ass         #Ass8,Semi2
-    - Ass         #Ass8,Semi2  #Ass1,Semi9
-    - Ass         #Ass9,Semi1  #Ass5,Semi5
-- - Through Pass Assistance
-  - - Ass         #Ass9,Man1
-    - Ass         #Ass8,Semi2  #Ass3,Man7
-    - Ass         #Ass9,Semi1  #Ass5,Man5   #Ass8,Man2
-- - Shot Assistance
-  - - Semi
-    - Semi
-    - Semi
-- - Cross Assistance
-  - - Semi
-    - Semi
-    - Semi
-- - Lob Pass Assistance
-  - - Assisted
-    - Assisted
-    - Assisted
-- - Save Assistance
-  - - Semi
-    - Semi
-    - Semi
+    - '53'  # Away
+    - '55'  # Neutral
+- - CPU | Pass Speed
+  - - '45'  # Home
+    - '47'  # Away
+    - '45'  # Neutral
+- - CPU | First Touch Control Error
+  - - '55'  # Home
+    - '53'  # Away
+    - '55'  # Neutral
 
 # 重要度が中程度の定数（見栄えが悪くなる、入出力に支障が出るなど）
 default_table_attributes : border="1" cellpadding="5" cellspacing="0"
