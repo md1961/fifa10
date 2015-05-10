@@ -1,8 +1,10 @@
 <% h_params = {:is_lineup => @is_lineup ? 1 : 0, :attr => @attr, :attr2 => @attr2} -%>
 
 <p>
-  <%= link_to 'Enter Result', edit_match_path(@next_matches.first, :season_id => @season_id, :scores_only => 1, :is_lineup => 0) %>
-  <%= nbsp(3) %>
+  <% unless @next_matches.empty? -%>
+    <%= link_to 'Enter Result', edit_match_path(@next_matches.first, :season_id => @season_id, :scores_only => 1, :is_lineup => 0) %>
+    <%= nbsp(3) %>
+  <% end -%>
   <% unless @is_lineup -%>
     <%= link_to 'Fixtures/Results', matches_path %>
   <% else -%>
@@ -48,8 +50,6 @@
   <% else -%>
     <%= link_to 'Revise Lineup', revise_lineup_roster_charts_path %>
   <% end -%>
-  <%= nbsp(3) %>
-  <%= link_to 'Enter Result', edit_match_path(@next_matches.first, :season_id => @season_id, :scores_only => 1, :is_lineup => 0) %>
 </p>
 
 <div id="next_matches">

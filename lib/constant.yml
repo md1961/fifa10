@@ -19,43 +19,43 @@ controller_options :
 # Quote just On and Off with quotation marks.
 # '-' at the end of the option name makes the value
 # of :controller_option_customization_adjustment negative.
-- - User | Sprint Speed
+- - User Sprint Speed
   - - '55'  # Home
     - '53'  # Away
     - '53'  # Neutral
-- - User | Acceleration
+- - User Acceleration
   - - '55'  # Home
     - '53'  # Away
     - '53'  # Neutral
-- - User | Pass Error
+- - User Pass Error
   - - '45'  # Home
     - '47'  # Away
     - '47'  # Neutral
-- - User | Pass Speed
+- - User Pass Speed
   - - '55'  # Home
     - '53'  # Away
     - '53'  # Neutral
-- - User | First Touch Control Error
+- - User First Touch Control Error
   - - '45'  # Home
     - '47'  # Away
     - '47'  # Neutral
-- - CPU | Sprint Speed
+- - CPU Sprint Speed
   - - '45'  # Home
     - '47'  # Away
     - '45'  # Neutral
-- - CPU | Acceleration
+- - CPU Acceleration
   - - '45'  # Home
     - '47'  # Away
     - '45'  # Neutral
-- - CPU | Pass Error
+- - CPU Pass Error
   - - '55'  # Home
     - '53'  # Away
     - '55'  # Neutral
-- - CPU | Pass Speed
+- - CPU Pass Speed
   - - '45'  # Home
     - '47'  # Away
     - '45'  # Neutral
-- - CPU | First Touch Control Error
+- - CPU First Touch Control Error
   - - '55'  # Home
     - '53'  # Away
     - '55'  # Neutral
